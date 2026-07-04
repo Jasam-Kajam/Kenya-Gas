@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Gas | Kenya Gas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/auth.css">
+
+</head>
+
+<body class="bg-light">
+
+<div class="container py-5">
+
+    <div class="card shadow border-0">
+
+        <div class="card-body p-4">
+
+            <h2 class="fw-bold text-success mb-3">
+
+                🛒 Order LPG Gas
+
+            </h2>
+
+            <p class="text-muted">
+
+                Select cylinder size, supplier and delivery details.
+
+            </p>
+
+            <form id="orderForm">
+
+                <!-- GAS TYPE -->
+
+                <div class="mb-3">
+
+                    <label class="form-label">Gas Cylinder</label>
+
+                    <select id="gasType" class="form-select" required>
+
+                        <option value="">Select Cylinder</option>
+
+                        <option value="6kg" data-price="1200">6kg - KES 1200</option>
+
+                        <option value="13kg" data-price="2500">13kg - KES 2500</option>
+
+                        <option value="22kg" data-price="3800">22kg - KES 3800</option>
+
+                    </select>
+
+                </div>
+
+                <!-- SUPPLIER -->
+
+                <div class="mb-3">
+
+                    <label class="form-label">Supplier</label>
+
+                    <select id="supplier" class="form-select" required>
+
+                        <option value="">Select Supplier</option>
+
+                        <option value="Total Gas">Total Gas</option>
+
+                        <option value="Rubis Gas">Rubis Gas</option>
+
+                        <option value="Oryx Gas">Oryx Gas</option>
+
+                    </select>
+
+                </div>
+
+                <!-- QUANTITY -->
+
+                <div class="mb-3">
+
+                    <label class="form-label">Quantity</label>
+
+                    <input type="number" id="quantity" class="form-control" value="1" min="1">
+
+                </div>
+
+                <!-- DELIVERY LOCATION -->
+
+                <div class="mb-3">
+
+                    <label class="form-label">Delivery Address</label>
+
+                    <input type="text" id="address" class="form-control" placeholder="Enter delivery location" required>
+
+                </div>
+
+                <!-- PRICE DISPLAY -->
+
+                <div class="alert alert-info">
+
+                    Total Price: <strong>KES <span id="totalPrice">0</span></strong>
+
+                </div>
+
+                <!-- BUTTON -->
+
+                <button type="submit" class="btn btn-success w-100">
+
+                    Proceed to Checkout
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="assets/js/order.js" type="module"></script>
+
+</body>
+
+</html>
