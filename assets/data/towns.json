@@ -1,0 +1,616 @@
+{
+  "Baringo": [
+    "Kabarnet",
+    "Marigat",
+    "Eldama Ravine",
+    "Mogotio",
+    "Bartabwa",
+    "Kampi ya Samaki",
+    "Chemolingot",
+    "Kabartonjo"
+  ],
+
+  "Bomet": [
+    "Bomet",
+    "Sotik",
+    "Longisa",
+    "Chebunyo",
+    "Kaplong",
+    "Mulot",
+    "Konoin"
+  ],
+
+  "Bungoma": [
+    "Bungoma",
+    "Webuye",
+    "Kimilili",
+    "Chwele",
+    "Malakisi",
+    "Sirisia",
+    "Mbakalo",
+    "Kanduyi",
+    "Tongaren",
+    "Misia"
+  ],
+
+  "Busia": [
+    "Busia",
+    "Malaba",
+    "Funyula",
+    "Port Victoria",
+    "Nambale",
+    "Mundika",
+    "Bumala",
+    "Angurai",
+    "Budalangi"
+  ],
+
+  "Elgeyo-Marakwet": [
+    "Iten",
+    "Kapsowar",
+    "Chebara",
+    "Tambach",
+    "Chepkorio",
+    "Kapcherop"
+  ],
+
+  "Embu": [
+    "Embu",
+    "Runyenjes",
+    "Manyatta",
+    "Kiritiri",
+    "Siakago",
+    "Kianjokoma"
+  ],
+
+  "Garissa": [
+    "Garissa",
+    "Modogashe",
+    "Hulugho",
+    "Ijara",
+    "Bura East",
+    "Balambala",
+    "Dadaab",
+    "Masalani"
+  ],
+
+  "Homa Bay": [
+    "Homa Bay",
+    "Mbita",
+    "Oyugis",
+    "Rongo",
+    "Kendu Bay",
+    "Kosele",
+    "Rodi Kopany",
+    "Ndhiwa"
+  ],
+
+  "Isiolo": [
+    "Isiolo",
+    "Garbatulla",
+    "Merti",
+    "Oldonyiro"
+  ],
+
+  "Kajiado": [
+    "Kajiado",
+    "Ngong",
+    "Kitengela",
+    "Ongata Rongai",
+    "Namanga",
+    "Isinya",
+    "Bisil",
+    "Mashuuru"
+  ],
+
+  "Kakamega": [
+    "Kakamega",
+    "Mumias",
+    "Lugari",
+    "Butere",
+    "Malava",
+    "Shinyalu",
+    "Matungu",
+    "Khwisero",
+    "Navakholo",
+    "Likuyani"
+  ],
+
+  "Kericho": [
+    "Kericho",
+    "Litein",
+    "Londiani",
+    "Ainamoi",
+    "Fort Ternan",
+    "Kipkelion",
+    "Sosiot"
+  ],
+
+  "Kiambu": [
+    "Kiambu",
+    "Ruiru",
+    "Thika",
+    "Juja",
+    "Kikuyu",
+    "Limuru",
+    "Karuri",
+    "Githunguri",
+    "Kabete",
+    "Lari",
+    "Gatundu",
+    "Gatundu South",
+    "Banana",
+    "Ndenderu",
+    "Tigoni",
+    "Kamwangi",
+    "Kahawa Sukari",
+    "Kahawa West",
+    "Kimbo",
+    "Membley",
+    "Mwihoko",
+    "Kamakis",
+    "Kiganjo",
+    "Ruaka",
+    "Two Rivers",
+    "Uthiru",
+    "Wangige",
+    "Kinoo"
+  ]
+
+    "Kilifi": [
+    "Kilifi",
+    "Malindi",
+    "Watamu",
+    "Mariakani",
+    "Mtwapa",
+    "Rabai",
+    "Kaloleni",
+    "Ganze",
+    "Bamba",
+    "Matsangoni",
+    "Tezo",
+    "Vipingo",
+    "Uyombo",
+    "Jaribuni"
+  ],
+
+  "Kirinyaga": [
+    "Kerugoya",
+    "Kutus",
+    "Sagana",
+    "Kianyaga",
+    "Baricho",
+    "Wang'uru",
+    "Mwea",
+    "Kagio",
+    "Kimbimbi",
+    "Ngurubani"
+  ],
+
+  "Kisii": [
+    "Kisii",
+    "Ogembo",
+    "Suneka",
+    "Keroka",
+    "Tabaka",
+    "Nyamarambe",
+    "Nyamache",
+    "Marani",
+    "Daraja Mbili",
+    "Etago"
+  ],
+
+  "Kisumu": [
+    "Kisumu",
+    "Maseno",
+    "Ahero",
+    "Muhoroni",
+    "Kibos",
+    "Miwani",
+    "Kombewa",
+    "Katito",
+    "Nyahera",
+    "Awasi"
+  ],
+
+  "Kitui": [
+    "Kitui",
+    "Mwingi",
+    "Mutomo",
+    "Ikutha",
+    "Kyuso",
+    "Kanyonyoo",
+    "Kwa Vonza",
+    "Migwani",
+    "Mutitu",
+    "Zombe"
+  ],
+
+  "Kwale": [
+    "Kwale",
+    "Ukunda",
+    "Diani",
+    "Msambweni",
+    "Lunga Lunga",
+    "Kinango",
+    "Samburu",
+    "Tiwi",
+    "Shimoni",
+    "Vanga"
+  ],
+
+  "Laikipia": [
+    "Nanyuki",
+    "Nyahururu",
+    "Rumuruti",
+    "Doldol",
+    "Sipili",
+    "Kinamba",
+    "Ol Moran",
+    "Lamuria"
+  ],
+
+  "Lamu": [
+    "Lamu",
+    "Mpeketoni",
+    "Hindi",
+    "Mokowe",
+    "Faza",
+    "Kiunga",
+    "Kizingitini"
+  ],
+
+  "Machakos": [
+    "Machakos",
+    "Athi River",
+    "Mlolongo",
+    "Kangundo",
+    "Tala",
+    "Masinga",
+    "Kathiani",
+    "Yatta",
+    "Joska",
+    "Katani",
+    "Syokimau"
+  ],
+
+  "Makueni": [
+    "Wote",
+    "Mtito Andei",
+    "Makindu",
+    "Sultan Hamud",
+    "Emali",
+    "Kibwezi",
+    "Kathonzweni",
+    "Nguumo",
+    "Kalawa"
+  ],
+
+  "Mandera": [
+    "Mandera",
+    "El Wak",
+    "Rhamu",
+    "Takaba",
+    "Banissa",
+    "Lafey",
+    "Kutulo"
+  ],
+
+  "Marsabit": [
+    "Marsabit",
+    "Moyale",
+    "Sololo",
+    "North Horr",
+    "Loiyangalani",
+    "Laisamis",
+    "Kargi"
+  ],
+
+  "Meru": [
+    "Meru",
+    "Maua",
+    "Nkubu",
+    "Mikinduri",
+    "Timau",
+    "Laare",
+    "Kianjai",
+    "Kibirichia",
+    "Igoji",
+    "Chuka"
+  ],
+
+  "Migori": [
+    "Migori",
+    "Awendo",
+    "Kehancha",
+    "Rongo",
+    "Isebania",
+    "Suna",
+    "Uriri",
+    "Muhuru Bay",
+    "Macalder",
+    "Kadem"
+  ],
+
+  "Mombasa": [
+    "Mombasa CBD",
+    "Nyali",
+    "Kisauni",
+    "Likoni",
+    "Changamwe",
+    "Bamburi",
+    "Shanzu",
+    "Mikindani",
+    "Port Reitz",
+    "Miritini",
+    "Jomvu",
+    "Tudor",
+    "Kongowea",
+    "Mtongwe"
+  ],
+
+  "Murang'a": [
+    "Murang'a",
+    "Kenol",
+    "Kangema",
+    "Maragua",
+    "Kandara",
+    "Kigumo",
+    "Kahuro",
+    "Gatanga",
+    "Makuyu",
+    "Sabasaba",
+    "Githumu",
+    "Kiria-ini"
+  ],
+
+    "Nairobi": [
+    "Nairobi CBD",
+    "Westlands",
+    "Upper Hill",
+    "Kilimani",
+    "Kileleshwa",
+    "Lavington",
+    "Karen",
+    "Lang'ata",
+    "South B",
+    "South C",
+    "Embakasi",
+    "Embakasi East",
+    "Embakasi North",
+    "Embakasi South",
+    "Embakasi West",
+    "Kasarani",
+    "Roysambu",
+    "Zimmerman",
+    "Githurai 44",
+    "Githurai 45",
+    "Kahawa West",
+    "Kahawa Sukari",
+    "Ruaraka",
+    "Parklands",
+    "Eastleigh",
+    "Pangani",
+    "Ngara",
+    "Donholm",
+    "Umoja",
+    "Kayole",
+    "Komarock",
+    "Ruai",
+    "Njiru",
+    "Dandora",
+    "Pipeline",
+    "Fedha",
+    "Tassia",
+    "Utawala",
+    "Syokimau",
+    "Mlolongo"
+  ],
+
+  "Nakuru": [
+    "Nakuru",
+    "Naivasha",
+    "Molo",
+    "Gilgil",
+    "Njoro",
+    "Subukia",
+    "Bahati",
+    "Rongai",
+    "Kuresoi",
+    "Elburgon",
+    "Mai Mahiu",
+    "Salgaa",
+    "Elementaita",
+    "Olenguruone",
+    "Mau Narok"
+  ],
+
+  "Nandi": [
+    "Kapsabet",
+    "Nandi Hills",
+    "Mosoriot",
+    "Chepterwai",
+    "Kabiyet",
+    "Kobujoi",
+    "Lessos",
+    "Aldai",
+    "Chemelil",
+    "Baraton"
+  ],
+
+  "Narok": [
+    "Narok",
+    "Kilgoris",
+    "Ololulunga",
+    "Suswa",
+    "Maiella",
+    "Ewaso Ngiro",
+    "Lemek",
+    "Sekenani",
+    "Talek"
+  ],
+
+  "Nyamira": [
+    "Nyamira",
+    "Keroka",
+    "Nyansiongo",
+    "Ekerenyo",
+    "Manga",
+    "Rigoma",
+    "Nyamaiya"
+  ],
+
+  "Nyandarua": [
+    "Ol Kalou",
+    "Engineer",
+    "Njabini",
+    "Ol Joro Orok",
+    "Kinangop",
+    "Shamata",
+    "Geta",
+    "Mirangine"
+  ],
+
+  "Nyeri": [
+    "Nyeri",
+    "Karatina",
+    "Othaya",
+    "Mukurweini",
+    "Tetu",
+    "Mweiga",
+    "Naro Moru",
+    "Kieni",
+    "Chaka"
+  ],
+
+  "Samburu": [
+    "Maralal",
+    "Baragoi",
+    "Wamba",
+    "Archer's Post",
+    "South Horr"
+  ],
+
+  "Siaya": [
+    "Siaya",
+    "Bondo",
+    "Ugunja",
+    "Yala",
+    "Usenge",
+    "Madiany",
+    "Got Agulu",
+    "Ndori",
+    "Akala"
+  ],
+
+  "Taita-Taveta": [
+    "Voi",
+    "Taveta",
+    "Wundanyi",
+    "Mwatate",
+    "Maungu",
+    "Bura",
+    "Mbololo",
+    "Tausa"
+  ],
+
+  "Tana River": [
+    "Hola",
+    "Garsen",
+    "Bura",
+    "Madogo",
+    "Kipini",
+    "Minjila",
+    "Ngao",
+    "Wenje"
+  ],
+
+    "Tharaka-Nithi": [
+    "Chuka",
+    "Kathwana",
+    "Marimanti",
+    "Chiakariga",
+    "Magutuni",
+    "Mukothima",
+    "Mitheru",
+    "Gatunga",
+    "Kaanwa",
+    "Mugwe"
+  ],
+
+  "Trans Nzoia": [
+    "Kitale",
+    "Kiminini",
+    "Endebess",
+    "Saboti",
+    "Cherangany",
+    "Kachibora",
+    "Maili Saba",
+    "Matisi",
+    "Waitaluk",
+    "Kwanza"
+  ],
+
+  "Turkana": [
+    "Lodwar",
+    "Lokichoggio",
+    "Lokichar",
+    "Kakuma",
+    "Kalokol",
+    "Kainuk",
+    "Lokitaung",
+    "Lokori",
+    "Katilu",
+    "Kerio"
+  ],
+
+  "Uasin Gishu": [
+    "Eldoret",
+    "Burnt Forest",
+    "Turbo",
+    "Moi's Bridge",
+    "Cheptiret",
+    "Kapseret",
+    "Ainabkoi",
+    "Kesses",
+    "Maili Nne",
+    "Baharini"
+  ],
+
+  "Vihiga": [
+    "Mbale",
+    "Luanda",
+    "Majengo",
+    "Chavakali",
+    "Esibuye",
+    "Hamisi",
+    "Serem",
+    "Tambua",
+    "Mudete",
+    "Jebrok"
+  ],
+
+  "Wajir": [
+    "Wajir",
+    "Habaswein",
+    "Griftu",
+    "Buna",
+    "Eldas",
+    "Tarbaj",
+    "Bute",
+    "Diff"
+  ],
+
+  "West Pokot": [
+    "Kapenguria",
+    "Makutano",
+    "Chepareria",
+    "Sigor",
+    "Ortum",
+    "Kacheliba",
+    "Alale",
+    "Lelan",
+    "Kodich",
+    "Kapkotong"
+  ]
+}
