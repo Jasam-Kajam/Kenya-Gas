@@ -1,4 +1,4 @@
-// Firebase Configuration
+// assets/js/firebase.js
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
@@ -30,3 +30,7 @@ const db = getFirestore(app);
 const googleProvider = new GoogleAuthProvider();
 
 export {
+    auth,
+    db,
+    googleProvider
+};
