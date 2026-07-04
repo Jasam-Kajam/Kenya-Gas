@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Dashboard | Kenya Gas</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Dashboard CSS -->
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+
+</head>
+
+<body class="bg-light">
+
+<!-- ===================================== -->
+<!-- TOP NAVIGATION -->
+<!-- ===================================== -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm sticky-top">
+
+    <div class="container-fluid">
+
+        <!-- Logo -->
+
+        <a class="navbar-brand fw-bold" href="index.html">
+
+            🔥 Kenya Gas
+
+        </a>
+
+        <!-- Mobile Toggle -->
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#sidebar">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <!-- Search -->
+
+        <form class="d-none d-lg-flex mx-auto w-50">
+
+            <input
+                class="form-control"
+                type="search"
+                placeholder="Search suppliers, gas brands...">
+
+        </form>
+
+        <!-- Right Menu -->
+
+        <div class="d-flex align-items-center">
+
+            <!-- Notifications -->
+
+            <button
+                class="btn btn-success position-relative me-3">
+
+                <i class="bi bi-bell-fill fs-5"></i>
+
+                <span
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                    3
+
+                </span>
+
+            </button>
+
+            <!-- User -->
+
+            <div class="dropdown">
+
+                <button
+                    class="btn btn-success dropdown-toggle"
+                    data-bs-toggle="dropdown">
+
+                    <i class="bi bi-person-circle"></i>
+
+                    <span id="customerName">
+
+                        Customer
+
+                    </span>
+
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end">
+
+                    <li>
+
+                        <a
+                            class="dropdown-item"
+                            href="profile.html">
+
+                            <i class="bi bi-person"></i>
+
+                            My Profile
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <a
+                            class="dropdown-item"
+                            href="settings.html">
+
+                            <i class="bi bi-gear"></i>
+
+                            Settings
+
+                        </a>
+
+                    </li>
+
+                    <li>
+
+                        <hr class="dropdown-divider">
+
+                    </li>
+
+                    <li>
+
+                        <button
+                            id="logoutBtn"
+                            class="dropdown-item text-danger">
+
+                            <i class="bi bi-box-arrow-right"></i>
+
+                            Logout
+
+                        </button>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- ===================================== -->
+<!-- SIDEBAR -->
+<!-- ===================================== -->
+
+<div class="offcanvas-lg offcanvas-start bg-white shadow"
+     tabindex="-1"
+     id="sidebar"
+     style="width:260px;">
+
+    <div class="offcanvas-header">
+
+        <h5 class="fw-bold text-success">
+
+            Dashboard
+
+        </h5>
+
+        <button
+            class="btn-close"
+            data-bs-dismiss="offcanvas">
+
+        </button>
+
+    </div>
+
+    <div class="offcanvas-body p-0">
+
+        <div class="list-group list-group-flush">
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action active">
+
+                <i class="bi bi-speedometer2 me-2"></i>
+
+                Dashboard
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-fire me-2"></i>
+
+                Order Gas
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-box-seam me-2"></i>
+
+                My Orders
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-geo-alt me-2"></i>
+
+                Delivery Addresses
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-shop me-2"></i>
+
+                Suppliers
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-heart me-2"></i>
+
+                Favorites
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-credit-card me-2"></i>
+
+                Payments
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-ticket-perforated me-2"></i>
+
+                Coupons
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-clock-history me-2"></i>
+
+                Order History
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-chat-dots me-2"></i>
+
+                Support
+
+            </a>
+
+            <a
+                href="#"
+                class="list-group-item list-group-item-action">
+
+                <i class="bi bi-gear me-2"></i>
+
+                Settings
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- MAIN CONTENT -->
+<!-- ===================================== -->
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        <main class="col-lg ms-lg-4 py-4">
+
+            <!-- ===================================== -->
+<!-- WELCOME -->
+<!-- ===================================== -->
+
+<div class="container-fluid">
+
+    <div class="row mb-4">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <h2 class="fw-bold">
+
+                        Welcome back,
+
+                        <span
+                            id="dashboardCustomerName"
+                            class="text-success">
+
+                            Customer
+
+                        </span>
+
+                        👋
+
+                    </h2>
+
+                    <p class="text-muted mb-3">
+
+                        Manage your LPG orders, discover verified suppliers, track deliveries and enjoy exclusive discounts.
+
+                    </p>
+
+                    <a
+                        href="#"
+                        class="btn btn-success btn-lg">
+
+                        <i class="bi bi-fire"></i>
+
+                        Order Gas Now
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 mt-3 mt-lg-0">
+
+            <div class="card border-0 shadow-sm bg-success text-white h-100">
+
+                <div class="card-body">
+
+                    <h5>
+
+                        Loyalty Points
+
+                    </h5>
+
+                    <h1
+                        id="loyaltyPoints"
+                        class="display-4 fw-bold">
+
+                        0
+
+                    </h1>
+
+                    <p class="mb-0">
+
+                        Earn points with every successful order.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- DASHBOARD STATISTICS -->
+    <!-- ===================================== -->
+
+    <div class="row g-4">
+
+        <!-- Active Orders -->
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <small class="text-muted">
+
+                                Active Orders
+
+                            </small>
+
+                            <h2
+                                id="activeOrders"
+                                class="fw-bold mt-2">
+
+                                0
+
+                            </h2>
+
+                        </div>
+
+                        <div class="text-success fs-1">
+
+                            <i class="bi bi-box-seam"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Completed Orders -->
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <small class="text-muted">
+
+                                Completed Orders
+
+                            </small>
+
+                            <h2
+                                id="completedOrders"
+                                class="fw-bold mt-2">
+
+                                0
+
+                            </h2>
+
+                        </div>
+
+                        <div class="text-primary fs-1">
+
+                            <i class="bi bi-check-circle-fill"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Saved Addresses -->
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <small class="text-muted">
+
+                                Saved Addresses
+
+                            </small>
+
+                            <h2
+                                id="savedAddresses"
+                                class="fw-bold mt-2">
+
+                                0
+
+                            </h2>
+
+                        </div>
+
+                        <div class="text-warning fs-1">
+
+                            <i class="bi bi-geo-alt-fill"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Favourite Suppliers -->
+
+        <div class="col-md-6 col-xl-3">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+
+                        <div>
+
+                            <small class="text-muted">
+
+                                Favourite Suppliers
+
+                            </small>
+
+                            <h2
+                                id="favoriteSuppliers"
+                                class="fw-bold mt-2">
+
+                                0
+
+                            </h2>
+
+                        </div>
+
+                        <div class="text-danger fs-1">
+
+                            <i class="bi bi-heart-fill"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================== -->
+    <!-- ORDER SUMMARY -->
+    <!-- ===================================== -->
+
+    <div class="row mt-5">
+
+        <div class="col-lg-8">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+
+                        Recent Orders
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div
+                        id="recentOrders">
+
+                        <div class="text-center py-5">
+
+                            <i class="bi bi-box fs-1 text-muted"></i>
+
+                            <p class="text-muted mt-3">
+
+                                You haven't placed any orders yet.
+
+                            </p>
+
+                            <a
+                                href="#"
+                                class="btn btn-success">
+
+                                Order Your First Gas Cylinder
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-4 mt-4 mt-lg-0">
+
+            <div class="card border-0 shadow-sm">
+
+                <div class="card-header bg-white">
+
+                    <h5 class="mb-0">
+
+                        Account Overview
+
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="mb-4">
+
+                        <strong>Email</strong>
+
+                        <br>
+
+                        <span id="customerEmail">
+
+                            Loading...
+
+                        </span>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <strong>Phone</strong>
+
+                        <br>
+
+                        <span id="customerPhone">
+
+                            Loading...
+
+                        </span>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <strong>County</strong>
+
+                        <br>
+
+                        <span id="customerCounty">
+
+                            Loading...
+
+                        </span>
+
+                    </div>
+
+                    <div>
+
+                        <strong>Town</strong>
+
+                        <br>
+
+                        <span id="customerTown">
+
+                            Loading...
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div><!-- ===================================== -->
+<!-- QUICK ACTIONS -->
+<!-- ===================================== -->
+
+<div class="row mt-5">
+
+    <div class="col-12">
+
+        <h4 class="fw-bold mb-4">
+
+            Quick Actions
+
+        </h4>
+
+    </div>
+
+    <div class="col-md-6 col-lg-3 mb-4">
+
+        <a href="order-gas.html" class="text-decoration-none">
+
+            <div class="card border-0 shadow-sm h-100 text-center">
+
+                <div class="card-body">
+
+                    <div class="display-5 text-success mb-3">
+
+                        <i class="bi bi-fire"></i>
+
+                    </div>
+
+                    <h5>
+
+                        Order Gas
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Place a new LPG order.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <div class="col-md-6 col-lg-3 mb-4">
+
+        <a href="track-order.html" class="text-decoration-none">
+
+            <div class="card border-0 shadow-sm h-100 text-center">
+
+                <div class="card-body">
+
+                    <div class="display-5 text-primary mb-3">
+
+                        <i class="bi bi-truck"></i>
+
+                    </div>
+
+                    <h5>
+
+                        Track Order
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Monitor delivery progress.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <div class="col-md-6 col-lg-3 mb-4">
+
+        <a href="suppliers.html" class="text-decoration-none">
+
+            <div class="card border-0 shadow-sm h-100 text-center">
+
+                <div class="card-body">
+
+                    <div class="display-5 text-warning mb-3">
+
+                        <i class="bi bi-shop"></i>
+
+                    </div>
+
+                    <h5>
+
+                        Find Suppliers
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Browse verified dealers.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+    <div class="col-md-6 col-lg-3 mb-4">
+
+        <a href="payment-history.html" class="text-decoration-none">
+
+            <div class="card border-0 shadow-sm h-100 text-center">
+
+                <div class="card-body">
+
+                    <div class="display-5 text-danger mb-3">
+
+                        <i class="bi bi-credit-card"></i>
+
+                    </div>
+
+                    <h5>
+
+                        Payments
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        View payment history.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================== -->
+<!-- NEARBY SUPPLIERS -->
+<!-- ===================================== -->
+
+<div class="row mt-5">
+
+    <div class="col-lg-8">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header bg-white">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <h5 class="mb-0">
+
+                        Nearby Gas Suppliers
+
+                    </h5>
+
+                    <a href="suppliers.html">
+
+                        View All
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="card-body">
+
+                <div id="nearbySuppliers">
+
+                    <div class="text-center py-5">
+
+                        <i class="bi bi-shop display-4 text-muted"></i>
+
+                        <p class="mt-3 text-muted">
+
+                            Nearby suppliers will appear here after location detection.
+
+                        </p>
+
+                        <button
+                            id="findNearbyBtn"
+                            class="btn btn-success">
+
+                            <i class="bi bi-crosshair"></i>
+
+                            Find Nearby Suppliers
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAP -->
+
+    <div class="col-lg-4 mt-4 mt-lg-0">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    Delivery Map
+
+                </h5>
+
+            </div>
+
+            <div class="card-body p-0">
+
+                <div
+                    id="map"
+                    class="bg-light d-flex justify-content-center align-items-center"
+                    style="height:350px;">
+
+                    <div class="text-center">
+
+                        <i class="bi bi-geo-alt-fill display-4 text-success"></i>
+
+                        <p class="text-muted mt-3">
+
+                            Google Maps will appear here.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================== -->
+<!-- FEATURED PROMOTIONS -->
+<!-- ===================================== -->
+
+<div class="row mt-5">
+
+    <div class="col-12">
+
+        <h4 class="fw-bold mb-4">
+
+            Featured Promotions
+
+        </h4>
+
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+
+        <div class="card border-success shadow-sm">
+
+            <div class="card-body">
+
+                <span class="badge bg-success mb-3">
+
+                    SAVE 10%
+
+                </span>
+
+                <h5>
+
+                    First Order Discount
+
+                </h5>
+
+                <p>
+
+                    Get 10% off your first gas order.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+
+        <div class="card border-warning shadow-sm">
+
+            <div class="card-body">
+
+                <span class="badge bg-warning text-dark mb-3">
+
+                    FREE DELIVERY
+
+                </span>
+
+                <h5>
+
+                    Weekend Offer
+
+                </h5>
+
+                <p>
+
+                    Enjoy free delivery this weekend.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+
+        <div class="card border-primary shadow-sm">
+
+            <div class="card-body">
+
+                <span class="badge bg-primary mb-3">
+
+                    BONUS
+
+                </span>
+
+                <h5>
+
+                    Loyalty Rewards
+
+                </h5>
+
+                <p>
+
+                    Redeem loyalty points for discounts.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div><!-- ===================================== -->
+<!-- NOTIFICATIONS & ACTIVITY -->
+<!-- ===================================== -->
+
+<div class="row mt-5">
+
+    <!-- Notifications -->
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-bell-fill text-warning me-2"></i>
+
+                    Notifications
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div id="notificationsList">
+
+                    <div class="alert alert-success">
+
+                        🎉 Welcome to Kenya Gas!
+
+                    </div>
+
+                    <div class="alert alert-info">
+
+                        Track your orders in real time.
+
+                    </div>
+
+                    <div class="alert alert-warning">
+
+                        Complete your profile for faster deliveries.
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Recent Activity -->
+
+    <div class="col-lg-8 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-clock-history text-success me-2"></i>
+
+                    Recent Activity
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+
+                        <i class="bi bi-person-check-fill text-success me-2"></i>
+
+                        Account created successfully.
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        <i class="bi bi-envelope-check-fill text-primary me-2"></i>
+
+                        Email verification pending.
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+
+                        Save your delivery address to start ordering.
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- FAVOURITE SUPPLIERS -->
+<!-- ===================================== -->
+
+<div class="row">
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    ❤️ Favourite Suppliers
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="text-center py-5">
+
+                    <i class="bi bi-heart display-4 text-danger"></i>
+
+                    <p class="mt-3 text-muted">
+
+                        No favourite suppliers yet.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Recommended Suppliers -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    ⭐ Recommended Suppliers
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="list-group">
+
+                    <a href="#"
+                       class="list-group-item list-group-item-action">
+
+                        <strong>Total Gas Ltd</strong>
+
+                        <br>
+
+                        <small class="text-muted">
+
+                            Nairobi • ★★★★★
+
+                        </small>
+
+                    </a>
+
+                    <a href="#"
+                       class="list-group-item list-group-item-action">
+
+                        <strong>Rubis Gas</strong>
+
+                        <br>
+
+                        <small class="text-muted">
+
+                            Nationwide • ★★★★☆
+
+                        </small>
+
+                    </a>
+
+                    <a href="#"
+                       class="list-group-item list-group-item-action">
+
+                        <strong>Pro Gas</strong>
+
+                        <br>
+
+                        <small class="text-muted">
+
+                            Multiple Locations • ★★★★☆
+
+                        </small>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- MONTHLY ANALYTICS -->
+<!-- ===================================== -->
+
+<div class="row">
+
+    <div class="col-lg-8 mb-4">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    Monthly Spending
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="monthlyChart" height="120"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    Order Summary
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <strong>Total Orders</strong>
+
+                    <div class="progress mt-2">
+
+                        <div
+                            class="progress-bar bg-success"
+                            style="width:0%;"
+                            id="totalOrdersBar">
+
+                            0
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <strong>Completed</strong>
+
+                    <div class="progress mt-2">
+
+                        <div
+                            class="progress-bar bg-primary"
+                            style="width:0%;"
+                            id="completedOrdersBar">
+
+                            0
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <strong>Pending</strong>
+
+                    <div class="progress mt-2">
+
+                        <div
+                            class="progress-bar bg-warning"
+                            style="width:0%;"
+                            id="pendingOrdersBar">
+
+                            0
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- ===================================== -->
+<!-- LOYALTY & COUPONS -->
+<!-- ===================================== -->
+
+<div class="row mt-5">
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-award-fill text-warning me-2"></i>
+
+                    Loyalty Rewards
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <h2 class="fw-bold text-success">
+
+                    <span id="rewardPoints">
+
+                        0
+
+                    </span>
+
+                    Points
+
+                </h2>
+
+                <p class="text-muted">
+
+                    Earn loyalty points every time you successfully purchase LPG through Kenya Gas.
+
+                </p>
+
+                <button
+                    class="btn btn-success">
+
+                    Redeem Rewards
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white">
+
+                <h5 class="mb-0">
+
+                    <i class="bi bi-ticket-perforated-fill text-primary me-2"></i>
+
+                    Discount Coupons
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="alert alert-info">
+
+                    You currently have no active coupons.
+
+                </div>
+
+                <button
+                    class="btn btn-outline-primary">
+
+                    Browse Offers
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================== -->
+<!-- ANNOUNCEMENTS -->
+<!-- ===================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            <i class="bi bi-megaphone-fill text-danger me-2"></i>
+
+            Kenya Gas Announcements
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="alert alert-success">
+
+            🎉 Welcome to Kenya Gas Marketplace. Order from trusted LPG suppliers across Kenya.
+
+        </div>
+
+        <div class="alert alert-warning">
+
+            🚚 Same-day delivery is available in selected towns.
+
+        </div>
+
+        <div class="alert alert-primary">
+
+            💳 M-PESA online payments will be available during checkout.
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================== -->
+<!-- CUSTOMER SUPPORT -->
+<!-- ===================================== -->
+
+<div class="row mt-5">
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-headset display-4 text-success"></i>
+
+                <h5 class="mt-3">
+
+                    Customer Support
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Need assistance with your order?
+
+                </p>
+
+                <a
+                    href="contact.html"
+                    class="btn btn-success">
+
+                    Contact Us
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-question-circle display-4 text-primary"></i>
+
+                <h5 class="mt-3">
+
+                    Help Centre
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Browse FAQs and user guides.
+
+                </p>
+
+                <a
+                    href="faq.html"
+                    class="btn btn-primary">
+
+                    View FAQs
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-shield-check display-4 text-warning"></i>
+
+                <h5 class="mt-3">
+
+                    Safety Tips
+
+                </h5>
+
+                <p class="text-muted">
+
+                    Learn safe LPG handling and storage practices.
+
+                </p>
+
+                <a
+                    href="safety.html"
+                    class="btn btn-warning">
+
+                    Learn More
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================== -->
+<!-- FOOTER -->
+<!-- ===================================== -->
+
+<footer class="mt-5 py-4 border-top">
+
+    <div class="container-fluid">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <h5 class="fw-bold text-success">
+
+                    🔥 Kenya Gas
+
+                </h5>
+
+                <p class="text-muted mb-0">
+
+                    Kenya's trusted LPG marketplace connecting customers with verified gas suppliers.
+
+                </p>
+
+            </div>
+
+            <div class="col-md-6 text-md-end mt-3 mt-md-0">
+
+                <small class="text-muted">
+
+                    &copy;
+
+                    <span id="copyrightYear"></span>
+
+                    Kenya Gas.
+
+                    All Rights Reserved.
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer><!-- ===================================== -->
+<!-- TOAST NOTIFICATIONS -->
+<!-- ===================================== -->
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+    <div
+        id="dashboardToast"
+        class="toast align-items-center border-0 text-bg-success"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true">
+
+        <div class="d-flex">
+
+            <div
+                class="toast-body"
+                id="toastMessage">
+
+                Welcome to Kenya Gas!
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast">
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- CLOSE MAIN LAYOUT -->
+<!-- ===================================== -->
+
+        </main>
+
+    </div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- JAVASCRIPT -->
+<!-- ===================================== -->
+
+<!-- Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Firebase Dashboard -->
+<script type="module" src="assets/js/dashboard.js"></script>
+
+<!-- Dashboard Initialisation -->
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // Dynamic copyright year
+    const year = document.getElementById("copyrightYear");
+
+    if (year) {
+        year.textContent = new Date().getFullYear();
+    }
+
+    // Monthly spending chart
+    const chartCanvas = document.getElementById("monthlyChart");
+
+    if (chartCanvas) {
+
+        new Chart(chartCanvas, {
+
+            type: "line",
+
+            data: {
+
+                labels: [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "May",
+                    "Jun"
+                ],
+
+                datasets: [{
+
+                    label: "Gas Spending (KES)",
+
+                    data: [0, 0, 0, 0, 0, 0],
+
+                    borderWidth: 3,
+
+                    tension: 0.4,
+
+                    fill: false
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+
+                maintainAspectRatio: false,
+
+                plugins: {
+
+                    legend: {
+
+                        display: true
+
+                    }
+
+                },
+
+                scales: {
+
+                    y: {
+
+                        beginAtZero: true
+
+                    }
+
+                }
+
+            }
+
+        });
+
+    }
+
+});
+
+</script>
+
+</body>
+
+</html>
