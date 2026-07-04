@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Verify Email | Kenya Gas</title>
+
+    <meta name="description"
+          content="Verify your email address to activate your Kenya Gas account.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+          rel="stylesheet">
+
+    <!-- Custom CSS -->
+
+    <link rel="stylesheet"
+          href="assets/css/auth.css">
+
+</head>
+
+<body>
+
+<div class="container py-5">
+
+<div class="row justify-content-center">
+
+<div class="col-lg-6">
+
+<div class="login-card shadow-lg border-0 rounded-4">
+
+<div class="card-body p-5">
+
+<div class="text-center">
+
+<div class="display-2 text-success mb-3">
+
+<i class="bi bi-envelope-check-fill"></i>
+
+</div>
+
+<h2 class="fw-bold">
+
+Verify Your Email
+
+</h2>
+
+<p class="text-muted">
+
+We've sent a verification email to your registered email address.
+
+Click the verification link before logging in.
+
+</p>
+
+</div>
+
+<div class="alert alert-info">
+
+<strong>Important:</strong>
+
+If you don't see the email, check your spam or junk folder.
+
+</div>
+
+<div class="d-grid gap-3 mt-4">
+
+<button
+id="checkVerification"
+class="btn btn-success btn-lg">
+
+<i class="bi bi-check-circle"></i>
+
+I've Verified My Email
+
+</button>
+
+<button
+id="resendVerification"
+class="btn btn-outline-primary">
+
+<i class="bi bi-envelope-arrow-up"></i>
+
+Resend Verification Email
+
+</button>
+
+<a
+href="login.html"
+class="btn btn-outline-secondary">
+
+<i class="bi bi-box-arrow-in-right"></i>
+
+Back to Login
+
+</a>
+
+</div>
+
+<hr class="my-4">
+
+<div class="text-center">
+
+<small class="text-muted">
+
+Need help?
+
+<a href="contact.html">
+
+Contact Support
+
+</a>
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Toast -->
+
+<div class="toast-container position-fixed top-0 end-0 p-3">
+
+<div
+id="appToast"
+class="toast">
+
+<div class="toast-header">
+
+<strong class="me-auto">
+
+Kenya Gas
+
+</strong>
+
+<button
+class="btn-close"
+data-bs-dismiss="toast">
+
+</button>
+
+</div>
+
+<div
+id="toastMessage"
+class="toast-body">
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="module" src="assets/js/verify-email.js"></script>
+
+</body>
+
+</html>
