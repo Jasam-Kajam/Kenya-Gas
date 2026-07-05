@@ -1,29 +1,44 @@
 // ======================================================
 // Kenya Gas Marketplace
-// Analytics Dashboard
+// Professional Analytics Dashboard
 // Part 1
+// ======================================================
+
+// ======================================================
+// FIREBASE
 // ======================================================
 
 import { auth, db } from "./firebase.js";
 
 import {
+
     collection,
-    getDocs,
+
     query,
+
     where,
+
+    getDocs,
+
     onSnapshot,
+
     Timestamp
+
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 // ======================================================
 // CHART.JS
 // ======================================================
 
-import Chart from "https://cdn.jsdelivr.net/npm/chart.js@4.4.3/+esm";
+import Chart from
+
+"https://cdn.jsdelivr.net/npm/chart.js@4.4.3/+esm";
 
 // ======================================================
-// DOM
+// DOM ELEMENTS
 // ======================================================
+
+// KPI Cards
 
 const totalRevenue =
     document.getElementById("totalRevenue");
@@ -37,9 +52,7 @@ const totalCustomers =
 const totalSuppliers =
     document.getElementById("totalSuppliers");
 
-// ======================================================
-// CHART REFERENCES
-// ======================================================
+// Charts
 
 const revenueCanvas =
     document.getElementById("revenueChart");
@@ -53,67 +66,156 @@ const gasCanvas =
 const supplierCanvas =
     document.getElementById("supplierChart");
 
-let revenueChart;
-let ordersChart;
-let gasChart;
-let supplierChart;
+// Filters
+
+const dateFilter =
+    document.getElementById("dateFilter");
+
+const refreshAnalytics =
+    document.getElementById("refreshAnalytics");
 
 // ======================================================
-// INITIALIZE
+// GLOBAL VARIABLES
+// ======================================================
+
+// Cached Firestore data
+
+let ordersData = [];
+
+let customersData = [];
+
+let suppliersData = [];
+
+// Current filter
+
+let selectedFilter = "all";
+
+// Chart instances
+
+let revenueChart = null;
+
+let ordersChart = null;
+
+let gasChart = null;
+
+let supplierChart = null;
+
+// ======================================================
+// INITIALIZATION
 // ======================================================
 
 document.addEventListener(
 
     "DOMContentLoaded",
 
-    initializeAnalytics
+    initializeDashboard
 
 );
 
-async function initializeAnalytics(){
+async function initializeDashboard(){
 
-    await loadDashboardCards();
+    setupEventListeners();
 
-    await loadRevenueChart();
+    await refreshDashboard();
 
-    await loadAllCharts();
-
-startRealtimeAnalytics();
+    startRealtimeUpdates();
 
 }// ======================================================
-// DASHBOARD CARDS
+// EVENT LISTENERS
 // ======================================================
 
-async function loadDashboardCards(){
+function setupEventListeners(){
+
+    if(dateFilter){
+
+        dateFilter.addEventListener(
+
+            "change",
+
+            async ()=>{
+
+                selectedFilter =
+                    dateFilter.value;
+
+                await refreshDashboard();
+
+            }
+
+        );
+
+    }
+
+    if(refreshAnalytics){
+
+        refreshAnalytics.addEventListener(
+
+            "click",
+
+            refreshDashboard
+
+        );
+
+    }
+
+}
+
+// ======================================================
+// LOADING INDICATOR
+// ======================================================
+
+function setLoading(isLoading){
+
+    document.body.style.cursor =
+
+        isLoading
+
+        ? "progress"
+
+        : "default";
+
+}// ======================================================
+// PART 2
+// DATA LOADER & REAL-TIME UPDATES
+// ======================================================
+
+// ======================================================
+// LOAD ANALYTICS DATA
+// ======================================================
+
+async function loadAnalyticsData(){
+
+    ordersData = [];
+
+    customersData = [];
+
+    suppliersData = [];
 
     try{
 
+        // -----------------------------
         // Orders
+        // -----------------------------
 
         const ordersSnapshot =
             await getDocs(
-                collection(db,"orders")
+                buildOrdersQuery()
             );
-
-        let revenue = 0;
 
         ordersSnapshot.forEach(doc=>{
 
-            const order = doc.data();
+            ordersData.push({
 
-            revenue +=
-                Number(order.totalPrice || 0);
+                id:doc.id,
+
+                ...doc.data()
+
+            });
 
         });
 
-        totalRevenue.textContent =
-            "KES " +
-            revenue.toLocaleString();
-
-        totalOrders.textContent =
-            ordersSnapshot.size;
-
+        // -----------------------------
         // Customers
+        // -----------------------------
 
         const customersSnapshot =
             await getDocs(
@@ -132,608 +234,428 @@ async function loadDashboardCards(){
 
             );
 
-        totalCustomers.textContent =
-            customersSnapshot.size;
+        customersSnapshot.forEach(doc=>{
 
+            customersData.push({
+
+                id:doc.id,
+
+                ...doc.data()
+
+            });
+
+        });
+
+        // -----------------------------
         // Suppliers
+        // -----------------------------
 
         const suppliersSnapshot =
             await getDocs(
                 collection(db,"suppliers")
             );
 
-        totalSuppliers.textContent =
-            suppliersSnapshot.size;
+        suppliersSnapshot.forEach(doc=>{
+
+            suppliersData.push({
+
+                id:doc.id,
+
+                ...doc.data()
+
+            });
+
+        });
 
     }
 
     catch(error){
 
-        console.error(error);
+        console.error(
 
-    }
+            "Failed loading analytics",
 
-}// ======================================================
-// MONTHLY REVENUE CHART
-// ======================================================
-
-async function loadRevenueChart(){
-
-    try{
-
-        const snapshot =
-            await getDocs(
-                collection(db,"orders")
-            );
-
-        const monthlyRevenue = {
-
-            Jan:0,
-            Feb:0,
-            Mar:0,
-            Apr:0,
-            May:0,
-            Jun:0,
-            Jul:0,
-            Aug:0,
-            Sep:0,
-            Oct:0,
-            Nov:0,
-            Dec:0
-
-        };
-
-        snapshot.forEach(doc=>{
-
-            const order =
-                doc.data();
-
-            if(!order.createdAt) return;
-
-            const date =
-                order.createdAt.toDate();
-
-            const month =
-                date.toLocaleString(
-
-                    "default",
-
-                    {
-
-                        month:"short"
-
-                    }
-
-                );
-
-            monthlyRevenue[month] +=
-                Number(order.totalPrice || 0);
-
-        });
-
-        revenueChart =
-            new Chart(
-
-                revenueCanvas,
-
-                {
-
-                    type:"bar",
-
-                    data:{
-
-                        labels:
-                            Object.keys(monthlyRevenue),
-
-                        datasets:[
-
-                            {
-
-                                label:"Revenue",
-
-                                data:
-                                    Object.values(monthlyRevenue),
-
-                                borderWidth:1
-
-                            }
-
-                        ]
-
-                    },
-
-                    options:{
-
-                        responsive:true,
-
-                        plugins:{
-
-                            legend:{
-
-                                display:true
-
-                            }
-
-                        }
-
-                    }
-
-                }
-
-            );
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}// ======================================================
-// PART 2
-// ORDERS • GAS SIZES • TOP SUPPLIERS
-// ======================================================
-
-// ======================================
-// LOAD ALL CHARTS
-// ======================================
-
-async function loadAllCharts(){
-
-    await loadOrdersChart();
-
-    await loadGasChart();
-
-    await loadSupplierChart();
-
-}
-
-// ======================================
-// ORDERS PER MONTH
-// ======================================
-
-async function loadOrdersChart(){
-
-    try{
-
-        const snapshot =
-            await getDocs(
-                collection(db,"orders")
-            );
-
-        const monthlyOrders={
-
-            Jan:0,
-            Feb:0,
-            Mar:0,
-            Apr:0,
-            May:0,
-            Jun:0,
-            Jul:0,
-            Aug:0,
-            Sep:0,
-            Oct:0,
-            Nov:0,
-            Dec:0
-
-        };
-
-        snapshot.forEach(doc=>{
-
-            const order=doc.data();
-
-            if(!order.createdAt) return;
-
-            const month=
-                order.createdAt
-                .toDate()
-                .toLocaleString(
-                    "default",
-                    {month:"short"}
-                );
-
-            monthlyOrders[month]++;
-
-        });
-
-        if(ordersChart){
-
-            ordersChart.destroy();
-
-        }
-
-        ordersChart=new Chart(
-
-            ordersCanvas,
-
-            {
-
-                type:"line",
-
-                data:{
-
-                    labels:Object.keys(monthlyOrders),
-
-                    datasets:[
-
-                        {
-
-                            label:"Orders",
-
-                            data:Object.values(monthlyOrders),
-
-                            tension:0.4,
-
-                            fill:false
-
-                        }
-
-                    ]
-
-                },
-
-                options:{
-
-                    responsive:true
-
-                }
-
-            }
+            error
 
         );
 
     }
 
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-// ======================================
-// GAS SIZE DISTRIBUTION
-// ======================================
-
-async function loadGasChart(){
-
-    try{
-
-        const snapshot=
-            await getDocs(
-                collection(db,"orders")
-            );
-
-        const gasTypes={};
-
-        snapshot.forEach(doc=>{
-
-            const order=
-                doc.data();
-
-            const gas=
-                order.gasType || "Unknown";
-
-            gasTypes[gas]=
-                (gasTypes[gas] || 0)+1;
-
-        });
-
-        if(gasChart){
-
-            gasChart.destroy();
-
-        }
-
-        gasChart=new Chart(
-
-            gasCanvas,
-
-            {
-
-                type:"pie",
-
-                data:{
-
-                    labels:Object.keys(gasTypes),
-
-                    datasets:[
-
-                        {
-
-                            data:Object.values(gasTypes)
-
-                        }
-
-                    ]
-
-                },
-
-                options:{
-
-                    responsive:true
-
-                }
-
-            }
-
-        );
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-// ======================================
-// TOP SUPPLIERS
-// ======================================
-
-async function loadSupplierChart(){
-
-    try{
-
-        const snapshot=
-            await getDocs(
-                collection(db,"orders")
-            );
-
-        const suppliers={};
-
-        snapshot.forEach(doc=>{
-
-            const order=
-                doc.data();
-
-            const supplier=
-                order.supplierName ||
-                "Unknown";
-
-            suppliers[supplier]=
-                (suppliers[supplier] || 0)+1;
-
-        });
-
-        const sorted=
-            Object.entries(suppliers)
-            .sort((a,b)=>b[1]-a[1])
-            .slice(0,10);
-
-        if(supplierChart){
-
-            supplierChart.destroy();
-
-        }
-
-        supplierChart=new Chart(
-
-            supplierCanvas,
-
-            {
-
-                type:"bar",
-
-                data:{
-
-                    labels:
-                        sorted.map(x=>x[0]),
-
-                    datasets:[
-
-                        {
-
-                            label:"Completed Orders",
-
-                            data:
-                                sorted.map(x=>x[1])
-
-                        }
-
-                    ]
-
-                },
-
-                options:{
-
-                    responsive:true,
-
-                    indexAxis:"y"
-
-                }
-
-            }
-
-        );
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
 }// ======================================================
-// PART 3
-// REAL-TIME ANALYTICS & DATE FILTERS
+// BUILD FILTERED QUERY
 // ======================================================
-
-// ======================================
-// FILTER ELEMENTS
-// ======================================
-
-const dateFilter =
-    document.getElementById("dateFilter");
-
-const refreshAnalytics =
-    document.getElementById("refreshAnalytics");
-
-// ======================================
-// CURRENT FILTER
-// ======================================
-
-let selectedFilter = "all";
-
-// ======================================
-// EVENTS
-// ======================================
-
-if(dateFilter){
-
-    dateFilter.addEventListener(
-
-        "change",
-
-        async ()=>{
-
-            selectedFilter =
-                dateFilter.value;
-
-            await refreshDashboard();
-
-        }
-
-    );
-
-}
-
-if(refreshAnalytics){
-
-    refreshAnalytics.addEventListener(
-
-        "click",
-
-        refreshDashboard
-
-    );
-
-}
-
-// ======================================
-// REFRESH EVERYTHING
-// ======================================
-
-async function refreshDashboard(){
-
-    await loadDashboardCards();
-
-    await loadRevenueChart();
-
-    await loadAllCharts();
-
-}
-
-// ======================================
-// BUILD QUERY
-// ======================================
 
 function buildOrdersQuery(){
 
-    let q =
-        collection(db,"orders");
+    let startDate = null;
 
-    if(selectedFilter==="all"){
-
-        return query(q);
-
-    }
-
-    const now =
-        new Date();
-
-    let start =
-        new Date();
+    const now = new Date();
 
     switch(selectedFilter){
 
         case "today":
 
-            start.setHours(
-                0,0,0,0
+            startDate = new Date();
+
+            startDate.setHours(
+
+                0,
+
+                0,
+
+                0,
+
+                0
+
             );
 
             break;
 
         case "7days":
 
-            start.setDate(
+            startDate = new Date();
+
+            startDate.setDate(
+
                 now.getDate()-7
+
             );
 
             break;
 
         case "30days":
 
-            start.setDate(
+            startDate = new Date();
+
+            startDate.setDate(
+
                 now.getDate()-30
+
             );
 
             break;
 
         case "year":
 
-            start =
+            startDate =
+
                 new Date(
+
                     now.getFullYear(),
+
                     0,
+
                     1
+
                 );
 
             break;
 
-        default:
+    }
 
-            return query(q);
+    if(startDate){
+
+        return query(
+
+            collection(db,"orders"),
+
+            where(
+
+                "createdAt",
+
+                ">=",
+
+                Timestamp.fromDate(startDate)
+
+            )
+
+        );
 
     }
 
     return query(
 
-        q,
-
-        where(
-
-            "createdAt",
-
-            ">=",
-
-            Timestamp.fromDate(start)
-
-        )
+        collection(db,"orders")
 
     );
+
+}// ======================================================
+// REAL-TIME DASHBOARD
+// ======================================================
+
+let unsubscribeOrders = null;
+
+function startRealtimeUpdates(){
+
+    if(unsubscribeOrders){
+
+        unsubscribeOrders();
+
+    }
+
+    unsubscribeOrders =
+
+        onSnapshot(
+
+            buildOrdersQuery(),
+
+            async ()=>{
+
+                console.log(
+
+                    "Analytics Updated"
+
+                );
+
+                await refreshDashboard();
+
+            }
+
+        );
+
+}// ======================================================
+// HELPER FUNCTIONS
+// ======================================================
+
+function currency(amount){
+
+    return "KES " +
+
+        Number(amount)
+
+        .toLocaleString(
+
+            "en-KE"
+
+        );
 
 }
 
-// ======================================
-// REAL-TIME LISTENER
-// ======================================
+function formatNumber(number){
 
-function startRealtimeAnalytics(){
+    return Number(number)
 
-    const q =
-        buildOrdersQuery();
+        .toLocaleString(
 
-    onSnapshot(
+            "en-KE"
 
-        q,
+        );
 
-        async ()=>{
+}// ======================================================
+// PART 3
+// KPI DASHBOARD
+// ======================================================
 
-            console.log(
-                "Analytics updated."
-            );
+async function loadDashboardCards(){
 
-            await refreshDashboard();
+    // -----------------------------------
+    // Empty Dashboard
+    // -----------------------------------
+
+    if(ordersData.length===0){
+
+        totalRevenue.textContent="KES 0";
+
+        totalOrders.textContent="0";
+
+        totalCustomers.textContent=
+            formatNumber(customersData.length);
+
+        totalSuppliers.textContent=
+            formatNumber(suppliersData.length);
+
+        updateExtraCards({
+
+            averageOrder:0,
+
+            pending:0,
+
+            completed:0,
+
+            cancelled:0
+
+        });
+
+        return;
+
+    }
+
+    // -----------------------------------
+    // Revenue
+    // -----------------------------------
+
+    let revenue=0;
+
+    let pending=0;
+
+    let completed=0;
+
+    let cancelled=0;
+
+    ordersData.forEach(order=>{
+
+        revenue += Number(
+
+            order.totalPrice || 0
+
+        );
+
+        switch(order.status){
+
+            case "pending":
+
+                pending++;
+
+                break;
+
+            case "completed":
+
+                completed++;
+
+                break;
+
+            case "cancelled":
+
+                cancelled++;
+
+                break;
 
         }
 
-    );
+    });
+
+    const averageOrder=
+
+        revenue/ordersData.length;
+
+    // -----------------------------------
+    // Update Cards
+    // -----------------------------------
+
+    totalRevenue.textContent=
+
+        currency(revenue);
+
+    totalOrders.textContent=
+
+        formatNumber(
+
+            ordersData.length
+
+        );
+
+    totalCustomers.textContent=
+
+        formatNumber(
+
+            customersData.length
+
+        );
+
+    totalSuppliers.textContent=
+
+        formatNumber(
+
+            suppliersData.length
+
+        );
+
+    updateExtraCards({
+
+        averageOrder,
+
+        pending,
+
+        completed,
+
+        cancelled
+
+    });
+
+}// ======================================================
+// EXTRA KPI CARDS
+// ======================================================
+
+function updateExtraCards(stats){
+
+    const averageCard=
+
+        document.getElementById(
+
+            "averageOrderValue"
+
+        );
+
+    const pendingCard=
+
+        document.getElementById(
+
+            "pendingOrders"
+
+        );
+
+    const completedCard=
+
+        document.getElementById(
+
+            "completedOrders"
+
+        );
+
+    const cancelledCard=
+
+        document.getElementById(
+
+            "cancelledOrders"
+
+        );
+
+    if(averageCard){
+
+        averageCard.textContent=
+
+            currency(
+
+                stats.averageOrder
+
+            );
+
+    }
+
+    if(pendingCard){
+
+        pendingCard.textContent=
+
+            formatNumber(
+
+                stats.pending
+
+            );
+
+    }
+
+    if(completedCard){
+
+        completedCard.textContent=
+
+            formatNumber(
+
+                stats.completed
+
+            );
+
+    }
+
+    if(cancelledCard){
+
+        cancelledCard.textContent=
+
+            formatNumber(
+
+                stats.cancelled
+
+            );
+
+    }
 
 }
