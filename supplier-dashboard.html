@@ -314,4 +314,1819 @@ Support
 
 <main class="col-lg ms-lg-4 py-4">
 
-<!-- PART 2 STARTS HERE -->
+<!-- ===================================== -->
+<!-- DASHBOARD OVERVIEW -->
+<!-- ===================================== -->
+
+<section id="dashboard">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<div>
+
+<h2 class="fw-bold mb-1">
+
+Supplier Dashboard
+
+</h2>
+
+<p class="text-muted mb-0">
+
+Welcome back,
+<strong id="supplierGreeting">
+
+Loading...
+
+</strong>
+
+</p>
+
+</div>
+
+<div>
+
+<button
+id="refreshDashboard"
+class="btn btn-success">
+
+<i class="bi bi-arrow-clockwise me-2"></i>
+
+Refresh
+
+</button>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- STATISTICS -->
+<!-- ===================================== -->
+
+<div class="row g-4 mb-4">
+
+<!-- Today's Orders -->
+
+<div class="col-xl-3 col-md-6">
+
+<div class="card border-0 shadow-sm h-100">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<p class="text-muted mb-2">
+
+Today's Orders
+
+</p>
+
+<h2 id="todayOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div>
+
+<i class="bi bi-bag-check-fill fs-1 text-success"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Pending -->
+
+<div class="col-xl-3 col-md-6">
+
+<div class="card border-0 shadow-sm h-100">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<p class="text-muted mb-2">
+
+Pending Orders
+
+</p>
+
+<h2 id="pendingOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div>
+
+<i class="bi bi-hourglass-split fs-1 text-warning"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Completed -->
+
+<div class="col-xl-3 col-md-6">
+
+<div class="card border-0 shadow-sm h-100">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<p class="text-muted mb-2">
+
+Completed
+
+</p>
+
+<h2 id="completedOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div>
+
+<i class="bi bi-check-circle-fill fs-1 text-primary"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Revenue -->
+
+<div class="col-xl-3 col-md-6">
+
+<div class="card border-0 shadow-sm h-100">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<div>
+
+<p class="text-muted mb-2">
+
+Revenue
+
+</p>
+
+<h2>
+
+KES
+
+<span id="totalRevenue">
+
+0
+
+</span>
+
+</h2>
+
+</div>
+
+<div>
+
+<i class="bi bi-cash-coin fs-1 text-success"></i>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- SECOND ROW -->
+<!-- ===================================== -->
+
+<div class="row g-4 mb-5">
+
+<!-- Rating -->
+
+<div class="col-lg-3 col-md-6">
+
+<div class="card shadow-sm border-0 h-100">
+
+<div class="card-body">
+
+<h6 class="text-muted">
+
+Average Rating
+
+</h6>
+
+<h2 id="supplierRating">
+
+0.0 ⭐
+
+</h2>
+
+<small class="text-muted">
+
+Based on customer reviews
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Customers -->
+
+<div class="col-lg-3 col-md-6">
+
+<div class="card shadow-sm border-0 h-100">
+
+<div class="card-body">
+
+<h6 class="text-muted">
+
+Customers Served
+
+</h6>
+
+<h2 id="customersServed">
+
+0
+
+</h2>
+
+<small class="text-muted">
+
+Returning + New
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Stock -->
+
+<div class="col-lg-3 col-md-6">
+
+<div class="card shadow-sm border-0 h-100">
+
+<div class="card-body">
+
+<h6 class="text-muted">
+
+Gas Cylinders
+
+</h6>
+
+<h2 id="stockCount">
+
+0
+
+</h2>
+
+<small class="text-success">
+
+Available
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- Alerts -->
+
+<div class="col-lg-3 col-md-6">
+
+<div class="card border-danger shadow-sm h-100">
+
+<div class="card-body">
+
+<h6 class="text-danger">
+
+Low Stock Alert
+
+</h6>
+
+<h2 id="lowStockItems">
+
+0
+
+</h2>
+
+<small class="text-muted">
+
+Items requiring restock
+
+</small>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- NEW ORDERS SECTION -->
+<!-- ===================================== -->
+
+<section id="orders">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Incoming Orders
+
+</h3>
+
+<span
+class="badge bg-success fs-6"
+id="incomingOrderCount">
+
+0 Orders
+
+</span>
+
+</div>
+
+<p class="text-muted">
+
+Only orders matching your
+<strong>county</strong>,
+<strong>town</strong>,
+and available
+<strong>inventory</strong>
+will appear here.
+
+</p>
+
+<div
+id="incomingOrdersContainer"
+class="row g-4">
+
+<!-- Firebase will load matching orders here -->
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- ORDER DETAILS & MANAGEMENT -->
+<!-- ===================================== -->
+
+<section id="accepted" class="mt-5">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Accepted Orders
+
+</h3>
+
+<span
+class="badge bg-primary"
+id="acceptedOrdersBadge">
+
+0 Active
+
+</span>
+
+</div>
+
+<div
+id="acceptedOrdersContainer"
+class="row g-4">
+
+<!-- Accepted orders loaded here -->
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- DELIVERY MANAGEMENT -->
+<!-- ===================================== -->
+
+<section id="deliveries" class="mt-5">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Delivery Management
+
+</h3>
+
+<button
+id="refreshDeliveries"
+class="btn btn-outline-success">
+
+<i class="bi bi-arrow-clockwise me-2"></i>
+
+Refresh
+
+</button>
+
+</div>
+
+<div class="card shadow-sm border-0">
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle mb-0">
+
+<thead class="table-success">
+
+<tr>
+
+<th>Order</th>
+
+<th>Customer</th>
+
+<th>Gas</th>
+
+<th>Location</th>
+
+<th>Status</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="deliveryTableBody">
+
+<!-- Firebase delivery rows -->
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- ORDER CARD TEMPLATE -->
+<!-- Hidden template used by JavaScript -->
+<!-- ===================================== -->
+
+<template id="supplierOrderTemplate">
+
+<div class="col-lg-6">
+
+<div class="card shadow-sm border-0 h-100">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between align-items-start">
+
+<div>
+
+<h5 class="fw-bold customerName">
+
+Customer Name
+
+</h5>
+
+<span
+class="badge bg-warning orderStatus">
+
+Pending
+
+</span>
+
+</div>
+
+<div class="text-end">
+
+<h5 class="text-success">
+
+KES <span class="orderTotal">
+
+0
+
+</span>
+
+</h5>
+
+<small class="text-muted">
+
+Order Total
+
+</small>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="row">
+
+<div class="col-6">
+
+<p class="mb-2">
+
+<i class="bi bi-fire text-danger me-2"></i>
+
+<strong>Gas:</strong>
+
+<span class="gasType">
+
+13kg
+
+</span>
+
+</p>
+
+<p class="mb-2">
+
+<i class="bi bi-box me-2"></i>
+
+<strong>Qty:</strong>
+
+<span class="quantity">
+
+1
+
+</span>
+
+</p>
+
+</div>
+
+<div class="col-6">
+
+<p class="mb-2">
+
+<i class="bi bi-geo-alt text-success me-2"></i>
+
+<span class="deliveryTown">
+
+Town
+
+</span>
+
+</p>
+
+<p class="mb-2">
+
+<i class="bi bi-clock me-2"></i>
+
+<span class="orderTime">
+
+Just now
+
+</span>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="alert alert-light mt-3 mb-3">
+
+<i class="bi bi-house-door me-2"></i>
+
+<span class="deliveryAddress">
+
+Delivery Address
+
+</span>
+
+</div>
+
+<div class="d-grid gap-2">
+
+<button
+class="btn btn-success acceptOrderBtn">
+
+<i class="bi bi-check-circle me-2"></i>
+
+Accept Order
+
+</button>
+
+<button
+class="btn btn-outline-danger rejectOrderBtn">
+
+<i class="bi bi-x-circle me-2"></i>
+
+Reject
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</template>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+<!-- INVENTORY MANAGEMENT -->
+<!-- ===================================== -->
+
+<section id="inventory" class="mt-5">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Inventory Management
+
+</h3>
+
+<button
+id="addInventoryBtn"
+class="btn btn-success">
+
+<i class="bi bi-plus-circle me-2"></i>
+
+Add Inventory
+
+</button>
+
+</div>
+
+<div class="card shadow-sm border-0">
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle mb-0">
+
+<thead class="table-success">
+
+<tr>
+
+<th>Gas Size</th>
+
+<th>Stock</th>
+
+<th>Selling Price</th>
+
+<th>Status</th>
+
+<th>Last Updated</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="inventoryTableBody">
+
+<tr>
+
+<td>6kg</td>
+
+<td>--</td>
+
+<td>KES --</td>
+
+<td>
+
+<span class="badge bg-secondary">
+
+Loading...
+
+</span>
+
+</td>
+
+<td>--</td>
+
+<td>
+
+<button class="btn btn-sm btn-outline-success">
+
+Update
+
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- LOW STOCK ALERTS -->
+<!-- ===================================== -->
+
+<section class="mt-5">
+
+<div class="card border-warning shadow-sm">
+
+<div class="card-header bg-warning text-dark">
+
+<h5 class="mb-0">
+
+<i class="bi bi-exclamation-triangle-fill me-2"></i>
+
+Low Stock Alerts
+
+</h5>
+
+</div>
+
+<div class="card-body">
+
+<div id="lowStockContainer">
+
+<p class="text-muted mb-0">
+
+No low-stock alerts.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- QUICK INVENTORY SUMMARY -->
+<!-- ===================================== -->
+
+<section class="mt-5">
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="card border-0 shadow-sm">
+
+<div class="card-body text-center">
+
+<h6>Total Products</h6>
+
+<h2 id="inventoryProducts">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-0 shadow-sm">
+
+<div class="card-body text-center">
+
+<h6>Total Stock</h6>
+
+<h2 id="inventoryTotalStock">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-0 shadow-sm">
+
+<div class="card-body text-center">
+
+<h6>Out of Stock</h6>
+
+<h2 id="outOfStockCount">
+
+0
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card border-0 shadow-sm">
+
+<div class="card-body text-center">
+
+<h6>Inventory Value</h6>
+
+<h2>
+
+KES
+
+<span id="inventoryValue">
+
+0
+
+</span>
+
+</h2>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- INVENTORY MODAL -->
+<!-- ===================================== -->
+
+<div
+class="modal fade"
+id="inventoryModal"
+tabindex="-1">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">
+
+Update Inventory
+
+</h5>
+
+<button
+type="button"
+class="btn-close"
+data-bs-dismiss="modal">
+
+</button>
+
+</div>
+
+<div class="modal-body">
+
+<form id="inventoryForm">
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Gas Size
+
+</label>
+
+<select
+id="gasSize"
+class="form-select">
+
+<option value="6kg">6kg</option>
+
+<option value="13kg">13kg</option>
+
+<option value="22kg">22kg</option>
+
+<option value="50kg">50kg</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Stock Quantity
+
+</label>
+
+<input
+type="number"
+id="stockQuantity"
+class="form-control"
+min="0">
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Selling Price (KES)
+
+</label>
+
+<input
+type="number"
+id="sellingPrice"
+class="form-control"
+min="0">
+
+</div>
+
+<button
+type="submit"
+class="btn btn-success w-100">
+
+Save Inventory
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+<!-- EARNINGS -->
+<!-- ===================================== -->
+
+<section id="earnings" class="mt-5">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Earnings
+
+</h3>
+
+<button
+id="exportReportBtn"
+class="btn btn-outline-success">
+
+<i class="bi bi-download me-2"></i>
+
+Export Report
+
+</button>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<h6>Today's Sales</h6>
+
+<h3 class="text-success">
+
+KES <span id="todaySales">0</span>
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<h6>This Week</h6>
+
+<h3 class="text-primary">
+
+KES <span id="weeklySales">0</span>
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<h6>This Month</h6>
+
+<h3 class="text-warning">
+
+KES <span id="monthlySales">0</span>
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<h6>Total Revenue</h6>
+
+<h3 class="text-success">
+
+KES <span id="lifetimeSales">0</span>
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- CUSTOMERS -->
+<!-- ===================================== -->
+
+<section id="customers" class="mt-5">
+
+<h3 class="fw-bold mb-3">
+
+Customers
+
+</h3>
+
+<div class="card shadow-sm border-0">
+
+<div class="table-responsive">
+
+<table class="table table-hover mb-0">
+
+<thead class="table-success">
+
+<tr>
+
+<th>Name</th>
+
+<th>Phone</th>
+
+<th>Town</th>
+
+<th>Orders</th>
+
+<th>Last Order</th>
+
+</tr>
+
+</thead>
+
+<tbody id="customersTableBody">
+
+<tr>
+
+<td colspan="5" class="text-center text-muted">
+
+No customers yet.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- REVIEWS -->
+<!-- ===================================== -->
+
+<section id="reviews" class="mt-5">
+
+<h3 class="fw-bold mb-3">
+
+Customer Reviews
+
+</h3>
+
+<div
+id="reviewsContainer"
+class="row g-4">
+
+<div class="col-12">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center text-muted">
+
+No reviews available.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- ANALYTICS -->
+<!-- ===================================== -->
+
+<section id="analytics" class="mt-5">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Business Analytics
+
+</h3>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-6">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-header bg-success text-white">
+
+Monthly Orders
+
+</div>
+
+<div class="card-body">
+
+<canvas id="ordersChart" height="200"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-header bg-primary text-white">
+
+Revenue Trend
+
+</div>
+
+<div class="card-body">
+
+<canvas id="revenueChart" height="200"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+<!-- EARNINGS -->
+<!-- ===================================== -->
+
+<section id="earnings" class="mt-5">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Earnings
+
+</h3>
+
+<button
+id="exportReportBtn"
+class="btn btn-outline-success">
+
+<i class="bi bi-download me-2"></i>
+
+Export Report
+
+</button>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<h6>Today's Sales</h6>
+
+<h3 class="text-success">
+
+KES <span id="todaySales">0</span>
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<h6>This Week</h6>
+
+<h3 class="text-primary">
+
+KES <span id="weeklySales">0</span>
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<h6>This Month</h6>
+
+<h3 class="text-warning">
+
+KES <span id="monthlySales">0</span>
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-md-3">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center">
+
+<h6>Total Revenue</h6>
+
+<h3 class="text-success">
+
+KES <span id="lifetimeSales">0</span>
+
+</h3>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- CUSTOMERS -->
+<!-- ===================================== -->
+
+<section id="customers" class="mt-5">
+
+<h3 class="fw-bold mb-3">
+
+Customers
+
+</h3>
+
+<div class="card shadow-sm border-0">
+
+<div class="table-responsive">
+
+<table class="table table-hover mb-0">
+
+<thead class="table-success">
+
+<tr>
+
+<th>Name</th>
+
+<th>Phone</th>
+
+<th>Town</th>
+
+<th>Orders</th>
+
+<th>Last Order</th>
+
+</tr>
+
+</thead>
+
+<tbody id="customersTableBody">
+
+<tr>
+
+<td colspan="5" class="text-center text-muted">
+
+No customers yet.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- REVIEWS -->
+<!-- ===================================== -->
+
+<section id="reviews" class="mt-5">
+
+<h3 class="fw-bold mb-3">
+
+Customer Reviews
+
+</h3>
+
+<div
+id="reviewsContainer"
+class="row g-4">
+
+<div class="col-12">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body text-center text-muted">
+
+No reviews available.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- ANALYTICS -->
+<!-- ===================================== -->
+
+<section id="analytics" class="mt-5">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Business Analytics
+
+</h3>
+
+</div>
+
+<div class="row g-4">
+
+<div class="col-lg-6">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-header bg-success text-white">
+
+Monthly Orders
+
+</div>
+
+<div class="card-body">
+
+<canvas id="ordersChart" height="200"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-6">
+
+<div class="card shadow-sm border-0">
+
+<div class="card-header bg-primary text-white">
+
+Revenue Trend
+
+</div>
+
+<div class="card-body">
+
+<canvas id="revenueChart" height="200"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- ===================================== -->
+<!-- NOTIFICATIONS -->
+<!-- ===================================== -->
+
+<section id="notifications" class="mt-5">
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+
+<h3 class="fw-bold">
+
+Notifications
+
+</h3>
+
+<button
+id="markAllReadBtn"
+class="btn btn-outline-success">
+
+<i class="bi bi-check2-all me-2"></i>
+
+Mark All Read
+
+</button>
+
+</div>
+
+<div
+id="notificationsContainer"
+class="list-group shadow-sm">
+
+<div class="list-group-item text-muted text-center">
+
+No notifications.
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- SETTINGS -->
+<!-- ===================================== -->
+
+<section id="settings" class="mt-5">
+
+<h3 class="fw-bold mb-3">
+
+Business Settings
+
+</h3>
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<form id="supplierSettingsForm">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Business Name
+
+</label>
+
+<input
+type="text"
+id="businessName"
+class="form-control">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Phone Number
+
+</label>
+
+<input
+type="tel"
+id="businessPhone"
+class="form-control">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+County
+
+</label>
+
+<input
+type="text"
+id="businessCounty"
+class="form-control"
+readonly>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Town
+
+</label>
+
+<input
+type="text"
+id="businessTown"
+class="form-control"
+readonly>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Delivery Radius (KM)
+
+</label>
+
+<input
+type="number"
+id="deliveryRadius"
+class="form-control"
+min="1"
+max="100">
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+
+Business Status
+
+</label>
+
+<select
+id="supplierStatus"
+class="form-select">
+
+<option value="active">Active</option>
+
+<option value="offline">Offline</option>
+
+<option value="closed">Temporarily Closed</option>
+
+</select>
+
+</div>
+
+</div>
+
+<button
+type="submit"
+class="btn btn-success">
+
+Save Settings
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- SUPPORT -->
+<!-- ===================================== -->
+
+<section id="support" class="mt-5">
+
+<h3 class="fw-bold mb-3">
+
+Support
+
+</h3>
+
+<div class="card shadow-sm border-0">
+
+<div class="card-body">
+
+<p>
+
+Need assistance?
+
+Contact the Kenya Gas support team.
+
+</p>
+
+<div class="d-flex flex-wrap gap-2">
+
+<a
+href="mailto:support@kenyagas.co.ke"
+class="btn btn-outline-success">
+
+<i class="bi bi-envelope me-2"></i>
+
+Email Support
+
+</a>
+
+<a
+href="tel:+254700000000"
+class="btn btn-outline-primary">
+
+<i class="bi bi-telephone me-2"></i>
+
+Call Support
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================== -->
+<!-- FOOTER -->
+<!-- ===================================== -->
+
+<footer class="text-center text-muted py-5">
+
+<hr>
+
+<p class="mb-1">
+
+© 2026 Kenya Gas.
+
+All Rights Reserved.
+
+</p>
+
+<small>
+
+Supplier Dashboard Version 1.0
+
+</small>
+
+</footer>
+
+</main>
+
+</div>
+
+</div>
+
+<!-- ===================================== -->
+<!-- SCRIPTS -->
+<!-- ===================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script type="module" src="assets/js/supplier-dashboard.js"></script>
+
+</body>
+
+</html>
