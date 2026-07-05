@@ -658,4 +658,369 @@ function updateExtraCards(stats){
 
     }
 
+}// ======================================================
+// PART 4
+// CHARTS
+// ======================================================
+
+// =====================================
+// MONTHLY REVENUE
+// =====================================
+
+async function loadRevenueChart(){
+
+    const revenue={
+
+        Jan:0,
+        Feb:0,
+        Mar:0,
+        Apr:0,
+        May:0,
+        Jun:0,
+        Jul:0,
+        Aug:0,
+        Sep:0,
+        Oct:0,
+        Nov:0,
+        Dec:0
+
+    };
+
+    ordersData.forEach(order=>{
+
+        if(!order.createdAt) return;
+
+        const month=
+
+            order.createdAt
+
+            .toDate()
+
+            .toLocaleString(
+
+                "default",
+
+                {
+
+                    month:"short"
+
+                }
+
+            );
+
+        revenue[month]+=
+
+            Number(order.totalPrice||0);
+
+    });
+
+    if(revenueChart){
+
+        revenueChart.destroy();
+
+    }
+
+    revenueChart=
+
+        new Chart(
+
+            revenueCanvas,
+
+            {
+
+                type:"bar",
+
+                data:{
+
+                    labels:Object.keys(revenue),
+
+                    datasets:[
+
+                        {
+
+                            label:"Revenue (KES)",
+
+                            data:Object.values(revenue),
+
+                            borderWidth:2,
+
+                            borderRadius:8
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false
+
+                }
+
+            }
+
+        );
+
+}// =====================================
+// MONTHLY ORDERS
+// =====================================
+
+async function loadOrdersChart(){
+
+    const monthly={
+
+        Jan:0,
+        Feb:0,
+        Mar:0,
+        Apr:0,
+        May:0,
+        Jun:0,
+        Jul:0,
+        Aug:0,
+        Sep:0,
+        Oct:0,
+        Nov:0,
+        Dec:0
+
+    };
+
+    ordersData.forEach(order=>{
+
+        if(!order.createdAt) return;
+
+        const month=
+
+            order.createdAt
+
+            .toDate()
+
+            .toLocaleString(
+
+                "default",
+
+                {
+
+                    month:"short"
+
+                }
+
+            );
+
+        monthly[month]++;
+
+    });
+
+    if(ordersChart){
+
+        ordersChart.destroy();
+
+    }
+
+    ordersChart=
+
+        new Chart(
+
+            ordersCanvas,
+
+            {
+
+                type:"line",
+
+                data:{
+
+                    labels:Object.keys(monthly),
+
+                    datasets:[
+
+                        {
+
+                            label:"Orders",
+
+                            data:Object.values(monthly),
+
+                            tension:.4,
+
+                            fill:false
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false
+
+                }
+
+            }
+
+        );
+
+}// =====================================
+// GAS SIZE DISTRIBUTION
+// =====================================
+
+async function loadGasChart(){
+
+    const gas={};
+
+    ordersData.forEach(order=>{
+
+        const size=
+
+            order.gasType ||
+
+            "Unknown";
+
+        gas[size]=
+
+            (gas[size]||0)+1;
+
+    });
+
+    if(gasChart){
+
+        gasChart.destroy();
+
+    }
+
+    gasChart=
+
+        new Chart(
+
+            gasCanvas,
+
+            {
+
+                type:"pie",
+
+                data:{
+
+                    labels:Object.keys(gas),
+
+                    datasets:[
+
+                        {
+
+                            data:Object.values(gas)
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false
+
+                }
+
+            }
+
+        );
+
+}// =====================================
+// TOP SUPPLIERS
+// =====================================
+
+async function loadSupplierChart(){
+
+    const suppliers={};
+
+    ordersData.forEach(order=>{
+
+        const supplier=
+
+            order.supplierName ||
+
+            "Unknown";
+
+        suppliers[supplier]=
+
+            (suppliers[supplier]||0)+1;
+
+    });
+
+    const sorted=
+
+        Object.entries(suppliers)
+
+        .sort(
+
+            (a,b)=>b[1]-a[1]
+
+        )
+
+        .slice(0,10);
+
+    if(supplierChart){
+
+        supplierChart.destroy();
+
+    }
+
+    supplierChart=
+
+        new Chart(
+
+            supplierCanvas,
+
+            {
+
+                type:"bar",
+
+                data:{
+
+                    labels:
+
+                        sorted.map(
+
+                            x=>x[0]
+
+                        ),
+
+                    datasets:[
+
+                        {
+
+                            label:"Orders",
+
+                            data:
+
+                                sorted.map(
+
+                                    x=>x[1]
+
+                                )
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false,
+
+                    indexAxis:"y"
+
+                }
+
+            }
+
+        );
+
 }
