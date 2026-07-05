@@ -281,7 +281,8 @@ async function loadAnalyticsData(){
 
     }
 
-}// ======================================================
+}
+// ======================================================
 // BUILD FILTERED QUERY
 // ======================================================
 
@@ -658,7 +659,74 @@ function updateExtraCards(stats){
 
     }
 
-}// ======================================================
+}
+// ======================================================
+// PROFESSIONAL CHART SETTINGS
+// ======================================================
+
+Chart.defaults.font.family = "Poppins";
+Chart.defaults.font.size = 13;
+Chart.defaults.color = "#555";
+
+Chart.defaults.plugins.legend.position = "bottom";
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.padding = 20;
+
+Chart.defaults.plugins.tooltip.cornerRadius = 10;
+Chart.defaults.plugins.tooltip.padding = 12;
+
+Chart.defaults.animation.duration = 1200;
+
+Chart.defaults.responsive = true;
+Chart.defaults.maintainAspectRatio = false;
+
+// ======================================================
+// COLORS
+// ======================================================
+
+const COLORS={
+
+    green:"#198754",
+    lightGreen:"#20c997",
+    yellow:"#ffc107",
+    orange:"#fd7e14",
+    red:"#dc3545",
+    blue:"#0d6efd",
+    cyan:"#0dcaf0",
+    purple:"#6f42c1"
+
+};
+
+// ======================================================
+// HELPERS
+// ======================================================
+
+function destroyChart(chart){
+
+    if(chart){
+
+        chart.destroy();
+
+    }
+
+}
+
+function currencyTooltip(context){
+
+    return "KES " +
+
+        Number(context.raw)
+
+        .toLocaleString("en-KE");
+
+}
+
+function hasOrders(){
+
+    return ordersData.length>0;
+
+}
+// ======================================================
 // PART 4
 // CHARTS
 // ======================================================
@@ -669,6 +737,13 @@ function updateExtraCards(stats){
 
 async function loadRevenueChart(){
 
+    if(!hasOrders()){
+
+    destroyChart(revenueChart);
+
+    return;
+
+}
     const revenue={
 
         Jan:0,
@@ -714,9 +789,7 @@ async function loadRevenueChart(){
 
     });
 
-    if(revenueChart){
-
-        revenueChart.destroy();
+   destroyChart(revenueChart);
 
     }
 
