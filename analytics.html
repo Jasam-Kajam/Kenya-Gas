@@ -119,7 +119,45 @@ Settings
 Marketplace Analytics
 
 </h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
 
+    <select
+        id="dateFilter"
+        class="form-select w-auto">
+
+        <option value="all">
+            All Time
+        </option>
+
+        <option value="today">
+            Today
+        </option>
+
+        <option value="7days">
+            Last 7 Days
+        </option>
+
+        <option value="30days">
+            Last 30 Days
+        </option>
+
+        <option value="year">
+            This Year
+        </option>
+
+    </select>
+
+    <button
+        id="refreshAnalytics"
+        class="btn btn-success">
+
+        <i class="bi bi-arrow-clockwise"></i>
+
+        Refresh
+
+    </button>
+
+</div>
 <!-- KPI CARDS -->
 
 <div class="row g-4">
