@@ -1,0 +1,960 @@
+/* ==========================================================
+   REGISTER PAGE
+   Kenya Gas Marketplace
+========================================================== */
+
+body{
+    margin:0;
+    padding:0;
+    font-family:'Poppins',sans-serif;
+    background:#f4f7fb;
+    color:#1e293b;
+}
+
+/* ==========================================
+   PAGE BACKGROUND
+========================================== */
+
+.container{
+    max-width:1400px;
+}
+
+/* ==========================================
+   MAIN CARD
+========================================== */
+
+.login-card{
+
+    background:#ffffff;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    border:none;
+
+    transition:.35s;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.08);
+
+}
+
+.login-card:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 20px 50px rgba(0,0,0,.15);
+
+}
+
+/* ==========================================
+   CARD BODY
+========================================== */
+
+.card-body{
+
+    padding:45px;
+
+}
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.logo{
+
+    font-size:2.3rem;
+
+    font-weight:800;
+
+    color:#198754;
+
+    letter-spacing:1px;
+
+}
+
+/* ==========================================
+   HEADINGS
+========================================== */
+
+h1,h2,h3,h4,h5,h6{
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.text-success{
+
+    color:#198754 !important;
+
+}
+
+.text-muted{
+
+    color:#64748b !important;
+
+}
+
+/* ==========================================
+   SECTION TITLES
+========================================== */
+
+h5{
+
+    margin-top:15px;
+
+    margin-bottom:20px;
+
+    padding-bottom:10px;
+
+    border-bottom:2px solid #e2e8f0;
+
+}
+
+/* ==========================================
+   HORIZONTAL RULE
+========================================== */
+
+hr{
+
+    opacity:.15;
+
+}
+
+/* ==========================================
+   LABELS
+========================================== */
+
+.form-label{
+
+    font-weight:600;
+
+    color:#334155;
+
+    margin-bottom:8px;
+
+}
+
+/* ==========================================
+   FORM GROUP SPACING
+========================================== */
+
+.mb-3{
+
+    margin-bottom:1.3rem !important;
+
+}
+
+.mb-4{
+
+    margin-bottom:1.8rem !important;
+
+}
+
+/* ==========================================
+   SMALL HELP TEXT
+========================================== */
+
+small{
+
+    font-size:.87rem;
+
+    color:#64748b;
+
+}
+
+/* ==========================================
+   INVALID FEEDBACK
+========================================== */
+
+.invalid-feedback{
+
+    font-size:.82rem;
+
+}
+
+/* ==========================================
+   INPUT GROUP
+========================================== */
+
+.input-group{
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+/* ==========================================
+   ICON BUTTONS
+========================================== */
+
+.input-group .btn{
+
+    border-left:none;
+
+}
+
+/* ==========================================
+   FORM ANIMATION
+========================================== */
+
+form{
+
+    animation:fadeUp .7s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ==========================================
+   SECTION ICONS
+========================================== */
+
+.bi{
+
+    vertical-align:middle;
+
+}
+
+/* ==========================================================
+   INPUT FIELDS
+========================================================== */
+
+.form-control,
+.form-select{
+
+    height:52px;
+
+    border:2px solid #dbe4ef;
+
+    border-radius:12px;
+
+    font-size:15px;
+
+    transition:all .3s ease;
+
+    background:#fff;
+
+    color:#0f172a;
+
+}
+
+.form-control::placeholder{
+
+    color:#94a3b8;
+
+}
+
+/* ==========================================
+   INPUT FOCUS
+========================================== */
+
+.form-control:focus,
+.form-select:focus{
+
+    border-color:#198754;
+
+    box-shadow:0 0 0 .2rem rgba(25,135,84,.18);
+
+    outline:none;
+
+}
+
+/* ==========================================
+   INPUT HOVER
+========================================== */
+
+.form-control:hover,
+.form-select:hover{
+
+    border-color:#198754;
+
+}
+
+/* ==========================================
+   DATE INPUT
+========================================== */
+
+input[type="date"]{
+
+    cursor:pointer;
+
+}
+
+/* ==========================================
+   SELECT BOX
+========================================== */
+
+.form-select{
+
+    cursor:pointer;
+
+}
+
+/* ==========================================
+   PASSWORD SECTION
+========================================== */
+
+.input-group{
+
+    border-radius:12px;
+
+}
+
+.input-group .form-control{
+
+    border-right:none;
+
+}
+
+.input-group .btn{
+
+    border:2px solid #dbe4ef;
+
+    border-left:none;
+
+    background:#fff;
+
+    color:#64748b;
+
+    transition:.3s;
+
+}
+
+.input-group .btn:hover{
+
+    background:#198754;
+
+    color:#fff;
+
+}
+
+/* ==========================================
+   PASSWORD STRENGTH
+========================================== */
+
+.progress{
+
+    height:8px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    background:#e2e8f0;
+
+}
+
+.progress-bar{
+
+    transition:width .35s ease;
+
+}
+
+/* ==========================================
+   PASSWORD TEXT
+========================================== */
+
+#passwordStrengthText{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   PASSWORD MATCH
+========================================== */
+
+#passwordMatchMessage{
+
+    display:block;
+
+    margin-top:8px;
+
+    font-size:14px;
+
+}
+
+/* ==========================================
+   SUCCESS
+========================================== */
+
+.valid-field{
+
+    border-color:#198754 !important;
+
+}
+
+/* ==========================================
+   ERROR
+========================================== */
+
+.invalid-field{
+
+    border-color:#dc3545 !important;
+
+}
+
+/* ==========================================
+   PHONE FEEDBACK
+========================================== */
+
+#phoneFeedback{
+
+    display:block;
+
+    margin-top:8px;
+
+}
+
+/* ==========================================
+   EMAIL FEEDBACK
+========================================== */
+
+#emailFeedback{
+
+    display:block;
+
+    margin-top:8px;
+
+}
+
+/* ==========================================
+   LOCATION BUTTON
+========================================== */
+
+#detectLocation{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+#detectLocation:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   LOCATION PREVIEW
+========================================== */
+
+#locationPreview{
+
+    border-radius:12px;
+
+    background:#f8fafc;
+
+    padding:18px;
+
+}
+
+#locationText{
+
+    margin-top:10px;
+
+    color:#475569;
+
+    line-height:1.6;
+
+}
+
+/* ==========================================
+   HIDDEN COORDINATES
+========================================== */
+
+#latitude,
+#longitude{
+
+    display:none;
+
+}
+
+/* ==========================================
+   PASSWORD REQUIREMENTS
+========================================== */
+
+.alert ul{
+
+    padding-left:20px;
+
+}
+
+.alert ul li{
+
+    margin-bottom:8px;
+
+}
+
+/* ==========================================
+   CHECKBOXES
+========================================== */
+
+.form-check{
+
+    padding-left:2rem;
+
+}
+
+.form-check-input{
+
+    width:20px;
+
+    height:20px;
+
+    cursor:pointer;
+
+}
+
+.form-check-label{
+
+    cursor:pointer;
+
+    color:#334155;
+
+}
+
+/* ==========================================
+   TERMS LINKS
+========================================== */
+
+.form-check a{
+
+    color:#198754;
+
+    font-weight:600;
+
+    text-decoration:none;
+
+}
+
+.form-check a:hover{
+
+    text-decoration:underline;
+
+}
+
+/* ==========================================================
+   REGISTER BUTTON
+========================================================== */
+
+#registerBtn{
+
+    height:58px;
+
+    border:none;
+
+    border-radius:12px;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    transition:.3s;
+
+    letter-spacing:.5px;
+
+}
+
+#registerBtn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 10px 25px rgba(25,135,84,.30);
+
+}
+
+/* ==========================================
+   GOOGLE BUTTON
+========================================== */
+
+#googleSignIn{
+
+    height:58px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+#googleSignIn:hover{
+
+    background:#212529;
+
+    color:#fff;
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================
+   LOGIN BUTTON
+========================================== */
+
+.btn-primary{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   SUPPLIER BUTTON
+========================================== */
+
+.btn-outline-warning{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-outline-warning:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   HOME LINK
+========================================== */
+
+.text-center a{
+
+    transition:.3s;
+
+}
+
+.text-center a:hover{
+
+    color:#198754 !important;
+
+}
+
+/* ==========================================
+   ALERT BOXES
+========================================== */
+
+.alert{
+
+    border-radius:14px;
+
+    border:none;
+
+}
+
+.alert-warning{
+
+    background:#fff8e1;
+
+}
+
+.alert-success{
+
+    background:#ecfdf3;
+
+}
+
+/* ==========================================
+   SECURITY NOTICE
+========================================== */
+
+.alert-success strong{
+
+    display:block;
+
+    margin-bottom:5px;
+
+}
+
+/* ==========================================
+   SPINNER
+========================================== */
+
+.spinner-border{
+
+    width:18px;
+
+    height:18px;
+
+}
+
+/* ==========================================
+   TOAST
+========================================== */
+
+.toast{
+
+    border-radius:12px;
+
+    box-shadow:0 12px 35px rgba(0,0,0,.15);
+
+}
+
+.toast-body{
+
+    font-weight:500;
+
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer{
+
+    margin-top:40px;
+
+    padding-bottom:30px;
+
+}
+
+footer small{
+
+    color:#64748b;
+
+}
+
+/* ==========================================
+   LINKS
+========================================== */
+
+a{
+
+    transition:.3s;
+
+}
+
+a:hover{
+
+    text-decoration:none;
+
+}
+
+/* ==========================================
+   BUTTON ANIMATION
+========================================== */
+
+.btn{
+
+    transition:all .3s ease;
+
+}
+
+.btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ==========================================
+   CARD ANIMATION
+========================================== */
+
+.login-card{
+
+    animation:zoomIn .6s ease;
+
+}
+
+@keyframes zoomIn{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.95);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media(max-width:992px){
+
+    .card-body{
+
+        padding:35px;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .login-card{
+
+        border-radius:18px;
+
+    }
+
+    .card-body{
+
+        padding:25px;
+
+    }
+
+    .logo{
+
+        font-size:1.8rem;
+
+    }
+
+    h3{
+
+        font-size:1.5rem;
+
+    }
+
+    #registerBtn,
+    #googleSignIn{
+
+        height:52px;
+
+        font-size:15px;
+
+    }
+
+    .btn{
+
+        font-size:15px;
+
+    }
+
+}
+
+@media(max-width:576px){
+
+    .container{
+
+        padding-left:15px;
+
+        padding-right:15px;
+
+    }
+
+    .card-body{
+
+        padding:20px;
+
+    }
+
+    .logo{
+
+        font-size:1.6rem;
+
+    }
+
+    h5{
+
+        font-size:1rem;
+
+    }
+
+    .form-control,
+    .form-select{
+
+        height:48px;
+
+        font-size:14px;
+
+    }
+
+    .btn{
+
+        height:48px;
+
+        font-size:14px;
+
+    }
+
+    .toast-container{
+
+        width:95%;
+
+        left:2.5%;
+
+        right:2.5%;
+
+    }
+
+}
+
+/* ==========================================
+   SMOOTH SCROLL
+========================================== */
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+/* ==========================================
+   TEXT SELECTION
+========================================== */
+
+::selection{
+
+    background:#198754;
+
+    color:#fff;
+
+}
