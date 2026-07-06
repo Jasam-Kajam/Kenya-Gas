@@ -8,8 +8,17 @@ document.addEventListener("DOMContentLoaded", initLocations);
 
 async function initLocations() {
 
-    const countySelect = document.getElementById("county");
-    const townSelect = document.getElementById("town");
+   const countySelect =
+
+    document.getElementById("county") ||
+
+    document.getElementById("countyFilter");
+
+const townSelect =
+
+    document.getElementById("town") ||
+
+    document.getElementById("townFilter");
 
     if (!countySelect || !townSelect) return;
 
