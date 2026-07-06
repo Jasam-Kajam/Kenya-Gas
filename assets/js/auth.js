@@ -1,7 +1,12 @@
 // ==========================================================
-// Kenya Gas Authentication System
+// Kenya Gas Marketplace
+// Authentication System
 // auth.js
 // Part 1
+// ==========================================================
+
+// ==========================================================
+// IMPORTS
 // ==========================================================
 
 import kenyaLocations from "./counties.js";
@@ -28,9 +33,11 @@ import {
 // DOM ELEMENTS
 // ==========================================================
 
-const registerForm = document.getElementById("registerForm");
+const registerForm =
+    document.getElementById("registerForm");
 
-const registerBtn = document.getElementById("registerBtn");
+const registerBtn =
+    document.getElementById("registerBtn");
 
 const registerSpinner =
     document.getElementById("registerSpinner");
@@ -38,11 +45,32 @@ const registerSpinner =
 const registerText =
     document.getElementById("registerText");
 
+const firstName =
+    document.getElementById("firstName");
+
+const lastName =
+    document.getElementById("lastName");
+
+const email =
+    document.getElementById("email");
+
+const phone =
+    document.getElementById("phone");
+
 const password =
     document.getElementById("password");
 
 const confirmPassword =
     document.getElementById("confirmPassword");
+
+const countySelect =
+    document.getElementById("county");
+
+const townSelect =
+    document.getElementById("town");
+
+const googleButton =
+    document.getElementById("googleSignIn");
 
 const togglePassword =
     document.getElementById("togglePassword");
@@ -59,15 +87,6 @@ const passwordStrengthText =
 const passwordMatchMessage =
     document.getElementById("passwordMatchMessage");
 
-const email =
-    document.getElementById("email");
-
-const phone =
-    document.getElementById("phone");
-
-const googleButton =
-    document.getElementById("googleSignIn");
-
 
 // ==========================================================
 // TOAST NOTIFICATIONS
@@ -81,6 +100,9 @@ function showToast(message, success = true) {
     const toastMessage =
         document.getElementById("toastMessage");
 
+    if (!toastElement || !toastMessage)
+        return;
+
     toastMessage.textContent = message;
 
     toastElement.classList.remove(
@@ -89,9 +111,11 @@ function showToast(message, success = true) {
     );
 
     toastElement.classList.add(
+
         success
             ? "text-bg-success"
             : "text-bg-danger"
+
     );
 
     const toast =
@@ -103,23 +127,27 @@ function showToast(message, success = true) {
 
 
 // ==========================================================
-// LOADING BUTTON
+// REGISTER BUTTON LOADING
 // ==========================================================
 
-function setLoading(state) {
+function setLoading(isLoading) {
 
-    if (!registerBtn) return;
+    if (!registerBtn)
+        return;
 
-    registerBtn.disabled = state;
+    registerBtn.disabled =
+        isLoading;
 
-    if (state) {
+    if (isLoading) {
 
         registerSpinner.classList.remove("d-none");
 
         registerText.textContent =
             "Creating Account...";
 
-    } else {
+    }
+
+    else {
 
         registerSpinner.classList.add("d-none");
 
@@ -137,7 +165,8 @@ function setLoading(state) {
 
 function toggleVisibility(input, button) {
 
-    if (!input || !button) return;
+    if (!input || !button)
+        return;
 
     if (input.type === "password") {
 
@@ -146,7 +175,9 @@ function toggleVisibility(input, button) {
         button.innerHTML =
             '<i class="bi bi-eye-slash"></i>';
 
-    } else {
+    }
+
+    else {
 
         input.type = "password";
 
@@ -161,7 +192,10 @@ if (togglePassword) {
 
     togglePassword.addEventListener("click", () => {
 
-        toggleVisibility(password, togglePassword);
+        toggleVisibility(
+            password,
+            togglePassword
+        );
 
     });
 
@@ -172,30 +206,112 @@ if (toggleConfirmPassword) {
     toggleConfirmPassword.addEventListener("click", () => {
 
         toggleVisibility(
+
             confirmPassword,
+
             toggleConfirmPassword
+
         );
 
     });
 
-}// ==========================================================
-// VALIDATION
-// Part 2
+}
+
+
+// ==========================================================
+// COUNTY & TOWN INITIALIZATION
 // ==========================================================
 
-// ---------- Email ----------
+function initializeLocations() {
+
+    if (!countySelect || !townSelect) {
+
+        console.error(
+            "County or Town dropdown not found."
+        );
+
+        return;
+
+    }
+
+    countySelect.innerHTML =
+        '<option value="">Select County</option>';
+
+    townSelect.innerHTML =
+        '<option value="">Select Town</option>';
+
+    Object.keys(kenyaLocations)
+
+        .sort()
+
+        .forEach(county => {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                county;
+
+            option.textContent =
+                county;
+
+            countySelect.appendChild(option);
+
+        });
+
+    countySelect.addEventListener("change", () => {
+
+        const selectedCounty =
+            countySelect.value;
+
+        townSelect.innerHTML =
+            '<option value="">Select Town</option>';
+
+        if (!selectedCounty)
+            return;
+
+        kenyaLocations[selectedCounty]
+
+            .forEach(town => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    town;
+
+                option.textContent =
+                    town;
+
+                townSelect.appendChild(option);
+
+            });
+
+    });
+
+}
+
+// ==========================================================
+// END OF PART 1
+// ==========================================================
+// ==========================================================
+// Kenya Gas Marketplace
+// Authentication System
+// auth.js
+// Part 2
+// Validation
+// ==========================================================
+
+
+// ==========================================================
+// REGULAR EXPRESSIONS
+// ==========================================================
 
 const emailRegex =
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-
-// ---------- Kenya Phone ----------
-
 const phoneRegex =
     /^(\+254|254|0)7\d{8}$/;
-
-
-// ---------- Strong Password ----------
 
 const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$/;
@@ -205,82 +321,102 @@ const passwordRegex =
 // EMAIL VALIDATION
 // ==========================================================
 
-if (email) {
+function validateEmail() {
 
-    email.addEventListener("input", () => {
+    if (!email)
+        return false;
 
-        if (email.value.trim() === "") {
+    const value =
+        email.value.trim();
 
-            email.classList.remove(
-                "is-valid",
-                "is-invalid"
-            );
+    if (value === "") {
 
-            return;
+        email.classList.remove(
+            "is-valid",
+            "is-invalid"
+        );
 
-        }
+        return false;
 
-        if (emailRegex.test(email.value.trim())) {
+    }
 
-            email.classList.add("is-valid");
+    if (emailRegex.test(value)) {
 
-            email.classList.remove("is-invalid");
+        email.classList.add("is-valid");
 
-        } else {
+        email.classList.remove("is-invalid");
 
-            email.classList.add("is-invalid");
+        return true;
 
-            email.classList.remove("is-valid");
+    }
 
-        }
+    email.classList.add("is-invalid");
 
-    });
+    email.classList.remove("is-valid");
+
+    return false;
 
 }
 
+if (email) {
+
+    email.addEventListener(
+        "input",
+        validateEmail
+    );
+
+}
 
 
 // ==========================================================
 // PHONE VALIDATION
 // ==========================================================
 
-if (phone) {
+function validatePhone() {
 
-    phone.addEventListener("input", () => {
+    if (!phone)
+        return false;
 
-        const value = phone.value.trim();
+    const value =
+        phone.value.trim();
 
-        if (value === "") {
+    if (value === "") {
 
-            phone.classList.remove(
-                "is-valid",
-                "is-invalid"
-            );
+        phone.classList.remove(
+            "is-valid",
+            "is-invalid"
+        );
 
-            return;
+        return false;
 
-        }
+    }
 
-        if (phoneRegex.test(value)) {
+    if (phoneRegex.test(value)) {
 
-            phone.classList.add("is-valid");
+        phone.classList.add("is-valid");
 
-            phone.classList.remove("is-invalid");
+        phone.classList.remove("is-invalid");
 
-        }
+        return true;
 
-        else {
+    }
 
-            phone.classList.add("is-invalid");
+    phone.classList.add("is-invalid");
 
-            phone.classList.remove("is-valid");
+    phone.classList.remove("is-valid");
 
-        }
-
-    });
+    return false;
 
 }
 
+if (phone) {
+
+    phone.addEventListener(
+        "input",
+        validatePhone
+    );
+
+}
 
 
 // ==========================================================
@@ -313,7 +449,8 @@ function calculateStrength(passwordValue) {
 
 function updateStrengthMeter() {
 
-    if (!password) return;
+    if (!password)
+        return;
 
     const score =
         calculateStrength(password.value);
@@ -390,7 +527,6 @@ function updateStrengthMeter() {
 
 }
 
-
 if (password) {
 
     password.addEventListener(
@@ -401,27 +537,35 @@ if (password) {
 }
 
 
-
 // ==========================================================
 // PASSWORD MATCH
 // ==========================================================
 
 function checkPasswordMatch() {
 
+    if (!password || !confirmPassword)
+        return false;
+
     if (
+
         password.value === "" &&
+
         confirmPassword.value === ""
+
     ) {
 
         passwordMatchMessage.textContent = "";
 
-        return;
+        return false;
 
     }
 
     if (
+
         password.value ===
+
         confirmPassword.value
+
     ) {
 
         passwordMatchMessage.textContent =
@@ -430,33 +574,37 @@ function checkPasswordMatch() {
         passwordMatchMessage.className =
             "text-success fw-semibold";
 
-    }
-
-    else {
-
-        passwordMatchMessage.textContent =
-            "✗ Passwords do not match";
-
-        passwordMatchMessage.className =
-            "text-danger fw-semibold";
+        return true;
 
     }
+
+    passwordMatchMessage.textContent =
+        "✗ Passwords do not match";
+
+    passwordMatchMessage.className =
+        "text-danger fw-semibold";
+
+    return false;
 
 }
 
+if (password) {
 
-if (password)
     password.addEventListener(
         "input",
         checkPasswordMatch
     );
 
-if (confirmPassword)
+}
+
+if (confirmPassword) {
+
     confirmPassword.addEventListener(
         "input",
         checkPasswordMatch
     );
 
+}
 
 
 // ==========================================================
@@ -468,11 +616,17 @@ function validateTerms() {
     const terms =
         document.getElementById("terms");
 
+    if (!terms)
+        return false;
+
     if (!terms.checked) {
 
         showToast(
+
             "Please accept the Terms & Conditions.",
+
             false
+
         );
 
         return false;
@@ -484,30 +638,85 @@ function validateTerms() {
 }
 
 
-
 // ==========================================================
-// FORM VALIDATION
+// COMPLETE FORM VALIDATION
 // ==========================================================
 
 function validateRegistrationForm() {
 
-    if (!emailRegex.test(email.value.trim())) {
+    if (!firstName.value.trim()) {
+
+        showToast(
+            "Please enter your first name.",
+            false
+        );
+
+        firstName.focus();
+
+        return false;
+
+    }
+
+    if (!lastName.value.trim()) {
+
+        showToast(
+            "Please enter your last name.",
+            false
+        );
+
+        lastName.focus();
+
+        return false;
+
+    }
+
+    if (!validateEmail()) {
 
         showToast(
             "Please enter a valid email address.",
             false
         );
 
+        email.focus();
+
         return false;
 
     }
 
-    if (!phoneRegex.test(phone.value.trim())) {
+    if (!validatePhone()) {
 
         showToast(
             "Please enter a valid Kenyan phone number.",
             false
         );
+
+        phone.focus();
+
+        return false;
+
+    }
+
+    if (!countySelect.value) {
+
+        showToast(
+            "Please select your county.",
+            false
+        );
+
+        countySelect.focus();
+
+        return false;
+
+    }
+
+    if (!townSelect.value) {
+
+        showToast(
+            "Please select your town.",
+            false
+        );
+
+        townSelect.focus();
 
         return false;
 
@@ -516,23 +725,24 @@ function validateRegistrationForm() {
     if (!passwordRegex.test(password.value)) {
 
         showToast(
-            "Your password is too weak.",
+            "Password does not meet the required strength.",
             false
         );
+
+        password.focus();
 
         return false;
 
     }
 
-    if (
-        password.value !==
-        confirmPassword.value
-    ) {
+    if (!checkPasswordMatch()) {
 
         showToast(
             "Passwords do not match.",
             false
         );
+
+        confirmPassword.focus();
 
         return false;
 
@@ -544,64 +754,60 @@ function validateRegistrationForm() {
     return true;
 
 }
+
+
 // ==========================================================
-// REGISTRATION
+// END OF PART 2
+// ==========================================================
+
+// ==========================================================
+// Kenya Gas Marketplace
+// Authentication System
+// auth.js
 // Part 3
+// Firebase Registration
+// ==========================================================
+
+
+// ==========================================================
+// REGISTER EVENT
 // ==========================================================
 
 if (registerForm) {
 
     registerForm.addEventListener(
+
         "submit",
+
         registerUser
+
     );
 
 }
+
+
+// ==========================================================
+// REGISTER USER
+// ==========================================================
 
 async function registerUser(e) {
 
     e.preventDefault();
 
-    if (!validateRegistrationForm()) {
-
+    if (!validateRegistrationForm())
         return;
-
-    }
 
     setLoading(true);
 
     try {
 
-        const firstName =
-            document.getElementById("firstName")
-            .value
-            .trim();
-
-        const lastName =
-            document.getElementById("lastName")
-            .value
-            .trim();
-
-        const phoneNumber =
-            phone.value.trim();
-
-        const emailAddress =
-            email.value.trim();
-
-        const county =
-            document.getElementById("county")
-            .value;
-
-        const town =
-            document.getElementById("town")
-            .value;
-
         const userCredential =
+
             await createUserWithEmailAndPassword(
 
                 auth,
 
-                emailAddress,
+                email.value.trim(),
 
                 password.value
 
@@ -610,20 +816,30 @@ async function registerUser(e) {
         const user =
             userCredential.user;
 
-        // Update display name
+
+        // =====================================
+        // UPDATE FIREBASE PROFILE
+        // =====================================
 
         await updateProfile(user, {
 
             displayName:
-                `${firstName} ${lastName}`
+
+                `${firstName.value.trim()} ${lastName.value.trim()}`
 
         });
 
-        // Send verification email
+
+        // =====================================
+        // SEND EMAIL VERIFICATION
+        // =====================================
 
         await sendEmailVerification(user);
 
-        // Save customer profile
+
+        // =====================================
+        // SAVE USER TO FIRESTORE
+        // =====================================
 
         await setDoc(
 
@@ -631,33 +847,73 @@ async function registerUser(e) {
 
             {
 
-                uid: user.uid,
+                uid:
+                    user.uid,
 
-                firstName,
+                firstName:
+                    firstName.value.trim(),
 
-                lastName,
+                lastName:
+                    lastName.value.trim(),
 
                 fullName:
-                    `${firstName} ${lastName}`,
+                    `${firstName.value.trim()} ${lastName.value.trim()}`,
 
                 email:
-                    emailAddress,
+                    email.value.trim(),
 
                 phone:
-                    phoneNumber,
+                    phone.value.trim(),
 
-                county,
+                county:
+                    countySelect.value,
 
-                town,
+                town:
+                    townSelect.value,
 
-                role: "customer",
+                estate:
+                    document.getElementById("estate")?.value || "",
 
-                verified:
-                    user.emailVerified,
+                building:
+                    document.getElementById("building")?.value || "",
+
+                houseNumber:
+                    document.getElementById("houseNumber")?.value || "",
+
+                landmark:
+                    document.getElementById("landmark")?.value || "",
+
+                latitude:
+                    document.getElementById("latitude")?.value || "",
+
+                longitude:
+                    document.getElementById("longitude")?.value || "",
+
+                gender:
+                    document.getElementById("gender")?.value || "",
+
+                dob:
+                    document.getElementById("dob")?.value || "",
+
+                referralCode:
+                    document.getElementById("referralCode")?.value || "",
+
+                smsUpdates:
+                    document.getElementById("smsUpdates")?.checked || false,
+
+                emailPromotions:
+                    document.getElementById("emailPromotions")?.checked || false,
 
                 profilePhoto: "",
 
+                provider: "email",
+
+                role: "customer",
+
                 status: "active",
+
+                verified:
+                    user.emailVerified,
 
                 createdAt:
                     serverTimestamp(),
@@ -669,27 +925,55 @@ async function registerUser(e) {
 
         );
 
+
+        // =====================================
+        // SUCCESS
+        // =====================================
+
         showToast(
 
-            "🎉 Account created successfully! Please verify your email before logging in."
+            "🎉 Registration successful! Please verify your email before logging in."
 
         );
 
+
         registerForm.reset();
 
-        passwordStrengthBar.style.width = "0%";
 
-        passwordStrengthBar.className =
-            "progress-bar";
+        if (passwordStrengthBar) {
 
-        passwordStrengthText.textContent =
-            "Password strength";
+            passwordStrengthBar.style.width = "0%";
 
-        passwordMatchMessage.textContent = "";
+            passwordStrengthBar.className =
+
+                "progress-bar";
+
+        }
+
+
+        if (passwordStrengthText) {
+
+            passwordStrengthText.textContent =
+
+                "Password Strength";
+
+        }
+
+
+        if (passwordMatchMessage) {
+
+            passwordMatchMessage.textContent = "";
+
+        }
+
+
+        initializeLocations();
+
 
         setTimeout(() => {
 
             window.location.href =
+
                 "login.html";
 
         }, 3500);
@@ -701,53 +985,72 @@ async function registerUser(e) {
         console.error(error);
 
         let message =
+
             "Registration failed.";
+
 
         switch (error.code) {
 
             case "auth/email-already-in-use":
 
                 message =
+
                     "An account with this email already exists.";
 
                 break;
 
+
             case "auth/invalid-email":
 
                 message =
+
                     "Invalid email address.";
 
                 break;
 
+
             case "auth/weak-password":
 
                 message =
-                    "Password is too weak.";
+
+                    "Your password is too weak.";
 
                 break;
+
 
             case "auth/network-request-failed":
 
                 message =
+
                     "Network error. Check your internet connection.";
 
                 break;
 
+
             case "auth/too-many-requests":
 
                 message =
+
                     "Too many attempts. Please try again later.";
 
                 break;
 
+
             default:
 
                 message =
+
                     error.message;
 
         }
 
-        showToast(message, false);
+        showToast(
+
+            message,
+
+            false
+
+        );
 
     }
 
@@ -757,21 +1060,41 @@ async function registerUser(e) {
 
     }
 
-}// ==========================================================
-// GOOGLE SIGN-IN
+}
+
+
+// ==========================================================
+// END OF PART 3
+// ==========================================================
+
+// ==========================================================
+// Kenya Gas Marketplace
+// Authentication System
+// auth.js
 // Part 4
 // ==========================================================
 
-const googleProvider = new GoogleAuthProvider();
+
+// ==========================================================
+// GOOGLE SIGN IN
+// ==========================================================
+
+const googleProvider =
+    new GoogleAuthProvider();
+
 
 if (googleButton) {
 
     googleButton.addEventListener(
+
         "click",
+
         signInWithGoogle
+
     );
 
 }
+
 
 async function signInWithGoogle() {
 
@@ -780,9 +1103,13 @@ async function signInWithGoogle() {
     try {
 
         const result =
+
             await signInWithPopup(
+
                 auth,
+
                 googleProvider
+
             );
 
         const user =
@@ -793,11 +1120,12 @@ async function signInWithGoogle() {
                 ? user.displayName.split(" ")
                 : ["", ""];
 
-        const firstName =
-            names[0] || "";
+        const first =
+            names[0];
 
-        const lastName =
+        const last =
             names.slice(1).join(" ");
+
 
         await setDoc(
 
@@ -805,17 +1133,20 @@ async function signInWithGoogle() {
 
             {
 
-                uid: user.uid,
+                uid:
+                    user.uid,
 
-                firstName,
+                firstName:
+                    first,
 
-                lastName,
+                lastName:
+                    last,
 
                 fullName:
                     user.displayName || "",
 
                 email:
-                    user.email,
+                    user.email || "",
 
                 phone:
                     user.phoneNumber || "",
@@ -824,17 +1155,32 @@ async function signInWithGoogle() {
 
                 town: "",
 
+                estate: "",
+
+                building: "",
+
+                houseNumber: "",
+
+                landmark: "",
+
+                latitude: "",
+
+                longitude: "",
+
                 profilePhoto:
                     user.photoURL || "",
 
-                role: "customer",
+                provider:
+                    "google",
 
                 verified:
                     user.emailVerified,
 
-                provider: "google",
+                role:
+                    "customer",
 
-                status: "active",
+                status:
+                    "active",
 
                 createdAt:
                     serverTimestamp(),
@@ -845,18 +1191,25 @@ async function signInWithGoogle() {
             },
 
             {
+
                 merge: true
+
             }
 
         );
 
+
         showToast(
+
             "Welcome to Kenya Gas!"
+
         );
+
 
         setTimeout(() => {
 
             window.location.href =
+
                 "customer-dashboard.html";
 
         }, 1500);
@@ -888,6 +1241,113 @@ async function signInWithGoogle() {
 
 
 // ==========================================================
+// CURRENT LOCATION
+// ==========================================================
+
+const detectLocation =
+    document.getElementById("detectLocation");
+
+
+if (detectLocation) {
+
+    detectLocation.addEventListener(
+
+        "click",
+
+        () => {
+
+            if (!navigator.geolocation) {
+
+                showToast(
+
+                    "Your browser does not support GPS.",
+
+                    false
+
+                );
+
+                return;
+
+            }
+
+            detectLocation.disabled = true;
+
+            detectLocation.innerHTML =
+
+                '<span class="spinner-border spinner-border-sm"></span> Detecting...';
+
+            navigator.geolocation.getCurrentPosition(
+
+                position => {
+
+                    document.getElementById("latitude").value =
+
+                        position.coords.latitude;
+
+                    document.getElementById("longitude").value =
+
+                        position.coords.longitude;
+
+                    const preview =
+
+                        document.getElementById("locationPreview");
+
+                    const text =
+
+                        document.getElementById("locationText");
+
+                    preview.classList.remove("d-none");
+
+                    text.innerHTML =
+
+                        `
+Latitude: ${position.coords.latitude}<br>
+Longitude: ${position.coords.longitude}
+`;
+
+                    detectLocation.disabled = false;
+
+                    detectLocation.innerHTML =
+
+                        '<i class="bi bi-crosshair"></i> Use My Current Location';
+
+                    showToast(
+
+                        "Location detected successfully."
+
+                    );
+
+                },
+
+                error => {
+
+                    detectLocation.disabled = false;
+
+                    detectLocation.innerHTML =
+
+                        '<i class="bi bi-crosshair"></i> Use My Current Location';
+
+                    showToast(
+
+                        error.message,
+
+                        false
+
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+}
+
+
+
+// ==========================================================
 // AUTH STATE
 // ==========================================================
 
@@ -895,26 +1355,31 @@ onAuthStateChanged(
 
     auth,
 
-    (user) => {
+    user => {
 
-        if (!user) return;
+        if (!user)
+            return;
 
         const page =
+
             window.location.pathname
-            .split("/")
-            .pop();
+
+                .split("/")
+
+                .pop();
 
         if (
 
-            page === "login.html" ||
+            page === "register.html" ||
 
-            page === "register.html"
+            page === "login.html"
 
         ) {
 
             if (user.emailVerified) {
 
                 window.location.href =
+
                     "customer-dashboard.html";
 
             }
@@ -928,7 +1393,7 @@ onAuthStateChanged(
 
 
 // ==========================================================
-// INITIALIZE PAGE
+// PAGE INITIALIZATION
 // ==========================================================
 
 document.addEventListener(
@@ -937,71 +1402,23 @@ document.addEventListener(
 
     () => {
 
-        if (password) {
+        initializeLocations();
 
-            updateStrengthMeter();
+        updateStrengthMeter();
 
-        }
+        checkPasswordMatch();
 
-        if (
+        console.log(
 
-            password &&
+            "Kenya Gas Authentication Loaded Successfully"
 
-            confirmPassword
-
-        ) {
-
-            checkPasswordMatch();
-
-        }
+        );
 
     }
 
 );
 
-const countySelect = document.getElementById("county");
-const townSelect = document.getElementById("town");
 
-// Populate counties
-countySelect.innerHTML = '<option value="">Select County</option>';
-
-Object.keys(kenyaLocations)
-    .sort()
-    .forEach(county => {
-
-        const option = document.createElement("option");
-
-        option.value = county;
-
-        option.textContent = county;
-
-        countySelect.appendChild(option);
-
-    });
-
-// Populate towns
-countySelect.addEventListener("change", () => {
-
-    const selectedCounty = countySelect.value;
-
-    townSelect.innerHTML =
-        '<option value="">Select Town</option>';
-
-    if (!selectedCounty) return;
-
-    kenyaLocations[selectedCounty].forEach(town => {
-
-        const option = document.createElement("option");
-
-        option.value = town;
-
-        option.textContent = town;
-
-        townSelect.appendChild(option);
-
-    });
-
-});
 
 // ==========================================================
 // END OF FILE
