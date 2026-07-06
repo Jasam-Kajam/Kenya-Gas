@@ -959,7 +959,49 @@ document.addEventListener(
 
 );
 
+const countySelect = document.getElementById("county");
+const townSelect = document.getElementById("town");
 
+// Populate counties
+countySelect.innerHTML = '<option value="">Select County</option>';
+
+Object.keys(kenyaLocations)
+    .sort()
+    .forEach(county => {
+
+        const option = document.createElement("option");
+
+        option.value = county;
+
+        option.textContent = county;
+
+        countySelect.appendChild(option);
+
+    });
+
+// Populate towns
+countySelect.addEventListener("change", () => {
+
+    const selectedCounty = countySelect.value;
+
+    townSelect.innerHTML =
+        '<option value="">Select Town</option>';
+
+    if (!selectedCounty) return;
+
+    kenyaLocations[selectedCounty].forEach(town => {
+
+        const option = document.createElement("option");
+
+        option.value = town;
+
+        option.textContent = town;
+
+        townSelect.appendChild(option);
+
+    });
+
+});
 
 // ==========================================================
 // END OF FILE
