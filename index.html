@@ -1,76 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenya Gas | Find Trusted LPG Suppliers</title>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+<title>Kenya Gas Marketplace</title>
+
+<meta name="description"
+content="Order cooking gas online anywhere in Kenya. Compare suppliers, track deliveries and pay securely.">
+
+<meta name="keywords"
+content="Kenya Gas, LPG, Cooking Gas, Gas Delivery, M-Pesa, Suppliers">
+
+<link rel="icon" href="images/favicon.png">
+
+<!-- Main CSS -->
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
 </head>
 
 <body>
 
+<!-- ========================================= -->
+<!-- LOADER -->
+<!-- ========================================= -->
+
+<div id="loader">
+
+    <div class="spinner"></div>
+
+</div>
+
+<!-- ========================================= -->
+<!-- HEADER -->
+<!-- ========================================= -->
+
 <header>
 
-    <nav class="navbar">
+<nav class="navbar">
 
-        <div class="logo">
-            🔥 Kenya Gas
-        </div>
+<div class="logo">
 
-        <ul class="nav-links">
+<a href="index.html">
 
-            <li><a href="#">Home</a></li>
+<img src="images/logo.png"
+alt="Kenya Gas Logo">
 
-            <li><a href="#">Suppliers</a></li>
+<span>Kenya Gas</span>
 
-            <li><a href="#">Track Order</a></li>
+</a>
 
-            <li><a href="#">Become a Supplier</a></li>
+</div>
 
-            <li><a href="#">Contact</a></li>
+<!-- Navigation -->
 
-        </ul>
+<ul class="nav-links" id="navLinks">
 
-        <div class="buttons">
+<li>
 
-            <a href="#" class="login-btn">Login</a>
+<a class="active"
+href="index.html">
 
-            <a href="#" class="register-btn">Register</a>
+Home
 
-        </div>
+</a>
 
-    </nav>
+</li>
+
+<li>
+
+<a href="order-gas.html">
+
+Order Gas
+
+</a>
+
+</li>
+
+<li>
+
+<a href="my-orders.html">
+
+My Orders
+
+</a>
+
+</li>
+
+<li>
+
+<a href="customer-dashboard.html">
+
+Customer Dashboard
+
+</a>
+
+</li>
+
+<li>
+
+<a href="supplier-dashboard.html">
+
+Supplier Dashboard
+
+</a>
+
+</li>
+
+<li>
+
+<a href="analytics.html">
+
+Analytics
+
+</a>
+
+</li>
+
+</ul>
+
+<!-- Right Buttons -->
+
+<div class="nav-buttons">
+
+<a href="login.html"
+class="btn login-btn">
+
+Login
+
+</a>
+
+<a href="register.html"
+class="btn register-btn">
+
+Register
+
+</a>
+
+</div>
+
+<!-- Mobile Menu -->
+
+<div
+class="hamburger"
+id="hamburger">
+
+<i class="fas fa-bars"></i>
+
+</div>
+
+</nav>
 
 </header>
 
+<!-- ========================================= -->
+<!-- HERO SECTION -->
+<!-- ========================================= -->
+
 <section class="hero">
 
-    <div class="hero-content">
+<div class="hero-content">
 
-        <h1>
-            Find Trusted LPG Suppliers Anywhere in Kenya
-        </h1>
+<h1>
+
+Find Trusted LPG Suppliers Across Kenya
+
+</h1>
+
+<p>
+
+Order cooking gas online from verified suppliers,
+track your delivery in real time,
+and pay securely using M-Pesa.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="order-gas.html"
+class="primary-btn">
+
+Order Gas
+
+</a>
+
+<a href="supplier-register.html"
+class="secondary-btn">
+
+Become a Supplier
+
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-image">
+
+<img src="images/hero-gas.png"
+alt="Gas Delivery">
+
+</div>
+
+</section>
+<!-- ========================================= -->
+<!-- SEARCH SECTION -->
+<!-- ========================================= -->
+
+<section class="search-section">
+
+    <div class="container">
+
+        <h2>Find Gas Near You</h2>
 
         <p>
-
-            Compare prices, order cooking gas online,
-            pay securely via M-PESA and get
-            fast delivery to your doorstep.
-
+            Search by county, town or supplier name.
         </p>
 
         <div class="search-box">
 
             <input
-            type="text"
-            placeholder="Search County, Town or Supplier">
+                type="text"
+                id="searchInput"
+                placeholder="Search e.g. Nairobi, Kisumu, Mombasa...">
 
-            <button>
+            <button id="searchBtn">
+
+                <i class="fas fa-search"></i>
 
                 Search
 
@@ -82,90 +253,55 @@
 
 </section>
 
-<section class="features">
+<!-- ========================================= -->
+<!-- WEBSITE STATISTICS -->
+<!-- ========================================= -->
 
-    <h2>Why Choose Kenya Gas?</h2>
+<section class="stats">
 
-    <div class="cards">
+<div class="container">
 
-        <div class="card">
+<div class="stats-grid">
 
-            <h3>Verified Suppliers</h3>
+<div class="stat-card">
 
-            <p>
+<i class="fas fa-store"></i>
 
-                Every supplier is verified
-                before appearing on Kenya Gas.
+<h2>250+</h2>
 
-            </p>
-
-        </div>
-
-        <div class="card">
-
-            <h3>M-PESA Payments</h3>
-
-            <p>
-
-                Secure online payments using
-                M-PESA STK Push.
-
-            </p>
-
-        </div>
-
-        <div class="card">
-
-            <h3>Fast Delivery</h3>
-
-            <p>
-
-                Order today and receive
-                gas at your doorstep.
-
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="how">
-
-<h2>How It Works</h2>
-
-<div class="steps">
-
-<div class="step">
-
-<h3>1</h3>
-
-<p>Search Suppliers</p>
+<p>Verified Suppliers</p>
 
 </div>
 
-<div class="step">
+<div class="stat-card">
 
-<h3>2</h3>
+<i class="fas fa-gas-pump"></i>
 
-<p>Choose Products</p>
+<h2>12,000+</h2>
 
-</div>
-
-<div class="step">
-
-<h3>3</h3>
-
-<p>Pay via M-PESA</p>
+<p>Orders Delivered</p>
 
 </div>
 
-<div class="step">
+<div class="stat-card">
 
-<h3>4</h3>
+<i class="fas fa-users"></i>
 
-<p>Receive Delivery</p>
+<h2>30,000+</h2>
+
+<p>Customers</p>
+
+</div>
+
+<div class="stat-card">
+
+<i class="fas fa-map-marker-alt"></i>
+
+<h2>47</h2>
+
+<p>Counties Covered</p>
+
+</div>
 
 </div>
 
@@ -173,66 +309,708 @@
 
 </section>
 
-<footer class="footer">
+<!-- ========================================= -->
+<!-- FEATURED PRODUCTS -->
+<!-- ========================================= -->
 
-    <div class="footer-container">
+<section class="featured-products">
 
-        <div class="footer-logo">
-            <h2>🔥 Kenya Gas</h2>
-            <p>
-                Kenya's trusted online LPG marketplace connecting customers with verified gas suppliers nationwide.
-            </p>
-        </div>
+<div class="container">
 
-        <div class="footer-links">
-            <h3>Quick Links</h3>
+<h2 class="section-title">
 
-            <a href="index.html">Home</a>
-            <a href="suppliers.html">Suppliers</a>
-            <a href="about.html">About</a>
-            <a href="contact.html">Contact</a>
-        </div>
+Popular LPG Cylinders
 
-        <div class="footer-links">
-            <h3>Services</h3>
+</h2>
 
-            <a href="#">Order Gas</a>
-            <a href="#">Become a Supplier</a>
-            <a href="#">Track Order</a>
-            <a href="#">Support</a>
-        </div>
+<p class="section-subtitle">
 
-        <div class="footer-contact">
-            <h3>Contact</h3>
+Choose from Kenya's most trusted LPG brands.
 
-            <p>📍 Nairobi, Kenya</p>
-            <p>📞 +254 XXX XXX XXX</p>
-            <p>✉ support@kenyagas.co.ke</p>
-        </div>
+</p>
 
-    </div>
+<div class="products-grid">
 
-    <hr>
+<!-- Product -->
 
-    <div class="footer-bottom">
+<div class="product-card">
 
-        <p>
-            &copy;
-            <span id="currentYear"></span>
-            Kenya Gas.
-            All Rights Reserved.
-        </p>
+<img
+src="images/total-gas.jpg"
+alt="Total Gas">
 
-    </div>
+<h3>Total Gas</h3>
+
+<p class="price">
+
+From <strong>KSh 1,450</strong>
+
+</p>
+
+<p>
+
+6kg Refill
+
+</p>
+
+<a
+href="order-gas.html"
+class="order-btn">
+
+Order Now
+
+</a>
+
+</div>
+
+<!-- Product -->
+
+<div class="product-card">
+
+<img
+src="images/progas.jpg"
+alt="Pro Gas">
+
+<h3>Pro Gas</h3>
+
+<p class="price">
+
+From <strong>KSh 1,420</strong>
+
+</p>
+
+<p>
+
+6kg Refill
+
+</p>
+
+<a
+href="order-gas.html"
+class="order-btn">
+
+Order Now
+
+</a>
+
+</div>
+
+<!-- Product -->
+
+<div class="product-card">
+
+<img
+src="images/afrigas.jpg"
+alt="AfriGas">
+
+<h3>AfriGas</h3>
+
+<p class="price">
+
+From <strong>KSh 1,500</strong>
+
+</p>
+
+<p>
+
+6kg Refill
+
+</p>
+
+<a
+href="order-gas.html"
+class="order-btn">
+
+Order Now
+
+</a>
+
+</div>
+
+<!-- Product -->
+
+<div class="product-card">
+
+<img
+src="images/ola-gas.jpg"
+alt="Ola Gas">
+
+<h3>Ola Gas</h3>
+
+<p class="price">
+
+From <strong>KSh 1,470</strong>
+
+</p>
+
+<p>
+
+6kg Refill
+
+</p>
+
+<a
+href="order-gas.html"
+class="order-btn">
+
+Order Now
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FEATURED SUPPLIERS -->
+<!-- ========================================= -->
+
+<section class="suppliers">
+
+<div class="container">
+
+<h2 class="section-title">
+
+Featured Suppliers
+
+</h2>
+
+<div class="supplier-grid">
+
+<div class="supplier-card">
+
+<img
+src="images/supplier1.jpg"
+alt="Supplier">
+
+<h3>Nairobi Gas Centre</h3>
+
+<p>
+
+⭐⭐⭐⭐⭐ (4.9)
+
+</p>
+
+<p>
+
+Fast Delivery
+
+</p>
+
+<a
+href="order-gas.html"
+class="supplier-btn">
+
+Order
+
+</a>
+
+</div>
+
+<div class="supplier-card">
+
+<img
+src="images/supplier2.jpg"
+alt="Supplier">
+
+<h3>Kisumu LPG</h3>
+
+<p>
+
+⭐⭐⭐⭐☆ (4.7)
+
+</p>
+
+<p>
+
+Verified Supplier
+
+</p>
+
+<a
+href="order-gas.html"
+class="supplier-btn">
+
+Order
+
+</a>
+
+</div>
+
+<div class="supplier-card">
+
+<img
+src="images/supplier3.jpg"
+alt="Supplier">
+
+<h3>Mombasa Gas Hub</h3>
+
+<p>
+
+⭐⭐⭐⭐⭐ (5.0)
+
+</p>
+
+<p>
+
+Free Delivery Today
+
+</p>
+
+<a
+href="order-gas.html"
+class="supplier-btn">
+
+Order
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+<!-- ========================================= -->
+<!-- WHY CHOOSE US -->
+<!-- ========================================= -->
+
+<section class="why-us">
+
+<div class="container">
+
+<h2 class="section-title">
+
+Why Choose Kenya Gas?
+
+</h2>
+
+<div class="features-grid">
+
+<div class="feature-card">
+
+<i class="fas fa-shield-alt"></i>
+
+<h3>Verified Suppliers</h3>
+
+<p>
+
+Every supplier is vetted to ensure customers receive
+safe, quality LPG products.
+
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<i class="fas fa-truck"></i>
+
+<h3>Fast Delivery</h3>
+
+<p>
+
+Get your gas delivered to your doorstep within the
+shortest possible time.
+
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<i class="fas fa-credit-card"></i>
+
+<h3>Secure Payments</h3>
+
+<p>
+
+Pay safely using M-Pesa and other supported payment
+methods.
+
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<i class="fas fa-headset"></i>
+
+<h3>24/7 Customer Support</h3>
+
+<p>
+
+Our support team is available whenever you need help.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- DELIVERY PROCESS -->
+<!-- ========================================= -->
+
+<section class="process">
+
+<div class="container">
+
+<h2 class="section-title">
+
+How It Works
+
+</h2>
+
+<div class="process-grid">
+
+<div class="process-card">
+
+<div class="number">1</div>
+
+<h3>Select Gas</h3>
+
+<p>
+
+Choose your preferred LPG brand and cylinder size.
+
+</p>
+
+</div>
+
+<div class="process-card">
+
+<div class="number">2</div>
+
+<h3>Choose Supplier</h3>
+
+<p>
+
+Compare prices and select a trusted nearby supplier.
+
+</p>
+
+</div>
+
+<div class="process-card">
+
+<div class="number">3</div>
+
+<h3>Pay Securely</h3>
+
+<p>
+
+Complete your order using M-Pesa or another supported payment option.
+
+</p>
+
+</div>
+
+<div class="process-card">
+
+<div class="number">4</div>
+
+<h3>Receive Delivery</h3>
+
+<p>
+
+Track your order until it arrives at your location.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- TESTIMONIALS -->
+<!-- ========================================= -->
+
+<section class="testimonials">
+
+<div class="container">
+
+<h2 class="section-title">
+
+What Customers Say
+
+</h2>
+
+<div class="testimonial-grid">
+
+<div class="testimonial-card">
+
+<p>
+
+★★★★★
+
+</p>
+
+<p>
+
+"Ordering gas has never been this easy. Delivery
+was quick and the supplier was very professional."
+
+</p>
+
+<h4>
+
+— Jane, Nairobi
+
+</h4>
+
+</div>
+
+<div class="testimonial-card">
+
+<p>
+
+★★★★★
+
+</p>
+
+<p>
+
+"I compared prices from several suppliers and saved
+money. Highly recommended."
+
+</p>
+
+<h4>
+
+— Brian, Kisumu
+
+</h4>
+
+</div>
+
+<div class="testimonial-card">
+
+<p>
+
+★★★★★
+
+</p>
+
+<p>
+
+"The tracking feature gave me confidence throughout
+the delivery."
+
+</p>
+
+<h4>
+
+— Faith, Nakuru
+
+</h4>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- NEWSLETTER -->
+<!-- ========================================= -->
+
+<section class="newsletter">
+
+<div class="container">
+
+<h2>
+
+Stay Updated
+
+</h2>
+
+<p>
+
+Receive promotions, supplier updates and delivery
+offers.
+
+</p>
+
+<form id="newsletterForm">
+
+<input
+type="email"
+placeholder="Enter your email"
+required>
+
+<button type="submit">
+
+Subscribe
+
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- CALL TO ACTION -->
+<!-- ========================================= -->
+
+<section class="cta">
+
+<div class="container">
+
+<h2>
+
+Ready to Order Cooking Gas?
+
+</h2>
+
+<p>
+
+Join thousands of customers using Kenya Gas every day.
+
+</p>
+
+<a
+href="order-gas.html"
+class="primary-btn">
+
+Order Gas Now
+
+</a>
+
+</div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FOOTER -->
+<!-- ========================================= -->
+
+<footer>
+
+<div class="container">
+
+<div class="footer-grid">
+
+<div>
+
+<h3>
+
+Kenya Gas
+
+</h3>
+
+<p>
+
+Connecting customers with trusted LPG suppliers
+across Kenya.
+
+</p>
+
+</div>
+
+<div>
+
+<h3>
+
+Quick Links
+
+</h3>
+
+<ul>
+
+<li><a href="index.html">Home</a></li>
+
+<li><a href="order-gas.html">Order Gas</a></li>
+
+<li><a href="my-orders.html">My Orders</a></li>
+
+<li><a href="analytics.html">Analytics</a></li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>
+
+Account
+
+</h3>
+
+<ul>
+
+<li><a href="login.html">Login</a></li>
+
+<li><a href="register.html">Register</a></li>
+
+<li><a href="verify-email.html">Verify Email</a></li>
+
+<li><a href="forgot-password.html">Forgot Password</a></li>
+
+</ul>
+
+</div>
+
+<div>
+
+<h3>
+
+Supplier
+
+</h3>
+
+<ul>
+
+<li><a href="supplier-register.html">Become Supplier</a></li>
+
+<li><a href="supplier-dashboard.html">Supplier Dashboard</a></li>
+
+</ul>
+
+</div>
+
+</div>
+
+<hr>
+
+<div class="footer-bottom">
+
+<p>
+
+© 2026 Kenya Gas Marketplace. All Rights Reserved.
+
+</p>
+
+</div>
+
+</div>
 
 </footer>
 
-<script src="assets/js/app.js"></script>
+<!-- ========================================= -->
+<!-- MAIN JAVASCRIPT -->
+<!-- ========================================= -->
+
+<script src="js/main.js"></script>
 
 </body>
-</html>
 
-<script src="assets/js/app.js"></script>
-
-</body>
 </html>
