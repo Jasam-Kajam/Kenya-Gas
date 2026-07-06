@@ -4,6 +4,8 @@
 // Part 1
 // ==========================================================
 
+import kenyaLocations from "./counties.js";
+
 import { auth, db } from "./firebase.js";
 
 import {
