@@ -427,4 +427,202 @@ function loadRevenueChart(){
         );
 
 }
+// ======================================================
+// MONTHLY ORDERS CHART
+// ======================================================
 
+function loadOrdersChart(){
+
+    if(!ordersCanvas) return;
+
+    const monthlyOrders =
+
+        createMonthTemplate();
+
+    if(hasOrders()){
+
+        orders.forEach(order=>{
+
+            const month =
+
+                getOrderMonth(order);
+
+            if(!month) return;
+
+            monthlyOrders[month]++;
+
+        });
+
+    }
+
+    ordersChart =
+
+        new Chart(
+
+            ordersCanvas,
+
+            {
+
+                type:"line",
+
+                data:{
+
+                    labels:
+
+                        Object.keys(
+
+                            monthlyOrders
+
+                        ),
+
+                    datasets:[
+
+                        {
+
+                            label:
+
+                                "Orders",
+
+                            data:
+
+                                Object.values(
+
+                                    monthlyOrders
+
+                                ),
+
+                            borderColor:
+
+                                COLORS.blue,
+
+                            backgroundColor:
+
+                                "rgba(13,110,253,0.15)",
+
+                            fill:true,
+
+                            tension:0.35,
+
+                            borderWidth:3,
+
+                            pointRadius:5,
+
+                            pointHoverRadius:8,
+
+                            pointBackgroundColor:
+
+                                COLORS.blue,
+
+                            pointBorderColor:
+
+                                "#ffffff",
+
+                            pointBorderWidth:2
+
+                        }
+
+                    ]
+
+                },
+
+                options:{
+
+                    interaction:{
+
+                        mode:"index",
+
+                        intersect:false
+
+                    },
+
+                    plugins:{
+
+                        title:{
+
+                            display:true,
+
+                            text:
+
+                                "Monthly Orders"
+
+                        },
+
+                        tooltip:{
+
+                            callbacks:{
+
+                                label(context){
+
+                                    return(
+
+                                        safeNumber(
+
+                                            context.raw
+
+                                        ) +
+
+                                        " Orders"
+
+                                    );
+
+                                }
+
+                            }
+
+                        }
+
+                    },
+
+                    scales:{
+
+                        x:{
+
+                            grid:{
+
+                                display:false
+
+                            },
+
+                            title:{
+
+                                display:true,
+
+                                text:"Month"
+
+                            }
+
+                        },
+
+                        y:{
+
+                            beginAtZero:true,
+
+                            ticks:{
+
+                                precision:0,
+
+                                stepSize:1
+
+                            },
+
+                            title:{
+
+                                display:true,
+
+                                text:
+
+                                    "Number of Orders"
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        );
+
+}
