@@ -5,15 +5,14 @@
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
+
 <title>
-
 Settings | Kenya Gas Marketplace
-
 </title>
+
 
 <!-- Bootstrap -->
 
@@ -21,58 +20,78 @@ Settings | Kenya Gas Marketplace
 href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 rel="stylesheet">
 
+
 <!-- Bootstrap Icons -->
 
 <link
 href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
 rel="stylesheet">
 
-<!-- Main CSS -->
+
+<!-- Website CSS -->
 
 <link
 rel="stylesheet"
 href="assets/css/style.css">
 
+
 <link
 rel="stylesheet"
 href="assets/css/dashboard.css">
+
 
 <link
 rel="stylesheet"
 href="assets/css/profile.css">
 
+
 <link
 rel="stylesheet"
 href="assets/css/settings.css">
+
 
 <link
 rel="icon"
 href="assets/images/favicon.ico">
 
+
 </head>
+
 
 <body class="bg-light">
 
-<!-- ===================================================== -->
-<!-- NAVBAR -->
-<!-- ===================================================== -->
+
+<!-- ==============================
+NAVBAR
+================================ -->
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
 
+
 <div class="container-fluid">
+
 
 <a
 class="navbar-brand fw-bold"
 href="customer-dashboard.html">
 
+
 <img
 src="assets/images/logo.png"
 height="40"
-class="me-2">
+class="me-2"
+alt="Kenya Gas">
+
 
 Kenya Gas
 
+
 </a>
+
+
+
+
 
 <button
 class="navbar-toggler"
@@ -80,81 +99,134 @@ type="button"
 data-bs-toggle="collapse"
 data-bs-target="#navbarContent">
 
+
 <span class="navbar-toggler-icon"></span>
 
+
 </button>
+
+
+
+
 
 <div
 class="collapse navbar-collapse"
 id="navbarContent">
 
-<ul class="navbar-nav ms-auto align-items-center">
 
-<li class="nav-item me-3">
+
+<ul
+class="navbar-nav ms-auto align-items-center">
+
+
+
+
+
+<li class="nav-item">
 
 <a
 class="nav-link"
 href="customer-dashboard.html">
 
+
 <i class="bi bi-speedometer2"></i>
 
 Dashboard
+
 
 </a>
 
 </li>
 
-<li class="nav-item me-3">
+
+
+
+
+<li class="nav-item">
 
 <a
 class="nav-link"
 href="suppliers.html">
 
+
 <i class="bi bi-shop"></i>
 
 Suppliers
+
 
 </a>
 
 </li>
 
-<li class="nav-item me-3">
+
+
+
+
+<li class="nav-item">
 
 <a
 class="nav-link"
 href="orders.html">
 
+
 <i class="bi bi-receipt"></i>
 
 Orders
+
 
 </a>
 
 </li>
 
+
+
+
+
+<!-- PROFILE DROPDOWN -->
+
+
 <li class="nav-item dropdown">
+
 
 <a
 class="nav-link dropdown-toggle d-flex align-items-center"
 href="#"
 data-bs-toggle="dropdown">
 
-<img
-id="navbarProfileImage"
-src="assets/images/default-user.png"
-class="rounded-circle me-2"
-width="36"
-height="36">
 
-<span id="navbarCustomerName">
+<img
+
+id="navbarProfileImage"
+
+src="assets/images/default-user.png"
+
+width="36"
+
+height="36"
+
+class="rounded-circle me-2"
+
+alt="Profile">
+
+
+<span
+id="navbarCustomerName">
 
 Customer
 
 </span>
 
+
 </a>
 
-<ul class="dropdown-menu dropdown-menu-end shadow">
+
+
+
+
+<ul
+class="dropdown-menu dropdown-menu-end shadow">
+
+
 
 <li>
 
@@ -170,21 +242,37 @@ My Profile
 
 </li>
 
+
+
+
+
 <li>
 
 <a
 class="dropdown-item active"
 href="settings.html">
 
+
 <i class="bi bi-gear"></i>
 
 Settings
+
 
 </a>
 
 </li>
 
-<li><hr class="dropdown-divider"></li>
+
+
+
+
+<li>
+<hr class="dropdown-divider">
+</li>
+
+
+
+
 
 <li>
 
@@ -193,37 +281,62 @@ class="dropdown-item text-danger"
 href="#"
 id="logoutBtn">
 
+
 <i class="bi bi-box-arrow-right"></i>
 
 Logout
+
 
 </a>
 
 </li>
 
+
+
 </ul>
+
 
 </li>
 
+
+
 </ul>
 
-</div>
+
 
 </div>
+
+
+</div>
+
 
 </nav>
 
-<!-- ===================================================== -->
-<!-- PAGE HEADER -->
-<!-- ===================================================== -->
+
+
+
+
+
+<!-- ==============================
+PAGE HEADER
+================================ -->
+
+
 
 <div class="container py-4">
 
+
+
+
+
 <nav aria-label="breadcrumb">
+
 
 <ol class="breadcrumb">
 
+
 <li class="breadcrumb-item">
+
 
 <a href="customer-dashboard.html">
 
@@ -231,7 +344,12 @@ Dashboard
 
 </a>
 
+
 </li>
+
+
+
+
 
 <li class="breadcrumb-item active">
 
@@ -239,131 +357,216 @@ Settings
 
 </li>
 
+
 </ol>
+
 
 </nav>
 
-<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+
+
+
+
+
+<div
+class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
 
 <div>
 
-<h2 class="fw-bold mb-1">
+
+<h2 class="fw-bold">
+
 
 <i class="bi bi-gear-fill text-success"></i>
 
+
 Account Settings
+
 
 </h2>
 
-<p class="text-muted mb-0">
 
-Manage your account preferences, privacy and security.
+<p class="text-muted">
+
+Manage your account, security, privacy and preferences.
 
 </p>
 
+
 </div>
 
+
+
+
+
+
 <button
+
 class="btn btn-success"
+
 id="saveSettingsBtn">
+
 
 <i class="bi bi-check-circle"></i>
 
+
 Save Changes
+
 
 </button>
 
+
+
 </div>
+
+
+
+
+
 
 <div class="row">
 
-<!-- LEFT MENU -->
+
+
+<!-- LEFT SETTINGS MENU -->
+
 
 <div class="col-lg-3 mb-4">
 
+
 <div class="card shadow-sm border-0">
 
+
 <div class="list-group list-group-flush">
+
+
 
 <a
 href="#accountSection"
 class="list-group-item list-group-item-action active">
 
+
 <i class="bi bi-person-circle me-2"></i>
 
 Account
 
+
 </a>
+
+
+
+
 
 <a
 href="#securitySection"
 class="list-group-item list-group-item-action">
 
+
 <i class="bi bi-shield-lock me-2"></i>
 
 Security
 
+
 </a>
+
+
+
+
 
 <a
 href="#notificationsSection"
 class="list-group-item list-group-item-action">
 
+
 <i class="bi bi-bell me-2"></i>
 
 Notifications
 
+
 </a>
+
+
+
+
 
 <a
 href="#preferencesSection"
 class="list-group-item list-group-item-action">
 
+
 <i class="bi bi-sliders me-2"></i>
 
 Preferences
 
+
 </a>
+
+
+
+
 
 <a
 href="#privacySection"
 class="list-group-item list-group-item-action">
 
+
 <i class="bi bi-shield-check me-2"></i>
 
 Privacy
 
+
 </a>
+
+
+
+
 
 <a
 href="#dangerSection"
 class="list-group-item list-group-item-action text-danger">
 
+
 <i class="bi bi-exclamation-triangle me-2"></i>
 
 Danger Zone
 
+
 </a>
 
-</div>
+
 
 </div>
 
+
 </div>
 
-<!-- RIGHT CONTENT -->
+
+</div>
+
+
+
+
+
+<!-- RIGHT CONTENT START -->
 
 <div class="col-lg-9">
 
-  <!-- ===================================================== -->
-<!-- ACCOUNT SETTINGS -->
-<!-- ===================================================== -->
+  <!-- ==============================
+ACCOUNT INFORMATION
+================================ -->
 
-<section id="accountSection" class="mb-5">
+<section
+id="accountSection"
+class="mb-5">
+
 
 <div class="card border-0 shadow-sm">
 
+
 <div class="card-header bg-white">
+
 
 <h4 class="mb-0">
 
@@ -373,15 +576,26 @@ Account Information
 
 </h4>
 
+
 </div>
+
+
+
+
 
 <div class="card-body">
 
+
 <div class="row">
+
+
 
 <!-- PROFILE PHOTO -->
 
+
 <div class="col-lg-3 text-center mb-4">
+
+
 
 <img
 
@@ -389,15 +603,21 @@ id="profilePhotoPreview"
 
 src="assets/images/default-user.png"
 
-class="rounded-circle border shadow-sm mb-3"
-
 width="160"
 
 height="160"
 
+class="rounded-circle border shadow-sm mb-3"
+
 alt="Profile Photo">
 
+
+
+
+
 <div class="d-grid gap-2">
+
+
 
 <label
 
@@ -405,11 +625,17 @@ for="profilePhoto"
 
 class="btn btn-outline-success">
 
+
 <i class="bi bi-camera"></i>
 
 Change Photo
 
+
 </label>
+
+
+
+
 
 <input
 
@@ -421,39 +647,73 @@ accept="image/*"
 
 hidden>
 
+
+
+
+
+
+
 <button
+
+type="button"
 
 class="btn btn-outline-danger"
 
-id="removePhotoBtn"
+id="removePhotoBtn">
 
-type="button">
 
 <i class="bi bi-trash"></i>
 
 Remove Photo
 
+
 </button>
 
-</div>
+
+
 
 </div>
 
-<!-- ACCOUNT FORM -->
+
+</div>
+
+
+
+
+
+
+
+<!-- ACCOUNT DETAILS FORM -->
+
 
 <div class="col-lg-9">
 
-<form id="accountForm">
+
+
+<form
+
+id="accountForm">
+
+
 
 <div class="row">
 
+
+
+
+
+<!-- FIRST NAME -->
+
+
 <div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
 First Name
 
 </label>
+
 
 <input
 
@@ -463,19 +723,31 @@ class="form-control"
 
 id="firstName"
 
-placeholder="John"
+placeholder="Enter first name"
 
 required>
 
+
 </div>
 
+
+
+
+
+
+
+<!-- LAST NAME -->
+
+
 <div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
 Last Name
 
 </label>
+
 
 <input
 
@@ -485,19 +757,32 @@ class="form-control"
 
 id="lastName"
 
-placeholder="Doe"
+placeholder="Enter last name"
 
 required>
 
+
 </div>
 
+
+
+
+
+
+
+<!-- EMAIL -->
+
+
 <div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
 Email Address
 
 </label>
+
+
 
 <input
 
@@ -509,21 +794,38 @@ id="email"
 
 readonly>
 
+
+
+
 <small class="text-muted">
 
 Email cannot be changed.
 
 </small>
 
+
+
 </div>
 
+
+
+
+
+
+
+<!-- PHONE -->
+
+
 <div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
 Phone Number
 
 </label>
+
+
 
 <input
 
@@ -535,9 +837,21 @@ id="phone"
 
 placeholder="+2547XXXXXXXX">
 
+
 </div>
 
+
+
+
+
+
+
+
+<!-- COUNTY -->
+
+
 <div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -545,11 +859,14 @@ County
 
 </label>
 
+
+
 <select
 
 class="form-select"
 
 id="county">
+
 
 <option>
 
@@ -557,11 +874,23 @@ Loading Counties...
 
 </option>
 
+
 </select>
+
 
 </div>
 
+
+
+
+
+
+
+<!-- TOWN -->
+
+
 <div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -569,11 +898,14 @@ Town
 
 </label>
 
+
+
 <select
 
 class="form-select"
 
 id="town">
+
 
 <option>
 
@@ -581,17 +913,31 @@ Loading Towns...
 
 </option>
 
+
 </select>
+
 
 </div>
 
+
+
+
+
+
+
+<!-- ADDRESS -->
+
+
 <div class="col-12 mb-3">
+
 
 <label class="form-label">
 
-Physical Address
+Physical Delivery Address
 
 </label>
+
+
 
 <textarea
 
@@ -601,19 +947,33 @@ id="address"
 
 rows="3"
 
-placeholder="Enter your physical delivery address">
+placeholder="Enter your delivery location">
 
 </textarea>
 
+
 </div>
 
+
+
+
+
+
+
+
+<!-- DATE JOINED -->
+
+
 <div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
 Date Joined
 
 </label>
+
+
 
 <input
 
@@ -625,15 +985,29 @@ id="dateJoined"
 
 readonly>
 
+
 </div>
 
+
+
+
+
+
+
+
+<!-- ACCOUNT STATUS -->
+
+
 <div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
 Account Status
 
 </label>
+
+
 
 <input
 
@@ -645,13 +1019,31 @@ id="accountStatus"
 
 readonly>
 
-</div>
 
 </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
 
 <hr>
 
-<div class="d-flex justify-content-end">
+
+
+
+
+
+<div class="text-end">
+
 
 <button
 
@@ -661,35 +1053,61 @@ class="btn btn-success"
 
 id="saveAccountBtn">
 
+
 <i class="bi bi-save"></i>
+
 
 Save Account Information
 
+
 </button>
 
+
+
 </div>
+
+
+
+
+
 
 </form>
 
-</div>
+
 
 </div>
 
-</div>
+
+
+
 
 </div>
+
+
+</div>
+
+
+</div>
+
 
 </section>
 
-  <!-- ===================================================== -->
-<!-- SECURITY SETTINGS -->
-<!-- ===================================================== -->
+  <!-- ==============================
+SECURITY SETTINGS
+================================ -->
 
-<section id="securitySection" class="mb-5">
+<section
+id="securitySection"
+class="mb-5">
+
+
 
 <div class="card border-0 shadow-sm">
 
+
+
 <div class="card-header bg-white">
+
 
 <h4 class="mb-0">
 
@@ -699,13 +1117,23 @@ Security Settings
 
 </h4>
 
+
 </div>
+
+
+
+
 
 <div class="card-body">
 
-<!-- CHANGE PASSWORD -->
 
-<div class="mb-5">
+
+
+
+<!-- ==============================
+CHANGE PASSWORD
+================================ -->
+
 
 <h5 class="mb-3">
 
@@ -713,11 +1141,26 @@ Change Password
 
 </h5>
 
+
+
+
+
 <form id="passwordForm">
+
+
 
 <div class="row">
 
+
+
+
+
+
+<!-- CURRENT PASSWORD -->
+
+
 <div class="col-md-4 mb-3">
+
 
 <label class="form-label">
 
@@ -725,7 +1168,10 @@ Current Password
 
 </label>
 
+
+
 <div class="input-group">
+
 
 <input
 
@@ -735,25 +1181,47 @@ class="form-control"
 
 id="currentPassword"
 
-autocomplete="current-password">
+autocomplete="current-password"
+
+placeholder="Current password">
+
+
+
+
 
 <button
 
-class="btn btn-outline-secondary toggle-password"
-
 type="button"
+
+class="btn btn-outline-secondary toggle-password"
 
 data-target="currentPassword">
 
+
 <i class="bi bi-eye"></i>
+
 
 </button>
 
-</div>
+
 
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- NEW PASSWORD -->
+
 
 <div class="col-md-4 mb-3">
+
 
 <label class="form-label">
 
@@ -761,7 +1229,11 @@ New Password
 
 </label>
 
+
+
+
 <div class="input-group">
+
 
 <input
 
@@ -771,25 +1243,47 @@ class="form-control"
 
 id="newPassword"
 
-autocomplete="new-password">
+autocomplete="new-password"
+
+placeholder="New password">
+
+
+
+
 
 <button
 
-class="btn btn-outline-secondary toggle-password"
-
 type="button"
+
+class="btn btn-outline-secondary toggle-password"
 
 data-target="newPassword">
 
+
 <i class="bi bi-eye"></i>
+
 
 </button>
 
-</div>
+
 
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- CONFIRM PASSWORD -->
+
 
 <div class="col-md-4 mb-3">
+
 
 <label class="form-label">
 
@@ -797,7 +1291,11 @@ Confirm Password
 
 </label>
 
+
+
+
 <div class="input-group">
+
 
 <input
 
@@ -807,43 +1305,76 @@ class="form-control"
 
 id="confirmPassword"
 
-autocomplete="new-password">
+autocomplete="new-password"
+
+placeholder="Confirm password">
+
+
+
+
 
 <button
 
-class="btn btn-outline-secondary toggle-password"
-
 type="button"
+
+class="btn btn-outline-secondary toggle-password"
 
 data-target="confirmPassword">
 
+
 <i class="bi bi-eye"></i>
+
 
 </button>
 
-</div>
+
 
 </div>
 
+
 </div>
 
-<div class="progress mb-2">
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- PASSWORD STRENGTH -->
+
+
+<div class="progress mb-3">
+
 
 <div
 
 id="passwordStrength"
 
-class="progress-bar bg-danger"
+class="progress-bar"
 
 style="width:0%">
 
-Weak
 
 </div>
 
+
 </div>
 
-<div class="d-flex justify-content-end">
+
+
+
+
+
+
+
+<div class="text-end">
+
 
 <button
 
@@ -853,23 +1384,43 @@ class="btn btn-success"
 
 id="changePasswordBtn">
 
+
 <i class="bi bi-key"></i>
+
 
 Update Password
 
+
 </button>
 
+
 </div>
+
+
+
+
 
 </form>
 
-</div>
 
-<hr>
 
-<!-- ACCOUNT CONNECTIONS -->
 
-<div class="mb-5">
+
+
+
+<hr class="my-5">
+
+
+
+
+
+
+
+<!-- ==============================
+CONNECTED ACCOUNTS
+================================ -->
+
+
 
 <h5 class="mb-3">
 
@@ -877,27 +1428,51 @@ Connected Accounts
 
 </h5>
 
+
+
+
+
 <div class="list-group">
+
+
+
+
+
+
+<!-- GOOGLE -->
+
 
 <div class="list-group-item d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
+
 <i class="bi bi-google text-danger"></i>
+
 
 Google Account
 
+
 </h6>
+
+
 
 <small class="text-muted">
 
-Link your Google account for one-click login.
+Link Google account for easier login.
 
 </small>
 
+
 </div>
+
+
+
+
 
 <button
 
@@ -905,63 +1480,66 @@ class="btn btn-outline-success"
 
 id="linkGoogleBtn">
 
+
 Link Google
 
-</button>
-
-</div>
-
-<div class="list-group-item d-flex justify-content-between align-items-center">
-
-<div>
-
-<h6 class="mb-1">
-
-<i class="bi bi-phone text-success"></i>
-
-Phone Verification
-
-</h6>
-
-<small class="text-muted">
-
-Verify your phone number.
-
-</small>
-
-</div>
-
-<button
-
-class="btn btn-outline-primary"
-
-id="verifyPhoneBtn">
-
-Verify
 
 </button>
 
+
+
 </div>
+
+
+
+
+
+
+
+
+<!-- EMAIL -->
+
 
 <div class="list-group-item d-flex justify-content-between align-items-center">
 
+
 <div>
 
+
 <h6 class="mb-1">
+
 
 <i class="bi bi-envelope-check text-primary"></i>
 
+
 Email Verification
+
 
 </h6>
 
-<small class="text-muted">
 
-Verify your email address.
+
+<small
+
+id="emailStatus"
+
+class="text-muted">
+
+
+Checking verification status...
 
 </small>
 
+
+
 </div>
+
+
+
+
+
+<div>
+
 
 <button
 
@@ -969,21 +1547,118 @@ class="btn btn-outline-primary"
 
 id="verifyEmailBtn">
 
+
 Verify
+
 
 </button>
 
-</div>
+
+
+<button
+
+class="btn btn-outline-secondary btn-sm mt-1"
+
+id="refreshEmailBtn">
+
+
+<i class="bi bi-arrow-clockwise"></i>
+
+
+</button>
+
 
 </div>
 
+
+
 </div>
 
-<hr>
 
-<!-- LOGIN SESSIONS -->
+
+
+
+
+
+
+
+<!-- PHONE -->
+
+
+<div class="list-group-item d-flex justify-content-between align-items-center">
+
 
 <div>
+
+
+<h6 class="mb-1">
+
+
+<i class="bi bi-phone text-success"></i>
+
+
+Phone Verification
+
+
+</h6>
+
+
+
+<small class="text-muted">
+
+Verify your phone number.
+
+</small>
+
+
+</div>
+
+
+
+
+
+<button
+
+class="btn btn-outline-primary"
+
+id="verifyPhoneBtn">
+
+
+Verify
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<hr class="my-5">
+
+
+
+
+
+
+
+<!-- ==============================
+ACTIVE SESSIONS
+================================ -->
+
+
 
 <h5 class="mb-3">
 
@@ -991,45 +1666,113 @@ Active Sessions
 
 </h5>
 
+
+
+
+
 <div class="table-responsive">
+
+
 
 <table class="table table-hover align-middle">
 
+
+
 <thead>
+
 
 <tr>
 
-<th>Device</th>
 
-<th>Location</th>
+<th>
 
-<th>Last Active</th>
+Device
 
-<th>Status</th>
+</th>
+
+
+<th>
+
+Browser
+
+</th>
+
+
+<th>
+
+Location
+
+</th>
+
+
+<th>
+
+Last Active
+
+</th>
+
+
+<th>
+
+Status
+
+</th>
+
 
 </tr>
+
 
 </thead>
 
+
+
+
+
+
 <tbody id="sessionsTable">
+
 
 <tr>
 
-<td colspan="4" class="text-center text-muted">
+
+<td
+
+colspan="5"
+
+class="text-center text-muted">
+
 
 Loading active sessions...
 
+
 </td>
+
 
 </tr>
 
+
+
 </tbody>
+
+
+
+
 
 </table>
 
+
+
 </div>
 
+
+
+
+
+
+
 <div class="text-end">
+
+
 
 <button
 
@@ -1037,31 +1780,48 @@ class="btn btn-danger"
 
 id="logoutAllBtn">
 
+
 <i class="bi bi-box-arrow-right"></i>
+
 
 Logout From All Devices
 
+
 </button>
 
-</div>
+
 
 </div>
 
-</div>
+
+
+
+
 
 </div>
+
+
+</div>
+
+
 
 </section>
 
-  <!-- ===================================================== -->
-<!-- NOTIFICATION SETTINGS -->
-<!-- ===================================================== -->
+  <!-- ==============================
+NOTIFICATION SETTINGS
+================================ -->
 
-<section id="notificationsSection" class="mb-5">
+<section
+id="notificationsSection"
+class="mb-5">
+
 
 <div class="card border-0 shadow-sm">
 
+
+
 <div class="card-header bg-white">
+
 
 <h4 class="mb-0">
 
@@ -1071,23 +1831,40 @@ Notification Preferences
 
 </h4>
 
+
 </div>
+
+
+
+
 
 <div class="card-body">
 
-<p class="text-muted mb-4">
 
-Choose how you would like to receive notifications from Kenya Gas Marketplace.
+
+<p class="text-muted">
+
+Choose how Kenya Gas Marketplace communicates with you.
 
 </p>
 
+
+
+
+
 <div class="list-group">
+
+
+
+
 
 <!-- ORDER UPDATES -->
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
+
 
 <div>
 
@@ -1097,15 +1874,20 @@ Order Updates
 
 </h6>
 
+
 <small class="text-muted">
 
-Receive updates whenever your order status changes.
+Receive notifications when your order status changes.
 
 </small>
 
+
 </div>
 
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1117,17 +1899,29 @@ id="notifyOrders"
 
 checked>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
 
 <!-- DELIVERY -->
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
+
 
 <div>
 
@@ -1137,15 +1931,20 @@ Delivery Notifications
 
 </h6>
 
+
 <small class="text-muted">
 
-Receive notifications when your delivery is on the way.
+Know when your gas delivery is dispatched.
 
 </small>
 
+
 </div>
 
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1157,17 +1956,30 @@ id="notifyDelivery"
 
 checked>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
 
 <!-- SMS -->
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
+
 
 <div>
 
@@ -1177,15 +1989,20 @@ SMS Notifications
 
 </h6>
 
+
 <small class="text-muted">
 
-Receive order confirmations and alerts via SMS.
+Receive order confirmations through SMS.
 
 </small>
 
+
 </div>
 
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1197,17 +2014,29 @@ id="notifySMS"
 
 checked>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
 
 <!-- EMAIL -->
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
+
 
 <div>
 
@@ -1217,15 +2046,20 @@ Email Notifications
 
 </h6>
 
+
 <small class="text-muted">
 
-Receive receipts, invoices and account updates.
+Receive receipts and account updates.
 
 </small>
 
+
 </div>
 
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1237,17 +2071,29 @@ id="notifyEmail"
 
 checked>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
 
 <!-- PUSH -->
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
+
 
 <div>
 
@@ -1257,15 +2103,20 @@ Push Notifications
 
 </h6>
 
+
 <small class="text-muted">
 
-Receive browser notifications in real time.
+Receive browser notifications instantly.
 
 </small>
 
+
 </div>
 
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1277,17 +2128,30 @@ id="notifyPush"
 
 checked>
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
 
 <!-- PROMOTIONS -->
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
+
 
 <div>
 
@@ -1297,15 +2161,20 @@ Offers & Promotions
 
 </h6>
 
+
 <small class="text-muted">
 
-Receive discounts, vouchers and special offers.
+Receive discounts and special offers.
 
 </small>
 
+
 </div>
 
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1315,17 +2184,30 @@ type="checkbox"
 
 id="notifyPromotions">
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
 
 <!-- NEWS -->
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
+
 
 <div>
 
@@ -1335,15 +2217,20 @@ News & Announcements
 
 </h6>
 
+
 <small class="text-muted">
 
-Receive product news and marketplace announcements.
+Marketplace updates and new features.
 
 </small>
 
+
 </div>
 
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1353,17 +2240,29 @@ type="checkbox"
 
 id="notifyNews">
 
-</div>
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
 
 <!-- SECURITY -->
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
+
 
 <div>
 
@@ -1373,15 +2272,20 @@ Security Alerts
 
 </h6>
 
+
 <small class="text-muted">
 
-Be notified whenever there is suspicious login activity.
+Important login and account security alerts.
 
 </small>
 
+
 </div>
 
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1393,19 +2297,51 @@ id="notifySecurity"
 
 checked>
 
-</div>
 
 </div>
 
-</div>
 
 </div>
 
-<hr>
 
-<div class="row mt-4">
+</div>
 
-<div class="col-md-6">
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<hr class="my-4">
+
+
+
+
+
+
+
+
+
+<div class="row">
+
+
+
+
+
+
+<!-- METHOD -->
+
+
+<div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -1413,11 +2349,14 @@ Preferred Notification Method
 
 </label>
 
+
+
 <select
 
 class="form-select"
 
 id="preferredNotification">
+
 
 <option value="push">
 
@@ -1425,11 +2364,13 @@ Push Notification
 
 </option>
 
+
 <option value="email">
 
 Email
 
 </option>
+
 
 <option value="sms">
 
@@ -1437,17 +2378,31 @@ SMS
 
 </option>
 
+
 <option value="all">
 
 All Methods
 
 </option>
 
+
 </select>
+
 
 </div>
 
-<div class="col-md-6">
+
+
+
+
+
+
+
+<!-- FREQUENCY -->
+
+
+<div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -1455,11 +2410,14 @@ Notification Frequency
 
 </label>
 
+
+
 <select
 
 class="form-select"
 
 id="notificationFrequency">
+
 
 <option value="instant">
 
@@ -1467,11 +2425,13 @@ Instant
 
 </option>
 
+
 <option value="hourly">
 
 Hourly Summary
 
 </option>
+
 
 <option value="daily">
 
@@ -1479,19 +2439,36 @@ Daily Summary
 
 </option>
 
+
 <option value="weekly">
 
 Weekly Summary
 
 </option>
 
+
 </select>
 
-</div>
 
 </div>
 
-<div class="text-end mt-4">
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="text-end mt-3">
+
 
 <button
 
@@ -1499,29 +2476,48 @@ class="btn btn-success"
 
 id="saveNotificationsBtn">
 
+
 <i class="bi bi-save"></i>
+
 
 Save Notification Settings
 
+
 </button>
 
-</div>
+
 
 </div>
 
+
+
+
+
+
+
 </div>
+
+
+</div>
+
 
 </section>
 
-  <!-- ===================================================== -->
-<!-- PREFERENCES -->
-<!-- ===================================================== -->
+  <!-- ==============================
+PREFERENCES SETTINGS
+================================ -->
 
-<section id="preferencesSection" class="mb-5">
+<section
+id="preferencesSection"
+class="mb-5">
+
 
 <div class="card border-0 shadow-sm">
 
+
+
 <div class="card-header bg-white">
+
 
 <h4 class="mb-0">
 
@@ -1531,21 +2527,40 @@ Preferences
 
 </h4>
 
+
 </div>
+
+
+
+
 
 <div class="card-body">
 
-<p class="text-muted mb-4">
 
-Customize how Kenya Gas Marketplace works for you.
+
+<p class="text-muted">
+
+Customize your Kenya Gas Marketplace experience.
 
 </p>
 
+
+
+
+
+
+
 <div class="row">
+
+
+
+
+
 
 <!-- LANGUAGE -->
 
-<div class="col-md-6 mb-4">
+<div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -1553,9 +2568,14 @@ Language
 
 </label>
 
+
+
 <select
+
 class="form-select"
+
 id="language">
+
 
 <option value="en" selected>
 
@@ -1563,19 +2583,30 @@ English
 
 </option>
 
+
 <option value="sw">
 
 Kiswahili
 
 </option>
 
+
 </select>
+
 
 </div>
 
+
+
+
+
+
+
+
 <!-- CURRENCY -->
 
-<div class="col-md-6 mb-4">
+<div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -1583,9 +2614,14 @@ Currency
 
 </label>
 
+
+
 <select
+
 class="form-select"
+
 id="currency">
+
 
 <option value="KES" selected>
 
@@ -1593,13 +2629,23 @@ Kenyan Shilling (KES)
 
 </option>
 
+
 </select>
+
 
 </div>
 
+
+
+
+
+
+
+
 <!-- DEFAULT COUNTY -->
 
-<div class="col-md-6 mb-4">
+<div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -1607,9 +2653,14 @@ Default County
 
 </label>
 
+
+
 <select
+
 class="form-select"
+
 id="defaultCounty">
+
 
 <option>
 
@@ -1617,13 +2668,23 @@ Loading Counties...
 
 </option>
 
+
 </select>
+
 
 </div>
 
+
+
+
+
+
+
+
 <!-- DEFAULT TOWN -->
 
-<div class="col-md-6 mb-4">
+<div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -1631,9 +2692,14 @@ Default Town
 
 </label>
 
+
+
 <select
+
 class="form-select"
+
 id="defaultTown">
+
 
 <option>
 
@@ -1641,13 +2707,23 @@ Select Town
 
 </option>
 
+
 </select>
+
 
 </div>
 
+
+
+
+
+
+
+
 <!-- TIMEZONE -->
 
-<div class="col-md-6 mb-4">
+<div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -1655,9 +2731,14 @@ Time Zone
 
 </label>
 
+
+
 <select
+
 class="form-select"
+
 id="timezone">
+
 
 <option value="Africa/Nairobi" selected>
 
@@ -1665,13 +2746,23 @@ East Africa Time (EAT)
 
 </option>
 
+
 </select>
+
 
 </div>
 
+
+
+
+
+
+
+
 <!-- DATE FORMAT -->
 
-<div class="col-md-6 mb-4">
+<div class="col-md-6 mb-3">
+
 
 <label class="form-label">
 
@@ -1679,9 +2770,14 @@ Date Format
 
 </label>
 
+
+
 <select
+
 class="form-select"
+
 id="dateFormat">
+
 
 <option value="dd-mm-yyyy">
 
@@ -1689,11 +2785,13 @@ DD/MM/YYYY
 
 </option>
 
+
 <option value="mm-dd-yyyy">
 
 MM/DD/YYYY
 
 </option>
+
 
 <option value="yyyy-mm-dd">
 
@@ -1701,15 +2799,37 @@ YYYY/MM/DD
 
 </option>
 
+
 </select>
 
-</div>
 
 </div>
 
-<hr>
 
-<!-- APPEARANCE -->
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<hr class="my-4">
+
+
+
+
+
+
+<!-- ==============================
+APPEARANCE
+================================ -->
+
 
 <h5 class="mb-3">
 
@@ -1717,13 +2837,29 @@ Appearance
 
 </h5>
 
+
+
+
+
 <div class="list-group mb-4">
+
+
+
+
+
+
+
+<!-- DARK MODE -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
@@ -1731,15 +2867,22 @@ Dark Mode
 
 </h6>
 
+
 <small class="text-muted">
 
-Switch between Light and Dark themes.
+Switch between light and dark themes.
 
 </small>
 
+
 </div>
 
+
+
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1749,17 +2892,36 @@ type="checkbox"
 
 id="darkMode">
 
-</div>
 
 </div>
 
+
+
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- COMPACT MODE -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
@@ -1767,15 +2929,22 @@ Compact Dashboard
 
 </h6>
 
+
 <small class="text-muted">
 
-Display more information on each page.
+Display more information with less spacing.
 
 </small>
 
+
 </div>
 
+
+
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1785,17 +2954,36 @@ type="checkbox"
 
 id="compactMode">
 
-</div>
 
 </div>
 
+
+
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ANIMATIONS -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
@@ -1803,15 +2991,22 @@ Animations
 
 </h6>
 
+
 <small class="text-muted">
 
-Enable smooth transitions and animations.
+Enable smooth page transitions.
 
 </small>
 
+
 </div>
 
+
+
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1823,17 +3018,45 @@ id="enableAnimations"
 
 checked>
 
-</div>
 
 </div>
 
-</div>
+
+
 
 </div>
 
-<hr>
 
-<!-- ACCESSIBILITY -->
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<hr class="my-4">
+
+
+
+
+
+
+
+<!-- ==============================
+ACCESSIBILITY
+================================ -->
+
 
 <h5 class="mb-3">
 
@@ -1841,13 +3064,29 @@ Accessibility
 
 </h5>
 
+
+
+
+
+
 <div class="list-group">
+
+
+
+
+
+
+<!-- LARGE TEXT -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
@@ -1855,15 +3094,22 @@ Large Text
 
 </h6>
 
+
 <small class="text-muted">
 
-Increase font size for better readability.
+Increase text size for easier reading.
 
 </small>
 
+
 </div>
 
+
+
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1873,17 +3119,36 @@ type="checkbox"
 
 id="largeText">
 
-</div>
 
 </div>
 
+
+
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- HIGH CONTRAST -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
@@ -1891,15 +3156,22 @@ High Contrast
 
 </h6>
 
+
 <small class="text-muted">
 
-Improve visibility with higher contrast.
+Improve visibility.
 
 </small>
 
+
 </div>
 
+
+
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1909,17 +3181,36 @@ type="checkbox"
 
 id="highContrast">
 
-</div>
 
 </div>
 
+
+
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- REDUCE MOTION -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
@@ -1927,15 +3218,22 @@ Reduce Motion
 
 </h6>
 
+
 <small class="text-muted">
 
-Reduce animation effects throughout the application.
+Reduce animation effects.
 
 </small>
 
+
 </div>
 
+
+
+
+
 <div class="form-check form-switch">
+
 
 <input
 
@@ -1945,15 +3243,33 @@ type="checkbox"
 
 id="reduceMotion">
 
-</div>
 
 </div>
 
-</div>
+
+
 
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
 
 <div class="text-end mt-4">
+
 
 <button
 
@@ -1961,29 +3277,48 @@ class="btn btn-success"
 
 id="savePreferencesBtn">
 
+
 <i class="bi bi-save"></i>
+
 
 Save Preferences
 
+
 </button>
 
-</div>
+
 
 </div>
 
+
+
+
+
+
+
 </div>
+
+
+</div>
+
 
 </section>
 
-  <!-- ===================================================== -->
-<!-- PRIVACY & DATA -->
-<!-- ===================================================== -->
+  <!-- ==============================
+PRIVACY & DATA MANAGEMENT
+================================ -->
 
-<section id="privacySection" class="mb-5">
+<section
+id="privacySection"
+class="mb-5">
+
 
 <div class="card border-0 shadow-sm">
 
+
+
 <div class="card-header bg-white">
+
 
 <h4 class="mb-0">
 
@@ -1993,19 +3328,32 @@ Privacy & Data Management
 
 </h4>
 
+
 </div>
+
+
+
+
 
 <div class="card-body">
 
-<p class="text-muted mb-4">
 
-Control your privacy, manage your personal data, and review account activity.
+
+<p class="text-muted">
+
+Control your privacy, manage your personal information and review account activity.
 
 </p>
 
-<!-- ========================================= -->
-<!-- PRIVACY OPTIONS -->
-<!-- ========================================= -->
+
+
+
+
+
+
+<!-- ==============================
+PRIVACY OPTIONS
+================================ -->
 
 <h5 class="mb-3">
 
@@ -2013,47 +3361,94 @@ Privacy Settings
 
 </h5>
 
+
+
+
+
+
 <div class="list-group mb-4">
+
+
+
+
+
+
+
+<!-- SHARE PHONE -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
-Allow Suppliers to View My Phone Number
+Allow Suppliers To View My Phone Number
 
 </h6>
 
+
 <small class="text-muted">
 
-Suppliers will only see your number after an order is confirmed.
+Suppliers can only access your number after confirmed orders.
 
 </small>
 
+
 </div>
+
+
+
+
 
 <div class="form-check form-switch">
 
+
 <input
+
 class="form-check-input"
+
 type="checkbox"
+
 id="sharePhoneNumber"
+
 checked>
 
-</div>
 
 </div>
 
+
+
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- LOCATION ACCESS -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
@@ -2061,33 +3456,63 @@ Allow Location Access
 
 </h6>
 
+
 <small class="text-muted">
 
-Improve delivery accuracy using your current location.
+Improve delivery accuracy using your location.
 
 </small>
 
+
 </div>
+
+
+
+
 
 <div class="form-check form-switch">
 
+
 <input
+
 class="form-check-input"
+
 type="checkbox"
+
 id="locationAccess"
+
 checked>
 
-</div>
 
 </div>
 
+
+
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- RECOMMENDATIONS -->
+
 
 <div class="list-group-item">
 
+
 <div class="d-flex justify-content-between align-items-center">
 
+
 <div>
+
 
 <h6 class="mb-1">
 
@@ -2095,35 +3520,69 @@ Personalized Recommendations
 
 </h6>
 
+
 <small class="text-muted">
 
-Receive recommendations based on your previous orders.
+Receive suggestions based on your previous orders.
 
 </small>
 
+
 </div>
+
+
+
+
 
 <div class="form-check form-switch">
 
+
 <input
+
 class="form-check-input"
+
 type="checkbox"
+
 id="recommendations"
+
 checked>
 
-</div>
 
 </div>
 
-</div>
+
+
 
 </div>
 
-<hr>
 
-<!-- ========================================= -->
-<!-- DATA MANAGEMENT -->
-<!-- ========================================= -->
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<hr class="my-5">
+
+
+
+
+
+
+
+<!-- ==============================
+DATA MANAGEMENT
+================================ -->
+
 
 <h5 class="mb-3">
 
@@ -2131,83 +3590,171 @@ Your Data
 
 </h5>
 
+
+
+
+
+
+
+
 <div class="row g-3 mb-4">
+
+
+
+
+
+
+
+<!-- DOWNLOAD DATA -->
+
 
 <div class="col-md-6">
 
+
 <div class="card h-100 border">
+
 
 <div class="card-body">
 
+
 <h6>
+
 
 <i class="bi bi-download text-success"></i>
 
+
 Download My Data
+
 
 </h6>
 
-<p class="text-muted small">
 
-Download your profile, addresses, orders, and account information.
+
+<p class="small text-muted">
+
+Download your profile, addresses, orders and account information.
 
 </p>
 
+
+
+
+
 <button
+
 class="btn btn-outline-success"
+
 id="downloadDataBtn">
+
 
 Download Data
 
+
 </button>
 
-</div>
+
 
 </div>
 
+
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- CLEAR HISTORY -->
+
 
 <div class="col-md-6">
 
+
 <div class="card h-100 border">
+
 
 <div class="card-body">
 
+
 <h6>
 
-<i class="bi bi-trash3 text-danger"></i>
+
+<i class="bi bi-trash text-danger"></i>
+
 
 Clear Search History
 
+
 </h6>
 
-<p class="text-muted small">
+
+
+<p class="small text-muted">
 
 Remove saved searches and recently viewed suppliers.
 
 </p>
 
+
+
+
+
 <button
+
 class="btn btn-outline-danger"
+
 id="clearHistoryBtn">
+
 
 Clear History
 
+
 </button>
 
-</div>
+
 
 </div>
 
-</div>
 
 </div>
 
-<hr>
 
-<!-- ========================================= -->
-<!-- SAVED DEVICES -->
-<!-- ========================================= -->
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<hr class="my-5">
+
+
+
+
+
+
+
+
+<!-- ==============================
+TRUSTED DEVICES
+================================ -->
+
 
 <h5 class="mb-3">
 
@@ -2215,65 +3762,150 @@ Trusted Devices
 
 </h5>
 
+
+
+
+
+
+
 <div class="table-responsive mb-4">
+
 
 <table class="table table-hover align-middle">
 
+
+
 <thead class="table-light">
+
 
 <tr>
 
-<th>Device</th>
 
-<th>Browser</th>
+<th>
 
-<th>Location</th>
+Device
 
-<th>Last Active</th>
+</th>
 
-<th>Status</th>
+
+<th>
+
+Browser
+
+</th>
+
+
+<th>
+
+Location
+
+</th>
+
+
+<th>
+
+Last Active
+
+</th>
+
+
+<th>
+
+Status
+
+</th>
+
 
 </tr>
+
 
 </thead>
 
+
+
+
+
 <tbody id="trustedDevicesTable">
+
 
 <tr>
 
-<td colspan="5" class="text-center text-muted">
+
+<td
+
+colspan="5"
+
+class="text-center text-muted">
+
 
 Loading trusted devices...
 
+
 </td>
+
 
 </tr>
 
+
+
 </tbody>
+
+
+
+
 
 </table>
 
+
 </div>
+
+
+
+
+
+
 
 <div class="text-end">
 
+
 <button
+
 class="btn btn-outline-danger"
+
 id="removeDevicesBtn">
+
 
 <i class="bi bi-laptop"></i>
 
+
 Remove All Trusted Devices
+
 
 </button>
 
+
 </div>
+
+
+
+
+
+
+
 
 <hr class="my-5">
 
-<!-- ========================================= -->
-<!-- LOGIN HISTORY -->
-<!-- ========================================= -->
+
+
+
+
+
+
+
+<!-- ==============================
+LOGIN HISTORY
+================================ -->
+
 
 <h5 class="mb-3">
 
@@ -2281,75 +3913,165 @@ Recent Login Activity
 
 </h5>
 
+
+
+
+
+
+
 <div class="table-responsive">
+
+
 
 <table class="table table-striped">
 
+
+
 <thead>
+
 
 <tr>
 
-<th>Date</th>
 
-<th>Time</th>
+<th>
 
-<th>Device</th>
+Date
 
-<th>IP Address</th>
+</th>
 
-<th>Status</th>
+
+<th>
+
+Time
+
+</th>
+
+
+<th>
+
+Device
+
+</th>
+
+
+<th>
+
+IP Address
+
+</th>
+
+
+<th>
+
+Status
+
+</th>
+
 
 </tr>
+
 
 </thead>
 
+
+
+
+
+
+
 <tbody id="loginHistoryTable">
+
 
 <tr>
 
-<td colspan="5" class="text-center text-muted">
+
+<td
+
+colspan="5"
+
+class="text-center text-muted">
+
 
 Loading login history...
 
+
 </td>
+
 
 </tr>
 
+
+
 </tbody>
+
+
+
+
+
 
 </table>
 
+
 </div>
+
+
+
+
+
+
+
 
 <div class="text-end mt-4">
 
+
 <button
+
 class="btn btn-success"
+
 id="savePrivacyBtn">
+
 
 <i class="bi bi-save"></i>
 
+
 Save Privacy Settings
+
 
 </button>
 
-</div>
+
 
 </div>
 
+
+
+
+
+
+
 </div>
+
+
+</div>
+
 
 </section>
 
-  <!-- ===================================================== -->
-<!-- DANGER ZONE -->
-<!-- ===================================================== -->
+  <!-- ==============================
+DANGER ZONE
+================================ -->
 
-<section id="dangerSection" class="mb-5">
+<section
+id="dangerSection"
+class="mb-5">
+
 
 <div class="card border-danger shadow-sm">
 
+
+
 <div class="card-header bg-danger text-white">
+
 
 <h4 class="mb-0">
 
@@ -2359,25 +4081,41 @@ Danger Zone
 
 </h4>
 
+
 </div>
+
+
+
+
 
 <div class="card-body">
 
-<p class="text-muted mb-4">
 
-These actions are permanent or may affect your account. Proceed carefully.
+
+<p class="text-muted">
+
+These actions may affect your account. Please proceed carefully.
 
 </p>
 
-<!-- ===================================== -->
-<!-- SIGN OUT -->
-<!-- ===================================== -->
+
+
+
+
+
+
+
+<!-- LOGOUT CURRENT DEVICE -->
+
 
 <div class="border rounded p-3 mb-4">
 
+
 <div class="d-flex justify-content-between align-items-center flex-wrap">
 
+
 <div>
+
 
 <h5 class="mb-1">
 
@@ -2385,13 +4123,19 @@ Sign Out
 
 </h5>
 
+
 <p class="text-muted mb-0">
 
-Sign out from this device only.
+Logout from this device only.
 
 </p>
 
+
 </div>
+
+
+
+
 
 <button
 
@@ -2399,25 +4143,41 @@ class="btn btn-outline-secondary"
 
 id="logoutAccountBtn">
 
+
 <i class="bi bi-box-arrow-right"></i>
+
 
 Logout
 
+
 </button>
 
-</div>
+
 
 </div>
 
-<!-- ===================================== -->
+
+</div>
+
+
+
+
+
+
+
+
+
 <!-- LOGOUT ALL DEVICES -->
-<!-- ===================================== -->
+
 
 <div class="border rounded p-3 mb-4">
 
+
 <div class="d-flex justify-content-between align-items-center flex-wrap">
 
+
 <div>
+
 
 <h5 class="mb-1">
 
@@ -2425,13 +4185,19 @@ Logout From All Devices
 
 </h5>
 
+
 <p class="text-muted mb-0">
 
-End all active sessions across every device.
+End all active sessions.
 
 </p>
 
+
 </div>
+
+
+
+
 
 <button
 
@@ -2439,25 +4205,41 @@ class="btn btn-outline-warning"
 
 id="logoutEverywhereBtn">
 
+
 <i class="bi bi-laptop"></i>
+
 
 Logout Everywhere
 
+
 </button>
 
-</div>
+
 
 </div>
 
-<!-- ===================================== -->
+
+</div>
+
+
+
+
+
+
+
+
+
 <!-- RESET SETTINGS -->
-<!-- ===================================== -->
+
 
 <div class="border rounded p-3 mb-4">
 
+
 <div class="d-flex justify-content-between align-items-center flex-wrap">
 
+
 <div>
+
 
 <h5 class="mb-1">
 
@@ -2465,13 +4247,19 @@ Reset Settings
 
 </h5>
 
+
 <p class="text-muted mb-0">
 
-Restore all notification and preference settings to their default values.
+Restore default notification and preference settings.
 
 </p>
 
+
 </div>
+
+
+
+
 
 <button
 
@@ -2479,45 +4267,70 @@ class="btn btn-outline-primary"
 
 id="resetSettingsBtn">
 
+
 <i class="bi bi-arrow-counterclockwise"></i>
+
 
 Reset
 
+
 </button>
 
-</div>
+
 
 </div>
 
-<!-- ===================================== -->
+
+</div>
+
+
+
+
+
+
+
+
+
 <!-- DELETE ACCOUNT -->
-<!-- ===================================== -->
+
 
 <div class="border border-danger rounded p-4 bg-light">
 
+
 <div class="d-flex justify-content-between align-items-center flex-wrap">
+
 
 <div>
 
+
 <h5 class="text-danger mb-2">
+
 
 <i class="bi bi-trash3-fill"></i>
 
+
 Delete Account
+
 
 </h5>
 
+
+
 <p class="text-muted mb-0">
 
-Deleting your account is permanent.
+Permanently remove your profile, settings and personal data.
 
-Your profile, saved addresses, favourites, notification settings and account data will be removed.
-
-Completed orders may remain for legal and accounting purposes.
+Completed transactions may be retained for legal purposes.
 
 </p>
 
+
 </div>
+
+
+
+
+
 
 <button
 
@@ -2527,23 +4340,49 @@ data-bs-toggle="modal"
 
 data-bs-target="#deleteAccountModal">
 
+
 <i class="bi bi-trash3-fill"></i>
+
 
 Delete Account
 
+
 </button>
 
-</div>
+
+
 
 </div>
 
+
 </div>
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
 
 </section>
 
-<!-- ===================================================== -->
-<!-- DELETE ACCOUNT MODAL -->
-<!-- ===================================================== -->
+
+
+
+
+
+
+
+
+<!-- ==============================
+DELETE ACCOUNT MODAL
+================================ -->
+
 
 <div
 
@@ -2555,17 +4394,29 @@ tabindex="-1"
 
 aria-hidden="true">
 
+
+
 <div class="modal-dialog">
+
 
 <div class="modal-content">
 
+
+
+
+
+
 <div class="modal-header bg-danger text-white">
+
 
 <h5 class="modal-title">
 
 Delete Account
 
 </h5>
+
+
+
 
 <button
 
@@ -2577,27 +4428,57 @@ data-bs-dismiss="modal">
 
 </button>
 
+
 </div>
+
+
+
+
+
+
+
+
 
 <div class="modal-body">
 
+
+
+
+
 <div class="alert alert-warning">
 
-<strong>Warning:</strong>
+
+<strong>
+
+Warning:
+
+</strong>
+
 
 This action cannot be undone.
 
 </div>
 
+
+
+
+
 <p>
 
-To confirm, type
+To confirm deletion, type:
 
-<strong>DELETE</strong>
+<strong>
 
-below.
+DELETE
+
+</strong>
 
 </p>
+
+
+
+
+
 
 <input
 
@@ -2609,7 +4490,13 @@ id="deleteConfirmation"
 
 placeholder="Type DELETE">
 
+
+
+
+
+
 <div class="form-check mt-3">
+
 
 <input
 
@@ -2619,21 +4506,42 @@ type="checkbox"
 
 id="deleteAgreement">
 
+
+
+
+
 <label
 
 class="form-check-label"
 
 for="deleteAgreement">
 
+
 I understand this action is permanent.
 
 </label>
 
-</div>
 
 </div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
 
 <div class="modal-footer">
+
+
 
 <button
 
@@ -2641,9 +4549,17 @@ class="btn btn-secondary"
 
 data-bs-dismiss="modal">
 
+
 Cancel
 
+
 </button>
+
+
+
+
+
+
 
 <button
 
@@ -2653,24 +4569,582 @@ id="confirmDeleteAccountBtn"
 
 disabled>
 
+
+<i class="bi bi-trash3"></i>
+
+
 Delete Account
+
 
 </button>
 
-</div>
+
 
 </div>
 
-</div>
+
+
+
+
+
 
 </div>
 
-  <!-- ===================================================== -->
-<!-- SUCCESS TOAST -->
-<!-- ===================================================== -->
+
+</div>
+
+
+</div>
+
+  <!-- ==============================
+DANGER ZONE
+================================ -->
+
+<section
+id="dangerSection"
+class="mb-5">
+
+
+<div class="card border-danger shadow-sm">
+
+
+
+<div class="card-header bg-danger text-white">
+
+
+<h4 class="mb-0">
+
+<i class="bi bi-exclamation-triangle-fill"></i>
+
+Danger Zone
+
+</h4>
+
+
+</div>
+
+
+
+
+
+<div class="card-body">
+
+
+
+<p class="text-muted">
+
+These actions may affect your account. Please proceed carefully.
+
+</p>
+
+
+
+
+
+
+
+
+<!-- LOGOUT CURRENT DEVICE -->
+
+
+<div class="border rounded p-3 mb-4">
+
+
+<div class="d-flex justify-content-between align-items-center flex-wrap">
+
+
+<div>
+
+
+<h5 class="mb-1">
+
+Sign Out
+
+</h5>
+
+
+<p class="text-muted mb-0">
+
+Logout from this device only.
+
+</p>
+
+
+</div>
+
+
+
+
+
+<button
+
+class="btn btn-outline-secondary"
+
+id="logoutAccountBtn">
+
+
+<i class="bi bi-box-arrow-right"></i>
+
+
+Logout
+
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- LOGOUT ALL DEVICES -->
+
+
+<div class="border rounded p-3 mb-4">
+
+
+<div class="d-flex justify-content-between align-items-center flex-wrap">
+
+
+<div>
+
+
+<h5 class="mb-1">
+
+Logout From All Devices
+
+</h5>
+
+
+<p class="text-muted mb-0">
+
+End all active sessions.
+
+</p>
+
+
+</div>
+
+
+
+
+
+<button
+
+class="btn btn-outline-warning"
+
+id="logoutEverywhereBtn">
+
+
+<i class="bi bi-laptop"></i>
+
+
+Logout Everywhere
+
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- RESET SETTINGS -->
+
+
+<div class="border rounded p-3 mb-4">
+
+
+<div class="d-flex justify-content-between align-items-center flex-wrap">
+
+
+<div>
+
+
+<h5 class="mb-1">
+
+Reset Settings
+
+</h5>
+
+
+<p class="text-muted mb-0">
+
+Restore default notification and preference settings.
+
+</p>
+
+
+</div>
+
+
+
+
+
+<button
+
+class="btn btn-outline-primary"
+
+id="resetSettingsBtn">
+
+
+<i class="bi bi-arrow-counterclockwise"></i>
+
+
+Reset
+
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- DELETE ACCOUNT -->
+
+
+<div class="border border-danger rounded p-4 bg-light">
+
+
+<div class="d-flex justify-content-between align-items-center flex-wrap">
+
+
+<div>
+
+
+<h5 class="text-danger mb-2">
+
+
+<i class="bi bi-trash3-fill"></i>
+
+
+Delete Account
+
+
+</h5>
+
+
+
+<p class="text-muted mb-0">
+
+Permanently remove your profile, settings and personal data.
+
+Completed transactions may be retained for legal purposes.
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+<button
+
+class="btn btn-danger"
+
+data-bs-toggle="modal"
+
+data-bs-target="#deleteAccountModal">
+
+
+<i class="bi bi-trash3-fill"></i>
+
+
+Delete Account
+
+
+</button>
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ==============================
+DELETE ACCOUNT MODAL
+================================ -->
+
 
 <div
+
+class="modal fade"
+
+id="deleteAccountModal"
+
+tabindex="-1"
+
+aria-hidden="true">
+
+
+
+<div class="modal-dialog">
+
+
+<div class="modal-content">
+
+
+
+
+
+
+<div class="modal-header bg-danger text-white">
+
+
+<h5 class="modal-title">
+
+Delete Account
+
+</h5>
+
+
+
+
+<button
+
+type="button"
+
+class="btn-close btn-close-white"
+
+data-bs-dismiss="modal">
+
+</button>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal-body">
+
+
+
+
+
+<div class="alert alert-warning">
+
+
+<strong>
+
+Warning:
+
+</strong>
+
+
+This action cannot be undone.
+
+</div>
+
+
+
+
+
+<p>
+
+To confirm deletion, type:
+
+<strong>
+
+DELETE
+
+</strong>
+
+</p>
+
+
+
+
+
+
+<input
+
+type="text"
+
+class="form-control"
+
+id="deleteConfirmation"
+
+placeholder="Type DELETE">
+
+
+
+
+
+
+<div class="form-check mt-3">
+
+
+<input
+
+class="form-check-input"
+
+type="checkbox"
+
+id="deleteAgreement">
+
+
+
+
+
+<label
+
+class="form-check-label"
+
+for="deleteAgreement">
+
+
+I understand this action is permanent.
+
+</label>
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+<div class="modal-footer">
+
+
+
+<button
+
+class="btn btn-secondary"
+
+data-bs-dismiss="modal">
+
+
+Cancel
+
+
+</button>
+
+
+
+
+
+
+
+<button
+
+class="btn btn-danger"
+
+id="confirmDeleteAccountBtn"
+
+disabled>
+
+
+<i class="bi bi-trash3"></i>
+
+
+Delete Account
+
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+<!-- ==============================
+SUCCESS TOAST
+================================ -->
+
+
+<div
+
 class="toast-container position-fixed bottom-0 end-0 p-3">
+
+
 
 <div
 
@@ -2684,7 +5158,11 @@ aria-live="assertive"
 
 aria-atomic="true">
 
+
+
 <div class="d-flex">
+
+
 
 <div
 
@@ -2692,9 +5170,15 @@ class="toast-body"
 
 id="toastMessage">
 
+
 Settings saved successfully.
 
+
 </div>
+
+
+
+
 
 <button
 
@@ -2706,15 +5190,28 @@ data-bs-dismiss="toast">
 
 </button>
 
-</div>
+
 
 </div>
 
+
 </div>
 
-<!-- ===================================================== -->
-<!-- LOADING OVERLAY -->
-<!-- ===================================================== -->
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- ==============================
+LOADING OVERLAY
+================================ -->
+
 
 <div
 
@@ -2724,7 +5221,15 @@ class="position-fixed top-0 start-0 w-100 h-100 d-none justify-content-center al
 
 style="background:rgba(255,255,255,.85);z-index:9999;">
 
+
+
+
+
 <div class="text-center">
+
+
+
+
 
 <div
 
@@ -2734,54 +5239,124 @@ style="width:4rem;height:4rem;"
 
 role="status">
 
+
+<span class="visually-hidden">
+
+Loading...
+
+</span>
+
+
 </div>
+
+
+
+
+
+
 
 <div class="mt-3 fw-bold">
 
+
 Please wait...
 
-</div>
 
 </div>
 
-</div>
+
+
+
 
 </div>
 
-<!-- ===================================================== -->
-<!-- BOOTSTRAP -->
-<!-- ===================================================== -->
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- ==============================
+BOOTSTRAP JS
+================================ -->
+
 
 <script
+
 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+
 </script>
 
-<!-- ===================================================== -->
-<!-- FIREBASE -->
-<!-- ===================================================== -->
+
+
+
+
+
+
+
+<!-- ==============================
+FIREBASE INITIALIZATION
+================================ -->
+
 
 <script
+
 type="module"
+
 src="assets/js/firebase.js">
+
 </script>
 
-<!-- ===================================================== -->
-<!-- KENYA LOCATIONS -->
-<!-- ===================================================== -->
+
+
+
+
+
+
+
+<!-- ==============================
+KENYA LOCATIONS
+================================ -->
+
 
 <script
+
 src="assets/js/locations.js">
+
 </script>
 
-<!-- ===================================================== -->
-<!-- SETTINGS -->
-<!-- ===================================================== -->
+
+
+
+
+
+
+
+<!-- ==============================
+SETTINGS SCRIPT
+================================ -->
+
 
 <script
+
 type="module"
+
 src="assets/js/settings.js">
+
 </script>
+
+
+
+
+
+
+
 
 </body>
 
-</html>
+
+</html>  
