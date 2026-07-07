@@ -1,0 +1,2561 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+
+My Profile | Kenya Gas Marketplace
+
+</title>
+
+<!-- Bootstrap -->
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css"
+rel="stylesheet">
+
+<!-- Google Fonts -->
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+<!-- Custom CSS -->
+
+<link
+rel="stylesheet"
+href="assets/css/style.css">
+
+<link
+rel="stylesheet"
+href="assets/css/dashboard.css">
+
+<link
+rel="stylesheet"
+href="assets/css/profile.css">
+
+</head>
+
+<body class="bg-light">
+
+<!-- ===================================================== -->
+<!-- NAVBAR -->
+<!-- ===================================================== -->
+
+<nav
+class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+
+<div class="container">
+
+<a
+class="navbar-brand fw-bold"
+href="index.html">
+
+<i class="bi bi-fire"></i>
+
+Kenya Gas
+
+</a>
+
+<button
+class="navbar-toggler"
+type="button"
+data-bs-toggle="collapse"
+data-bs-target="#navbarNav">
+
+<span class="navbar-toggler-icon"></span>
+
+</button>
+
+<div
+class="collapse navbar-collapse"
+id="navbarNav">
+
+<ul class="navbar-nav ms-auto align-items-center">
+
+<li class="nav-item">
+
+<a
+class="nav-link"
+href="customer-dashboard.html">
+
+<i class="bi bi-speedometer2"></i>
+
+Dashboard
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a
+class="nav-link"
+href="orders.html">
+
+<i class="bi bi-bag-check"></i>
+
+Orders
+
+</a>
+
+</li>
+
+<li class="nav-item">
+
+<a
+class="nav-link"
+href="suppliers.html">
+
+<i class="bi bi-shop"></i>
+
+Suppliers
+
+</a>
+
+</li>
+
+<li class="nav-item dropdown">
+
+<a
+
+class="nav-link dropdown-toggle active"
+
+href="#"
+
+role="button"
+
+data-bs-toggle="dropdown">
+
+<i class="bi bi-person-circle"></i>
+
+<span id="navbarCustomerName">
+
+Customer
+
+</span>
+
+</a>
+
+<ul class="dropdown-menu dropdown-menu-end">
+
+<li>
+
+<a
+class="dropdown-item active"
+href="profile.html">
+
+<i class="bi bi-person"></i>
+
+My Profile
+
+</a>
+
+</li>
+
+<li>
+
+<a
+class="dropdown-item"
+href="settings.html">
+
+<i class="bi bi-gear"></i>
+
+Settings
+
+</a>
+
+</li>
+
+<li>
+
+<hr class="dropdown-divider">
+
+</li>
+
+<li>
+
+<a
+
+id="logoutBtn"
+
+class="dropdown-item text-danger"
+
+href="#">
+
+<i class="bi bi-box-arrow-right"></i>
+
+Logout
+
+</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- ===================================================== -->
+<!-- PAGE HEADER -->
+<!-- ===================================================== -->
+
+<section class="bg-success text-white py-5">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-md-8">
+
+<h2 class="fw-bold mb-2">
+
+My Profile
+
+</h2>
+
+<p class="mb-0">
+
+Manage your personal information, addresses, security, and account preferences.
+
+</p>
+
+</div>
+
+<div class="col-md-4 text-md-end mt-3 mt-md-0">
+
+<a
+
+href="customer-dashboard.html"
+
+class="btn btn-light">
+
+<i class="bi bi-arrow-left"></i>
+
+Back to Dashboard
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===================================================== -->
+<!-- MAIN CONTENT -->
+<!-- ===================================================== -->
+
+<div class="container py-5">
+
+<div class="row">
+
+<!-- Continue with Part 2 -->
+
+  <!-- ===================================================== -->
+<!-- LEFT PROFILE CARD -->
+<!-- ===================================================== -->
+
+<div class="col-lg-4 mb-4">
+
+<div class="card border-0 shadow-sm">
+
+<div class="card-body text-center">
+
+<div class="position-relative d-inline-block mb-3">
+
+<img
+
+id="profileImage"
+
+src="assets/images/default-user.png"
+
+class="rounded-circle border border-4 border-success"
+
+alt="Profile"
+
+style="width:150px;height:150px;object-fit:cover;">
+
+<label
+
+for="profileImageInput"
+
+class="btn btn-success btn-sm rounded-circle position-absolute bottom-0 end-0">
+
+<i class="bi bi-camera-fill"></i>
+
+</label>
+
+<input
+
+type="file"
+
+id="profileImageInput"
+
+accept="image/*"
+
+hidden>
+
+</div>
+
+<h3
+
+id="profileName"
+
+class="fw-bold mb-1">
+
+Customer Name
+
+</h3>
+
+<span
+
+id="profileVerified"
+
+class="badge bg-success mb-3">
+
+<i class="bi bi-patch-check-fill"></i>
+
+Verified Customer
+
+</span>
+
+<p
+
+id="profileEmail"
+
+class="text-muted mb-1">
+
+customer@email.com
+
+</p>
+
+<p
+
+id="profilePhone"
+
+class="mb-3">
+
+0700000000
+
+</p>
+
+<hr>
+
+<div class="row text-center">
+
+<div class="col-6">
+
+<h6 class="text-muted">
+
+Member Since
+
+</h6>
+
+<p
+
+id="memberSince"
+
+class="fw-semibold">
+
+2026
+
+</p>
+
+</div>
+
+<div class="col-6">
+
+<h6 class="text-muted">
+
+Status
+
+</h6>
+
+<p>
+
+<span
+
+id="accountStatus"
+
+class="badge bg-success">
+
+Active
+
+</span>
+
+</p>
+
+</div>
+
+</div>
+
+<div class="d-grid gap-2 mt-4">
+
+<button
+
+id="editProfileBtn"
+
+class="btn btn-success">
+
+<i class="bi bi-pencil-square"></i>
+
+Edit Profile
+
+</button>
+
+<button
+
+id="changePasswordBtn"
+
+class="btn btn-outline-success">
+
+<i class="bi bi-key"></i>
+
+Change Password
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROFILE COMPLETION -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+<div class="card-body">
+
+<h5 class="mb-3">
+
+Profile Completion
+
+</h5>
+
+<div class="progress"
+
+style="height:12px;">
+
+<div
+
+id="profileProgress"
+
+class="progress-bar bg-success"
+
+role="progressbar"
+
+style="width:0%;">
+
+0%
+
+</div>
+
+</div>
+
+<p
+
+id="profileCompletionText"
+
+class="small text-muted mt-2 mb-0">
+
+Complete your profile to improve your experience.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- RIGHT CONTENT -->
+<!-- ===================================================== -->
+
+<div class="col-lg-8">
+
+<!-- ACCOUNT SUMMARY -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+<div class="card-header bg-white">
+
+<h4 class="mb-0">
+
+Account Summary
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<div class="row g-4">
+
+<div class="col-md-4">
+
+<div class="border rounded p-3 text-center">
+
+<i class="bi bi-bag-check-fill text-success fs-2"></i>
+
+<h3
+
+id="summaryOrders"
+
+class="mt-2">
+
+0
+
+</h3>
+
+<p class="mb-0">
+
+Orders
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="border rounded p-3 text-center">
+
+<i class="bi bi-star-fill text-warning fs-2"></i>
+
+<h3
+
+id="summaryPoints">
+
+0
+
+</h3>
+
+<p class="mb-0">
+
+Loyalty Points
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-4">
+
+<div class="border rounded p-3 text-center">
+
+<i class="bi bi-house-fill text-primary fs-2"></i>
+
+<h3
+
+id="summaryAddresses">
+
+0
+
+</h3>
+
+<p class="mb-0">
+
+Saved Addresses
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+  <!-- ===================================================== -->
+<!-- PERSONAL INFORMATION -->
+<!-- ===================================================== -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+<div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+<h4 class="mb-0">
+
+Personal Information
+
+</h4>
+
+<button
+
+id="saveProfileBtn"
+
+class="btn btn-success btn-sm">
+
+<i class="bi bi-check-circle"></i>
+
+Save Changes
+
+</button>
+
+</div>
+
+<div class="card-body">
+
+<form id="profileForm">
+
+<div class="row g-3">
+
+<!-- First Name -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+First Name
+
+</label>
+
+<input
+
+type="text"
+
+id="firstName"
+
+class="form-control"
+
+placeholder="First Name">
+
+</div>
+
+<!-- Last Name -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+Last Name
+
+</label>
+
+<input
+
+type="text"
+
+id="lastName"
+
+class="form-control"
+
+placeholder="Last Name">
+
+</div>
+
+<!-- Email -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+Email Address
+
+</label>
+
+<input
+
+type="email"
+
+id="email"
+
+class="form-control"
+
+readonly>
+
+<div class="form-text">
+
+Your email cannot be changed here.
+
+</div>
+
+</div>
+
+<!-- Phone -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+Phone Number
+
+</label>
+
+<input
+
+type="tel"
+
+id="phone"
+
+class="form-control"
+
+placeholder="07XXXXXXXX">
+
+</div>
+
+<!-- ID Number -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+National ID / Passport
+
+</label>
+
+<input
+
+type="text"
+
+id="nationalId"
+
+class="form-control"
+
+placeholder="Optional">
+
+</div>
+
+<!-- Gender -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+Gender
+
+</label>
+
+<select
+
+id="gender"
+
+class="form-select">
+
+<option value="">
+
+Select Gender
+
+</option>
+
+<option value="Male">
+
+Male
+
+</option>
+
+<option value="Female">
+
+Female
+
+</option>
+
+<option value="Prefer not to say">
+
+Prefer not to say
+
+</option>
+
+</select>
+
+</div>
+
+<!-- County -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+County
+
+</label>
+
+<select
+
+id="county"
+
+class="form-select">
+
+<option>
+
+Loading Counties...
+
+</option>
+
+</select>
+
+</div>
+
+<!-- Town -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+Town
+
+</label>
+
+<select
+
+id="town"
+
+class="form-select">
+
+<option>
+
+Select County First
+
+</option>
+
+</select>
+
+</div>
+
+<!-- Estate -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+Estate / Area
+
+</label>
+
+<input
+
+type="text"
+
+id="estate"
+
+class="form-control"
+
+placeholder="e.g. Milimani">
+
+</div>
+
+<!-- Landmark -->
+
+<div class="col-md-6">
+
+<label class="form-label">
+
+Nearest Landmark
+
+</label>
+
+<input
+
+type="text"
+
+id="landmark"
+
+class="form-control"
+
+placeholder="Optional">
+
+</div>
+
+<!-- Address -->
+
+<div class="col-12">
+
+<label class="form-label">
+
+Delivery Address
+
+</label>
+
+<textarea
+
+id="address"
+
+rows="3"
+
+class="form-control"
+
+placeholder="Enter your delivery address">
+
+</textarea>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+  <!-- ===================================================== -->
+<!-- SAVED DELIVERY ADDRESSES -->
+<!-- ===================================================== -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+<div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+<h4 class="mb-0">
+
+Saved Delivery Addresses
+
+</h4>
+
+<button
+
+id="addAddressBtn"
+
+class="btn btn-success btn-sm">
+
+<i class="bi bi-plus-circle"></i>
+
+Add Address
+
+</button>
+
+</div>
+
+<div class="card-body">
+
+<div
+
+id="addressesContainer"
+
+class="row g-3">
+
+<!-- ========================= -->
+<!-- HOME ADDRESS -->
+<!-- ========================= -->
+
+<div class="col-lg-6">
+
+<div class="card h-100 border">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<h5>
+
+<i class="bi bi-house-door-fill text-success"></i>
+
+Home
+
+</h5>
+
+<span
+
+class="badge bg-success">
+
+Default
+
+</span>
+
+</div>
+
+<p
+
+id="homeAddress"
+
+class="text-muted mt-3 mb-3">
+
+No address saved.
+
+</p>
+
+<div class="d-flex gap-2">
+
+<button
+
+class="btn btn-outline-success btn-sm edit-address"
+
+data-type="home">
+
+<i class="bi bi-pencil"></i>
+
+Edit
+
+</button>
+
+<button
+
+class="btn btn-outline-danger btn-sm delete-address"
+
+data-type="home">
+
+<i class="bi bi-trash"></i>
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- WORK ADDRESS -->
+<!-- ========================= -->
+
+<div class="col-lg-6">
+
+<div class="card h-100 border">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<h5>
+
+<i class="bi bi-building text-primary"></i>
+
+Work
+
+</h5>
+
+</div>
+
+<p
+
+id="workAddress"
+
+class="text-muted mt-3 mb-3">
+
+No address saved.
+
+</p>
+
+<div class="d-flex gap-2">
+
+<button
+
+class="btn btn-outline-success btn-sm edit-address"
+
+data-type="work">
+
+<i class="bi bi-pencil"></i>
+
+Edit
+
+</button>
+
+<button
+
+class="btn btn-outline-danger btn-sm delete-address"
+
+data-type="work">
+
+<i class="bi bi-trash"></i>
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ========================= -->
+<!-- OTHER ADDRESS -->
+<!-- ========================= -->
+
+<div class="col-lg-6">
+
+<div class="card h-100 border">
+
+<div class="card-body">
+
+<div class="d-flex justify-content-between">
+
+<h5>
+
+<i class="bi bi-geo-alt-fill text-warning"></i>
+
+Other
+
+</h5>
+
+</div>
+
+<p
+
+id="otherAddress"
+
+class="text-muted mt-3 mb-3">
+
+No address saved.
+
+</p>
+
+<div class="d-flex gap-2">
+
+<button
+
+class="btn btn-outline-success btn-sm edit-address"
+
+data-type="other">
+
+<i class="bi bi-pencil"></i>
+
+Edit
+
+</button>
+
+<button
+
+class="btn btn-outline-danger btn-sm delete-address"
+
+data-type="other">
+
+<i class="bi bi-trash"></i>
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- ADDRESS MODAL -->
+<!-- ===================================================== -->
+
+<div
+
+class="modal fade"
+
+id="addressModal"
+
+tabindex="-1">
+
+<div class="modal-dialog">
+
+<div class="modal-content">
+
+<div class="modal-header">
+
+<h5 class="modal-title">
+
+Save Delivery Address
+
+</h5>
+
+<button
+
+type="button"
+
+class="btn-close"
+
+data-bs-dismiss="modal">
+
+</button>
+
+</div>
+
+<div class="modal-body">
+
+<input
+
+type="hidden"
+
+id="addressType">
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Address Name
+
+</label>
+
+<input
+
+type="text"
+
+id="addressTitle"
+
+class="form-control"
+
+placeholder="Home, Work...">
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Delivery Address
+
+</label>
+
+<textarea
+
+id="addressDetails"
+
+rows="4"
+
+class="form-control"
+
+placeholder="Enter complete delivery address">
+
+</textarea>
+
+</div>
+
+<div class="form-check">
+
+<input
+
+class="form-check-input"
+
+type="checkbox"
+
+id="defaultAddress">
+
+<label
+
+class="form-check-label"
+
+for="defaultAddress">
+
+Make this my default delivery address
+
+</label>
+
+</div>
+
+</div>
+
+<div class="modal-footer">
+
+<button
+
+class="btn btn-secondary"
+
+data-bs-dismiss="modal">
+
+Cancel
+
+</button>
+
+<button
+
+id="saveAddressBtn"
+
+class="btn btn-success">
+
+Save Address
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+  <!-- ===================================================== -->
+<!-- ACCOUNT SECURITY -->
+<!-- ===================================================== -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+<div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+<h4 class="mb-0">
+
+Account Security
+
+</h4>
+
+<span class="badge bg-success">
+
+Protected
+
+</span>
+
+</div>
+
+<div class="card-body">
+
+<div class="row g-4">
+
+<!-- Email Verification -->
+
+<div class="col-md-6">
+
+<div class="border rounded p-3 h-100">
+
+<div class="d-flex justify-content-between">
+
+<h5>
+
+<i class="bi bi-envelope-check-fill text-success"></i>
+
+Email Verification
+
+</h5>
+
+<span
+
+id="emailVerifiedBadge"
+
+class="badge bg-success">
+
+Verified
+
+</span>
+
+</div>
+
+<p
+
+id="securityEmail"
+
+class="text-muted mt-3 mb-3">
+
+customer@email.com
+
+</p>
+
+<button
+
+id="verifyEmailBtn"
+
+class="btn btn-outline-success btn-sm">
+
+Resend Verification Email
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Phone Verification -->
+
+<div class="col-md-6">
+
+<div class="border rounded p-3 h-100">
+
+<div class="d-flex justify-content-between">
+
+<h5>
+
+<i class="bi bi-phone-fill text-success"></i>
+
+Phone Verification
+
+</h5>
+
+<span
+
+id="phoneVerifiedBadge"
+
+class="badge bg-warning text-dark">
+
+Pending
+
+</span>
+
+</div>
+
+<p
+
+id="securityPhone"
+
+class="text-muted mt-3 mb-3">
+
+No phone number
+
+</p>
+
+<button
+
+id="verifyPhoneBtn"
+
+class="btn btn-outline-success btn-sm">
+
+Verify Phone
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Password -->
+
+<div class="col-md-6">
+
+<div class="border rounded p-3 h-100">
+
+<h5>
+
+<i class="bi bi-key-fill text-primary"></i>
+
+Password
+
+</h5>
+
+<p class="text-muted mt-3">
+
+Last changed:
+
+<span id="passwordLastChanged">
+
+Never
+
+</span>
+
+</p>
+
+<button
+
+id="changePasswordSecurityBtn"
+
+class="btn btn-primary btn-sm">
+
+Change Password
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Google Login -->
+
+<div class="col-md-6">
+
+<div class="border rounded p-3 h-100">
+
+<h5>
+
+<i class="bi bi-google text-danger"></i>
+
+Google Account
+
+</h5>
+
+<p
+
+id="googleAccountStatus"
+
+class="text-muted mt-3">
+
+Not Linked
+
+</p>
+
+<button
+
+id="linkGoogleBtn"
+
+class="btn btn-outline-danger btn-sm">
+
+Link Google Account
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Two Factor -->
+
+<div class="col-md-6">
+
+<div class="border rounded p-3 h-100">
+
+<div class="d-flex justify-content-between">
+
+<h5>
+
+<i class="bi bi-shield-lock-fill text-success"></i>
+
+Two-Factor Authentication
+
+</h5>
+
+<span
+
+id="twoFactorStatus"
+
+class="badge bg-secondary">
+
+Disabled
+
+</span>
+
+</div>
+
+<p class="text-muted mt-3">
+
+Add an extra layer of security to your account.
+
+</p>
+
+<button
+
+id="enable2FABtn"
+
+class="btn btn-success btn-sm">
+
+Enable 2FA
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Login Activity -->
+
+<div class="col-md-6">
+
+<div class="border rounded p-3 h-100">
+
+<h5>
+
+<i class="bi bi-laptop-fill text-primary"></i>
+
+Recent Login
+
+</h5>
+
+<p
+
+id="lastLogin"
+
+class="text-muted mt-3">
+
+Loading...
+
+</p>
+
+<button
+
+id="viewDevicesBtn"
+
+class="btn btn-outline-primary btn-sm">
+
+Manage Devices
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ===================================================== -->
+<!-- NOTIFICATIONS & PREFERENCES -->
+<!-- ===================================================== -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+<div class="card-header bg-white">
+
+<h4 class="mb-0">
+
+Notifications & Preferences
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<div class="row g-4">
+
+<!-- ======================================= -->
+<!-- NOTIFICATIONS -->
+<!-- ======================================= -->
+
+<div class="col-lg-6">
+
+<h5 class="mb-3">
+
+Notification Preferences
+
+</h5>
+
+<div class="list-group">
+
+<label class="list-group-item">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<div>
+
+<strong>Email Notifications</strong>
+
+<div class="small text-muted">
+
+Receive important account updates.
+
+</div>
+
+</div>
+
+<div class="form-check form-switch">
+
+<input
+
+id="emailNotifications"
+
+class="form-check-input"
+
+type="checkbox"
+
+checked>
+
+</div>
+
+</div>
+
+</label>
+
+<label class="list-group-item">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<div>
+
+<strong>SMS Notifications</strong>
+
+<div class="small text-muted">
+
+Receive delivery updates by SMS.
+
+</div>
+
+</div>
+
+<div class="form-check form-switch">
+
+<input
+
+id="smsNotifications"
+
+class="form-check-input"
+
+type="checkbox"
+
+checked>
+
+</div>
+
+</div>
+
+</label>
+
+<label class="list-group-item">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<div>
+
+<strong>Push Notifications</strong>
+
+<div class="small text-muted">
+
+Receive instant alerts.
+
+</div>
+
+</div>
+
+<div class="form-check form-switch">
+
+<input
+
+id="pushNotifications"
+
+class="form-check-input"
+
+type="checkbox"
+
+checked>
+
+</div>
+
+</div>
+
+</label>
+
+<label class="list-group-item">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<div>
+
+<strong>Promotional Offers</strong>
+
+<div class="small text-muted">
+
+Discounts and special offers.
+
+</div>
+
+</div>
+
+<div class="form-check form-switch">
+
+<input
+
+id="promotionNotifications"
+
+class="form-check-input"
+
+type="checkbox">
+
+</div>
+
+</div>
+
+</label>
+
+<label class="list-group-item">
+
+<div class="d-flex justify-content-between align-items-center">
+
+<div>
+
+<strong>Price Drop Alerts</strong>
+
+<div class="small text-muted">
+
+Notify me when gas prices reduce.
+
+</div>
+
+</div>
+
+<div class="form-check form-switch">
+
+<input
+
+id="priceAlerts"
+
+class="form-check-input"
+
+type="checkbox"
+
+checked>
+
+</div>
+
+</div>
+
+</label>
+
+</div>
+
+</div>
+
+<!-- ======================================= -->
+<!-- USER PREFERENCES -->
+<!-- ======================================= -->
+
+<div class="col-lg-6">
+
+<h5 class="mb-3">
+
+Marketplace Preferences
+
+</h5>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Preferred Language
+
+</label>
+
+<select
+
+id="preferredLanguage"
+
+class="form-select">
+
+<option value="English">
+
+English
+
+</option>
+
+<option value="Swahili">
+
+Swahili
+
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Preferred Currency
+
+</label>
+
+<select
+
+id="preferredCurrency"
+
+class="form-select">
+
+<option value="KES">
+
+Kenyan Shilling (KES)
+
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Default Gas Size
+
+</label>
+
+<select
+
+id="preferredGasSize"
+
+class="form-select">
+
+<option value="6kg">
+
+6 KG
+
+</option>
+
+<option value="13kg">
+
+13 KG
+
+</option>
+
+<option value="35kg">
+
+35 KG
+
+</option>
+
+<option value="50kg">
+
+50 KG
+
+</option>
+
+</select>
+
+</div>
+
+<div class="mb-3">
+
+<label class="form-label">
+
+Preferred Delivery Time
+
+</label>
+
+<select
+
+id="preferredDeliveryTime"
+
+class="form-select">
+
+<option value="Any">
+
+Any Time
+
+</option>
+
+<option value="Morning">
+
+Morning
+
+</option>
+
+<option value="Afternoon">
+
+Afternoon
+
+</option>
+
+<option value="Evening">
+
+Evening
+
+</option>
+
+</select>
+
+</div>
+
+<div class="form-check form-switch mb-3">
+
+<input
+
+id="darkMode"
+
+class="form-check-input"
+
+type="checkbox">
+
+<label
+
+class="form-check-label"
+
+for="darkMode">
+
+Enable Dark Mode
+
+</label>
+
+</div>
+
+<div class="d-grid">
+
+<button
+
+id="savePreferencesBtn"
+
+class="btn btn-success">
+
+<i class="bi bi-save"></i>
+
+Save Preferences
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+  <!-- ===================================================== -->
+<!-- RECENT ACTIVITY & ORDER HISTORY -->
+<!-- ===================================================== -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+<div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+<h4 class="mb-0">
+
+Recent Activity
+
+</h4>
+
+<a
+
+href="orders.html"
+
+class="btn btn-outline-success btn-sm">
+
+<i class="bi bi-clock-history"></i>
+
+View All Orders
+
+</a>
+
+</div>
+
+<div class="card-body">
+
+<div class="row">
+
+<!-- ======================================= -->
+<!-- RECENT ORDERS -->
+<!-- ======================================= -->
+
+<div class="col-lg-7 mb-4 mb-lg-0">
+
+<h5 class="mb-3">
+
+Latest Orders
+
+</h5>
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle">
+
+<thead>
+
+<tr>
+
+<th>Order</th>
+
+<th>Supplier</th>
+
+<th>Status</th>
+
+<th>Total</th>
+
+</tr>
+
+</thead>
+
+<tbody id="recentOrdersTable">
+
+<tr>
+
+<td colspan="4" class="text-center text-muted py-4">
+
+No recent orders found.
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- ======================================= -->
+<!-- ACCOUNT ACTIVITY -->
+<!-- ======================================= -->
+
+<div class="col-lg-5">
+
+<h5 class="mb-3">
+
+Account Activity
+
+</h5>
+
+<ul
+
+id="activityTimeline"
+
+class="list-group">
+
+<li class="list-group-item">
+
+<div class="d-flex">
+
+<div class="me-3">
+
+<i class="bi bi-person-check-fill text-success fs-4"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+Account Created
+
+</strong>
+
+<div
+
+id="accountCreated"
+
+class="small text-muted">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+</li>
+
+<li class="list-group-item">
+
+<div class="d-flex">
+
+<div class="me-3">
+
+<i class="bi bi-box-seam text-primary fs-4"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+Last Order
+
+</strong>
+
+<div
+
+id="lastOrderDate"
+
+class="small text-muted">
+
+No orders yet.
+
+</div>
+
+</div>
+
+</div>
+
+</li>
+
+<li class="list-group-item">
+
+<div class="d-flex">
+
+<div class="me-3">
+
+<i class="bi bi-star-fill text-warning fs-4"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+Loyalty Points Earned
+
+</strong>
+
+<div
+
+id="activityPoints"
+
+class="small text-muted">
+
+0 Points
+
+</div>
+
+</div>
+
+</div>
+
+</li>
+
+<li class="list-group-item">
+
+<div class="d-flex">
+
+<div class="me-3">
+
+<i class="bi bi-shield-check text-success fs-4"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+Last Login
+
+</strong>
+
+<div
+
+id="activityLastLogin"
+
+class="small text-muted">
+
+Loading...
+
+</div>
+
+</div>
+
+</div>
+
+</li>
+
+<li class="list-group-item">
+
+<div class="d-flex">
+
+<div class="me-3">
+
+<i class="bi bi-pencil-square text-info fs-4"></i>
+
+</div>
+
+<div>
+
+<strong>
+
+Last Profile Update
+
+</strong>
+
+<div
+
+id="lastProfileUpdate"
+
+class="small text-muted">
+
+Never
+
+</div>
+
+</div>
+
+</div>
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+  <!-- ===================================================== -->
+<!-- ACCOUNT ACTIONS -->
+<!-- ===================================================== -->
+
+<div class="card border-0 shadow-sm mb-5">
+
+<div class="card-header bg-white">
+
+<h4 class="mb-0">
+
+Account Actions
+
+</h4>
+
+</div>
+
+<div class="card-body">
+
+<div class="row g-3">
+
+<!-- Logout -->
+
+<div class="col-md-4">
+
+<div class="border rounded p-4 text-center h-100">
+
+<i class="bi bi-box-arrow-right text-primary display-5"></i>
+
+<h5 class="mt-3">
+
+Logout
+
+</h5>
+
+<p class="text-muted">
+
+Sign out of your Kenya Gas account.
+
+</p>
+
+<button
+
+id="logoutAccountBtn"
+
+class="btn btn-primary">
+
+Logout
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Download Data -->
+
+<div class="col-md-4">
+
+<div class="border rounded p-4 text-center h-100">
+
+<i class="bi bi-download text-success display-5"></i>
+
+<h5 class="mt-3">
+
+Download My Data
+
+</h5>
+
+<p class="text-muted">
+
+Download your profile and order history.
+
+</p>
+
+<button
+
+id="downloadDataBtn"
+
+class="btn btn-success">
+
+Download
+
+</button>
+
+</div>
+
+</div>
+
+<!-- Delete Account -->
+
+<div class="col-md-4">
+
+<div class="border rounded p-4 text-center h-100">
+
+<i class="bi bi-trash text-danger display-5"></i>
+
+<h5 class="mt-3">
+
+Delete Account
+
+</h5>
+
+<p class="text-muted">
+
+This action cannot be undone.
+
+</p>
+
+<button
+
+id="deleteAccountBtn"
+
+class="btn btn-danger">
+
+Delete Account
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- FOOTER -->
+<!-- ===================================================== -->
+
+<footer class="bg-dark text-white py-4">
+
+<div class="container">
+
+<div class="row align-items-center">
+
+<div class="col-md-6">
+
+<p class="mb-0">
+
+© 2026 Kenya Gas Marketplace.
+
+All Rights Reserved.
+
+</p>
+
+</div>
+
+<div class="col-md-6 text-md-end">
+
+<a
+
+href="privacy.html"
+
+class="text-white text-decoration-none me-3">
+
+Privacy Policy
+
+</a>
+
+<a
+
+href="terms.html"
+
+class="text-white text-decoration-none me-3">
+
+Terms
+
+</a>
+
+<a
+
+href="contact.html"
+
+class="text-white text-decoration-none">
+
+Contact
+
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+<!-- ===================================================== -->
+<!-- TOAST -->
+<!-- ===================================================== -->
+
+<div
+
+class="toast-container position-fixed bottom-0 end-0 p-3">
+
+<div
+
+id="profileToast"
+
+class="toast text-bg-success border-0"
+
+role="alert">
+
+<div class="d-flex">
+
+<div
+
+id="toastMessage"
+
+class="toast-body">
+
+Success
+
+</div>
+
+<button
+
+type="button"
+
+class="btn-close btn-close-white me-2 m-auto"
+
+data-bs-dismiss="toast">
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- BOOTSTRAP -->
+<!-- ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ===================================================== -->
+<!-- LOCATIONS -->
+<!-- ===================================================== -->
+
+<script
+
+src="assets/js/locations.js">
+
+</script>
+
+<!-- ===================================================== -->
+<!-- PROFILE SCRIPT -->
+<!-- ===================================================== -->
+
+<script
+
+type="module"
+
+src="assets/js/profile.js">
+
+</script>
+
+</body>
+
+</html>
