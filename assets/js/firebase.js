@@ -27,10 +27,24 @@ const auth = getAuth(app);
 
 const db = getFirestore(app);
 
+import {
+
+    getStorage
+
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+
+const storage = getStorage(app);
+
 const googleProvider = new GoogleAuthProvider();
 
 export {
+
     auth,
+
     db,
+
+    storage,
+
     googleProvider
+
 };
