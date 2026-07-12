@@ -1,258 +1,233 @@
 // ======================================================
-// supplier-register.js
-// Part 1
-// Firebase Imports & DOM Elements
+// Kenya Gas Marketplace
+// Supplier Registration
+// Section 1 - Imports & Initialization
 // ======================================================
 
 import { auth, db, storage } from "./firebase.js";
 
 import {
-
-createUserWithEmailAndPassword,
-
-sendEmailVerification,
-
-updateProfile
-
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+    updateProfile
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 import {
-
-doc,
-
-setDoc,
-
-serverTimestamp
-
+    doc,
+    setDoc,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
 
 import {
-
-ref,
-
-uploadBytes,
-
-getDownloadURL
-
+    ref,
+    uploadBytes,
+    getDownloadURL
 } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-storage.js";
 
 import {
-
-kenyaCounties,
-
-townsByCounty
-
+    kenyaCounties,
+    townsByCounty
 } from "./counties.js";
 
 // ======================================================
 // FORM
 // ======================================================
 
-const form = document.getElementById(
-    "supplierRegisterForm"
-);
+const form = document.getElementById("supplierRegisterForm");
 
-const registerBtn = document.getElementById(
-    "registerSupplierBtn"
-);
+if (!form) {
+    console.error("supplierRegisterForm not found.");
+    throw new Error("Registration form missing.");
+}
 
-const registerText = document.getElementById(
-    "registerSupplierText"
-);
+// ======================================================
+// BUTTONS
+// ======================================================
 
-const registerLoading = document.getElementById(
-    "registerSupplierLoading"
-);
+const registerBtn =
+    document.getElementById("registerSupplierBtn");
+
+const registerText =
+    document.getElementById("registerSupplierText");
+
+const registerLoading =
+    document.getElementById("registerSupplierLoading");
 
 // ======================================================
 // ACCOUNT
 // ======================================================
 
-const businessEmail = document.getElementById(
-    "businessEmail"
-);
+const businessEmail =
+    document.getElementById("businessEmail");
 
-const password = document.getElementById(
-    "password"
-);
+const password =
+    document.getElementById("password");
 
-const confirmPassword = document.getElementById(
-    "confirmPassword"
-);
+const confirmPassword =
+    document.getElementById("confirmPassword");
 
 // ======================================================
-// BUSINESS DETAILS
+// BUSINESS
 // ======================================================
 
-const businessName = document.getElementById(
-    "businessName"
-);
+const businessName =
+    document.getElementById("businessName");
 
-const businessType = document.getElementById(
-    "businessType"
-);
+const businessType =
+    document.getElementById("businessType");
 
-const ownerName = document.getElementById(
-    "ownerName"
-);
+const ownerName =
+    document.getElementById("ownerName");
 
-const businessPhone = document.getElementById(
-    "businessPhone"
-);
+const businessPhone =
+    document.getElementById("businessPhone");
 
-const alternativePhone = document.getElementById(
-    "alternativePhone"
-);
+const alternativePhone =
+    document.getElementById("alternativePhone");
 
 // ======================================================
 // LOCATION
 // ======================================================
 
-const county = document.getElementById(
-    "county"
-);
+const county =
+    document.getElementById("county");
 
-const town = document.getElementById(
-    "town"
-);
+const town =
+    document.getElementById("town");
 
-const physicalAddress = document.getElementById(
-    "physicalAddress"
-);
+const physicalAddress =
+    document.getElementById("physicalAddress");
 
-const googleMapsLink = document.getElementById(
-    "googleMapsLink"
-);
+const googleMapsLink =
+    document.getElementById("googleMapsLink");
 
-const deliveryRadius = document.getElementById(
-    "deliveryRadius"
-);
+const deliveryRadius =
+    document.getElementById("deliveryRadius");
 
-const openingTime = document.getElementById(
-    "openingTime"
-);
+const openingTime =
+    document.getElementById("openingTime");
 
-const closingTime = document.getElementById(
-    "closingTime"
-);
+const closingTime =
+    document.getElementById("closingTime");
 
-const businessDescription = document.getElementById(
-    "businessDescription"
-);
+const businessDescription =
+    document.getElementById("businessDescription");
 
 // ======================================================
 // VERIFICATION
 // ======================================================
 
-const nationalId = document.getElementById(
-    "nationalId"
-);
+const nationalId =
+    document.getElementById("nationalId");
 
-const kraPin = document.getElementById(
-    "kraPin"
-);
+const kraPin =
+    document.getElementById("kraPin");
 
 const businessRegistrationNumber =
-document.getElementById(
-    "businessRegistrationNumber"
-);
+    document.getElementById(
+        "businessRegistrationNumber"
+    );
 
 const businessLicenseNumber =
-document.getElementById(
-    "businessLicenseNumber"
-);
+    document.getElementById(
+        "businessLicenseNumber"
+    );
 
 const businessLicenseFile =
-document.getElementById(
-    "businessLicenseFile"
-);
+    document.getElementById(
+        "businessLicenseFile"
+    );
 
 const businessLogo =
-document.getElementById(
-    "businessLogo"
-);
+    document.getElementById(
+        "businessLogo"
+    );
 
 // ======================================================
 // PAYMENT
 // ======================================================
 
-const mpesaType = document.getElementById(
-    "mpesaType"
-);
+const mpesaType =
+    document.getElementById("mpesaType");
 
-const mpesaNumber = document.getElementById(
-    "mpesaNumber"
-);
+const mpesaNumber =
+    document.getElementById("mpesaNumber");
 
-const bankName = document.getElementById(
-    "bankName"
-);
+const bankName =
+    document.getElementById("bankName");
 
-const bankAccount = document.getElementById(
-    "bankAccount"
-);
+const bankAccount =
+    document.getElementById("bankAccount");
 
 // ======================================================
 // AGREEMENTS
 // ======================================================
 
-const agreeTerms = document.getElementById(
-    "agreeTerms"
-);
+const agreeTerms =
+    document.getElementById("agreeTerms");
 
-const agreePrivacy = document.getElementById(
-    "agreePrivacy"
-);
+const agreePrivacy =
+    document.getElementById("agreePrivacy");
 
 const supplierDeclaration =
-document.getElementById(
-    "supplierDeclaration"
-);
+    document.getElementById("supplierDeclaration");
 
 const marketingConsent =
-document.getElementById(
-    "marketingConsent"
-);
+    document.getElementById("marketingConsent");
 
 // ======================================================
-// PASSWORD STRENGTH
+// PASSWORD UI
 // ======================================================
 
 const passwordStrength =
-document.getElementById(
-    "passwordStrength"
-);
+    document.getElementById("passwordStrength");
 
 const passwordStrengthText =
-document.getElementById(
-    "passwordStrengthText"
-);
+    document.getElementById("passwordStrengthText");
 
 const passwordMatch =
-document.getElementById(
-    "passwordMatch"
-);
+    document.getElementById("passwordMatch");
+
+const togglePassword =
+    document.getElementById("togglePassword");
+
+const toggleConfirmPassword =
+    document.getElementById("toggleConfirmPassword");
+
+// ======================================================
+// OPTIONAL UI
+// ======================================================
+
+const descriptionCount =
+    document.getElementById("descriptionCount");
+
+const otherBrand =
+    document.getElementById("otherBrand");
 
 // ======================================================
 // PAGE READY
 // ======================================================
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-        console.log(
-            "Supplier Registration Ready"
-        );
+    console.log(
+        "Supplier Registration Loaded"
+    );
 
-    }
-);
+});
 
 // ======================================================
+// SECTION 2
+// Counties, Password Utilities & Validation
+// ======================================================
+
+// ------------------------------------------------------
 // LOAD COUNTIES
-// ======================================================
+// ------------------------------------------------------
 
 function loadCounties() {
+
+    if (!county) return;
 
     county.innerHTML =
         '<option value="">Select County</option>';
@@ -271,11 +246,13 @@ function loadCounties() {
 
 }
 
-// ======================================================
+// ------------------------------------------------------
 // LOAD TOWNS
-// ======================================================
+// ------------------------------------------------------
 
 function loadTowns(selectedCounty) {
+
+    if (!town) return;
 
     town.innerHTML =
         '<option value="">Select Town</option>';
@@ -299,56 +276,43 @@ function loadTowns(selectedCounty) {
 
 }
 
-county.addEventListener(
+county?.addEventListener("change", e => {
 
-    "change",
+    loadTowns(e.target.value);
 
-    e => {
+});
 
-        loadTowns(e.target.value);
+// ------------------------------------------------------
+// DESCRIPTION COUNTER
+// ------------------------------------------------------
 
-    }
+if (businessDescription && descriptionCount) {
 
-);
+    descriptionCount.textContent =
 
-// ======================================================
-// DESCRIPTION CHARACTER COUNTER
-// ======================================================
+        `${businessDescription.value.length}/500`;
 
-const descriptionCount =
-document.getElementById(
-    "descriptionCount"
-);
+    businessDescription.addEventListener(
 
-businessDescription.addEventListener(
+        "input",
 
-    "input",
+        () => {
 
-    () => {
+            descriptionCount.textContent =
 
-        descriptionCount.textContent =
+                `${businessDescription.value.length}/500`;
 
-            `${businessDescription.value.length} / 500`;
+        }
 
-    }
+    );
 
-);
+}
 
-// ======================================================
+// ------------------------------------------------------
 // SHOW / HIDE PASSWORD
-// ======================================================
+// ------------------------------------------------------
 
-const togglePassword =
-document.getElementById(
-    "togglePassword"
-);
-
-const toggleConfirmPassword =
-document.getElementById(
-    "toggleConfirmPassword"
-);
-
-togglePassword.addEventListener(
+togglePassword?.addEventListener(
 
     "click",
 
@@ -359,7 +323,6 @@ togglePassword.addEventListener(
             password.type === "password"
 
             ? "text"
-
             : "password";
 
         togglePassword.innerHTML =
@@ -374,7 +337,7 @@ togglePassword.addEventListener(
 
 );
 
-toggleConfirmPassword.addEventListener(
+toggleConfirmPassword?.addEventListener(
 
     "click",
 
@@ -385,7 +348,6 @@ toggleConfirmPassword.addEventListener(
             confirmPassword.type === "password"
 
             ? "text"
-
             : "password";
 
         toggleConfirmPassword.innerHTML =
@@ -400,76 +362,79 @@ toggleConfirmPassword.addEventListener(
 
 );
 
-// ======================================================
+// ------------------------------------------------------
 // PASSWORD STRENGTH
-// ======================================================
+// ------------------------------------------------------
 
-password.addEventListener(
+function updatePasswordStrength() {
 
-    "input",
+    if (!passwordStrength) return;
 
-    () => {
+    const value = password.value;
 
-        const value =
-            password.value;
+    let score = 0;
 
-        let score = 0;
+    if (value.length >= 8) score++;
+    if (/[A-Z]/.test(value)) score++;
+    if (/[a-z]/.test(value)) score++;
+    if (/\d/.test(value)) score++;
+    if (/[^A-Za-z0-9]/.test(value)) score++;
 
-        if (value.length >= 8) score++;
-        if (/[A-Z]/.test(value)) score++;
-        if (/[a-z]/.test(value)) score++;
-        if (/[0-9]/.test(value)) score++;
-        if (/[^A-Za-z0-9]/.test(value)) score++;
+    const width = score * 20;
 
-        const percent =
-            score * 20;
+    passwordStrength.style.width = width + "%";
 
-        passwordStrength.style.width =
-            percent + "%";
+    if (score <= 2) {
 
-        if (score <= 2) {
+        passwordStrength.className =
+            "progress-bar bg-danger";
 
-            passwordStrength.className =
-                "progress-bar bg-danger";
-
-            passwordStrengthText.textContent =
-                "Weak Password";
-
-        }
-
-        else if (score <= 4) {
-
-            passwordStrength.className =
-                "progress-bar bg-warning";
-
-            passwordStrengthText.textContent =
-                "Medium Password";
-
-        }
-
-        else {
-
-            passwordStrength.className =
-                "progress-bar bg-success";
-
-            passwordStrengthText.textContent =
-                "Strong Password";
-
-        }
+        passwordStrengthText.textContent =
+            "Weak";
 
     }
 
+    else if (score <= 4) {
+
+        passwordStrength.className =
+            "progress-bar bg-warning";
+
+        passwordStrengthText.textContent =
+            "Medium";
+
+    }
+
+    else {
+
+        passwordStrength.className =
+            "progress-bar bg-success";
+
+        passwordStrengthText.textContent =
+            "Strong";
+
+    }
+
+}
+
+password?.addEventListener(
+
+    "input",
+
+    updatePasswordStrength
+
 );
 
-// ======================================================
+// ------------------------------------------------------
 // PASSWORD MATCH
-// ======================================================
+// ------------------------------------------------------
 
 function checkPasswordMatch() {
 
+    if (!passwordMatch) return;
+
     if (confirmPassword.value === "") {
 
-        passwordMatch.textContent = "";
+        passwordMatch.innerHTML = "";
 
         return;
 
@@ -493,411 +458,296 @@ function checkPasswordMatch() {
 
 }
 
-password.addEventListener(
+password?.addEventListener(
+
     "input",
+
     checkPasswordMatch
+
 );
 
-confirmPassword.addEventListener(
+confirmPassword?.addEventListener(
+
     "input",
+
     checkPasswordMatch
+
 );
 
-// ======================================================
-// INITIALIZE PAGE
-// ======================================================
+// ------------------------------------------------------
+// VALIDATION HELPERS
+// ------------------------------------------------------
 
-loadCounties();
+const phoneRegex =
+    /^(\+254|254|0)7\d{8}$/;
 
-// ======================================================
-// LOAD COUNTIES
-// ======================================================
+const kraRegex =
+    /^[A-Za-z]\d{9}[A-Za-z]$/;
 
-function loadCounties() {
+const idRegex =
+    /^\d{7,8}$/;
 
-    county.innerHTML =
-        '<option value="">Select County</option>';
+function isValidPhone(phone) {
 
-    kenyaCounties.forEach(countyName => {
+    return phoneRegex.test(
 
-        const option =
-            document.createElement("option");
+        phone.trim()
 
-        option.value = countyName;
-        option.textContent = countyName;
+    );
 
-        county.appendChild(option);
+}
+
+function isValidKra(pin) {
+
+    return kraRegex.test(
+
+        pin.trim().toUpperCase()
+
+    );
+
+}
+
+function isValidNationalId(id) {
+
+    return idRegex.test(
+
+        id.trim()
+
+    );
+
+}
+
+// ------------------------------------------------------
+// FILE VALIDATION
+// ------------------------------------------------------
+
+const MAX_FILE_SIZE =
+    5 * 1024 * 1024;
+
+const allowedDocuments = [
+
+    "application/pdf",
+
+    "image/jpeg",
+
+    "image/png",
+
+    "image/jpg"
+
+];
+
+const allowedImages = [
+
+    "image/jpeg",
+
+    "image/png",
+
+    "image/jpg",
+
+    "image/webp"
+
+];
+
+function validateFile(file, types) {
+
+    if (!file) {
+
+        return {
+
+            valid: false,
+
+            message: "Please select a file."
+
+        };
+
+    }
+
+    if (!types.includes(file.type)) {
+
+        return {
+
+            valid: false,
+
+            message: "Unsupported file format."
+
+        };
+
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+
+        return {
+
+            valid: false,
+
+            message: "File must be under 5MB."
+
+        };
+
+    }
+
+    return {
+
+        valid: true
+
+    };
+
+}
+
+// ------------------------------------------------------
+// BUTTON LOADING
+// ------------------------------------------------------
+
+function setLoading(loading = true) {
+
+    registerBtn.disabled = loading;
+
+    registerText.classList.toggle(
+
+        "d-none",
+
+        loading
+
+    );
+
+    registerLoading.classList.toggle(
+
+        "d-none",
+
+        !loading
+
+    );
+
+}
+
+// ------------------------------------------------------
+// ALERT
+// ------------------------------------------------------
+
+function showAlert(message, type = "danger") {
+
+    document
+
+        .querySelectorAll(".register-alert")
+
+        .forEach(alert => alert.remove());
+
+    const alert =
+
+        document.createElement("div");
+
+    alert.className =
+
+        `alert alert-${type} register-alert`;
+
+    alert.innerHTML =
+
+        `<i class="bi bi-info-circle-fill me-2"></i>${message}`;
+
+    form.prepend(alert);
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
 
     });
 
 }
 
-// ======================================================
-// LOAD TOWNS
-// ======================================================
-
-function loadTowns(selectedCounty) {
-
-    town.innerHTML =
-        '<option value="">Select Town</option>';
-
-    if (!selectedCounty) return;
-
-    const towns =
-        townsByCounty[selectedCounty] || [];
-
-    towns.forEach(townName => {
-
-        const option =
-            document.createElement("option");
-
-        option.value = townName;
-        option.textContent = townName;
-
-        town.appendChild(option);
-
-    });
-
-}
-
-county.addEventListener(
-
-    "change",
-
-    e => {
-
-        loadTowns(e.target.value);
-
-    }
-
-);
-
-// ======================================================
-// DESCRIPTION CHARACTER COUNTER
-// ======================================================
-
-const descriptionCount =
-document.getElementById(
-    "descriptionCount"
-);
-
-businessDescription.addEventListener(
-
-    "input",
-
-    () => {
-
-        descriptionCount.textContent =
-
-            `${businessDescription.value.length} / 500`;
-
-    }
-
-);
-
-// ======================================================
-// SHOW / HIDE PASSWORD
-// ======================================================
-
-const togglePassword =
-document.getElementById(
-    "togglePassword"
-);
-
-const toggleConfirmPassword =
-document.getElementById(
-    "toggleConfirmPassword"
-);
-
-togglePassword.addEventListener(
-
-    "click",
-
-    () => {
-
-        password.type =
-
-            password.type === "password"
-
-            ? "text"
-
-            : "password";
-
-        togglePassword.innerHTML =
-
-            `<i class="bi bi-${
-                password.type === "password"
-                ? "eye"
-                : "eye-slash"
-            }"></i>`;
-
-    }
-
-);
-
-toggleConfirmPassword.addEventListener(
-
-    "click",
-
-    () => {
-
-        confirmPassword.type =
-
-            confirmPassword.type === "password"
-
-            ? "text"
-
-            : "password";
-
-        toggleConfirmPassword.innerHTML =
-
-            `<i class="bi bi-${
-                confirmPassword.type === "password"
-                ? "eye"
-                : "eye-slash"
-            }"></i>`;
-
-    }
-
-);
-
-// ======================================================
-// PASSWORD STRENGTH
-// ======================================================
-
-password.addEventListener(
-
-    "input",
-
-    () => {
-
-        const value =
-            password.value;
-
-        let score = 0;
-
-        if (value.length >= 8) score++;
-        if (/[A-Z]/.test(value)) score++;
-        if (/[a-z]/.test(value)) score++;
-        if (/[0-9]/.test(value)) score++;
-        if (/[^A-Za-z0-9]/.test(value)) score++;
-
-        const percent =
-            score * 20;
-
-        passwordStrength.style.width =
-            percent + "%";
-
-        if (score <= 2) {
-
-            passwordStrength.className =
-                "progress-bar bg-danger";
-
-            passwordStrengthText.textContent =
-                "Weak Password";
-
-        }
-
-        else if (score <= 4) {
-
-            passwordStrength.className =
-                "progress-bar bg-warning";
-
-            passwordStrengthText.textContent =
-                "Medium Password";
-
-        }
-
-        else {
-
-            passwordStrength.className =
-                "progress-bar bg-success";
-
-            passwordStrengthText.textContent =
-                "Strong Password";
-
-        }
-
-    }
-
-);
-
-// ======================================================
-// PASSWORD MATCH
-// ======================================================
-
-function checkPasswordMatch() {
-
-    if (confirmPassword.value === "") {
-
-        passwordMatch.textContent = "";
-
-        return;
-
-    }
-
-    if (password.value === confirmPassword.value) {
-
-        passwordMatch.innerHTML =
-
-            '<span class="text-success"><i class="bi bi-check-circle-fill"></i> Passwords match</span>';
-
-    }
-
-    else {
-
-        passwordMatch.innerHTML =
-
-            '<span class="text-danger"><i class="bi bi-x-circle-fill"></i> Passwords do not match</span>';
-
-    }
-
-}
-
-password.addEventListener(
-    "input",
-    checkPasswordMatch
-);
-
-confirmPassword.addEventListener(
-    "input",
-    checkPasswordMatch
-);
-
-// ======================================================
-// INITIALIZE PAGE
-// ======================================================
+// ------------------------------------------------------
+// INITIALIZE
+// ------------------------------------------------------
 
 loadCounties();
 
 // ======================================================
-// FIREBASE STORAGE UPLOADS
+// SECTION 3
+// Firebase Storage & Data Collection
 // ======================================================
 
-async function uploadBusinessLicense(userId){
+// ------------------------------------------------------
+// UPLOAD BUSINESS LICENSE
+// ------------------------------------------------------
 
-    const file =
-        businessLicenseFile.files[0];
+async function uploadBusinessLicense(userId) {
 
-    if(!file) return "";
+    const file = businessLicenseFile.files[0];
 
-    const extension =
-        file.name.split(".").pop();
+    if (!file) return "";
 
-    const fileName =
-
-        `license_${Date.now()}.${extension}`;
+    const extension = file.name.split(".").pop();
 
     const storageRef = ref(
-
         storage,
-
-        `suppliers/${userId}/documents/${fileName}`
-
+        `suppliers/${userId}/documents/license_${Date.now()}.${extension}`
     );
 
-    await uploadBytes(
+    await uploadBytes(storageRef, file);
 
-        storageRef,
-
-        file
-
-    );
-
-    return await getDownloadURL(
-
-        storageRef
-
-    );
+    return await getDownloadURL(storageRef);
 
 }
 
-// ======================================================
+// ------------------------------------------------------
 // UPLOAD BUSINESS LOGO
-// ======================================================
+// ------------------------------------------------------
 
-async function uploadBusinessLogo(userId){
+async function uploadBusinessLogo(userId) {
 
-    if(
+    if (!businessLogo.files.length) return "";
 
-        businessLogo.files.length===0
+    const file = businessLogo.files[0];
 
-    ){
-
-        return "";
-
-    }
-
-    const file =
-        businessLogo.files[0];
-
-    const extension =
-        file.name.split(".").pop();
-
-    const fileName =
-
-        `logo_${Date.now()}.${extension}`;
+    const extension = file.name.split(".").pop();
 
     const storageRef = ref(
-
         storage,
-
-        `suppliers/${userId}/logo/${fileName}`
-
+        `suppliers/${userId}/logo/logo_${Date.now()}.${extension}`
     );
 
-    await uploadBytes(
+    await uploadBytes(storageRef, file);
 
-        storageRef,
-
-        file
-
-    );
-
-    return await getDownloadURL(
-
-        storageRef
-
-    );
+    return await getDownloadURL(storageRef);
 
 }
 
-// ======================================================
-// COLLECT LPG BRANDS
-// ======================================================
+// ------------------------------------------------------
+// GET CHECKBOX VALUES
+// ------------------------------------------------------
 
-function getSelectedBrands(){
+function getCheckedValues(prefix) {
 
-    const brands = [];
+    const values = [];
 
     document.querySelectorAll(
+        `input[id^="${prefix}"]:checked`
+    ).forEach(item => {
 
-        'input[type="checkbox"][id^="brand"]:checked'
+        values.push(item.value);
 
-    ).forEach(
+    });
 
-        checkbox=>{
+    return values;
 
-            brands.push(
+}
 
-                checkbox.value
+// ------------------------------------------------------
+// LPG BRANDS
+// ------------------------------------------------------
 
-            );
+function getSelectedBrands() {
 
-        }
+    const brands = getCheckedValues("brand");
 
-    );
-
-    if(
-
-        otherBrand.value.trim()
-
-    ){
+    if (
+        otherBrand &&
+        otherBrand.value.trim() !== ""
+    ) {
 
         brands.push(
-
             otherBrand.value.trim()
-
         );
 
     }
@@ -906,205 +756,358 @@ function getSelectedBrands(){
 
 }
 
-// ======================================================
-// COLLECT CYLINDER SIZES
-// ======================================================
+// ------------------------------------------------------
+// CYLINDER SIZES
+// ------------------------------------------------------
 
-function getCylinderSizes(){
+function getCylinderSizes() {
 
-    const sizes = [];
-
-    document.querySelectorAll(
-
-        'input[type="checkbox"][id^="size"]:checked'
-
-    ).forEach(
-
-        checkbox=>{
-
-            sizes.push(
-
-                checkbox.value
-
-            );
-
-        }
-
-    );
-
-    return sizes;
+    return getCheckedValues("size");
 
 }
 
-// ======================================================
-// COLLECT OPERATING DAYS
-// ======================================================
+// ------------------------------------------------------
+// OPERATING DAYS
+// ------------------------------------------------------
 
-function getOperatingDays(){
+function getOperatingDays() {
 
-    const days = [];
-
-    const map = {
-
-        mon:"Monday",
-
-        tue:"Tuesday",
-
-        wed:"Wednesday",
-
-        thu:"Thursday",
-
-        fri:"Friday",
-
-        sat:"Saturday",
-
-        sun:"Sunday"
-
-    };
-
-    Object.keys(map).forEach(
-
-        id=>{
-
-            const checkbox =
-
-                document.getElementById(id);
-
-            if(
-
-                checkbox &&
-
-                checkbox.checked
-
-            ){
-
-                days.push(
-
-                    map[id]
-
-                );
-
-            }
-
-        }
-
-    );
-
-    return days;
+    return getCheckedValues("day");
 
 }
 
-// ======================================================
-// COLLECT ADDITIONAL SERVICES
-// ======================================================
+// ------------------------------------------------------
+// SERVICES
+// ------------------------------------------------------
 
-function getAdditionalServices(){
+function getAdditionalServices() {
 
-    const services = [];
-
-    if(
-
-        document.getElementById(
-
-            "serviceInstallation"
-
-        ).checked
-
-    ){
-
-        services.push(
-
-            "Gas Installation"
-
-        );
-
-    }
-
-    if(
-
-        document.getElementById(
-
-            "serviceRegulator"
-
-        ).checked
-
-    ){
-
-        services.push(
-
-            "Regulator Replacement"
-
-        );
-
-    }
-
-    if(
-
-        document.getElementById(
-
-            "serviceInspection"
-
-        ).checked
-
-    ){
-
-        services.push(
-
-            "Gas Leak Inspection"
-
-        );
-
-    }
-
-    return services;
+    return getCheckedValues("service");
 
 }
 
-// ======================================================
-// GENERATE SUPPLIER ID
-// ======================================================
+// ------------------------------------------------------
+// SUPPLIER CODE
+// ------------------------------------------------------
 
-function generateSupplierCode(){
+function generateSupplierCode() {
 
     return "SUP-" +
 
-        Date.now()
+        Math.floor(
 
-        .toString()
+            10000000 +
 
-        .slice(-8);
+            Math.random() * 90000000
+
+        );
+
+}
+
+// ------------------------------------------------------
+// BUILD SUPPLIER OBJECT
+// ------------------------------------------------------
+
+function buildSupplierData(
+
+    user,
+
+    logoUrl,
+
+    licenseUrl
+
+) {
+
+    return {
+
+        uid: user.uid,
+
+        supplierCode:
+            generateSupplierCode(),
+
+        accountType:
+            "supplier",
+
+        approved:
+            false,
+
+        verified:
+            false,
+
+        suspended:
+            false,
+
+        profileComplete:
+            true,
+
+        businessName:
+            businessName.value.trim(),
+
+        businessType:
+            businessType.value,
+
+        ownerName:
+            ownerName.value.trim(),
+
+        email:
+            businessEmail.value.trim(),
+
+        phone:
+            businessPhone.value.trim(),
+
+        alternativePhone:
+            alternativePhone.value.trim(),
+
+        county:
+            county.value,
+
+        town:
+            town.value,
+
+        physicalAddress:
+            physicalAddress.value.trim(),
+
+        googleMaps:
+            googleMapsLink.value.trim(),
+
+        deliveryRadius:
+            Number(deliveryRadius.value || 0),
+
+        openingTime:
+            openingTime.value,
+
+        closingTime:
+            closingTime.value,
+
+        description:
+            businessDescription.value.trim(),
+
+        nationalId:
+            nationalId.value.trim(),
+
+        kraPin:
+            kraPin.value.trim().toUpperCase(),
+
+        businessRegistrationNumber:
+            businessRegistrationNumber.value.trim(),
+
+        businessLicenseNumber:
+            businessLicenseNumber.value.trim(),
+
+        businessLicenseUrl:
+            licenseUrl,
+
+        businessLogoUrl:
+            logoUrl,
+
+        mpesaType:
+            mpesaType.value,
+
+        mpesaNumber:
+            mpesaNumber.value.trim(),
+
+        bankName:
+            bankName.value.trim(),
+
+        bankAccount:
+            bankAccount.value.trim(),
+
+        brands:
+            getSelectedBrands(),
+
+        cylinderSizes:
+            getCylinderSizes(),
+
+        operatingDays:
+            getOperatingDays(),
+
+        additionalServices:
+            getAdditionalServices(),
+
+        rating: 0,
+
+        totalReviews: 0,
+
+        totalOrders: 0,
+
+        totalSales: 0,
+
+        walletBalance: 0,
+
+        marketingConsent:
+            marketingConsent.checked,
+
+        createdAt:
+            serverTimestamp(),
+
+        updatedAt:
+            serverTimestamp()
+
+    };
+
+}
+
+// ------------------------------------------------------
+// COMPLETE FORM VALIDATION
+// ------------------------------------------------------
+
+function validateForm() {
+
+    if (!form.checkValidity()) {
+
+        form.classList.add("was-validated");
+
+        showAlert(
+            "Please complete all required fields."
+        );
+
+        return false;
+
+    }
+
+    if (!isValidPhone(businessPhone.value)) {
+
+        showAlert(
+            "Please enter a valid Kenyan phone number."
+        );
+
+        return false;
+
+    }
+
+    if (
+        alternativePhone.value &&
+        !isValidPhone(alternativePhone.value)
+    ) {
+
+        showAlert(
+            "Alternative phone number is invalid."
+        );
+
+        return false;
+
+    }
+
+    if (!isValidKra(kraPin.value)) {
+
+        showAlert(
+            "Invalid KRA PIN."
+        );
+
+        return false;
+
+    }
+
+    if (!isValidNationalId(nationalId.value)) {
+
+        showAlert(
+            "Invalid National ID."
+        );
+
+        return false;
+
+    }
+
+    if (password.value !== confirmPassword.value) {
+
+        showAlert(
+            "Passwords do not match."
+        );
+
+        return false;
+
+    }
+
+    const licenseCheck = validateFile(
+        businessLicenseFile.files[0],
+        allowedDocuments
+    );
+
+    if (!licenseCheck.valid) {
+
+        showAlert(licenseCheck.message);
+
+        return false;
+
+    }
+
+    if (businessLogo.files.length) {
+
+        const logoCheck = validateFile(
+            businessLogo.files[0],
+            allowedImages
+        );
+
+        if (!logoCheck.valid) {
+
+            showAlert(logoCheck.message);
+
+            return false;
+
+        }
+
+    }
+
+    if (!agreeTerms.checked) {
+
+        showAlert(
+            "You must accept the Terms and Conditions."
+        );
+
+        return false;
+
+    }
+
+    if (!agreePrivacy.checked) {
+
+        showAlert(
+            "You must accept the Privacy Policy."
+        );
+
+        return false;
+
+    }
+
+    if (!supplierDeclaration.checked) {
+
+        showAlert(
+            "Please confirm the supplier declaration."
+        );
+
+        return false;
+
+    }
+
+    return true;
 
 }
 
 // ======================================================
-// REGISTER SUPPLIER
+// SECTION 4
+// Supplier Registration
 // ======================================================
 
 form.addEventListener(
 
     "submit",
 
-    async (e)=>{
+    async (e) => {
 
         e.preventDefault();
 
-        if(
-
-            !validateForm()
-
-        ){
+        if (!validateForm()) {
 
             return;
 
         }
 
-        try{
+        try {
 
             setLoading(true);
 
-            // =====================================
-            // CREATE AUTH ACCOUNT
-            // =====================================
+            // --------------------------------------
+            // CREATE FIREBASE ACCOUNT
+            // --------------------------------------
 
             const userCredential =
 
@@ -1118,13 +1121,11 @@ form.addEventListener(
 
                 );
 
-            const user =
+            const user = userCredential.user;
 
-                userCredential.user;
-
-            // =====================================
-            // UPDATE DISPLAY NAME
-            // =====================================
+            // --------------------------------------
+            // UPDATE PROFILE
+            // --------------------------------------
 
             await updateProfile(
 
@@ -1140,192 +1141,71 @@ form.addEventListener(
 
             );
 
-            // =====================================
+            // --------------------------------------
             // SEND EMAIL VERIFICATION
-            // =====================================
+            // --------------------------------------
 
-            await sendEmailVerification(
+            await sendEmailVerification(user);
 
-                user
-
-            );
-
-            // =====================================
+            // --------------------------------------
             // UPLOAD FILES
-            // =====================================
+            // --------------------------------------
 
-            const licenseUrl =
+            let logoUrl = "";
 
-                await uploadBusinessLicense(
+            let licenseUrl = "";
 
-                    user.uid
+            if (
 
-                );
+                businessLogo.files.length
 
-            const logoUrl =
+            ) {
 
-                await uploadBusinessLogo(
+                logoUrl =
 
-                    user.uid
+                    await uploadBusinessLogo(
 
-                );
+                        user.uid
 
-            // =====================================
-            // CREATE SUPPLIER OBJECT
-            // =====================================
+                    );
 
-            const supplierData = {
+            }
 
-                uid: user.uid,
+            if (
 
-                supplierCode:
-                    generateSupplierCode(),
+                businessLicenseFile.files.length
 
-                businessName:
-                    businessName.value.trim(),
+            ) {
 
-                businessType:
-                    businessType.value,
+                licenseUrl =
 
-                ownerName:
-                    ownerName.value.trim(),
+                    await uploadBusinessLicense(
 
-                email:
-                    businessEmail.value.trim(),
+                        user.uid
 
-                phone:
-                    businessPhone.value.trim(),
+                    );
 
-                alternativePhone:
-                    alternativePhone.value.trim(),
+            }
 
-                county:
-                    county.value,
+            // --------------------------------------
+            // BUILD SUPPLIER DATA
+            // --------------------------------------
 
-                town:
-                    town.value,
+            const supplierData =
 
-                physicalAddress:
-                    physicalAddress.value.trim(),
+                buildSupplierData(
 
-                googleMaps:
-                    googleMapsLink.value.trim(),
+                    user,
 
-                deliveryRadius:
-                    Number(deliveryRadius.value),
-
-                openingTime:
-                    openingTime.value,
-
-                closingTime:
-                    closingTime.value,
-
-                description:
-                    businessDescription.value.trim(),
-
-                nationalId:
-                    nationalId.value.trim(),
-
-                kraPin:
-                    kraPin.value.trim().toUpperCase(),
-
-                businessRegistrationNumber:
-                    businessRegistrationNumber.value.trim(),
-
-                businessLicenseNumber:
-                    businessLicenseNumber.value.trim(),
-
-                businessLicenseUrl:
-                    licenseUrl,
-
-                businessLogoUrl:
                     logoUrl,
 
-                mpesaType:
-                    mpesaType.value,
+                    licenseUrl
 
-                mpesaNumber:
-                    mpesaNumber.value.trim(),
+                );
 
-                bankName:
-                    bankName.value.trim(),
-
-                bankAccount:
-                    bankAccount.value.trim(),
-
-                brands:
-                    getSelectedBrands(),
-
-                cylinderSizes:
-                    getCylinderSizes(),
-
-                operatingDays:
-                    getOperatingDays(),
-
-                additionalServices:
-                    getAdditionalServices(),
-
-                deliveryAvailable:
-                    document.getElementById(
-                        "deliveryAvailable"
-                    ).value,
-
-                deliveryCharge:
-                    Number(
-                        document.getElementById(
-                            "deliveryCharge"
-                        ).value
-                    ),
-
-                deliveryCoverage:
-                    document.getElementById(
-                        "deliveryCoverage"
-                    ).value.trim(),
-
-                marketingConsent:
-                    marketingConsent.checked,
-
-                accountType:
-                    "supplier",
-
-                verified:
-                    false,
-
-                approved:
-                    false,
-
-                suspended:
-                    false,
-
-                profileComplete:
-                    true,
-
-                rating:
-                    0,
-
-                totalReviews:
-                    0,
-
-                totalOrders:
-                    0,
-
-                totalSales:
-                    0,
-
-                walletBalance:
-                    0,
-
-                createdAt:
-                    serverTimestamp(),
-
-                updatedAt:
-                    serverTimestamp()
-
-            };
-
-            // =====================================
-            // SAVE TO FIRESTORE
-            // =====================================
+            // --------------------------------------
+            // SAVE SUPPLIER
+            // --------------------------------------
 
             await setDoc(
 
@@ -1343,9 +1223,9 @@ form.addEventListener(
 
             );
 
-            // =====================================
-            // CREATE USER RECORD
-            // =====================================
+            // --------------------------------------
+            // SAVE USER RECORD
+            // --------------------------------------
 
             await setDoc(
 
@@ -1361,37 +1241,33 @@ form.addEventListener(
 
                 {
 
-                    uid:
-                        user.uid,
+                    uid: user.uid,
 
-                    name:
-                        ownerName.value.trim(),
+                    role: "supplier",
 
-                    email:
-                        businessEmail.value.trim(),
+                    supplierId: user.uid,
 
-                    phone:
-                        businessPhone.value.trim(),
+                    email: businessEmail.value.trim(),
 
-                    role:
-                        "supplier",
+                    fullName: ownerName.value.trim(),
 
-                    supplierId:
-                        user.uid,
+                    phone: businessPhone.value.trim(),
 
-                    approved:
-                        false,
+                    approved: false,
 
-                    createdAt:
-                        serverTimestamp()
+                    emailVerified: false,
+
+                    createdAt: serverTimestamp(),
+
+                    updatedAt: serverTimestamp()
 
                 }
 
             );
 
-                    // =====================================
-            // CREATE SUPPLIER WALLET
-            // =====================================
+            // --------------------------------------
+            // CREATE WALLET
+            // --------------------------------------
 
             await setDoc(
 
@@ -1427,9 +1303,9 @@ form.addEventListener(
 
             );
 
-            // =====================================
-            // CREATE ANALYTICS DOCUMENT
-            // =====================================
+            // --------------------------------------
+            // CREATE ANALYTICS
+            // --------------------------------------
 
             await setDoc(
 
@@ -1473,9 +1349,9 @@ form.addEventListener(
 
             );
 
-            // =====================================
-            // CREATE FIRST NOTIFICATION
-            // =====================================
+            // --------------------------------------
+            // CREATE NOTIFICATION
+            // --------------------------------------
 
             await setDoc(
 
@@ -1495,10 +1371,10 @@ form.addEventListener(
 
                     type: "welcome",
 
-                    title: "Welcome to Kenya Gas Marketplace!",
+                    title: "Welcome to Kenya Gas Marketplace",
 
                     message:
-                    "Your supplier account has been created successfully. Please verify your email address. Your business will be reviewed within 24–48 hours before activation.",
+                        "Your supplier account has been created successfully. Please verify your email. Your account will be reviewed before approval.",
 
                     read: false,
 
@@ -1508,13 +1384,13 @@ form.addEventListener(
 
             );
 
-            // =====================================
-            // SUCCESS MESSAGE
-            // =====================================
+                    // --------------------------------------
+            // SUCCESS
+            // --------------------------------------
 
             showAlert(
 
-                "Registration successful! Please verify your email before logging in. Your supplier account is now awaiting approval.",
+                "Registration successful! Please verify your email before logging in. Your supplier account will be reviewed within 24–48 hours.",
 
                 "success"
 
@@ -1522,97 +1398,127 @@ form.addEventListener(
 
             form.reset();
 
-            form.classList.remove(
+            form.classList.remove("was-validated");
 
-                "was-validated"
+            // Reset UI
 
-            );
+            if (passwordStrength) {
 
-            passwordStrength.style.width = "0%";
+                passwordStrength.style.width = "0%";
 
-            passwordStrength.className = "progress-bar";
+                passwordStrength.className = "progress-bar";
 
-            passwordStrengthText.textContent =
+            }
 
-                "Password strength";
+            if (passwordStrengthText) {
 
-            passwordMatch.textContent = "";
+                passwordStrengthText.textContent =
+                    "Password Strength";
 
-            descriptionCount.textContent =
+            }
 
-                "0 / 500";
+            if (passwordMatch) {
+
+                passwordMatch.innerHTML = "";
+
+            }
+
+            if (descriptionCount) {
+
+                descriptionCount.textContent = "0/500";
+
+            }
 
             loadCounties();
 
-            town.innerHTML =
+            if (town) {
 
-                '<option value="">Select county first</option>';
+                town.innerHTML =
+                    '<option value="">Select County First</option>';
 
-            setTimeout(
+            }
 
-                ()=>{
+            setTimeout(() => {
 
-                    window.location.href =
-
+                window.location.href =
                     "supplier-login.html";
 
-                },
-
-                3000
-
-            );
+            }, 3000);
 
         }
 
-        catch(error){
+        catch (error) {
 
             console.error(error);
 
             let message =
-
                 "Registration failed. Please try again.";
 
-            switch(error.code){
+            switch (error.code) {
 
                 case "auth/email-already-in-use":
 
                     message =
-
-                    "An account with this email already exists.";
+                        "An account with this email already exists.";
 
                     break;
 
                 case "auth/invalid-email":
 
                     message =
-
-                    "The email address is invalid.";
+                        "Invalid email address.";
 
                     break;
 
                 case "auth/weak-password":
 
                     message =
+                        "Password is too weak.";
 
-                    "Choose a stronger password.";
+                    break;
+
+                case "auth/network-request-failed":
+
+                    message =
+                        "Network error. Check your internet connection.";
 
                     break;
 
                 case "storage/unauthorized":
 
                     message =
+                        "You do not have permission to upload files.";
 
-                    "Unable to upload your documents.";
+                    break;
+
+                case "storage/canceled":
+
+                    message =
+                        "File upload was cancelled.";
+
+                    break;
+
+                case "storage/quota-exceeded":
+
+                    message =
+                        "Storage quota exceeded.";
 
                     break;
 
                 case "permission-denied":
 
                     message =
-
-                    "Firestore permission denied. Check your security rules.";
+                        "Firestore permission denied. Check your Firebase Security Rules.";
 
                     break;
+
+                default:
+
+                    if (error.message) {
+
+                        message = error.message;
+
+                    }
 
             }
 
@@ -1626,7 +1532,7 @@ form.addEventListener(
 
         }
 
-        finally{
+        finally {
 
             setLoading(false);
 
@@ -1637,5 +1543,27 @@ form.addEventListener(
 );
 
 // ======================================================
-// END OF supplier-register.js
+// PAGE INITIALIZATION
+// ======================================================
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        loadCounties();
+
+        console.log(
+
+            "Supplier Registration Ready"
+
+        );
+
+    }
+
+);
+
+// ======================================================
+// END OF FILE
 // ======================================================
