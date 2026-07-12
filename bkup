@@ -1,308 +1,130 @@
-/* ===========================
-   FOOTER
-=========================== */
+<!DOCTYPE html>
+<html lang="en">
 
-.footer{
-    background:#0f172a;
-    color:#fff;
-    padding:60px 8%;
-}
+<head>
 
-.footer-container{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:40px;
-}
+    <meta charset="UTF-8">
 
-.footer h2,
-.footer h3{
-    margin-bottom:20px;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-.footer p{
-    line-height:1.7;
-    color:#cbd5e1;
-}
+    <title>Supplier Registration | Kenya Gas</title>
 
-.footer a{
-    display:block;
-    color:#cbd5e1;
-    text-decoration:none;
-    margin-bottom:12px;
-    transition:.3s;
-}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
-.footer a:hover{
-    color:#3b82f6;
-}
+    <link rel="stylesheet" href="assets/css/auth.css">
 
-.footer hr{
-    border:none;
-    border-top:1px solid rgba(255,255,255,.15);
-    margin:40px 0 20px;
-}
+</head>
 
-.footer-bottom{
-    text-align:center;
-    color:#94a3b8;
-}
+<body class="bg-light">
 
-/* ===========================
-   WHY CHOOSE US
-=========================== */
+<div class="container py-5">
 
-.why-us{
-    padding:80px 8%;
-    background:#f8fafc;
-}
+    <div class="card shadow border-0">
 
-.features-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:30px;
-    margin-top:50px;
-}
+        <div class="card-body p-4">
 
-.feature-card{
-    background:#fff;
-    border-radius:12px;
-    padding:30px;
-    text-align:center;
-    transition:.3s;
-    box-shadow:0 5px 18px rgba(0,0,0,.08);
-}
+            <h2 class="fw-bold text-success mb-3">
 
-.feature-card:hover{
-    transform:translateY(-8px);
-}
+                🏪 Become a Supplier
 
-.feature-card i{
-    font-size:42px;
-    color:#2563eb;
-    margin-bottom:20px;
-}
+            </h2>
 
-.feature-card h3{
-    margin-bottom:15px;
-}
+            <p class="text-muted">
 
-.feature-card p{
-    color:#64748b;
-    line-height:1.7;
-}
+                Register your gas business to receive customer orders.
 
-/* ===========================
-   DELIVERY PROCESS
-=========================== */
+            </p>
 
-.process{
-    padding:80px 8%;
-}
+            <form id="supplierRegisterForm">
 
-.process-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:30px;
-    margin-top:50px;
-}
+                <!-- BUSINESS NAME -->
 
-.process-card{
-    background:#fff;
-    border-radius:12px;
-    padding:30px;
-    text-align:center;
-    box-shadow:0 5px 18px rgba(0,0,0,.08);
-}
+                <div class="mb-3">
 
-.number{
-    width:60px;
-    height:60px;
-    margin:auto;
-    margin-bottom:20px;
-    border-radius:50%;
-    background:#2563eb;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:24px;
-    font-weight:bold;
-}
+                    <label class="form-label">Business Name</label>
 
-.process-card p{
-    color:#64748b;
-    margin-top:12px;
-}
+                    <input type="text" id="businessName" class="form-control" required>
 
-/* ===========================
-   TESTIMONIALS
-=========================== */
+                </div>
 
-.testimonials{
-    background:#eff6ff;
-    padding:80px 8%;
-}
+                <!-- OWNER NAME -->
 
-.testimonial-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
-    margin-top:45px;
-}
+                <div class="mb-3">
 
-.testimonial-card{
-    background:#fff;
-    border-radius:12px;
-    padding:30px;
-    box-shadow:0 5px 18px rgba(0,0,0,.08);
-}
+                    <label class="form-label">Owner Name</label>
 
-.testimonial-card p:first-child{
-    color:#f59e0b;
-    font-size:22px;
-    margin-bottom:15px;
-}
+                    <input type="text" id="ownerName" class="form-control" required>
 
-.testimonial-card h4{
-    margin-top:20px;
-    color:#2563eb;
-}
+                </div>
 
-/* ===========================
-   NEWSLETTER
-=========================== */
+                <!-- EMAIL -->
 
-.newsletter{
-    padding:80px 8%;
-    background:#1e3a8a;
-    text-align:center;
-    color:#fff;
-}
+                <div class="mb-3">
 
-.newsletter p{
-    margin:20px auto;
-    max-width:650px;
-}
+                    <label class="form-label">Email</label>
 
-#newsletterForm{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:15px;
-    margin-top:30px;
-}
+                    <input type="email" id="email" class="form-control" required>
 
-#newsletterForm input{
-    width:350px;
-    max-width:100%;
-    padding:14px 18px;
-    border:none;
-    border-radius:8px;
-    outline:none;
-}
+                </div>
 
-#newsletterForm button{
-    padding:14px 30px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    background:#f59e0b;
-    color:#fff;
-    font-weight:600;
-    transition:.3s;
-}
+                <!-- PHONE -->
 
-#newsletterForm button:hover{
-    background:#d97706;
-}
+                <div class="mb-3">
 
-/* ===========================
-   CALL TO ACTION
-=========================== */
+                    <label class="form-label">Phone Number</label>
 
-.cta{
-    padding:80px 8%;
-    text-align:center;
-}
+                    <input type="tel" id="phone" class="form-control" required>
 
-.cta p{
-    margin:20px auto 35px;
-    color:#64748b;
-    max-width:700px;
-}
+                </div>
 
-.primary-btn{
-    display:inline-block;
-    padding:15px 35px;
-    border-radius:8px;
-    background:#2563eb;
-    color:#fff;
-    text-decoration:none;
-    transition:.3s;
-}
+                <!-- COUNTY -->
 
-.primary-btn:hover{
-    background:#1d4ed8;
-}
+                <div class="mb-3">
 
-/* ===========================
-   FOOTER ADDITIONS
-=========================== */
+                    <label class="form-label">County</label>
 
-.footer-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-    gap:40px;
-}
+                    <input type="text" id="county" class="form-control" required>
 
-.footer-grid ul{
-    list-style:none;
-    padding:0;
-    margin:0;
-}
+                </div>
 
-.footer-grid li{
-    margin-bottom:12px;
-}
+                <!-- TOWN -->
 
-/* ===========================
-   SECTION HEADINGS
-=========================== */
+                <div class="mb-3">
 
-.section-title{
-    text-align:center;
-    font-size:2rem;
-    margin-bottom:15px;
-}
+                    <label class="form-label">Town</label>
 
-.section-subtitle{
-    text-align:center;
-    color:#64748b;
-    margin-bottom:45px;
-}
+                    <input type="text" id="town" class="form-control" required>
 
-/* ===========================
-   RESPONSIVE
-=========================== */
+                </div>
 
-@media(max-width:768px){
+                <!-- PASSWORD -->
 
-    .features-grid,
-    .process-grid,
-    .testimonial-grid,
-    .footer-grid{
-        grid-template-columns:1fr;
-    }
+                <div class="mb-3">
 
-    #newsletterForm{
-        flex-direction:column;
-        align-items:center;
-    }
+                    <label class="form-label">Password</label>
 
-    #newsletterForm input,
-    #newsletterForm button{
-        width:100%;
-        max-width:450px;
-    }
+                    <input type="password" id="password" class="form-control" required>
 
-}
+                </div>
+
+                <!-- BUTTON -->
+
+                <button type="submit" class="btn btn-success w-100">
+
+                    Register Supplier
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script type="module" src="assets/js/supplier-register.js"></script>
+
+</body>
+
+</html>
