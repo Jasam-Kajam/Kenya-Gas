@@ -270,4 +270,13 @@ const kenyaLocations = {
 
 };
 
+// ======================================================
+// EXPORTS
+// ======================================================
+
+export const townsByCounty = kenyaLocations;
+
+export const kenyaCounties =
+    Object.keys(kenyaLocations).sort();
+
 export default kenyaLocations;
