@@ -2908,7 +2908,29 @@ document.getElementById(
 );
 
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
 
+    const overlay = document.getElementById("loadingOverlay");
+
+    if (overlay) {
+
+        setTimeout(() => {
+
+            overlay.style.opacity = "0";
+
+            setTimeout(() => {
+
+                overlay.style.display = "none";
+
+            }, 300);
+
+        }, 500);
+
+    }
+
+});
+</script>
 </body>
 
 </html>
