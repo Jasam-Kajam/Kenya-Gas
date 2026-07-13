@@ -2909,25 +2909,19 @@ document.getElementById(
 
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", () => {
 
     const overlay = document.getElementById("loadingOverlay");
 
-    if (overlay) {
+    if (!overlay) return;
 
-        setTimeout(() => {
+    overlay.style.opacity = "0";
 
-            overlay.style.opacity = "0";
+    setTimeout(() => {
 
-            setTimeout(() => {
+        overlay.remove();
 
-                overlay.style.display = "none";
-
-            }, 300);
-
-        }, 500);
-
-    }
+    }, 300);
 
 });
 </script>
