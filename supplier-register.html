@@ -3,2928 +3,1327 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-<title>
+    <meta
+        name="description"
+        content="Register your LPG business on Kenya Gas Marketplace and start selling gas cylinders across Kenya.">
 
-Supplier Registration | Kenya Gas Marketplace
+    <meta
+        name="keywords"
+        content="Kenya Gas Marketplace, LPG Supplier, Gas Business, Register Supplier">
 
-</title>
+    <meta
+        name="author"
+        content="Kenya Gas Marketplace">
 
-<!-- Bootstrap -->
+    <meta
+        name="theme-color"
+        content="#0d6efd">
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
+    <title>
+        Supplier Registration | Kenya Gas Marketplace
+    </title>
 
-<!-- Bootstrap Icons -->
+    <!-- Favicon -->
+    <link
+        rel="icon"
+        type="image/png"
+        href="assets/images/favicon.png">
 
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-rel="stylesheet">
-
-<!-- Main CSS -->
-
-<link
-rel="stylesheet"
-href="assets/css/style.css">
-
-<link
-rel="stylesheet"
-href="assets/css/auth.css">
+    <!-- Google Fonts -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
 
     <link
-rel="stylesheet"
-href="assets/css/supplier-register.css">
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
 
-<!-- Favicon -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
-<link
-rel="icon"
-href="assets/images/favicon.png">
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Shared Authentication Styles -->
+    <link
+        rel="stylesheet"
+        href="assets/css/auth.css">
+
+    <!-- Supplier Registration Styles (Optional) -->
+    <link
+        rel="stylesheet"
+        href="assets/css/supplier-register.css">
 
 </head>
 
-<body class="bg-light">
+<body>
 
-<!-- ========================================= -->
-<!-- NAVBAR -->
-<!-- ========================================= -->
+    <!-- ==========================================
+         Loading Overlay
+    =========================================== -->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
+    <div id="loadingOverlay">
 
-<div class="container">
+        <div class="text-center">
 
-<a
-class="navbar-brand fw-bold d-flex align-items-center"
-href="index.html">
+            <div class="loader mb-3"></div>
 
-<img
+            <h5 class="fw-bold mb-2">
+                Kenya Gas Marketplace
+            </h5>
 
-src="assets/images/logo.png"
+            <p class="text-muted mb-0">
+                Preparing supplier portal...
+            </p>
 
-alt="Kenya Gas"
+        </div>
 
-height="42"
+    </div>
 
-class="me-2">
+    <!-- ==========================================
+         Main Wrapper
+    =========================================== -->
 
-<span>
+    <div class="auth-wrapper">
 
-Kenya Gas Marketplace
+        <div class="auth-container">
 
-</span>
+            <div class="auth-card">
 
-</a>
+                <!-- Content continues in Part 2 -->
 
-<button
+                                <!-- ==========================================
+                     Logo
+                =========================================== -->
 
-class="navbar-toggler"
+                <div class="text-center mb-4">
 
-type="button"
+                    <img
+                        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png"
+                        class="auth-logo"
+                        alt="Kenya Gas Marketplace">
 
-data-bs-toggle="collapse"
+                    <h2 class="auth-title">
+                        Supplier Registration
+                    </h2>
 
-data-bs-target="#navbarNav">
+                    <p class="auth-subtitle">
+                        Create your supplier account and start selling LPG cylinders across Kenya.
+                    </p>
 
-<span class="navbar-toggler-icon">
+                </div>
 
-</span>
+                <!-- ==========================================
+                     Progress Indicator
+                =========================================== -->
 
-</button>
+                <div class="progress mb-4">
 
-<div
+                    <div
+                        class="progress-bar bg-success"
+                        id="registrationProgress"
+                        style="width:15%">
 
-class="collapse navbar-collapse"
+                    </div>
 
-id="navbarNav">
+                </div>
 
-<ul class="navbar-nav ms-auto">
+                <!-- ==========================================
+                     Alert Container
+                =========================================== -->
 
-<li class="nav-item">
+                <div id="alertContainer"></div>
 
-<a
-class="nav-link"
-href="index.html">
+                <!-- ==========================================
+                     Registration Form
+                =========================================== -->
 
-Home
+                <form
+                    id="supplierRegisterForm"
+                    class="auth-form"
+                    novalidate>
 
-</a>
+                    <!-- ======================================
+                         BUSINESS OWNER INFORMATION
+                    ======================================= -->
 
-</li>
+                    <div class="form-section">
 
-<li class="nav-item">
+                        <h5 class="form-section-title">
+                            Business Owner Information
+                        </h5>
 
-<a
-class="nav-link"
-href="suppliers.html">
+                        <div class="form-grid">
 
-Suppliers
+                            <div class="form-group">
 
-</a>
+                                <label
+                                    class="form-label"
+                                    for="firstName">
 
-</li>
+                                    First Name
+                                    <span class="required">*</span>
 
-<li class="nav-item">
+                                </label>
 
-<a
-class="nav-link"
-href="login.html">
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    class="form-control"
+                                    placeholder="Enter first name"
+                                    required>
 
-Customer Login
+                            </div>
 
-</a>
+                            <div class="form-group">
 
-</li>
+                                <label
+                                    class="form-label"
+                                    for="lastName">
 
-<li class="nav-item">
+                                    Last Name
+                                    <span class="required">*</span>
 
-<a
-class="nav-link"
-href="supplier-login.html">
+                                </label>
 
-Supplier Login
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    class="form-control"
+                                    placeholder="Enter last name"
+                                    required>
 
-</a>
+                            </div>
 
-</li>
+                        </div>
 
-</ul>
+                        <div class="form-group">
 
-</div>
-
-</div>
-
-</nav>
-
-<!-- ========================================= -->
-<!-- HERO -->
-<!-- ========================================= -->
-
-<section class="py-5 bg-success text-white">
-
-<div class="container">
-
-<div class="row align-items-center">
-
-<div class="col-lg-8">
-
-<h1 class="fw-bold">
-
-Become a Verified Gas Supplier
-
-</h1>
-
-<p class="lead mb-0">
-
-Register your LPG business, reach thousands of customers across Kenya, manage orders online, receive secure payments, and grow your business through Kenya Gas Marketplace.
-
-</p>
-
-</div>
-
-<div class="col-lg-4 text-center">
-
-<i class="bi bi-shop display-1"></i>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ========================================= -->
-<!-- REGISTRATION FORM -->
-<!-- ========================================= -->
-
-<div class="container py-5">
-
-<div class="row justify-content-center">
-
-<div class="col-xl-10">
-
-<div class="card border-0 shadow-lg">
-
-<div class="card-header bg-white py-4">
-
-<h3 class="mb-1">
-
-Supplier Registration
-
-</h3>
-
-<p class="text-muted mb-0">
-
-Complete the form below to create your supplier account.
-
-</p>
-
-</div>
-
-<div class="card-body p-4">
-
-<form
-
-id="supplierRegisterForm"
-
-novalidate>
-
-<!-- Parts 2–10 continue here -->
-    <!-- ========================================= -->
-<!-- BUSINESS INFORMATION -->
-<!-- ========================================= -->
-
-<h5 class="fw-bold text-success mb-3">
-
-<i class="bi bi-building"></i>
-
-Business Information
-
-</h5>
-
-<div class="row">
-
-<!-- Business Name -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="businessName"
-class="form-label">
-
-Business Name
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="businessName"
-
-placeholder="e.g. Nairobi Gas Centre"
-
-required>
-
-<div class="invalid-feedback">
-
-Enter your registered business name.
-
-</div>
-
-</div>
-
-<!-- Business Type -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="businessType"
-class="form-label">
-
-Business Type
-<span class="text-danger">*</span>
-
-</label>
-
-<select
-
-class="form-select"
-
-id="businessType"
-
-required>
-
-<option value="">
-
-Select Business Type
-
-</option>
-
-<option value="Retail Shop">
-
-Retail Shop
-
-</option>
-
-<option value="Distributor">
-
-Distributor
-
-</option>
-
-<option value="Wholesaler">
-
-Wholesaler
-
-</option>
-
-<option value="Manufacturer">
-
-Manufacturer
-
-</option>
-
-<option value="Dealer">
-
-Dealer
-
-</option>
-
-</select>
-
-<div class="invalid-feedback">
-
-Select your business type.
-
-</div>
-
-</div>
-
-<!-- Owner Name -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="ownerName"
-class="form-label">
-
-Owner Full Name
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="ownerName"
-
-placeholder="Full legal name"
-
-required>
-
-<div class="invalid-feedback">
-
-Enter the owner's full name.
-
-</div>
-
-</div>
-
-<!-- Business Email -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="businessEmail"
-class="form-label">
-
-Business Email
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="email"
-
-class="form-control"
-
-id="businessEmail"
-
-placeholder="business@example.com"
-
-required>
-
-<div class="invalid-feedback">
-
-Enter a valid business email.
-
-</div>
-
-</div>
-
-<!-- Phone Number -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="businessPhone"
-class="form-label">
-
-Business Phone
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="tel"
-
-class="form-control"
-
-id="businessPhone"
-
-placeholder="+2547XXXXXXXX"
-
-required>
-
-<small class="text-muted">
-
-Use Safaricom, Airtel or Telkom number.
-
-</small>
-
-</div>
-
-<!-- Alternative Phone -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="alternativePhone"
-class="form-label">
-
-Alternative Phone
-
-</label>
-
-<input
-
-type="tel"
-
-class="form-control"
-
-id="alternativePhone"
-
-placeholder="+2547XXXXXXXX">
-
-</div>
-
-<hr class="my-4">
-
-<!-- Account Security -->
-
-<h5 class="fw-bold text-success mb-3">
-
-<i class="bi bi-shield-lock"></i>
-
-Account Security
-
-</h5>
-
-<!-- Password -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="password"
-class="form-label">
-
-Password
-<span class="text-danger">*</span>
-
-</label>
-
-<div class="input-group">
-
-<input
-
-type="password"
-
-class="form-control"
-
-id="password"
-
-required>
-
-<button
-
-class="btn btn-outline-secondary"
-
-type="button"
-
-id="togglePassword">
-
-<i class="bi bi-eye"></i>
-
-</button>
-
-</div>
-
-<div
-
-class="progress mt-2"
-
-style="height:6px;">
-
-<div
-
-id="passwordStrength"
-
-class="progress-bar"
-
-style="width:0%">
-
-</div>
-
-</div>
-
-<small
-
-id="passwordStrengthText"
-
-class="text-muted">
-
-Password strength
-
-</small>
-
-</div>
-
-<!-- Confirm Password -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="confirmPassword"
-class="form-label">
-
-Confirm Password
-<span class="text-danger">*</span>
-
-</label>
-
-<div class="input-group">
-
-<input
-
-type="password"
-
-class="form-control"
-
-id="confirmPassword"
-
-required>
-
-<button
-
-class="btn btn-outline-secondary"
-
-type="button"
-
-id="toggleConfirmPassword">
-
-<i class="bi bi-eye"></i>
-
-</button>
-
-</div>
-
-<div
-
-id="passwordMatch"
-
-class="small mt-2">
-
-</div>
-
-    <!-- ========================================= -->
-<!-- BUSINESS LOCATION -->
-<!-- ========================================= -->
-
-<hr class="my-4">
-
-<h5 class="fw-bold text-success mb-3">
-
-<i class="bi bi-geo-alt-fill"></i>
-
-Business Location
-
-</h5>
-
-<div class="row">
-
-<!-- County -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="county"
-class="form-label">
-
-County
-<span class="text-danger">*</span>
-
-</label>
-
-<select
-
-class="form-select"
-
-id="county"
-
-required>
-
-<option value="">
-
-Loading counties...
-
-</option>
-
-</select>
-
-<div class="invalid-feedback">
-
-Select your county.
-
-</div>
-
-</div>
-
-<!-- Town -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="town"
-class="form-label">
-
-Town
-<span class="text-danger">*</span>
-
-</label>
-
-<select
-
-class="form-select"
-
-id="town"
-
-required>
-
-<option value="">
-
-Select county first
-
-</option>
-
-</select>
-
-<div class="invalid-feedback">
-
-Select your town.
-
-</div>
-
-</div>
-
-<!-- Physical Address -->
-
-<div class="col-12 mb-3">
-
-<label
-for="physicalAddress"
-class="form-label">
-
-Physical Address
-<span class="text-danger">*</span>
-
-</label>
-
-<textarea
-
-class="form-control"
-
-id="physicalAddress"
-
-rows="3"
-
-placeholder="Building, Street, Estate, Landmark"
-
-required>
-
-</textarea>
-
-<div class="invalid-feedback">
-
-Enter your business address.
-
-</div>
-
-</div>
-
-<!-- Google Maps -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="googleMapsLink"
-class="form-label">
-
-Google Maps Location
-
-</label>
-
-<input
-
-type="url"
-
-class="form-control"
-
-id="googleMapsLink"
-
-placeholder="https://maps.google.com/...">
-
-<small class="text-muted">
-
-Optional but recommended.
-
-</small>
-
-</div>
-
-<!-- Delivery Radius -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="deliveryRadius"
-class="form-label">
-
-Delivery Radius (KM)
-
-</label>
-
-<input
-
-type="number"
-
-class="form-control"
-
-id="deliveryRadius"
-
-min="1"
-
-max="200"
-
-value="10">
-
-<small class="text-muted">
-
-Maximum delivery distance.
-
-</small>
-
-</div>
-
-<!-- Operating Hours -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="openingTime"
-class="form-label">
-
-Opening Time
-
-</label>
-
-<input
-
-type="time"
-
-class="form-control"
-
-id="openingTime"
-
-value="08:00">
-
-</div>
-
-<div class="col-md-6 mb-3">
-
-<label
-for="closingTime"
-class="form-label">
-
-Closing Time
-
-</label>
-
-<input
-
-type="time"
-
-class="form-control"
-
-id="closingTime"
-
-value="18:00">
-
-</div>
-
-<!-- Business Description -->
-
-<div class="col-12 mb-3">
-
-<label
-for="businessDescription"
-class="form-label">
-
-Business Description
-
-</label>
-
-<textarea
-
-class="form-control"
-
-id="businessDescription"
-
-rows="5"
-
-maxlength="500"
-
-placeholder="Tell customers about your LPG business, delivery services, brands available, experience, etc.">
-
-</textarea>
-
-<div class="d-flex justify-content-between">
-
-<small class="text-muted">
-
-Maximum 500 characters.
-
-</small>
-
-<small
-
-id="descriptionCount"
-
-class="text-muted">
-
-0 / 500
-
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-    <!-- ========================================= -->
-<!-- BUSINESS VERIFICATION -->
-<!-- ========================================= -->
-
-<hr class="my-4">
-
-<h5 class="fw-bold text-success mb-3">
-
-<i class="bi bi-patch-check-fill"></i>
-
-Business Verification
-
-</h5>
-
-<div class="row">
-
-<!-- National ID -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="nationalId"
-class="form-label">
-
-National ID Number
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="nationalId"
-
-placeholder="e.g. 12345678"
-
-required>
-
-<div class="invalid-feedback">
-
-Enter your National ID number.
-
-</div>
-
-</div>
-
-<!-- KRA PIN -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="kraPin"
-class="form-label">
-
-KRA PIN
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="kraPin"
-
-placeholder="e.g. A123456789X"
-
-required>
-
-<div class="invalid-feedback">
-
-Enter your KRA PIN.
-
-</div>
-
-</div>
-
-<!-- Business Registration Number -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="businessRegistrationNumber"
-class="form-label">
-
-Business Registration Number
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="businessRegistrationNumber"
-
-placeholder="Certificate Number">
-
-</div>
-
-<!-- Business License Number -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="businessLicenseNumber"
-class="form-label">
-
-Business License Number
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="businessLicenseNumber"
-
-placeholder="County Business Permit"
-
-required>
-
-</div>
-
-<!-- Business License Upload -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="businessLicenseFile"
-class="form-label">
-
-Business License
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="file"
-
-class="form-control"
-
-id="businessLicenseFile"
-
-accept=".pdf,.jpg,.jpeg,.png"
-
-required>
-
-<small class="text-muted">
-
-PDF, JPG or PNG (Maximum 5MB)
-
-</small>
-
-</div>
-
-<!-- Business Logo -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="businessLogo"
-
-class="form-label">
-
-Business Logo
-
-</label>
-
-<input
-
-type="file"
-
-class="form-control"
-
-id="businessLogo"
-
-accept=".jpg,.jpeg,.png,.webp">
-
-<small class="text-muted">
-
-Optional. Recommended size: 500 × 500 pixels.
-
-</small>
-
-</div>
-
-<!-- M-Pesa Type -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="mpesaType"
-
-class="form-label">
-
-M-Pesa Account Type
-<span class="text-danger">*</span>
-
-</label>
-
-<select
-
-class="form-select"
-
-id="mpesaType"
-
-required>
-
-<option value="">
-
-Select
-
-</option>
-
-<option value="Till">
-
-Till Number
-
-</option>
-
-<option value="Paybill">
-
-Paybill Number
-
-</option>
-
-</select>
-
-</div>
-
-<!-- Till / Paybill -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="mpesaNumber"
-
-class="form-label">
-
-Till / Paybill Number
-<span class="text-danger">*</span>
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="mpesaNumber"
-
-placeholder="Enter Number"
-
-required>
-
-</div>
-
-<!-- Bank Name -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="bankName"
-
-class="form-label">
-
-Bank Name
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="bankName"
-
-placeholder="Optional">
-
-</div>
-
-<!-- Bank Account -->
-
-<div class="col-md-6 mb-3">
-
-<label
-for="bankAccount"
-
-class="form-label">
-
-Bank Account Number
-
-</label>
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="bankAccount"
-
-placeholder="Optional">
-
-</div>
-
-<!-- Verification Notice -->
-
-<div class="col-12">
-
-<div class="alert alert-warning">
-
-<i class="bi bi-exclamation-triangle-fill me-2"></i>
-
-<strong>Verification Required:</strong>
-
-Your supplier account will be reviewed before activation. This process normally takes between <strong>24 and 48 hours</strong>. You'll receive an email once your account has been approved or if additional information is required.
-
-</div>
-
-</div>
-
-</div>
-
-    <!-- ========================================= -->
-<!-- PRODUCTS & DELIVERY -->
-<!-- ========================================= -->
-
-<hr class="my-4">
-
-<h5 class="fw-bold text-success mb-3">
-
-<i class="bi bi-box-seam-fill"></i>
-
-Products & Delivery
-
-</h5>
-
-<div class="row">
-
-<!-- LPG Brands -->
-
-<div class="col-12 mb-4">
-
-<label class="form-label">
-
-LPG Brands Sold
-<span class="text-danger">*</span>
-
-</label>
-
-<div class="row">
-
-<div class="col-md-3 col-6">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="brandKGas"
-
-value="K-Gas">
-
-<label
-
-class="form-check-label"
-
-for="brandKGas">
-
-K-Gas
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-3 col-6">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="brandHashi"
-
-value="Hashi">
-
-<label
-
-class="form-check-label"
-
-for="brandHashi">
-
-Hashi Gas
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-3 col-6">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="brandTotal"
-
-value="TotalEnergies">
-
-<label
-
-class="form-check-label"
-
-for="brandTotal">
-
-TotalEnergies
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-3 col-6">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="brandPro"
-
-value="Pro Gas">
-
-<label
-
-class="form-check-label"
-
-for="brandPro">
-
-Pro Gas
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-3 col-6 mt-2">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="brandAfrigas"
-
-value="Afrigas">
-
-<label
-
-class="form-check-label"
-
-for="brandAfrigas">
-
-Afrigas
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-3 col-6 mt-2">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="brandOla"
-
-value="Ola">
-
-<label
-
-class="form-check-label"
-
-for="brandOla">
-
-Ola Energy
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-6 mt-2">
-
-<input
-
-type="text"
-
-class="form-control"
-
-id="otherBrand"
-
-placeholder="Other LPG brands">
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Cylinder Sizes -->
-
-<div class="col-12 mb-4">
-
-<label class="form-label">
-
-Cylinder Sizes Available
-<span class="text-danger">*</span>
-
-</label>
-
-<div class="row">
-
-<div class="col-md-2 col-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="size3kg"
-
-value="3">
-
-<label
-
-class="form-check-label"
-
-for="size3kg">
-
-3 KG
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-2 col-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="size6kg"
-
-value="6">
-
-<label
-
-class="form-check-label"
-
-for="size6kg">
-
-6 KG
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-2 col-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="size13kg"
-
-value="13">
-
-<label
-
-class="form-check-label"
-
-for="size13kg">
-
-13 KG
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-2 col-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="size35kg"
-
-value="35">
-
-<label
-
-class="form-check-label"
-
-for="size35kg">
-
-35 KG
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-2 col-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="size50kg"
-
-value="50">
-
-<label
-
-class="form-check-label"
-
-for="size50kg">
-
-50 KG
-
-</label>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Delivery -->
-
-<div class="col-md-6 mb-3">
-
-<label
-
-for="deliveryAvailable"
-
-class="form-label">
-
-Delivery Service
-
-</label>
-
-<select
-
-class="form-select"
-
-id="deliveryAvailable">
-
-<option value="yes">
-
-Yes
-
-</option>
-
-<option value="no">
-
-No
-
-</option>
-
-</select>
-
-</div>
-
-<div class="col-md-6 mb-3">
-
-<label
-
-for="deliveryCharge"
-
-class="form-label">
-
-Starting Delivery Charge (KES)
-
-</label>
-
-<input
-
-type="number"
-
-class="form-control"
-
-id="deliveryCharge"
-
-min="0"
-
-value="0">
-
-</div>
-
-<!-- Delivery Coverage -->
-
-<div class="col-12 mb-3">
-
-<label
-
-for="deliveryCoverage"
-
-class="form-label">
-
-Delivery Coverage
-
-</label>
-
-<textarea
-
-class="form-control"
-
-id="deliveryCoverage"
-
-rows="2"
-
-placeholder="Example: Nairobi CBD, Westlands, Kilimani, Lang'ata">
-
-</textarea>
-
-</div>
-
-<!-- Additional Services -->
-
-<div class="col-12 mb-3">
-
-<label class="form-label">
-
-Additional Services
-
-</label>
-
-<div class="row">
-
-<div class="col-md-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="serviceInstallation">
-
-<label
-
-class="form-check-label"
-
-for="serviceInstallation">
-
-Gas Installation
-
-</label>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="serviceRegulator">
-
-<label
-
-class="form-check-label"
-
-for="serviceRegulator">
-
-Regulator Replacement
-
-</label>
+                            <label
+                                class="form-label"
+                                for="phone">
 
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="serviceInspection">
-
-<label
-
-class="form-check-label"
-
-for="serviceInspection">
-
-Gas Leak Inspection
-
-</label>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Operating Days -->
-
-<div class="col-12">
-
-<label class="form-label">
-
-Operating Days
-
-</label>
-
-<div class="row">
-
-<div class="col-md-2 col-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="mon" checked><label class="form-check-label" for="mon">Mon</label></div></div>
-
-<div class="col-md-2 col-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="tue" checked><label class="form-check-label" for="tue">Tue</label></div></div>
-
-<div class="col-md-2 col-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="wed" checked><label class="form-check-label" for="wed">Wed</label></div></div>
-
-<div class="col-md-2 col-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="thu" checked><label class="form-check-label" for="thu">Thu</label></div></div>
-
-<div class="col-md-2 col-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="fri" checked><label class="form-check-label" for="fri">Fri</label></div></div>
-
-<div class="col-md-2 col-4"><div class="form-check"><input class="form-check-input" type="checkbox" id="sat"><label class="form-check-label" for="sat">Sat</label></div></div>
-
-<div class="col-md-2 col-4 mt-2"><div class="form-check"><input class="form-check-input" type="checkbox" id="sun"><label class="form-check-label" for="sun">Sun</label></div></div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-    <!-- ========================================= -->
-<!-- AGREEMENTS & SUBMISSION -->
-<!-- ========================================= -->
-
-<hr class="my-4">
-
-<h5 class="fw-bold text-success mb-3">
-
-<i class="bi bi-check2-square"></i>
-
-Terms & Agreements
-
-</h5>
-
-<div class="row">
-
-<!-- Terms -->
-
-<div class="col-12 mb-3">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="agreeTerms"
-
-required>
-
-<label
-
-class="form-check-label"
-
-for="agreeTerms">
-
-I have read and agree to the
-
-<a
-
-href="terms.html"
-
-target="_blank">
-
-Terms & Conditions
-
-</a>
-
-of Kenya Gas Marketplace.
-
-<span class="text-danger">*</span>
-
-</label>
-
-<div class="invalid-feedback">
-
-You must accept the Terms & Conditions.
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Privacy -->
-
-<div class="col-12 mb-3">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="agreePrivacy"
-
-required>
-
-<label
-
-class="form-check-label"
-
-for="agreePrivacy">
-
-I agree to the
-
-<a
-
-href="privacy.html"
-
-target="_blank">
-
-Privacy Policy
-
-</a>
-
-and consent to processing my business information.
-
-<span class="text-danger">*</span>
-
-</label>
-
-<div class="invalid-feedback">
-
-Privacy Policy acceptance is required.
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Supplier Declaration -->
-
-<div class="col-12 mb-3">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="supplierDeclaration"
-
-required>
-
-<label
-
-class="form-check-label"
-
-for="supplierDeclaration">
-
-I certify that all information provided is accurate and that I am authorized to register this business.
-
-<span class="text-danger">*</span>
-
-</label>
-
-<div class="invalid-feedback">
-
-Please confirm the declaration.
-
-</div>
-
-</div>
+                                Phone Number
+                                <span class="required">*</span>
 
-</div>
-
-<!-- Marketing -->
-
-<div class="col-12 mb-4">
-
-<div class="form-check">
-
-<input
-
-class="form-check-input"
-
-type="checkbox"
-
-id="marketingConsent">
-
-<label
-
-class="form-check-label"
-
-for="marketingConsent">
-
-Send me product updates, supplier tips and promotional offers by email or SMS.
-
-</label>
-
-</div>
-
-</div>
-
-<!-- reCAPTCHA Placeholder -->
-
-<div class="col-12 mb-4">
-
-<div class="border rounded bg-light p-4 text-center">
-
-<i class="bi bi-shield-check text-success display-6"></i>
-
-<h6 class="mt-3">
-
-Security Verification
-
-</h6>
-
-<p class="text-muted mb-0">
-
-Google reCAPTCHA will be integrated here before registration is submitted.
-
-</p>
-
-</div>
-
-</div>
-
-<!-- Register Button -->
-
-<div class="col-12">
-
-<div class="d-grid">
-
-<button
-
-type="submit"
-
-class="btn btn-success btn-lg"
-
-id="registerSupplierBtn">
-
-<span id="registerSupplierText">
-
-<i class="bi bi-person-plus-fill me-2"></i>
-
-Create Supplier Account
-
-</span>
-
-<span
-
-id="registerSupplierLoading"
-
-class="d-none">
-
-<span
-
-class="spinner-border spinner-border-sm me-2">
-
-</span>
-
-Creating Account...
-
-</span>
-
-</button>
-
-</div>
-
-</div>
-
-<!-- Login Link -->
-
-<div class="col-12 text-center mt-4">
-
-<p class="mb-0">
-
-Already have a supplier account?
-
-<a
-
-href="supplier-login.html"
-
-class="fw-bold text-success text-decoration-none">
-
-Sign in here
-
-</a>
+                            </label>
 
-</p>
+                            <input
+                                type="tel"
+                                id="phone"
+                                class="form-control"
+                                placeholder="07XXXXXXXX or +2547XXXXXXXX"
+                                required>
 
-</div>
-
-<!-- Customer Registration -->
-
-<div class="col-12 text-center mt-2">
-
-<p class="text-muted mb-0">
+                            <small class="form-text">
+                                This number will receive customer orders and notifications.
+                            </small>
 
-Looking to buy LPG instead?
+                        </div>
 
-<a
+                    </div>
 
-href="register.html"
+                    <!-- ======================================
+                         BUSINESS INFORMATION
+                         Continues in Part 3
+                    ======================================= -->
+                    <div class="form-group">
 
-class="text-success text-decoration-none">
+    <label
+        class="form-label"
+        for="kraPin">
 
-Create a Customer Account
+        KRA PIN
+        <small class="text-muted">(Optional)</small>
 
-</a>
+    </label>
 
-</p>
+    <input
+        type="text"
+        id="kraPin"
+        class="form-control"
+        placeholder="e.g. A012345678X">
 
-</div>
+    <small class="form-text">
+        Optional during registration. You may provide it later for account verification and tax compliance.
+    </small>
 
 </div>
-
-    <!-- ========================================= -->
-<!-- SUPPLIER BENEFITS -->
-<!-- ========================================= -->
-
-<hr class="my-5">
-
-<h5 class="fw-bold text-success mb-4">
 
-<i class="bi bi-award-fill me-2"></i>
+                                        <!-- ======================================
+                         BUSINESS INFORMATION
+                    ======================================= -->
 
-Why Join Kenya Gas Marketplace?
+                    <div class="form-section">
 
-</h5>
+                        <h5 class="form-section-title">
+                            Business Information
+                        </h5>
 
-<div class="row g-4">
+                        <div class="form-group">
 
-<div class="col-lg-6">
+                            <label
+                                class="form-label"
+                                for="businessName">
 
-<div class="card border-success h-100 shadow-sm">
+                                Business Name
+                                <span class="required">*</span>
 
-<div class="card-body">
+                            </label>
 
-<h6 class="fw-bold text-success">
+                            <input
+                                type="text"
+                                id="businessName"
+                                class="form-control"
+                                placeholder="e.g. Sam Gas Supplies"
+                                required>
 
-<i class="bi bi-check-circle-fill me-2"></i>
+                        </div>
 
-Supplier Benefits
+                        <div class="form-grid">
 
-</h6>
+                            <div class="form-group">
 
-<ul class="list-group list-group-flush">
+                                <label
+                                    class="form-label"
+                                    for="businessType">
 
-<li class="list-group-item">
+                                    Business Type
+                                    <span class="required">*</span>
 
-Reach thousands of LPG customers across Kenya.
+                                </label>
 
-</li>
+                                <select
+                                    id="businessType"
+                                    class="form-select"
+                                    required>
 
-<li class="list-group-item">
+                                    <option value="">
+                                        Select Business Type
+                                    </option>
 
-Receive customer orders online 24/7.
+                                    <option value="Retail Shop">
+                                        Retail Shop
+                                    </option>
 
-</li>
+                                    <option value="Distributor">
+                                        Distributor
+                                    </option>
 
-<li class="list-group-item">
+                                    <option value="Wholesaler">
+                                        Wholesaler
+                                    </option>
 
-Manage products and stock from one dashboard.
+                                    <option value="Manufacturer">
+                                        Manufacturer
+                                    </option>
 
-</li>
+                                    <option value="Refill Station">
+                                        Refill Station
+                                    </option>
 
-<li class="list-group-item">
+                                    <option value="Dealer">
+                                        Dealer
+                                    </option>
 
-Receive secure M-Pesa payments.
+                                </select>
 
-</li>
+                            </div>
 
-<li class="list-group-item">
+                            <div class="form-group">
 
-Track earnings and withdrawals.
+                                <label
+                                    class="form-label"
+                                    for="yearsOperation">
 
-</li>
+                                    Years in Operation
 
-<li class="list-group-item">
+                                </label>
 
-Promote your business nationwide.
+                                <select
+                                    id="yearsOperation"
+                                    class="form-select">
 
-</li>
+                                    <option value="">
+                                        Select
+                                    </option>
 
-<li class="list-group-item">
+                                    <option value="Less than 1 year">
+                                        Less than 1 year
+                                    </option>
 
-Receive customer ratings and reviews.
-
-</li>
-
-</ul>
-
-</div>
-
-</div>
-
-</div>
+                                    <option value="1-2 years">
+                                        1–2 Years
+                                    </option>
 
-<div class="col-lg-6">
+                                    <option value="3-5 years">
+                                        3–5 Years
+                                    </option>
 
-<div class="card border-primary h-100 shadow-sm">
+                                    <option value="6-10 years">
+                                        6–10 Years
+                                    </option>
 
-<div class="card-body">
+                                    <option value="More than 10 years">
+                                        More than 10 Years
+                                    </option>
 
-<h6 class="fw-bold text-primary">
+                                </select>
 
-<i class="bi bi-shield-lock-fill me-2"></i>
+                            </div>
 
-Why Customers Trust Us
+                        </div>
 
-</h6>
+                        <div class="form-grid">
 
-<div class="mb-3">
+                            <div class="form-group">
 
-<i class="bi bi-patch-check-fill text-success me-2"></i>
+                                <label
+                                    class="form-label"
+                                    for="registrationNumber">
 
-Verified supplier accounts
+                                    Business Registration Number
 
-</div>
+                                    <small class="text-muted">
+                                        (Optional)
+                                    </small>
 
-<div class="mb-3">
+                                </label>
 
-<i class="bi bi-credit-card-fill text-success me-2"></i>
+                                <input
+                                    type="text"
+                                    id="registrationNumber"
+                                    class="form-control"
+                                    placeholder="Business Registration Number">
 
-Secure online payments
+                            </div>
 
-</div>
+                            <div class="form-group">
 
-<div class="mb-3">
+                                <label
+                                    class="form-label"
+                                    for="kraPin">
 
-<i class="bi bi-truck text-success me-2"></i>
+                                    KRA PIN
 
-Reliable delivery tracking
+                                    <small class="text-muted">
+                                        (Optional)
+                                    </small>
 
-</div>
+                                </label>
 
-<div class="mb-3">
+                                <input
+                                    type="text"
+                                    id="kraPin"
+                                    class="form-control"
+                                    placeholder="e.g. A012345678X">
 
-<i class="bi bi-star-fill text-success me-2"></i>
+                            </div>
 
-Customer reviews & ratings
+                        </div>
 
-</div>
+                        <div class="form-group">
 
-<div class="mb-3">
+                            <label
+                                class="form-label"
+                                for="businessDescription">
 
-<i class="bi bi-headset text-success me-2"></i>
+                                Business Description
 
-Dedicated supplier support
+                                <small class="text-muted">
+                                    (Optional)
+                                </small>
 
-</div>
+                            </label>
 
-<div>
+                            <textarea
+                                id="businessDescription"
+                                class="form-control"
+                                rows="4"
+                                maxlength="500"
+                                placeholder="Briefly describe your LPG business..."></textarea>
 
-<i class="bi bi-graph-up-arrow text-success me-2"></i>
+                            <small
+                                class="form-text">
 
-Business performance analytics
+                                Maximum 500 characters.
 
-</div>
+                            </small>
 
-</div>
+                        </div>
 
-</div>
+                        <div class="form-group">
 
-</div>
+                            <label
+                                class="form-label"
+                                for="brandsSold">
 
-</div>
+                                LPG Brands You Sell
 
-<!-- ========================================= -->
-<!-- NEED HELP -->
-<!-- ========================================= -->
+                            </label>
 
-<div class="alert alert-info mt-5">
+                            <div class="checkbox-grid">
 
-<div class="row align-items-center">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Pro Gas" id="brandProGas">
+                                    <label class="form-check-label" for="brandProGas">Pro Gas</label>
+                                </div>
 
-<div class="col-md-8">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="TotalEnergies" id="brandTotal">
+                                    <label class="form-check-label" for="brandTotal">TotalEnergies</label>
+                                </div>
 
-<h5 class="mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Rubis" id="brandRubis">
+                                    <label class="form-check-label" for="brandRubis">Rubis Gas</label>
+                                </div>
 
-<i class="bi bi-headset me-2"></i>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Hashi" id="brandHashi">
+                                    <label class="form-check-label" for="brandHashi">Hashi Gas</label>
+                                </div>
 
-Need Help Registering?
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Ola" id="brandOla">
+                                    <label class="form-check-label" for="brandOla">OLA Energy</label>
+                                </div>
 
-</h5>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="Other" id="brandOther">
+                                    <label class="form-check-label" for="brandOther">Other Brands</label>
+                                </div>
 
-<p class="mb-0">
+                            </div>
 
-Our supplier support team can assist with business verification,
-document uploads, and account approval.
+                        </div>
 
-</p>
+                    </div>
 
-</div>
+                    <!-- ======================================
+                         BUSINESS LOCATION
+                         Continues in Part 4
+                    ======================================= -->
 
-<div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                        <!-- ======================================
+                         BUSINESS LOCATION
+                    ======================================= -->
 
-<a
+                    <div class="form-section">
 
-href="support.html"
+                        <h5 class="form-section-title">
+                            Business Location
+                        </h5>
 
-class="btn btn-primary">
+                        <div class="form-group">
 
-<i class="bi bi-chat-dots-fill me-2"></i>
+                            <label
+                                class="form-label"
+                                for="address">
 
-Contact Support
+                                Physical Address
+                                <span class="required">*</span>
 
-</a>
+                            </label>
 
-</div>
+                            <textarea
+                                id="address"
+                                class="form-control"
+                                rows="3"
+                                placeholder="Enter your shop or business location"
+                                required></textarea>
 
-</div>
+                        </div>
 
-</div>
+                        <div class="form-grid">
 
-<!-- ========================================= -->
-<!-- SECURITY NOTICE -->
-<!-- ========================================= -->
+                            <div class="form-group">
 
-<div class="alert alert-success">
+                                <label
+                                    class="form-label"
+                                    for="county">
 
-<h6 class="fw-bold">
+                                    County
+                                    <span class="required">*</span>
 
-<i class="bi bi-shield-check me-2"></i>
+                                </label>
 
-Your Information is Safe
+                                <select
+                                    id="county"
+                                    class="form-select"
+                                    required>
 
-</h6>
+                                    <option value="">
+                                        Select County
+                                    </option>
 
-<p class="mb-0">
+                                </select>
 
-Your personal and business information is securely encrypted and used
-only for supplier verification, payment processing, and marketplace
-operations. Kenya Gas Marketplace will never sell your information to
-third parties.
+                            </div>
 
-</p>
+                            <div class="form-group">
 
-</div>
+                                <label
+                                    class="form-label"
+                                    for="town">
 
-    <!-- ========================================= -->
-<!-- SUPPLIER BENEFITS -->
-<!-- ========================================= -->
+                                    Town / Trading Centre
+                                    <span class="required">*</span>
 
-<hr class="my-5">
+                                </label>
 
-<h5 class="fw-bold text-success mb-4">
+                                <select
+                                    id="town"
+                                    class="form-select"
+                                    disabled
+                                    required>
 
-<i class="bi bi-award-fill me-2"></i>
+                                    <option value="">
+                                        Select County First
+                                    </option>
 
-Why Join Kenya Gas Marketplace?
+                                </select>
 
-</h5>
+                            </div>
 
-<div class="row g-4">
+                        </div>
 
-<div class="col-lg-6">
+                        <div class="form-group">
 
-<div class="card border-success h-100 shadow-sm">
+                            <label
+                                class="form-label"
+                                for="landmark">
 
-<div class="card-body">
+                                Nearby Landmark
 
-<h6 class="fw-bold text-success">
+                                <small class="text-muted">
+                                    (Optional)
+                                </small>
 
-<i class="bi bi-check-circle-fill me-2"></i>
+                            </label>
 
-Supplier Benefits
+                            <input
+                                type="text"
+                                id="landmark"
+                                class="form-control"
+                                placeholder="Example: Opposite Quickmart, Next to Shell Petrol Station">
 
-</h6>
+                        </div>
 
-<ul class="list-group list-group-flush">
+                        <div class="form-group">
 
-<li class="list-group-item">
+                            <label
+                                class="form-label"
+                                for="deliveryRadius">
 
-Reach thousands of LPG customers across Kenya.
+                                Delivery Coverage
 
-</li>
+                            </label>
 
-<li class="list-group-item">
+                            <select
+                                id="deliveryRadius"
+                                class="form-select">
 
-Receive customer orders online 24/7.
+                                <option value="Shop Pickup Only">
+                                    Shop Pickup Only
+                                </option>
 
-</li>
+                                <option value="Within Town">
+                                    Within Town
+                                </option>
 
-<li class="list-group-item">
+                                <option value="5 KM">
+                                    5 KM Radius
+                                </option>
 
-Manage products and stock from one dashboard.
+                                <option value="10 KM">
+                                    10 KM Radius
+                                </option>
 
-</li>
+                                <option value="20 KM">
+                                    20 KM Radius
+                                </option>
 
-<li class="list-group-item">
+                                <option value="County Wide">
+                                    County Wide
+                                </option>
 
-Receive secure M-Pesa payments.
+                                <option value="Multiple Counties">
+                                    Multiple Counties
+                                </option>
 
-</li>
+                                <option value="Nationwide">
+                                    Nationwide
+                                </option>
 
-<li class="list-group-item">
+                            </select>
 
-Track earnings and withdrawals.
+                        </div>
 
-</li>
+                        <div class="form-group">
 
-<li class="list-group-item">
+                            <label
+                                class="form-label"
+                                for="googleMaps">
 
-Promote your business nationwide.
+                                Google Maps Link
 
-</li>
+                                <small class="text-muted">
+                                    (Optional)
+                                </small>
 
-<li class="list-group-item">
+                            </label>
 
-Receive customer ratings and reviews.
+                            <input
+                                type="url"
+                                id="googleMaps"
+                                class="form-control"
+                                placeholder="https://maps.google.com/...">
 
-</li>
+                            <small class="form-text">
 
-</ul>
+                                This helps customers locate your shop more easily.
 
-</div>
+                            </small>
 
-</div>
+                        </div>
 
-</div>
+                    </div>
 
-<div class="col-lg-6">
+                    <!-- ======================================
+                         BUSINESS DOCUMENTS
+                         Continues in Part 5
+                    ======================================= -->
 
-<div class="card border-primary h-100 shadow-sm">
+                                        <!-- ======================================
+                         BUSINESS DOCUMENTS
+                    ======================================= -->
 
-<div class="card-body">
+                    <div class="form-section">
 
-<h6 class="fw-bold text-primary">
+                        <h5 class="form-section-title">
 
-<i class="bi bi-shield-lock-fill me-2"></i>
+                            Business Documents
 
-Why Customers Trust Us
+                            <small class="text-muted">
+                                (Optional)
+                            </small>
 
-</h6>
+                        </h5>
 
-<div class="mb-3">
+                        <p class="form-text mb-4">
 
-<i class="bi bi-patch-check-fill text-success me-2"></i>
+                            You can upload these now or later from your Supplier Dashboard.
 
-Verified supplier accounts
+                        </p>
 
-</div>
+                        <!-- Business Logo -->
 
-<div class="mb-3">
+                        <div class="form-group">
 
-<i class="bi bi-credit-card-fill text-success me-2"></i>
+                            <label
+                                class="form-label"
+                                for="businessLogo">
 
-Secure online payments
+                                Business Logo
 
-</div>
+                            </label>
 
-<div class="mb-3">
+                            <input
+                                type="file"
+                                id="businessLogo"
+                                class="form-control"
+                                accept="image/png,image/jpeg,image/jpg,image/webp">
 
-<i class="bi bi-truck text-success me-2"></i>
+                            <small class="form-text">
 
-Reliable delivery tracking
+                                PNG, JPG or WEBP. Maximum size: 5 MB.
 
-</div>
+                            </small>
 
-<div class="mb-3">
+                            <div
+                                id="logoPreview"
+                                class="logo-preview mt-3">
 
-<i class="bi bi-star-fill text-success me-2"></i>
+                                <div class="logo-placeholder">
 
-Customer reviews & ratings
+                                    <i class="bi bi-image fs-1"></i>
 
-</div>
+                                    <p class="mt-2 mb-0">
 
-<div class="mb-3">
+                                        Logo Preview
 
-<i class="bi bi-headset text-success me-2"></i>
+                                    </p>
 
-Dedicated supplier support
+                                </div>
 
-</div>
+                            </div>
 
-<div>
+                        </div>
 
-<i class="bi bi-graph-up-arrow text-success me-2"></i>
+                        <!-- Business License -->
 
-Business performance analytics
+                        <div class="form-group mt-4">
 
-</div>
+                            <label
+                                class="form-label"
+                                for="businessLicense">
 
-</div>
+                                Business License
 
-</div>
+                            </label>
 
-</div>
+                            <input
+                                type="file"
+                                id="businessLicense"
+                                class="form-control"
+                                accept=".pdf,.jpg,.jpeg,.png">
 
-</div>
+                            <small class="form-text">
 
-<!-- ========================================= -->
-<!-- NEED HELP -->
-<!-- ========================================= -->
+                                PDF, JPG or PNG. Maximum size: 10 MB.
 
-<div class="alert alert-info mt-5">
+                            </small>
 
-<div class="row align-items-center">
+                            <div
+                                id="licensePreview"
+                                class="file-preview mt-3"
+                                style="display:none;">
 
-<div class="col-md-8">
+                                <div class="file-info">
 
-<h5 class="mb-2">
+                                    <div
+                                        id="licenseFileName"
+                                        class="file-name">
 
-<i class="bi bi-headset me-2"></i>
+                                    </div>
 
-Need Help Registering?
+                                    <div
+                                        id="licenseFileSize"
+                                        class="file-size">
 
-</h5>
+                                    </div>
 
-<p class="mb-0">
+                                </div>
 
-Our supplier support team can assist with business verification,
-document uploads, and account approval.
+                            </div>
 
-</p>
+                        </div>
 
-</div>
+                        <!-- Tax Compliance Certificate -->
 
-<div class="col-md-4 text-md-end mt-3 mt-md-0">
+                        <div class="form-group mt-4">
 
-<a
+                            <label
+                                class="form-label"
+                                for="taxCertificate">
 
-href="support.html"
+                                Tax Compliance Certificate
 
-class="btn btn-primary">
+                            </label>
 
-<i class="bi bi-chat-dots-fill me-2"></i>
+                            <input
+                                type="file"
+                                id="taxCertificate"
+                                class="form-control"
+                                accept=".pdf,.jpg,.jpeg,.png">
 
-Contact Support
+                            <small class="form-text">
 
-</a>
+                                Optional during registration.
 
-</div>
+                            </small>
 
-</div>
+                            <div
+                                id="taxPreview"
+                                class="file-preview mt-3"
+                                style="display:none;">
 
-</div>
+                                <div class="file-info">
 
-<!-- ========================================= -->
-<!-- SECURITY NOTICE -->
-<!-- ========================================= -->
+                                    <div
+                                        id="taxFileName"
+                                        class="file-name">
 
-<div class="alert alert-success">
+                                    </div>
 
-<h6 class="fw-bold">
+                                    <div
+                                        id="taxFileSize"
+                                        class="file-size">
 
-<i class="bi bi-shield-check me-2"></i>
+                                    </div>
 
-Your Information is Safe
+                                </div>
 
-</h6>
+                            </div>
 
-<p class="mb-0">
+                        </div>
 
-Your personal and business information is securely encrypted and used
-only for supplier verification, payment processing, and marketplace
-operations. Kenya Gas Marketplace will never sell your information to
-third parties.
+                    </div>
 
-</p>
+                    <!-- ======================================
+                         ACCOUNT SECURITY
+                         Continues in Part 6
+                    ======================================= -->
 
-</div>
+                                        <!-- ======================================
+                         ACCOUNT SECURITY
+                    ======================================= -->
 
-    <!-- ========================================= -->
-<!-- END FORM -->
-<!-- ========================================= -->
+                    <div class="form-section">
 
-</form>
+                        <h5 class="form-section-title">
+                            Account Security
+                        </h5>
 
-</div>
+                        <!-- Email -->
 
-</div>
+                        <div class="form-group">
 
-</div>
+                            <label
+                                class="form-label"
+                                for="email">
 
-</div>
+                                Email Address
+                                <span class="required">*</span>
 
-</div>
+                            </label>
 
-<!-- ========================================= -->
-<!-- FOOTER -->
-<!-- ========================================= -->
+                            <input
+                                type="email"
+                                id="email"
+                                class="form-control"
+                                placeholder="example@email.com"
+                                autocomplete="email"
+                                required>
 
-<footer class="bg-dark text-white mt-5 pt-5 pb-4">
+                            <small class="form-text">
 
-<div class="container">
+                                We'll send a verification email after registration.
 
-<div class="row">
+                            </small>
 
-<!-- Company -->
+                        </div>
 
-<div class="col-lg-4 mb-4">
+                        <!-- Password -->
 
-<h5 class="fw-bold">
+                        <div class="form-group">
 
-Kenya Gas Marketplace
+                            <label
+                                class="form-label"
+                                for="password">
 
-</h5>
+                                Password
+                                <span class="required">*</span>
 
-<p>
+                            </label>
 
-Connecting LPG suppliers and customers across Kenya through a secure,
-modern and reliable marketplace.
+                            <div class="password-wrapper">
 
-</p>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control"
+                                    placeholder="Create a strong password"
+                                    autocomplete="new-password"
+                                    required>
 
-<div class="mt-3">
+                                <button
+                                    type="button"
+                                    id="togglePassword"
+                                    class="password-toggle"
+                                    aria-label="Show password">
 
-<a href="#" class="text-white me-3">
+                                    <i
+                                        id="togglePasswordIcon"
+                                        class="bi bi-eye"></i>
 
-<i class="bi bi-facebook fs-4"></i>
+                                </button>
 
-</a>
+                            </div>
 
-<a href="#" class="text-white me-3">
+                            <!-- Password Strength -->
 
-<i class="bi bi-twitter-x fs-4"></i>
+                            <div class="password-strength">
 
-</a>
+                                <div class="progress">
 
-<a href="#" class="text-white me-3">
+                                    <div
+                                        id="passwordStrengthBar"
+                                        class="progress-bar bg-danger"
+                                        style="width:0%">
 
-<i class="bi bi-instagram fs-4"></i>
+                                    </div>
 
-</a>
+                                </div>
 
-<a href="#" class="text-white me-3">
+                                <small
+                                    id="passwordStrengthText"
+                                    class="password-strength-text">
 
-<i class="bi bi-linkedin fs-4"></i>
+                                    Password strength will appear here.
 
-</a>
+                                </small>
 
-<a href="#" class="text-white">
+                            </div>
 
-<i class="bi bi-youtube fs-4"></i>
+                        </div>
 
-</a>
+                        <!-- Confirm Password -->
 
-</div>
+                        <div class="form-group">
 
-</div>
+                            <label
+                                class="form-label"
+                                for="confirmPassword">
 
-<!-- Quick Links -->
+                                Confirm Password
+                                <span class="required">*</span>
 
-<div class="col-lg-2 col-md-4 mb-4">
+                            </label>
 
-<h6 class="fw-bold">
+                            <div class="password-wrapper">
 
-Quick Links
+                                <input
+                                    type="password"
+                                    id="confirmPassword"
+                                    class="form-control"
+                                    placeholder="Re-enter your password"
+                                    autocomplete="new-password"
+                                    required>
 
-</h6>
+                                <button
+                                    type="button"
+                                    id="toggleConfirmPassword"
+                                    class="password-toggle"
+                                    aria-label="Show password">
 
-<ul class="list-unstyled">
+                                    <i
+                                        id="toggleConfirmPasswordIcon"
+                                        class="bi bi-eye"></i>
 
-<li>
+                                </button>
 
-<a
-href="index.html"
-class="text-white text-decoration-none">
+                            </div>
 
-Home
+                            <small
+                                id="passwordMatch"
+                                class="password-match">
 
-</a>
+                            </small>
 
-</li>
+                        </div>
 
-<li>
+                        <!-- Security Notice -->
 
-<a
-href="suppliers.html"
-class="text-white text-decoration-none">
+                        <div class="alert alert-info mt-4">
 
-Suppliers
+                            <i class="bi bi-shield-lock-fill"></i>
 
-</a>
+                            <div>
 
-</li>
+                                <strong>
+                                    Security Notice
+                                </strong>
 
-<li>
+                                <br>
 
-<a
-href="about.html"
-class="text-white text-decoration-none">
+                                Your password should contain:
 
-About Us
+                                <ul class="mb-0 mt-2">
 
-</a>
+                                    <li>At least 8 characters</li>
 
-</li>
+                                    <li>One uppercase letter</li>
 
-<li>
+                                    <li>One lowercase letter</li>
 
-<a
-href="contact.html"
-class="text-white text-decoration-none">
+                                    <li>One number</li>
 
-Contact
+                                    <li>One special character</li>
 
-</a>
+                                </ul>
 
-</li>
+                            </div>
 
-</ul>
+                        </div>
 
-</div>
+                    </div>
 
-<!-- Supplier -->
+                    <!-- ======================================
+                         TERMS & SUBMIT
+                         Continues in Part 7
+                    ======================================= -->
+                                        <!-- ======================================
+                         TERMS & CONDITIONS
+                    ======================================= -->
 
-<div class="col-lg-3 col-md-4 mb-4">
+                    <div class="form-section">
 
-<h6 class="fw-bold">
+                        <h5 class="form-section-title">
+                            Terms & Preferences
+                        </h5>
 
-Supplier Portal
+                        <div class="form-check mb-3">
 
-</h6>
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="agreeTerms"
+                                required>
 
-<ul class="list-unstyled">
+                            <label
+                                class="form-check-label"
+                                for="agreeTerms">
 
-<li>
+                                I have read and agree to the
 
-<a
-href="supplier-login.html"
-class="text-white text-decoration-none">
+                                <a
+                                    href="terms.html"
+                                    target="_blank">
 
-Supplier Login
+                                    Terms & Conditions
 
-</a>
+                                </a>
 
-</li>
+                                and
 
-<li>
+                                <a
+                                    href="privacy.html"
+                                    target="_blank">
 
-<a
-href="supplier-register.html"
-class="text-white text-decoration-none">
+                                    Privacy Policy
 
-Supplier Registration
+                                </a>
 
-</a>
+                                <span class="required">*</span>
 
-</li>
+                            </label>
 
-<li>
+                        </div>
 
-<a
-href="support.html"
-class="text-white text-decoration-none">
+                        <div class="form-check mb-4">
 
-Supplier Support
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="receiveUpdates"
+                                checked>
 
-</a>
+                            <label
+                                class="form-check-label"
+                                for="receiveUpdates">
 
-</li>
+                                Send me updates about new features,
+                                promotions, security alerts and supplier
+                                opportunities.
 
-<li>
+                            </label>
 
-<a
-href="faq.html"
-class="text-white text-decoration-none">
+                        </div>
 
-FAQs
+                    </div>
 
-</a>
+                    <!-- ======================================
+                         REGISTER BUTTON
+                    ======================================= -->
 
-</li>
+                    <button
+                        type="submit"
+                        id="registerBtn"
+                        class="btn btn-primary">
 
-</ul>
+                        <span id="registerBtnText">
 
-</div>
+                            <i class="bi bi-shop me-2"></i>
 
-<!-- Contact -->
+                            Create Supplier Account
 
-<div class="col-lg-3 col-md-4 mb-4">
+                        </span>
 
-<h6 class="fw-bold">
+                        <span
+                            id="registerSpinner"
+                            class="btn-spinner"
+                            style="display:none;"></span>
 
-Contact
+                    </button>
 
-</h6>
+                    <!-- ======================================
+                         LOGIN LINK
+                    ======================================= -->
 
-<p class="mb-2">
+                    <div class="auth-links">
 
-<i class="bi bi-envelope-fill me-2"></i>
+                        Already have a supplier account?
 
-support@kenyagasmarketplace.co.ke
+                        <a href="supplier-login.html">
 
-</p>
+                            Sign In
 
-<p class="mb-2">
+                        </a>
 
-<i class="bi bi-telephone-fill me-2"></i>
+                    </div>
 
-+254 700 000 000
+                    <!-- ======================================
+                         CUSTOMER LINK
+                    ======================================= -->
 
-</p>
+                    <div class="auth-links mt-3">
 
-<p>
+                        Looking for gas instead?
 
-<i class="bi bi-geo-alt-fill me-2"></i>
+                        <a href="register.html">
 
-Nairobi, Kenya
+                            Create Customer Account
 
-</p>
+                        </a>
 
-</div>
+                    </div>
 
-</div>
+                    <!-- ======================================
+                         HELP
+                    ======================================= -->
 
-<hr class="border-secondary">
+                    <div class="alert alert-info mt-4">
 
-<div class="text-center">
+                        <i class="bi bi-info-circle-fill"></i>
 
-<p class="mb-0">
+                        <div>
 
-©
+                            <strong>Important</strong>
 
-<span id="currentYear"></span>
+                            <br>
 
-Kenya Gas Marketplace.
+                            After registration:
 
-All Rights Reserved.
+                            <ul class="mt-2 mb-0">
 
-</p>
+                                <li>Verify your email address.</li>
 
-</div>
+                                <li>Complete your supplier profile.</li>
 
-</div>
+                                <li>Upload business documents (optional now).</li>
 
-</footer>
+                                <li>Wait for account approval before listing products.</li>
 
-<!-- ========================================= -->
-<!-- LOADING OVERLAY -->
-<!-- ========================================= -->
+                            </ul>
 
-<div
+                        </div>
 
-id="loadingOverlay"
+                    </div>
 
-class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white"
+                </form>
 
-style="z-index:9999;">
+                                <!-- End Auth Card -->
+            </div>
 
-<div class="text-center">
+            <!-- Footer -->
 
-<div
+            <div class="auth-footer">
 
-class="spinner-border text-success"
+                © <span id="currentYear"></span>
 
-style="width:3rem;height:3rem;">
+                Kenya Gas Marketplace
 
-</div>
+                <br>
 
-<p class="mt-3 fw-semibold">
+                Connecting Kenya's LPG Suppliers & Customers
 
-Creating supplier portal...
+            </div>
 
-</p>
+        </div>
 
-</div>
+    </div>
 
-</div>
+    <!-- ==========================================
+         Bootstrap
+    =========================================== -->
 
-<!-- Bootstrap -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
 
-<script
-src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    <!-- ==========================================
+         Supplier Registration Script
+    =========================================== -->
 
-</script>
+    <script
+        type="module"
+        src="assets/js/supplier-register.js">
+    </script>
 
-<!-- Counties -->
+    <!-- ==========================================
+         Page Initializer
+    =========================================== -->
 
-<script
-type="module"
-src="assets/js/counties.js">
+    <script>
 
-</script>
+        // Current year
 
-<!-- Supplier Registration -->
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
 
-<script
-type="module"
-src="assets/js/supplier-register.js">
+        // Hide loading overlay
 
-</script>
+        window.addEventListener("load", () => {
 
-<script>
+            const overlay =
+                document.getElementById("loadingOverlay");
 
-document.getElementById(
+            if (!overlay) return;
 
-"currentYear"
+            setTimeout(() => {
 
-).textContent =
+                overlay.classList.add("hidden");
 
-new Date().getFullYear();
+                setTimeout(() => {
 
-window.addEventListener(
+                    overlay.remove();
 
-"load",
+                }, 400);
 
-()=>{
+            }, 500);
 
-document.getElementById(
+        });
 
-"loadingOverlay"
+        // Failsafe
 
-).style.display="none";
+        setTimeout(() => {
 
-}
+            const overlay =
+                document.getElementById("loadingOverlay");
 
-);
+            if (overlay) {
 
-</script>
-<script>
-window.addEventListener("load", () => {
+                overlay.classList.add("hidden");
 
-    const overlay = document.getElementById("loadingOverlay");
+                setTimeout(() => {
 
-    if (!overlay) return;
+                    overlay.remove();
 
-    overlay.style.opacity = "0";
+                }, 400);
 
-    setTimeout(() => {
+            }
 
-        overlay.remove();
+        }, 3000);
 
-    }, 300);
+    </script>
 
-});
-</script>
 </body>
 
 </html>
