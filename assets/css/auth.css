@@ -1,0 +1,1512 @@
+/* ==========================================================
+   Kenya Gas Marketplace
+   Authentication Styles
+   Part 1
+========================================================== */
+
+/* =======================
+   CSS VARIABLES
+======================= */
+
+:root{
+
+    --primary:#0d6efd;
+    --primary-dark:#0b5ed7;
+    --secondary:#198754;
+    --warning:#ffc107;
+    --danger:#dc3545;
+    --info:#0dcaf0;
+
+    --text:#212529;
+    --muted:#6c757d;
+
+    --white:#ffffff;
+
+    --border:#dee2e6;
+
+    --bg:#f4f7fb;
+
+    --radius:16px;
+
+    --shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+    --transition:
+        all .30s ease;
+
+}
+
+/* =======================
+   RESET
+======================= */
+
+*,
+*::before,
+*::after{
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    min-height:100vh;
+
+    font-family:
+        "Poppins",
+        sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef6ff,
+            #f7fbff
+        );
+
+    color:var(--text);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:40px 15px;
+
+}
+
+/* =======================
+   LINKS
+======================= */
+
+a{
+
+    color:var(--primary);
+
+    text-decoration:none;
+
+    transition:var(--transition);
+
+}
+
+a:hover{
+
+    color:var(--primary-dark);
+
+}
+
+/* =======================
+   AUTH WRAPPER
+======================= */
+
+.auth-wrapper{
+
+    width:100%;
+
+    max-width:1200px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* =======================
+   AUTH CONTAINER
+======================= */
+
+.auth-container{
+
+    width:100%;
+
+    max-width:650px;
+
+}
+
+/* =======================
+   AUTH CARD
+======================= */
+
+.auth-card{
+
+    background:#fff;
+
+    border-radius:20px;
+
+    box-shadow:var(--shadow);
+
+    padding:40px;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+/* Decorative top border */
+
+.auth-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:6px;
+
+    background:
+
+        linear-gradient(
+            90deg,
+            #0d6efd,
+            #198754
+        );
+
+}
+
+/* =======================
+   LOGO
+======================= */
+
+.auth-logo{
+
+    width:90px;
+
+    height:90px;
+
+    object-fit:contain;
+
+    display:block;
+
+    margin:0 auto 20px;
+
+}
+
+/* =======================
+   TITLES
+======================= */
+
+.auth-title{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    text-align:center;
+
+    margin-bottom:8px;
+
+}
+
+.auth-subtitle{
+
+    text-align:center;
+
+    color:var(--muted);
+
+    margin-bottom:30px;
+
+    font-size:.95rem;
+
+}
+
+/* =======================
+   LOADING OVERLAY
+======================= */
+
+#loadingOverlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+        rgba(255,255,255,.96);
+
+    z-index:99999;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:
+        opacity .35s ease,
+        visibility .35s ease;
+
+}
+
+/* Hidden state */
+
+#loadingOverlay.hidden{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+/* =======================
+   LOADER
+======================= */
+
+.loader{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    border:6px solid #dbe8ff;
+
+    border-top-color:#0d6efd;
+
+    animation:spin .8s linear infinite;
+
+}
+
+/* =======================
+   SPIN
+======================= */
+
+@keyframes spin{
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+/* ==========================================================
+   Kenya Gas Marketplace
+   Authentication Styles
+   Part 2
+========================================================== */
+
+/* =======================
+   FORM
+======================= */
+
+.auth-form{
+
+    width:100%;
+
+}
+
+.form-section{
+
+    margin-bottom:35px;
+
+}
+
+.form-section-title{
+
+    font-size:1.1rem;
+
+    font-weight:600;
+
+    color:var(--primary);
+
+    margin-bottom:18px;
+
+    padding-bottom:8px;
+
+    border-bottom:2px solid #eef3ff;
+
+}
+
+/* =======================
+   FORM GROUP
+======================= */
+
+.form-group{
+
+    margin-bottom:20px;
+
+    position:relative;
+
+}
+
+.form-label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    font-size:.92rem;
+
+    font-weight:600;
+
+    color:#495057;
+
+}
+
+/* =======================
+   INPUTS
+======================= */
+
+.form-control,
+.form-select,
+textarea{
+
+    width:100%;
+
+    min-height:52px;
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:14px 16px;
+
+    font-size:.95rem;
+
+    color:var(--text);
+
+    background:#fff;
+
+    transition:var(--transition);
+
+    outline:none;
+
+}
+
+textarea{
+
+    resize:vertical;
+
+    min-height:130px;
+
+}
+
+/* =======================
+   PLACEHOLDER
+======================= */
+
+.form-control::placeholder,
+textarea::placeholder{
+
+    color:#adb5bd;
+
+}
+
+/* =======================
+   FOCUS
+======================= */
+
+.form-control:focus,
+.form-select:focus,
+textarea:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:
+
+        0 0 0 .20rem rgba(13,110,253,.18);
+
+}
+
+/* =======================
+   DISABLED
+======================= */
+
+.form-control:disabled,
+.form-select:disabled{
+
+    background:#f8f9fa;
+
+    cursor:not-allowed;
+
+}
+
+/* =======================
+   READONLY
+======================= */
+
+.form-control[readonly]{
+
+    background:#f8f9fa;
+
+}
+
+/* =======================
+   INPUT GROUP
+======================= */
+
+.input-group{
+
+    display:flex;
+
+    align-items:stretch;
+
+}
+
+.input-group .form-control{
+
+    border-radius:12px 0 0 12px;
+
+}
+
+.input-group-text{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    min-width:52px;
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-left:none;
+
+    border-radius:0 12px 12px 0;
+
+}
+
+/* =======================
+   PASSWORD TOGGLE
+======================= */
+
+.password-wrapper{
+
+    position:relative;
+
+}
+
+.password-wrapper .form-control{
+
+    padding-right:55px;
+
+}
+
+.password-toggle{
+
+    position:absolute;
+
+    right:16px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    color:#6c757d;
+
+    font-size:1.1rem;
+
+}
+
+.password-toggle:hover{
+
+    color:var(--primary);
+
+}
+
+/* =======================
+   SELECTS
+======================= */
+
+.form-select{
+
+    cursor:pointer;
+
+}
+
+/* =======================
+   CHECKBOXES
+======================= */
+
+.form-check{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    margin-bottom:12px;
+
+}
+
+.form-check-input{
+
+    margin-top:4px;
+
+    cursor:pointer;
+
+}
+
+.form-check-label{
+
+    font-size:.92rem;
+
+    line-height:1.5;
+
+    cursor:pointer;
+
+}
+
+/* =======================
+   FILE INPUT
+======================= */
+
+.form-control[type="file"]{
+
+    padding:12px;
+
+    cursor:pointer;
+
+}
+
+.form-control[type="file"]::file-selector-button{
+
+    border:none;
+
+    background:var(--primary);
+
+    color:#fff;
+
+    padding:10px 18px;
+
+    border-radius:8px;
+
+    margin-right:15px;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+.form-control[type="file"]::file-selector-button:hover{
+
+    background:var(--primary-dark);
+
+}
+
+/* =======================
+   SMALL TEXT
+======================= */
+
+.form-text{
+
+    color:var(--muted);
+
+    font-size:.82rem;
+
+    margin-top:6px;
+
+}
+
+/* =======================
+   REQUIRED ASTERISK
+======================= */
+
+.required{
+
+    color:var(--danger);
+
+    margin-left:3px;
+
+}
+
+/* =======================
+   INVALID
+======================= */
+
+.is-invalid{
+
+    border-color:var(--danger)!important;
+
+}
+
+.is-valid{
+
+    border-color:var(--secondary)!important;
+
+}
+
+/* =======================
+   VALIDATION FEEDBACK
+======================= */
+
+.invalid-feedback{
+
+    display:block;
+
+    margin-top:6px;
+
+    color:var(--danger);
+
+    font-size:.85rem;
+
+}
+
+.valid-feedback{
+
+    display:block;
+
+    margin-top:6px;
+
+    color:var(--secondary);
+
+    font-size:.85rem;
+
+}
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Authentication Styles
+   Part 3
+========================================================== */
+
+/* =======================
+   PRIMARY BUTTON
+======================= */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    width:100%;
+
+    min-height:54px;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+    text-decoration:none;
+
+}
+
+.btn-primary{
+
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+
+    color:#fff;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(13,110,253,.25);
+
+}
+
+.btn-primary:active{
+
+    transform:scale(.98);
+
+}
+
+.btn-success{
+
+    background:var(--secondary);
+
+    color:#fff;
+
+}
+
+.btn-outline{
+
+    background:#fff;
+
+    color:var(--primary);
+
+    border:2px solid var(--primary);
+
+}
+
+.btn-outline:hover{
+
+    background:var(--primary);
+
+    color:#fff;
+
+}
+
+/* =======================
+   DISABLED BUTTON
+======================= */
+
+.btn:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+/* =======================
+   BUTTON SPINNER
+======================= */
+
+.btn-spinner{
+
+    width:20px;
+
+    height:20px;
+
+    border:3px solid rgba(255,255,255,.35);
+
+    border-top-color:#fff;
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+
+}
+
+/* =======================
+   ALERTS
+======================= */
+
+.alert{
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:16px 18px;
+
+    margin-bottom:20px;
+
+    font-size:.95rem;
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    animation:fadeDown .35s ease;
+
+}
+
+.alert-success{
+
+    background:#d1e7dd;
+
+    color:#0f5132;
+
+}
+
+.alert-danger{
+
+    background:#f8d7da;
+
+    color:#842029;
+
+}
+
+.alert-warning{
+
+    background:#fff3cd;
+
+    color:#664d03;
+
+}
+
+.alert-info{
+
+    background:#cff4fc;
+
+    color:#055160;
+
+}
+
+/* =======================
+   PASSWORD STRENGTH
+======================= */
+
+.password-strength{
+
+    margin-top:12px;
+
+}
+
+.progress{
+
+    width:100%;
+
+    height:8px;
+
+    overflow:hidden;
+
+    border-radius:30px;
+
+    background:#e9ecef;
+
+}
+
+.progress-bar{
+
+    width:0;
+
+    height:100%;
+
+    border-radius:30px;
+
+    transition:width .35s ease;
+
+}
+
+.bg-danger{
+
+    background:#dc3545!important;
+
+}
+
+.bg-warning{
+
+    background:#ffc107!important;
+
+}
+
+.bg-success{
+
+    background:#198754!important;
+
+}
+
+.password-strength-text{
+
+    margin-top:8px;
+
+    font-size:.85rem;
+
+    color:var(--muted);
+
+}
+
+/* =======================
+   PASSWORD MATCH
+======================= */
+
+.password-match{
+
+    margin-top:8px;
+
+    font-size:.88rem;
+
+    font-weight:500;
+
+}
+
+/* =======================
+   BADGES
+======================= */
+
+.badge{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:30px;
+
+    font-size:.75rem;
+
+    font-weight:600;
+
+}
+
+.badge-primary{
+
+    background:rgba(13,110,253,.1);
+
+    color:var(--primary);
+
+}
+
+.badge-success{
+
+    background:rgba(25,135,84,.1);
+
+    color:var(--secondary);
+
+}
+
+.badge-warning{
+
+    background:rgba(255,193,7,.15);
+
+    color:#856404;
+
+}
+
+/* =======================
+   DIVIDER
+======================= */
+
+.auth-divider{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    margin:30px 0;
+
+    color:var(--muted);
+
+    font-size:.9rem;
+
+}
+
+.auth-divider::before,
+.auth-divider::after{
+
+    content:"";
+
+    flex:1;
+
+    height:1px;
+
+    background:#dee2e6;
+
+}
+
+/* =======================
+   SOCIAL BUTTONS
+======================= */
+
+.social-btn{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:12px;
+
+    border:1px solid var(--border);
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    cursor:pointer;
+
+    transition:var(--transition);
+
+}
+
+.social-btn:hover{
+
+    background:#f8f9fa;
+
+    border-color:var(--primary);
+
+}
+
+.social-btn img{
+
+    width:22px;
+
+    height:22px;
+
+}
+
+/* =======================
+   LINKS
+======================= */
+
+.auth-links{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    font-size:.92rem;
+
+}
+
+.auth-links a{
+
+    font-weight:600;
+
+}
+
+/* =======================
+   ANIMATIONS
+======================= */
+
+@keyframes fadeDown{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(12px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+/* ==========================================================
+   Kenya Gas Marketplace
+   Authentication Styles
+   Part 4
+========================================================== */
+
+/* =======================
+   FILE PREVIEW
+======================= */
+
+.file-preview{
+
+    margin-top:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:12px;
+
+    border:1px dashed var(--border);
+
+    border-radius:12px;
+
+    background:#fafbfc;
+
+}
+
+.file-preview img{
+
+    width:80px;
+
+    height:80px;
+
+    border-radius:10px;
+
+    object-fit:cover;
+
+    border:1px solid var(--border);
+
+}
+
+.file-preview .file-info{
+
+    flex:1;
+
+}
+
+.file-preview .file-name{
+
+    font-weight:600;
+
+    word-break:break-word;
+
+}
+
+.file-preview .file-size{
+
+    color:var(--muted);
+
+    font-size:.85rem;
+
+}
+
+/* =======================
+   LOGO PREVIEW
+======================= */
+
+.logo-preview{
+
+    width:120px;
+
+    height:120px;
+
+    margin:15px auto;
+
+    border-radius:16px;
+
+    border:2px dashed var(--border);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    background:#fff;
+
+}
+
+.logo-preview img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+/* =======================
+   IMAGE PLACEHOLDER
+======================= */
+
+.logo-placeholder{
+
+    color:var(--muted);
+
+    font-size:.9rem;
+
+    text-align:center;
+
+    padding:10px;
+
+}
+
+/* =======================
+   FORM GRID
+======================= */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+.form-grid-3{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:20px;
+
+}
+
+/* =======================
+   CHECKBOX GRID
+======================= */
+
+.checkbox-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:10px;
+
+}
+
+/* =======================
+   CARD FOOTER
+======================= */
+
+.auth-footer{
+
+    text-align:center;
+
+    margin-top:35px;
+
+    color:var(--muted);
+
+    font-size:.9rem;
+
+}
+
+/* =======================
+   HELP TEXT
+======================= */
+
+.help-text{
+
+    font-size:.85rem;
+
+    color:var(--muted);
+
+    margin-top:5px;
+
+}
+
+/* =======================
+   SPACING UTILITIES
+======================= */
+
+.mt-1{margin-top:.25rem;}
+.mt-2{margin-top:.5rem;}
+.mt-3{margin-top:1rem;}
+.mt-4{margin-top:1.5rem;}
+.mt-5{margin-top:3rem;}
+
+.mb-1{margin-bottom:.25rem;}
+.mb-2{margin-bottom:.5rem;}
+.mb-3{margin-bottom:1rem;}
+.mb-4{margin-bottom:1.5rem;}
+.mb-5{margin-bottom:3rem;}
+
+.text-center{text-align:center;}
+.text-end{text-align:right;}
+.w-100{width:100%;}
+
+/* =======================
+   RESPONSIVE
+======================= */
+
+@media (max-width:992px){
+
+    .auth-card{
+
+        padding:30px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    body{
+
+        padding:20px 10px;
+
+    }
+
+    .auth-card{
+
+        padding:25px 20px;
+
+        border-radius:16px;
+
+    }
+
+    .auth-title{
+
+        font-size:1.6rem;
+
+    }
+
+    .form-grid,
+
+    .form-grid-3{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .checkbox-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .auth-card{
+
+        padding:20px 15px;
+
+    }
+
+    .auth-title{
+
+        font-size:1.35rem;
+
+    }
+
+    .btn{
+
+        min-height:50px;
+
+        font-size:.95rem;
+
+    }
+
+}
+
+/* =======================
+   DARK MODE
+======================= */
+
+@media (prefers-color-scheme:dark){
+
+    :root{
+
+        --bg:#111827;
+        --text:#f8f9fa;
+        --border:#3c4655;
+        --white:#1b2430;
+
+    }
+
+    body{
+
+        background:#0f172a;
+
+    }
+
+    .auth-card{
+
+        background:#1b2430;
+
+        color:#fff;
+
+    }
+
+    .form-control,
+    .form-select,
+    textarea{
+
+        background:#263241;
+
+        color:#fff;
+
+        border-color:#3b4655;
+
+    }
+
+    .input-group-text{
+
+        background:#263241;
+
+        border-color:#3b4655;
+
+        color:#fff;
+
+    }
+
+    .form-control::placeholder,
+    textarea::placeholder{
+
+        color:#aab4c0;
+
+    }
+
+    .file-preview{
+
+        background:#263241;
+
+    }
+
+    .logo-preview{
+
+        background:#263241;
+
+    }
+
+}
+
+/* =======================
+   PRINT
+======================= */
+
+@media print{
+
+    #loadingOverlay,
+
+    .password-toggle,
+
+    .btn,
+
+    .social-btn{
+
+        display:none !important;
+
+    }
+
+}
+
+/* =======================
+   END OF AUTH.CSS
+======================= */
