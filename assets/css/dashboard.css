@@ -1,0 +1,1541 @@
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Dashboard
+   dashboard.css
+   Part 1
+========================================================== */
+
+/* ==========================================
+   CSS Variables
+========================================== */
+
+:root{
+
+    --primary:#198754;
+
+    --primary-dark:#146c43;
+
+    --secondary:#0d6efd;
+
+    --warning:#ffc107;
+
+    --danger:#dc3545;
+
+    --success:#198754;
+
+    --info:#0dcaf0;
+
+    --dark:#212529;
+
+    --light:#f8f9fa;
+
+    --white:#ffffff;
+
+    --border:#e9ecef;
+
+    --sidebar-width:280px;
+
+    --navbar-height:72px;
+
+    --radius:15px;
+
+    --shadow:0 10px 30px rgba(0,0,0,.08);
+
+    --transition:.3s ease;
+
+}
+
+/* ==========================================
+   Global
+========================================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#f4f6f9;
+
+    color:#333;
+
+    overflow-x:hidden;
+
+}
+
+/* ==========================================
+   Links
+========================================== */
+
+a{
+
+    text-decoration:none;
+
+    transition:var(--transition);
+
+}
+
+a:hover{
+
+    text-decoration:none;
+
+}
+
+/* ==========================================
+   Images
+========================================== */
+
+img{
+
+    max-width:100%;
+
+    display:block;
+
+}
+
+/* ==========================================
+   Dashboard Wrapper
+========================================== */
+
+.dashboard-wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+    width:100%;
+
+    position:relative;
+
+}
+
+/* ==========================================
+   Main Content
+========================================== */
+
+.main-content{
+
+    flex:1;
+
+    margin-left:var(--sidebar-width);
+
+    min-height:100vh;
+
+    transition:var(--transition);
+
+    background:#f5f7fb;
+
+}
+
+/* ==========================================
+   Dashboard Content
+========================================== */
+
+.dashboard-content{
+
+    padding:30px;
+
+}
+
+/* ==========================================
+   Loading Overlay
+========================================== */
+
+.loading-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:#ffffff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    z-index:99999;
+
+    transition:.35s;
+
+}
+
+.loading-overlay.hidden{
+
+    opacity:0;
+
+    visibility:hidden;
+
+}
+
+.loading-content{
+
+    text-align:center;
+
+}
+
+.loading-content h4{
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+.loading-content p{
+
+    margin-top:10px;
+
+    color:#777;
+
+}
+
+/* ==========================================
+   Scrollbar
+========================================== */
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f1f1f1;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:var(--primary);
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary-dark);
+
+}
+
+/* ==========================================
+   Cards
+========================================== */
+
+.card{
+
+    border:none;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+.card-header{
+
+    background:#fff;
+
+    border-bottom:1px solid var(--border);
+
+    padding:18px 22px;
+
+    font-weight:600;
+
+}
+
+.card-body{
+
+    padding:22px;
+
+}
+
+/* ==========================================
+   Buttons
+========================================== */
+
+.btn{
+
+    border-radius:10px;
+
+    transition:var(--transition);
+
+}
+
+.btn-success{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+}
+
+.btn-success:hover{
+
+    background:var(--primary-dark);
+
+    border-color:var(--primary-dark);
+
+}
+
+/* ==========================================
+   Forms
+========================================== */
+
+.form-control,
+
+.form-select{
+
+    border-radius:10px;
+
+    min-height:48px;
+
+    border:1px solid #ced4da;
+
+}
+
+.form-control:focus,
+
+.form-select:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 .2rem rgba(25,135,84,.15);
+
+}
+
+/* ==========================================================
+   Supplier Dashboard
+   dashboard.css
+   Part 2
+   Sidebar
+========================================================== */
+
+/* ==========================================
+   Sidebar
+========================================== */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:var(--sidebar-width);
+
+    height:100vh;
+
+    background:#ffffff;
+
+    border-right:1px solid var(--border);
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow-y:auto;
+
+    z-index:1050;
+
+    transition:var(--transition);
+
+}
+
+/* ==========================================
+   Sidebar Header
+========================================== */
+
+.sidebar-header{
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.sidebar-logo{
+
+    width:70px;
+
+    height:70px;
+
+    margin:0 auto 15px;
+
+    object-fit:contain;
+
+}
+
+.sidebar-header h5{
+
+    margin-bottom:5px;
+
+    font-weight:700;
+
+    color:var(--primary);
+
+}
+
+.sidebar-header small{
+
+    color:#777;
+
+}
+
+/* ==========================================
+   Supplier Profile
+========================================== */
+
+.supplier-profile{
+
+    padding:25px 20px;
+
+    text-align:center;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.supplier-avatar{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:4px solid #198754;
+
+    margin:auto;
+
+    background:#fff;
+
+}
+
+.supplier-profile h6{
+
+    font-weight:600;
+
+    margin-top:15px;
+
+}
+
+.supplier-profile small{
+
+    word-break:break-word;
+
+    color:#777;
+
+}
+
+/* ==========================================
+   Sidebar Menu
+========================================== */
+
+.sidebar-menu{
+
+    flex:1;
+
+    padding:20px 0;
+
+}
+
+.sidebar-menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:15px 25px;
+
+    color:#555;
+
+    font-size:15px;
+
+    font-weight:500;
+
+    transition:var(--transition);
+
+    border-left:4px solid transparent;
+
+}
+
+.sidebar-menu a i{
+
+    font-size:1.15rem;
+
+    width:25px;
+
+    text-align:center;
+
+}
+
+.sidebar-menu a:hover{
+
+    background:#f4fff8;
+
+    color:var(--primary);
+
+    border-left-color:var(--primary);
+
+}
+
+.sidebar-menu a.active{
+
+    background:#e9f8ef;
+
+    color:var(--primary);
+
+    font-weight:600;
+
+    border-left-color:var(--primary);
+
+}
+
+/* ==========================================
+   Sidebar Footer
+========================================== */
+
+.sidebar-footer{
+
+    padding:20px;
+
+    border-top:1px solid var(--border);
+
+    background:#fff;
+
+}
+
+.sidebar-footer .btn{
+
+    min-height:48px;
+
+}
+
+/* ==========================================
+   Approval Badge
+========================================== */
+
+#approvalBadge{
+
+    padding:8px 14px;
+
+    border-radius:30px;
+
+    font-size:.8rem;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   Sidebar Scrollbar
+========================================== */
+
+.sidebar::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+
+    background:#d0d0d0;
+
+    border-radius:20px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover{
+
+    background:#b5b5b5;
+
+}
+
+/* ==========================================
+   Mobile Sidebar
+========================================== */
+
+@media (max-width:991px){
+
+    .sidebar{
+
+        left:-100%;
+
+        box-shadow:0 0 30px rgba(0,0,0,.2);
+
+    }
+
+    .sidebar.show{
+
+        left:0;
+
+    }
+
+    .main-content{
+
+        margin-left:0;
+
+    }
+
+}
+
+/* ==========================================
+   Desktop Sidebar
+========================================== */
+
+@media (min-width:992px){
+
+    .sidebar{
+
+        left:0;
+
+    }
+
+}
+
+/* ==========================================================
+   Supplier Dashboard
+   dashboard.css
+   Part 3
+   Top Navigation & Dashboard Cards
+========================================================== */
+
+/* ==========================================
+   Top Navigation
+========================================== */
+
+.top-navbar{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1040;
+
+    background:#ffffff;
+
+    padding:18px 30px;
+
+    border-bottom:1px solid var(--border);
+
+    box-shadow:0 3px 15px rgba(0,0,0,.04);
+
+}
+
+.top-navbar h4{
+
+    font-weight:700;
+
+    margin-bottom:0;
+
+}
+
+.top-navbar small{
+
+    color:#777;
+
+}
+
+#sidebarToggle{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:12px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ==========================================
+   Search Box
+========================================== */
+
+.input-group{
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.input-group-text{
+
+    background:#fff;
+
+    border-right:none;
+
+}
+
+.input-group .form-control{
+
+    border-left:none;
+
+}
+
+.input-group .form-control:focus{
+
+    box-shadow:none;
+
+}
+
+/* ==========================================
+   Notification Buttons
+========================================== */
+
+#notificationBtn,
+
+#messagesBtn{
+
+    width:48px;
+
+    height:48px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border-radius:12px;
+
+    position:relative;
+
+}
+
+#notificationBtn:hover,
+
+#messagesBtn:hover{
+
+    background:#198754;
+
+    color:#fff;
+
+}
+
+#notificationCount,
+
+#messageCount{
+
+    font-size:.7rem;
+
+}
+
+/* ==========================================
+   Profile Dropdown
+========================================== */
+
+.dropdown-toggle{
+
+    border-radius:12px;
+
+    font-weight:500;
+
+}
+
+.dropdown-toggle img{
+
+    width:40px;
+
+    height:40px;
+
+    object-fit:cover;
+
+}
+
+.dropdown-menu{
+
+    border:none;
+
+    border-radius:15px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+    padding:10px;
+
+}
+
+.dropdown-item{
+
+    border-radius:10px;
+
+    padding:10px 15px;
+
+    transition:var(--transition);
+
+}
+
+.dropdown-item:hover{
+
+    background:#f4fff8;
+
+    color:var(--primary);
+
+}
+
+/* ==========================================
+   Dashboard Statistic Cards
+========================================== */
+
+.dashboard-card{
+
+    overflow:hidden;
+
+    transition:var(--transition);
+
+    border-radius:18px;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+
+}
+
+.dashboard-card h2{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    margin:12px 0;
+
+}
+
+.dashboard-card small{
+
+    color:#777;
+
+}
+
+.dashboard-card span{
+
+    font-size:.9rem;
+
+}
+
+/* ==========================================
+   Dashboard Icons
+========================================== */
+
+.dashboard-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#fff;
+
+    font-size:28px;
+
+    flex-shrink:0;
+
+}
+
+/* ==========================================
+   Quick Actions
+========================================== */
+
+.card .btn{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+}
+
+.card .btn i{
+
+    font-size:1rem;
+
+}
+
+/* ==========================================
+   Sales Chart
+========================================== */
+
+#salesChart{
+
+    width:100% !important;
+
+    min-height:320px;
+
+}
+
+/* ==========================================
+   Order Summary
+========================================== */
+
+.badge{
+
+    font-size:.8rem;
+
+    padding:8px 12px;
+
+}
+
+/* ==========================================
+   Dashboard Tables
+========================================== */
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.table thead th{
+
+    background:#f8f9fa;
+
+    border-bottom:2px solid var(--border);
+
+    font-weight:600;
+
+    color:#444;
+
+}
+
+.table tbody td{
+
+    vertical-align:middle;
+
+}
+
+.table tbody tr:hover{
+
+    background:#f9fdfb;
+
+}
+
+/* ==========================================
+   List Groups
+========================================== */
+
+.list-group-item{
+
+    border:none;
+
+    border-bottom:1px solid #f1f1f1;
+
+    padding:16px 20px;
+
+}
+
+.list-group-item:last-child{
+
+    border-bottom:none;
+
+}
+
+/* ==========================================
+   Progress Bars
+========================================== */
+
+.progress{
+
+    height:10px;
+
+    border-radius:30px;
+
+    background:#e9ecef;
+
+}
+
+.progress-bar{
+
+    border-radius:30px;
+
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width:991px){
+
+    .top-navbar{
+
+        padding:15px;
+
+    }
+
+    .top-navbar h4{
+
+        font-size:1.25rem;
+
+    }
+
+    #dashboardSearch{
+
+        margin-top:15px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .dashboard-content{
+
+        padding:18px;
+
+    }
+
+    .dashboard-card h2{
+
+        font-size:1.6rem;
+
+    }
+
+    .dashboard-icon{
+
+        width:55px;
+
+        height:55px;
+
+        font-size:22px;
+
+    }
+
+    .dropdown-toggle span{
+
+        display:none;
+
+    }
+
+}
+
+/* ==========================================================
+   Supplier Dashboard
+   dashboard.css
+   Part 4 (FINAL)
+========================================================== */
+
+/* ==========================================
+   Activity Timeline
+========================================== */
+
+#activityTimeline .list-group-item{
+
+    position:relative;
+
+    padding-left:45px;
+
+}
+
+#activityTimeline .list-group-item::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:18px;
+
+    top:22px;
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+}
+
+#activityTimeline .list-group-item::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:22px;
+
+    top:32px;
+
+    width:2px;
+
+    height:100%;
+
+    background:#dee2e6;
+
+}
+
+#activityTimeline .list-group-item:last-child::after{
+
+    display:none;
+
+}
+
+/* ==========================================
+   Notifications
+========================================== */
+
+#notificationsList .list-group-item{
+
+    transition:var(--transition);
+
+}
+
+#notificationsList .list-group-item:hover{
+
+    background:#f4fff8;
+
+}
+
+/* ==========================================
+   Marketplace News
+========================================== */
+
+#marketplaceNews .list-group-item{
+
+    transition:var(--transition);
+
+}
+
+#marketplaceNews .list-group-item:hover{
+
+    background:#f8f9fa;
+
+}
+
+/* ==========================================
+   Dashboard Footer
+========================================== */
+
+.dashboard-footer{
+
+    background:#ffffff;
+
+    border-top:1px solid var(--border);
+
+    padding:20px 30px;
+
+    margin-top:50px;
+
+}
+
+.dashboard-footer p{
+
+    color:#6c757d;
+
+    margin:0;
+
+}
+
+.dashboard-footer a{
+
+    color:#6c757d;
+
+    font-weight:500;
+
+}
+
+.dashboard-footer a:hover{
+
+    color:var(--primary);
+
+}
+
+/* ==========================================
+   Floating Action Button
+========================================== */
+
+#quickActionBtn{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:90px;
+
+    width:60px;
+
+    height:60px;
+
+    border:none;
+
+    z-index:1100;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:1.4rem;
+
+    transition:var(--transition);
+
+}
+
+#quickActionBtn:hover{
+
+    transform:scale(1.08) rotate(90deg);
+
+}
+
+/* ==========================================
+   Floating Menu
+========================================== */
+
+#quickActionMenu{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:160px;
+
+    width:240px;
+
+    display:none;
+
+    z-index:1099;
+
+    border-radius:15px;
+
+    overflow:hidden;
+
+}
+
+#quickActionMenu .list-group-item{
+
+    transition:var(--transition);
+
+}
+
+#quickActionMenu .list-group-item:hover{
+
+    background:#f4fff8;
+
+    color:var(--primary);
+
+}
+
+/* ==========================================
+   Scroll To Top
+========================================== */
+
+#scrollTopBtn{
+
+    position:fixed;
+
+    right:25px;
+
+    bottom:20px;
+
+    width:50px;
+
+    height:50px;
+
+    display:none;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:none;
+
+    z-index:1098;
+
+}
+
+/* ==========================================
+   Mobile Bottom Navigation
+========================================== */
+
+.mobile-nav{
+
+    position:fixed;
+
+    bottom:0;
+
+    left:0;
+
+    width:100%;
+
+    background:#ffffff;
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    height:70px;
+
+    z-index:1080;
+
+    box-shadow:0 -5px 20px rgba(0,0,0,.08);
+
+}
+
+.mobile-nav a{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#6c757d;
+
+    font-size:.75rem;
+
+    width:100%;
+
+    height:100%;
+
+    transition:var(--transition);
+
+}
+
+.mobile-nav a i{
+
+    font-size:1.25rem;
+
+    margin-bottom:4px;
+
+}
+
+.mobile-nav a.active,
+
+.mobile-nav a:hover{
+
+    color:var(--primary);
+
+}
+
+/* ==========================================
+   Badges
+========================================== */
+
+.badge{
+
+    border-radius:30px;
+
+    font-weight:600;
+
+}
+
+/* ==========================================
+   Utility Classes
+========================================== */
+
+.shadow-hover{
+
+    transition:var(--transition);
+
+}
+
+.shadow-hover:hover{
+
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+}
+
+.cursor-pointer{
+
+    cursor:pointer;
+
+}
+
+.text-success{
+
+    color:var(--primary)!important;
+
+}
+
+/* ==========================================
+   Animations
+========================================== */
+
+@keyframes fadeIn{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+@keyframes slideInLeft{
+
+    from{
+
+        opacity:0;
+
+        transform:translateX(-25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateX(0);
+
+    }
+
+}
+
+@keyframes pulse{
+
+    0%{
+
+        transform:scale(1);
+
+    }
+
+    50%{
+
+        transform:scale(1.05);
+
+    }
+
+    100%{
+
+        transform:scale(1);
+
+    }
+
+}
+
+.card{
+
+    animation:fadeIn .5s ease;
+
+}
+
+.sidebar{
+
+    animation:slideInLeft .4s ease;
+
+}
+
+.dashboard-icon{
+
+    animation:pulse 3s infinite;
+
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (min-width:992px){
+
+    .mobile-nav{
+
+        display:none;
+
+    }
+
+}
+
+@media (max-width:991px){
+
+    .dashboard-footer{
+
+        padding-bottom:90px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .dashboard-footer{
+
+        text-align:center;
+
+    }
+
+    .dashboard-footer .text-md-end{
+
+        text-align:center!important;
+
+        margin-top:15px;
+
+    }
+
+    #quickActionBtn{
+
+        width:55px;
+
+        height:55px;
+
+        right:20px;
+
+        bottom:90px;
+
+    }
+
+    #quickActionMenu{
+
+        width:220px;
+
+        right:20px;
+
+    }
+
+}
+
