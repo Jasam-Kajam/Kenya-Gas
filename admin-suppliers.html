@@ -1,0 +1,2951 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<title>
+
+Admin Suppliers | Kenya Gas Marketplace
+
+</title>
+
+<meta
+    name="description"
+    content="Manage all registered LPG suppliers in Kenya Gas Marketplace.">
+
+<meta
+    name="robots"
+    content="noindex,nofollow">
+
+<meta
+    name="theme-color"
+    content="#198754">
+
+<!-- Bootstrap -->
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+
+<!-- Bootstrap Icons -->
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet">
+
+<!-- Google Fonts -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+<!-- Admin CSS -->
+
+<link
+    rel="stylesheet"
+    href="assets/css/admin.css">
+
+<!-- Favicon -->
+
+<link
+    rel="icon"
+    type="image/png"
+    href="assets/images/favicon.png">
+
+</head>
+
+<body>
+
+<!-- ==========================================
+     Loading Screen
+========================================== -->
+
+<div
+    id="loadingOverlay"
+    class="loading-overlay">
+
+    <div class="loading-content">
+
+        <img
+
+            src="assets/images/logo.png"
+
+            alt="Kenya Gas Marketplace">
+
+        <h4>
+
+            Kenya Gas Marketplace
+
+        </h4>
+
+        <p>
+
+            Loading Supplier Management...
+
+        </p>
+
+        <div
+            class="spinner-border text-success mt-3"
+            role="status">
+
+            <span class="visually-hidden">
+
+                Loading...
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Dashboard Wrapper
+========================================== -->
+
+<div class="dashboard-wrapper">
+
+<!-- ==========================================
+     Sidebar
+========================================== -->
+
+<aside
+    id="sidebar"
+    class="sidebar">
+
+    <!-- Logo -->
+
+    <div class="sidebar-header">
+
+        <img
+
+            src="assets/images/logo.png"
+
+            alt="Logo"
+
+            class="sidebar-logo">
+
+        <h5>
+
+            Kenya Gas Marketplace
+
+        </h5>
+
+        <small>
+
+            Administrator Panel
+
+        </small>
+
+    </div>
+
+    <!-- Admin Profile -->
+
+    <div class="supplier-profile">
+
+        <img
+
+            id="adminPhoto"
+
+            src="assets/images/default-avatar.png"
+
+            class="supplier-avatar"
+
+            alt="Admin">
+
+        <h6 id="adminName">
+
+            Loading...
+
+        </h6>
+
+        <small id="adminEmail">
+
+            loading@email.com
+
+        </small>
+
+        <div class="mt-3">
+
+            <span class="badge bg-success">
+
+                Super Admin
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+
+    <nav class="sidebar-menu">
+
+        <a href="admin-dashboard.html">
+
+            <i class="bi bi-speedometer2"></i>
+
+            Dashboard
+
+        </a>
+
+        <a
+            href="admin-suppliers.html"
+            class="active">
+
+            <i class="bi bi-shop"></i>
+
+            Suppliers
+
+        </a>
+
+        <a href="admin-products.html">
+
+            <i class="bi bi-box-seam"></i>
+
+            Products
+
+        </a>
+
+        <a href="admin-orders.html">
+
+            <i class="bi bi-cart-check"></i>
+
+            Orders
+
+        </a>
+
+        <a href="admin-customers.html">
+
+            <i class="bi bi-people"></i>
+
+            Customers
+
+        </a>
+
+        <a href="admin-settings.html">
+
+            <i class="bi bi-gear"></i>
+
+            Settings
+
+        </a>
+
+    </nav>
+
+    <!-- Sidebar Footer -->
+
+    <div class="sidebar-footer">
+
+        <button
+
+            id="logoutBtn"
+
+            class="btn btn-danger w-100">
+
+            <i class="bi bi-box-arrow-right me-2"></i>
+
+            Logout
+
+        </button>
+
+    </div>
+
+</aside>
+
+<!-- ==========================================
+     Main Content
+========================================== -->
+
+<main class="main-content">
+
+  <!-- ==========================================
+     Top Navigation
+========================================== -->
+
+<header class="top-navbar">
+
+    <div class="container-fluid">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="d-flex align-items-center">
+
+                    <button
+                        id="sidebarToggle"
+                        class="btn btn-outline-success d-lg-none me-3">
+
+                        <i class="bi bi-list"></i>
+
+                    </button>
+
+                    <div>
+
+                        <h4 class="mb-0">
+
+                            Supplier Management
+
+                        </h4>
+
+                        <small>
+
+                            Manage all marketplace suppliers
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 d-none d-lg-block">
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+
+                        <i class="bi bi-search"></i>
+
+                    </span>
+
+                    <input
+
+                        id="globalSearch"
+
+                        type="text"
+
+                        class="form-control"
+
+                        placeholder="Search suppliers...">
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="d-flex justify-content-end align-items-center gap-2">
+
+                    <button
+                        id="refreshBtn"
+                        class="btn btn-outline-success">
+
+                        <i class="bi bi-arrow-clockwise"></i>
+
+                    </button>
+
+                    <button
+                        id="notificationBtn"
+                        class="btn btn-outline-primary position-relative">
+
+                        <i class="bi bi-bell"></i>
+
+                        <span
+                            id="notificationCount"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                            0
+
+                        </span>
+
+                    </button>
+
+                    <button
+                        id="darkModeBtn"
+                        class="btn btn-outline-dark">
+
+                        <i class="bi bi-moon-stars"></i>
+
+                    </button>
+
+                    <div class="dropdown">
+
+                        <button
+
+                            class="btn btn-light dropdown-toggle d-flex align-items-center"
+
+                            data-bs-toggle="dropdown">
+
+                            <img
+
+                                id="topAdminPhoto"
+
+                                src="assets/images/default-avatar.png"
+
+                                class="rounded-circle me-2"
+
+                                width="38"
+
+                                height="38"
+
+                                alt="Admin">
+
+                            <span id="topAdminName">
+
+                                Administrator
+
+                            </span>
+
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+
+                            <li>
+
+                                <a
+                                    class="dropdown-item"
+                                    href="admin-settings.html">
+
+                                    <i class="bi bi-person me-2"></i>
+
+                                    Profile
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a
+                                    class="dropdown-item"
+                                    href="admin-settings.html">
+
+                                    <i class="bi bi-gear me-2"></i>
+
+                                    Settings
+
+                                </a>
+
+                            </li>
+
+                            <li><hr class="dropdown-divider"></li>
+
+                            <li>
+
+                                <button
+
+                                    id="topLogoutBtn"
+
+                                    class="dropdown-item text-danger">
+
+                                    <i class="bi bi-box-arrow-right me-2"></i>
+
+                                    Logout
+
+                                </button>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ==========================================
+     Dashboard Content
+========================================== -->
+
+<div class="dashboard-content">
+
+<!-- ==========================================
+     Page Header
+========================================== -->
+
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+    <div>
+
+        <h3 class="mb-1">
+
+            Suppliers
+
+        </h3>
+
+        <p class="mb-0 text-muted">
+
+            Approve, suspend and manage LPG suppliers across Kenya.
+
+        </p>
+
+    </div>
+
+    <div class="mt-3 mt-lg-0">
+
+        <button
+
+            id="exportSuppliersBtn"
+
+            class="btn btn-success">
+
+            <i class="bi bi-download me-2"></i>
+
+            Export Suppliers
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Statistics
+========================================== -->
+
+<div class="row g-4 mb-4">
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <small>Total Suppliers</small>
+
+                    <h2 id="totalSuppliers">0</h2>
+
+                </div>
+
+                <div class="dashboard-icon bg-success">
+
+                    <i class="bi bi-shop"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <small>Verified</small>
+
+                    <h2 id="verifiedSuppliers">0</h2>
+
+                </div>
+
+                <div class="dashboard-icon bg-primary">
+
+                    <i class="bi bi-patch-check"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <small>Pending</small>
+
+                    <h2 id="pendingSuppliers">0</h2>
+
+                </div>
+
+                <div class="dashboard-icon bg-warning">
+
+                    <i class="bi bi-hourglass-split"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <small>Suspended</small>
+
+                    <h2 id="suspendedSuppliers">0</h2>
+
+                </div>
+
+                <div class="dashboard-icon bg-danger">
+
+                    <i class="bi bi-slash-circle"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Filters
+========================================== -->
+
+<div class="card shadow-sm border-0 mb-4">
+
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            <div class="col-lg-4">
+
+                <input
+
+                    id="supplierSearch"
+
+                    type="text"
+
+                    class="form-control"
+
+                    placeholder="Search by supplier, business or phone">
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <select
+
+                    id="countyFilter"
+
+                    class="form-select">
+
+                    <option value="">
+
+                        All Counties
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <select
+
+                    id="statusFilter"
+
+                    class="form-select">
+
+                    <option value="">
+
+                        All Status
+
+                    </option>
+
+                    <option value="active">
+
+                        Verified
+
+                    </option>
+
+                    <option value="pending">
+
+                        Pending
+
+                    </option>
+
+                    <option value="suspended">
+
+                        Suspended
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <button
+
+                    id="resetFilters"
+
+                    class="btn btn-outline-secondary w-100">
+
+                    <i class="bi bi-arrow-counterclockwise me-2"></i>
+
+                    Reset
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Part 3 Starts Here
+========================================== -->
+
+  <!-- ==========================================
+     Suppliers Table
+========================================== -->
+
+<div class="card shadow-sm border-0">
+
+    <div class="card-header">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+            <div>
+
+                <h5 class="mb-1">
+
+                    Registered Suppliers
+
+                </h5>
+
+                <small class="text-muted">
+
+                    View and manage all suppliers.
+
+                </small>
+
+            </div>
+
+            <div class="mt-3 mt-lg-0 d-flex gap-2">
+
+                <button
+
+                    id="approveSelectedBtn"
+
+                    class="btn btn-success btn-sm">
+
+                    <i class="bi bi-check-circle me-1"></i>
+
+                    Approve Selected
+
+                </button>
+
+                <button
+
+                    id="suspendSelectedBtn"
+
+                    class="btn btn-warning btn-sm">
+
+                    <i class="bi bi-pause-circle me-1"></i>
+
+                    Suspend
+
+                </button>
+
+                <button
+
+                    id="deleteSelectedBtn"
+
+                    class="btn btn-danger btn-sm">
+
+                    <i class="bi bi-trash me-1"></i>
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th width="50">
+
+                            <input
+                                type="checkbox"
+                                id="selectAllSuppliers">
+
+                        </th>
+
+                        <th>Supplier</th>
+
+                        <th>Business</th>
+
+                        <th>County</th>
+
+                        <th>Phone</th>
+
+                        <th>Status</th>
+
+                        <th>Joined</th>
+
+                        <th width="220">
+
+                            Actions
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="suppliersTableBody">
+
+                    <tr>
+
+                        <td colspan="8" class="text-center py-5">
+
+                            <div
+                                class="spinner-border text-success"
+                                role="status">
+
+                                <span class="visually-hidden">
+
+                                    Loading...
+
+                                </span>
+
+                            </div>
+
+                            <p class="mt-3 text-muted">
+
+                                Loading suppliers...
+
+                            </p>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Pagination
+========================================== -->
+
+<div class="d-flex justify-content-between align-items-center flex-wrap mt-4">
+
+    <div>
+
+        <small class="text-muted">
+
+            Showing
+
+            <span id="showingStart">0</span>
+
+            -
+
+            <span id="showingEnd">0</span>
+
+            of
+
+            <span id="totalSupplierRecords">0</span>
+
+            suppliers
+
+        </small>
+
+    </div>
+
+    <nav>
+
+        <ul
+            id="supplierPagination"
+            class="pagination mb-0">
+
+            <li class="page-item disabled">
+
+                <a
+                    class="page-link"
+                    href="#">
+
+                    Previous
+
+                </a>
+
+            </li>
+
+            <li class="page-item active">
+
+                <a
+                    class="page-link"
+                    href="#">
+
+                    1
+
+                </a>
+
+            </li>
+
+            <li class="page-item disabled">
+
+                <a
+                    class="page-link"
+                    href="#">
+
+                    Next
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </nav>
+
+</div>
+
+<!-- ==========================================
+     Supplier Details Modal
+========================================== -->
+
+<div
+
+    class="modal fade"
+
+    id="supplierDetailsModal"
+
+    tabindex="-1"
+
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Supplier Details
+
+                </h5>
+
+                <button
+
+                    class="btn-close"
+
+                    data-bs-dismiss="modal">
+
+                </button>
+
+            </div>
+
+            <div
+                id="supplierDetailsContent"
+                class="modal-body">
+
+                <div class="text-center py-5">
+
+                    <div
+                        class="spinner-border text-success">
+
+                    </div>
+
+                    <p class="mt-3">
+
+                        Loading supplier details...
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+
+                    class="btn btn-secondary"
+
+                    data-bs-dismiss="modal">
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Part 4 Starts Here
+========================================== -->
+
+  <!-- ==========================================
+     Supplier Details Layout
+========================================== -->
+
+<div class="row g-4 mt-2">
+
+    <!-- Supplier Profile -->
+
+    <div class="col-lg-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-body text-center">
+
+                <img
+
+                    id="supplierProfilePhoto"
+
+                    src="assets/images/default-avatar.png"
+
+                    class="rounded-circle mb-3"
+
+                    width="120"
+
+                    height="120"
+
+                    alt="Supplier">
+
+                <h4 id="supplierFullName">
+
+                    Select a Supplier
+
+                </h4>
+
+                <p
+                    id="supplierBusinessName"
+                    class="text-muted">
+
+                    Business Name
+
+                </p>
+
+                <span
+                    id="supplierStatusBadge"
+                    class="badge bg-secondary">
+
+                    Unknown
+
+                </span>
+
+                <hr>
+
+                <div class="text-start">
+
+                    <p>
+
+                        <i class="bi bi-envelope-fill text-success me-2"></i>
+
+                        <span id="supplierEmail">
+
+                            —
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-telephone-fill text-success me-2"></i>
+
+                        <span id="supplierPhone">
+
+                            —
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-geo-alt-fill text-success me-2"></i>
+
+                        <span id="supplierCounty">
+
+                            —
+
+                        </span>
+
+                    </p>
+
+                    <p>
+
+                        <i class="bi bi-calendar-event text-success me-2"></i>
+
+                        <span id="supplierJoined">
+
+                            —
+
+                        </span>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Business Information -->
+
+    <div class="col-lg-8">
+
+        <div class="card border-0 shadow-sm mb-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Business Information
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+
+                        <strong>Business Type</strong>
+
+                        <p id="businessType">
+
+                            —
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>License Number</strong>
+
+                        <p id="licenseNumber">
+
+                            —
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>KRA PIN</strong>
+
+                        <p id="kraPin">
+
+                            —
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>Operating Town</strong>
+
+                        <p id="supplierTown">
+
+                            —
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-12">
+
+                        <strong>Business Address</strong>
+
+                        <p id="businessAddress">
+
+                            —
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Supplier Statistics -->
+
+        <div class="row g-3">
+
+            <div class="col-md-3">
+
+                <div class="card dashboard-card">
+
+                    <div class="card-body text-center">
+
+                        <h3 id="supplierProducts">
+
+                            0
+
+                        </h3>
+
+                        <small>
+
+                            Products
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="card dashboard-card">
+
+                    <div class="card-body text-center">
+
+                        <h3 id="supplierOrders">
+
+                            0
+
+                        </h3>
+
+                        <small>
+
+                            Orders
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="card dashboard-card">
+
+                    <div class="card-body text-center">
+
+                        <h3 id="supplierRevenue">
+
+                            KSh 0
+
+                        </h3>
+
+                        <small>
+
+                            Revenue
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <div class="card dashboard-card">
+
+                    <div class="card-body text-center">
+
+                        <h3 id="supplierRating">
+
+                            ⭐ 0.0
+
+                        </h3>
+
+                        <small>
+
+                            Rating
+
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Uploaded Documents
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header">
+
+        <h5 class="mb-0">
+
+            Uploaded Verification Documents
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            <div class="col-lg-4">
+
+                <div class="border rounded p-3 text-center">
+
+                    <i class="bi bi-file-earmark-pdf display-4 text-danger"></i>
+
+                    <h6 class="mt-3">
+
+                        Business License
+
+                    </h6>
+
+                    <button
+                        id="viewLicenseBtn"
+                        class="btn btn-outline-success btn-sm">
+
+                        View Document
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="border rounded p-3 text-center">
+
+                    <i class="bi bi-file-earmark-image display-4 text-primary"></i>
+
+                    <h6 class="mt-3">
+
+                        National ID
+
+                    </h6>
+
+                    <button
+                        id="viewIdBtn"
+                        class="btn btn-outline-success btn-sm">
+
+                        View Document
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+
+                <div class="border rounded p-3 text-center">
+
+                    <i class="bi bi-file-earmark-check display-4 text-success"></i>
+
+                    <h6 class="mt-3">
+
+                        KRA Certificate
+
+                    </h6>
+
+                    <button
+                        id="viewKraBtn"
+                        class="btn btn-outline-success btn-sm">
+
+                        View Document
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Part 5 Starts Here
+========================================== -->
+
+  <!-- ==========================================
+     Business Location & Products
+========================================== -->
+
+<div class="row g-4 mt-4">
+
+    <!-- Business Location -->
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Business Location
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div
+
+                    id="supplierMap"
+
+                    class="rounded"
+
+                    style="height:350px;background:#f8f9fa;display:flex;align-items:center;justify-content:center;">
+
+                    <div class="text-center text-muted">
+
+                        <i class="bi bi-geo-alt display-3"></i>
+
+                        <p class="mt-3">
+
+                            Google Maps location will appear here.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Supplier Products -->
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">
+
+                    Supplier Products
+
+                </h5>
+
+                <span
+
+                    id="supplierProductCount"
+
+                    class="badge bg-success">
+
+                    0 Products
+
+                </span>
+
+            </div>
+
+            <div class="card-body p-0">
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover mb-0">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Product</th>
+
+                                <th>Size</th>
+
+                                <th>Price</th>
+
+                                <th>Status</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="supplierProductsTable">
+
+                            <tr>
+
+                                <td
+                                    colspan="4"
+                                    class="text-center py-4 text-muted">
+
+                                    No products available.
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Reviews & Verification History
+========================================== -->
+
+<div class="row g-4 mt-2">
+
+    <!-- Reviews -->
+
+    <div class="col-lg-7">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Customer Reviews
+
+                </h5>
+
+            </div>
+
+            <div
+
+                id="supplierReviews"
+
+                class="list-group list-group-flush">
+
+                <div class="list-group-item text-center text-muted py-5">
+
+                    No customer reviews available.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Verification Timeline -->
+
+    <div class="col-lg-5">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Verification History
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <ul
+
+                    id="verificationTimeline"
+
+                    class="timeline">
+
+                    <li>
+
+                        Supplier registration received.
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Admin Action Panel
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header">
+
+        <h5 class="mb-0">
+
+            Administrator Actions
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            <div class="col-lg-2 col-md-4">
+
+                <button
+
+                    id="approveSupplierBtn"
+
+                    class="btn btn-success w-100">
+
+                    <i class="bi bi-check-circle me-2"></i>
+
+                    Approve
+
+                </button>
+
+            </div>
+
+            <div class="col-lg-2 col-md-4">
+
+                <button
+
+                    id="rejectSupplierBtn"
+
+                    class="btn btn-warning w-100">
+
+                    <i class="bi bi-x-circle me-2"></i>
+
+                    Reject
+
+                </button>
+
+            </div>
+
+            <div class="col-lg-2 col-md-4">
+
+                <button
+
+                    id="suspendSupplierBtn"
+
+                    class="btn btn-secondary w-100">
+
+                    <i class="bi bi-pause-circle me-2"></i>
+
+                    Suspend
+
+                </button>
+
+            </div>
+
+            <div class="col-lg-2 col-md-4">
+
+                <button
+
+                    id="reactivateSupplierBtn"
+
+                    class="btn btn-primary w-100">
+
+                    <i class="bi bi-arrow-repeat me-2"></i>
+
+                    Reactivate
+
+                </button>
+
+            </div>
+
+            <div class="col-lg-2 col-md-4">
+
+                <button
+
+                    id="contactSupplierBtn"
+
+                    class="btn btn-info w-100 text-white">
+
+                    <i class="bi bi-envelope me-2"></i>
+
+                    Contact
+
+                </button>
+
+            </div>
+
+            <div class="col-lg-2 col-md-4">
+
+                <button
+
+                    id="deleteSupplierBtn"
+
+                    class="btn btn-danger w-100">
+
+                    <i class="bi bi-trash me-2"></i>
+
+                    Delete
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Part 6 Starts Here
+========================================== -->
+
+  <!-- ==========================================
+     Supplier Analytics
+========================================== -->
+
+<div class="row g-4 mt-4">
+
+    <!-- Monthly Revenue -->
+
+    <div class="col-lg-8">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <div>
+
+                    <h5 class="mb-0">
+
+                        Monthly Revenue
+
+                    </h5>
+
+                    <small class="text-muted">
+
+                        Last 12 months
+
+                    </small>
+
+                </div>
+
+                <button
+
+                    id="refreshRevenueChart"
+
+                    class="btn btn-outline-success btn-sm">
+
+                    <i class="bi bi-arrow-clockwise"></i>
+
+                </button>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="supplierRevenueChart" height="120"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Performance -->
+
+    <div class="col-lg-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Performance
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="market-summary-item">
+
+                    <span>Total Revenue</span>
+
+                    <strong id="analyticsRevenue">
+
+                        KSh 0
+
+                    </strong>
+
+                </div>
+
+                <div class="market-summary-item">
+
+                    <span>Total Orders</span>
+
+                    <strong id="analyticsOrders">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+                <div class="market-summary-item">
+
+                    <span>Completed Orders</span>
+
+                    <strong id="analyticsCompleted">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+                <div class="market-summary-item">
+
+                    <span>Cancelled Orders</span>
+
+                    <strong id="analyticsCancelled">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+                <div class="market-summary-item">
+
+                    <span>Customer Rating</span>
+
+                    <strong id="analyticsRating">
+
+                        ⭐ 0.0
+
+                    </strong>
+
+                </div>
+
+                <div class="market-summary-item">
+
+                    <span>Response Time</span>
+
+                    <strong id="analyticsResponse">
+
+                        ---
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Top Selling Products
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+        <h5 class="mb-0">
+
+            Top Selling Products
+
+        </h5>
+
+        <span
+
+            id="topProductsCount"
+
+            class="badge bg-primary">
+
+            0 Products
+
+        </span>
+
+    </div>
+
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Product</th>
+
+                        <th>Brand</th>
+
+                        <th>Size</th>
+
+                        <th>Orders</th>
+
+                        <th>Revenue</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="topProductsTable">
+
+                    <tr>
+
+                        <td colspan="5" class="text-center py-4 text-muted">
+
+                            No sales available.
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Recent Order History
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+        <h5 class="mb-0">
+
+            Order History
+
+        </h5>
+
+        <button
+
+            id="exportOrdersBtn"
+
+            class="btn btn-outline-success btn-sm">
+
+            <i class="bi bi-download me-2"></i>
+
+            Export Orders
+
+        </button>
+
+    </div>
+
+    <div class="card-body p-0">
+
+        <div class="table-responsive">
+
+            <table class="table table-hover mb-0">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Order No.</th>
+
+                        <th>Customer</th>
+
+                        <th>Gas Cylinder</th>
+
+                        <th>Total</th>
+
+                        <th>Status</th>
+
+                        <th>Date</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="supplierOrdersTable">
+
+                    <tr>
+
+                        <td colspan="6" class="text-center py-5 text-muted">
+
+                            No orders found.
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Delivery Performance
+========================================== -->
+
+<div class="row g-4 mt-4">
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Delivery Performance
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="deliveryChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Customer Satisfaction
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="ratingChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Part 7 Starts Here
+========================================== -->
+
+  <!-- ==========================================
+     Advanced Search & Filters
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header">
+
+        <h5 class="mb-0">
+
+            Advanced Filters
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            <div class="col-lg-3">
+
+                <label class="form-label">
+
+                    Registration Date
+
+                </label>
+
+                <input
+
+                    id="registrationDate"
+
+                    type="date"
+
+                    class="form-control">
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <label class="form-label">
+
+                    Last Active
+
+                </label>
+
+                <input
+
+                    id="lastActiveDate"
+
+                    type="date"
+
+                    class="form-control">
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <label class="form-label">
+
+                    Town
+
+                </label>
+
+                <select
+
+                    id="townFilter"
+
+                    class="form-select">
+
+                    <option value="">
+
+                        All Towns
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-3">
+
+                <label class="form-label">
+
+                    Verification
+
+                </label>
+
+                <select
+
+                    id="verificationFilter"
+
+                    class="form-select">
+
+                    <option value="">
+
+                        All
+
+                    </option>
+
+                    <option value="verified">
+
+                        Verified
+
+                    </option>
+
+                    <option value="pending">
+
+                        Pending
+
+                    </option>
+
+                    <option value="rejected">
+
+                        Rejected
+
+                    </option>
+
+                    <option value="suspended">
+
+                        Suspended
+
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Activity Log & Notes
+========================================== -->
+
+<div class="row g-4 mt-2">
+
+    <!-- Activity -->
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">
+
+                    Supplier Activity
+
+                </h5>
+
+                <button
+
+                    id="refreshActivityBtn"
+
+                    class="btn btn-outline-success btn-sm">
+
+                    <i class="bi bi-arrow-clockwise"></i>
+
+                </button>
+
+            </div>
+
+            <div class="card-body">
+
+                <ul
+
+                    id="supplierActivityTimeline"
+
+                    class="timeline">
+
+                    <li>
+
+                        Waiting for activity...
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Notes -->
+
+    <div class="col-lg-6">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    Administrator Notes
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <textarea
+
+                    id="adminNotes"
+
+                    class="form-control"
+
+                    rows="8"
+
+                    placeholder="Write internal notes about this supplier..."></textarea>
+
+                <div class="mt-3 text-end">
+
+                    <button
+
+                        id="saveNotesBtn"
+
+                        class="btn btn-success">
+
+                        <i class="bi bi-save me-2"></i>
+
+                        Save Notes
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Notification History
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header d-flex justify-content-between align-items-center">
+
+        <h5 class="mb-0">
+
+            Notification History
+
+        </h5>
+
+        <button
+
+            id="sendNotificationBtn"
+
+            class="btn btn-primary btn-sm">
+
+            <i class="bi bi-send me-2"></i>
+
+            Send Notification
+
+        </button>
+
+    </div>
+
+    <div class="card-body">
+
+        <div
+
+            id="supplierNotifications"
+
+            class="list-group">
+
+            <div class="list-group-item text-center text-muted py-5">
+
+                No notifications sent yet.
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Supplier Account Status
+========================================== -->
+
+<div class="row g-4 mt-4">
+
+    <div class="col-lg-3">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-person-check display-5 text-success"></i>
+
+                <h5 class="mt-3">
+
+                    Account
+
+                </h5>
+
+                <span
+
+                    id="accountStatus"
+
+                    class="badge bg-success">
+
+                    Active
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-patch-check display-5 text-primary"></i>
+
+                <h5 class="mt-3">
+
+                    Verification
+
+                </h5>
+
+                <span
+
+                    id="verificationStatus"
+
+                    class="badge bg-primary">
+
+                    Verified
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-wallet2 display-5 text-warning"></i>
+
+                <h5 class="mt-3">
+
+                    Wallet
+
+                </h5>
+
+                <h4 id="walletBalance">
+
+                    KSh 0
+
+                </h4>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-3">
+
+        <div class="card dashboard-card">
+
+            <div class="card-body text-center">
+
+                <i class="bi bi-clock-history display-5 text-info"></i>
+
+                <h5 class="mt-3">
+
+                    Last Login
+
+                </h5>
+
+                <small id="lastLogin">
+
+                    Never
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Part 8 Starts Here
+========================================== -->
+
+  <!-- =========================================================
+     Contact Supplier Modal
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="contactSupplierModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Contact Supplier
+
+                </h5>
+
+                <button
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Subject
+
+                    </label>
+
+                    <input
+                        id="contactSubject"
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter subject">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Message
+
+                    </label>
+
+                    <textarea
+                        id="contactMessage"
+                        rows="6"
+                        class="form-control"
+                        placeholder="Write your message..."></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    id="sendContactBtn"
+                    class="btn btn-success">
+
+                    <i class="bi bi-send me-2"></i>
+
+                    Send Message
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     Send Notification Modal
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="notificationModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title">
+
+                    Send Notification
+
+                </h5>
+
+                <button
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <input
+                    id="notificationTitle"
+                    class="form-control mb-3"
+                    placeholder="Notification title">
+
+                <textarea
+                    id="notificationBody"
+                    rows="5"
+                    class="form-control"
+                    placeholder="Notification message"></textarea>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    id="sendNotificationNowBtn"
+                    class="btn btn-primary">
+
+                    <i class="bi bi-bell me-2"></i>
+
+                    Send
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     Suspend Supplier Modal
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="suspendSupplierModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header bg-warning">
+
+                <h5 class="modal-title text-dark">
+
+                    Suspend Supplier
+
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+
+                    Are you sure you want to suspend this supplier?
+
+                </p>
+
+                <textarea
+                    id="suspensionReason"
+                    rows="4"
+                    class="form-control"
+                    placeholder="Reason for suspension..."></textarea>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-light"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    id="confirmSuspendBtn"
+                    class="btn btn-warning">
+
+                    Suspend
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     Delete Supplier Modal
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="deleteSupplierModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+
+            <div class="modal-header bg-danger text-white">
+
+                <h5 class="modal-title">
+
+                    Delete Supplier
+
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+
+                    This action cannot be undone.
+
+                </p>
+
+                <p>
+
+                    Type
+
+                    <strong>DELETE</strong>
+
+                    below to continue.
+
+                </p>
+
+                <input
+                    id="deleteConfirmation"
+                    class="form-control"
+                    placeholder="DELETE">
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    id="confirmDeleteSupplierBtn"
+                    class="btn btn-danger">
+
+                    Delete Supplier
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     Document Preview Modal
+========================================================= -->
+
+<div
+    class="modal fade"
+    id="documentPreviewModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-xl">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5
+                    id="documentTitle"
+                    class="modal-title">
+
+                    Document Preview
+
+                </h5>
+
+                <button
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <div
+                class="modal-body text-center">
+
+                <iframe
+
+                    id="documentViewer"
+
+                    src=""
+
+                    width="100%"
+
+                    height="700"
+
+                    style="border:none;">
+
+                </iframe>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     Floating Action Button
+========================================================= -->
+
+<button
+
+    id="adminFab"
+
+    class="btn btn-success rounded-circle shadow position-fixed"
+
+    style="bottom:25px;right:25px;width:65px;height:65px;z-index:1080;">
+
+    <i class="bi bi-arrow-up fs-4"></i>
+
+</button>
+
+<!-- =========================================================
+     Bootstrap
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- =========================================================
+     Chart.js
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- =========================================================
+     Admin Suppliers Script
+========================================================= -->
+
+<script
+    type="module"
+    src="assets/js/admin-suppliers.js"></script>
+
+</main>
+
+</div>
+
+</body>
+
+</html>
