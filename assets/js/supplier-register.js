@@ -1087,3 +1087,392 @@ function cleanUploadData(data) {
 
 }
 
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Registration
+   Part 6
+========================================================== */
+
+/* ==========================
+   REGISTER SUPPLIER
+========================== */
+
+form.addEventListener("submit", registerSupplier);
+
+async function registerSupplier(e) {
+
+    e.preventDefault();
+
+    clearAlert();
+
+    if (!validateForm()) {
+
+        return;
+
+    }
+
+    try {
+
+        showLoading();
+
+        /* --------------------------
+           Create Authentication User
+        -------------------------- */
+
+        const credential =
+            await createUserWithEmailAndPassword(
+
+                auth,
+
+                email.value.trim(),
+
+                password.value
+
+            );
+
+        const user = credential.user;
+
+        /* --------------------------
+           Update Display Name
+        -------------------------- */
+
+        await updateProfile(user, {
+
+            displayName:
+                `${firstName.value.trim()} ${lastName.value.trim()}`
+
+        });
+
+        /* --------------------------
+           Verify Email
+        -------------------------- */
+
+        await sendEmailVerification(user);
+
+        /* --------------------------
+           Upload Optional Files
+        -------------------------- */
+
+        const uploads =
+            await uploadSupplierFiles(user.uid);
+
+        /* --------------------------
+           Selected LPG Brands
+        -------------------------- */
+
+        const brands = [];
+
+        document
+            .querySelectorAll(
+                ".checkbox-grid input[type='checkbox']:checked"
+            )
+            .forEach(box => {
+
+                brands.push(box.value);
+
+            });
+
+        /* --------------------------
+           Firestore Data
+        -------------------------- */
+
+        const supplierData = {
+
+            uid: user.uid,
+
+            firstName:
+                firstName.value.trim(),
+
+            lastName:
+                lastName.value.trim(),
+
+            fullName:
+                `${firstName.value.trim()} ${lastName.value.trim()}`,
+
+            businessName:
+                businessName.value.trim(),
+
+            businessType:
+                businessType.value,
+
+            yearsOperation:
+                yearsOperation.value || "",
+
+            phone:
+                phone.value.trim(),
+
+            email:
+                email.value.trim().toLowerCase(),
+
+            address:
+                address.value.trim(),
+
+            county:
+                county.value,
+
+            town:
+                town.value,
+
+            landmark:
+                landmark.value.trim(),
+
+            deliveryRadius:
+                deliveryRadius.value,
+
+            googleMaps:
+                googleMaps.value.trim(),
+
+            businessDescription:
+                businessDescription.value.trim(),
+
+            registrationNumber:
+                registrationNumber.value.trim(),
+
+            kraPin:
+                kraPin.value.trim(),
+
+            brands,
+
+            logoURL:
+                uploads.logoURL || "",
+
+            licenseURL:
+                uploads.licenseURL || "",
+
+            taxURL:
+                uploads.taxURL || "",
+
+            receiveUpdates:
+                receiveUpdates.checked,
+
+            emailVerified:
+                user.emailVerified,
+
+            verified: false,
+
+            verificationStatus:
+                "Pending",
+
+            approvalStatus:
+                "Pending Review",
+
+            sellerStatus:
+                "Inactive",
+
+            createdAt:
+                serverTimestamp(),
+
+            updatedAt:
+                serverTimestamp()
+
+        };
+
+        /* --------------------------
+           Remove Empty Fields
+        -------------------------- */
+
+        const cleanData =
+            cleanUploadData(supplierData);
+
+        /* --------------------------
+           Save To Firestore
+        -------------------------- */
+
+        await setDoc(
+
+            doc(
+                db,
+                "suppliers",
+                user.uid
+            ),
+
+            cleanData
+
+        );
+
+        /* --------------------------
+           Success
+        -------------------------- */
+
+        showAlert(
+
+            "✅ Supplier account created successfully! Please verify your email before logging in.",
+
+            "success"
+
+        );
+
+        /* --------------------------
+           Redirect
+        -------------------------- */
+
+        setTimeout(() => {
+
+            window.location.href =
+                "supplier-login.html";
+
+        }, 2500);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        hideLoading();
+
+        let message =
+            "Registration failed. Please try again.";
+
+        switch (error.code) {
+
+            case "auth/email-already-in-use":
+
+                message =
+                    "This email address is already registered.";
+
+                break;
+
+            case "auth/invalid-email":
+
+                message =
+                    "Invalid email address.";
+
+                break;
+
+            case "auth/weak-password":
+
+                message =
+                    "Password is too weak.";
+
+                break;
+
+            case "auth/network-request-failed":
+
+                message =
+                    "Network error. Check your internet connection.";
+
+                break;
+
+        }
+
+        showAlert(message);
+
+        return;
+
+    }
+
+}
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Registration
+   Part 7 (FIXED)
+========================================================== */
+
+/* ==========================
+   SUBMISSION STATE
+========================== */
+
+let isSubmitting = false;
+
+/* ==========================
+   RESET FORM
+========================== */
+
+function resetRegistrationForm() {
+
+    form.reset();
+
+    passwordStrengthBar.style.width = "0%";
+    passwordStrengthBar.className = "progress-bar bg-danger";
+    passwordStrengthText.textContent =
+        "Password strength will appear here.";
+
+    passwordMatch.textContent = "";
+
+    logoURL = "";
+    licenseURL = "";
+    taxURL = "";
+
+    resetFileInputs();
+
+    loadTowns("");
+
+}
+
+/* ==========================
+   CONNECTION STATUS
+========================== */
+
+window.addEventListener("online", () => {
+
+    showAlert(
+        "Internet connection restored.",
+        "success"
+    );
+
+});
+
+window.addEventListener("offline", () => {
+
+    showAlert(
+        "You are offline. Please check your internet connection.",
+        "warning"
+    );
+
+});
+
+/* ==========================
+   INITIALIZATION
+========================== */
+
+function initializeSupplierRegistration() {
+
+    loadCounties();
+
+    loadTowns("");
+
+    clearAlert();
+
+    hideLoading();
+
+    console.log(
+        "✅ Supplier Registration Initialized"
+    );
+
+}
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    initializeSupplierRegistration
+
+);
+
+/* ==========================
+   GLOBAL ERROR HANDLER
+========================== */
+
+window.addEventListener("error", event => {
+
+    console.error(
+        "Application Error:",
+        event.error
+    );
+
+});
+
+window.addEventListener("unhandledrejection", event => {
+
+    console.error(
+        "Unhandled Promise:",
+        event.reason
+    );
+
+});
+
+/* ==========================================================
+   END OF FILE
+========================================================== */
