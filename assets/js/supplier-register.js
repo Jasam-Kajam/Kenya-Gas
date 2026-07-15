@@ -1115,6 +1115,10 @@ async function registerSupplier(e) {
 
         showLoading();
 
+       if (isSubmitting) return;
+
+isSubmitting = true;
+
         /* --------------------------
            Create Authentication User
         -------------------------- */
@@ -1293,7 +1297,10 @@ async function registerSupplier(e) {
         /* --------------------------
            Success
         -------------------------- */
+isSubmitting = false;
 
+hideLoading();
+       
         showAlert(
 
             "✅ Supplier account created successfully! Please verify your email before logging in.",
@@ -1305,7 +1312,10 @@ async function registerSupplier(e) {
         /* --------------------------
            Redirect
         -------------------------- */
+isSubmitting = false;
 
+hideLoading();
+       
         setTimeout(() => {
 
             window.location.href =
