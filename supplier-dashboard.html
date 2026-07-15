@@ -5,2127 +5,2595 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
-<title>Supplier Dashboard | Kenya Gas</title>
+<meta
+    name="description"
+    content="Supplier Dashboard - Kenya Gas Marketplace">
 
-<meta name="description"
-      content="Kenya Gas Supplier Dashboard">
+<meta
+    name="theme-color"
+    content="#198754">
 
-<link rel="preconnect"
-      href="https://fonts.googleapis.com">
+<title>
 
-<link rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossorigin>
+Supplier Dashboard | Kenya Gas Marketplace
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet">
+</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
-      rel="stylesheet">
+<!-- ==========================================
+     Bootstrap
+========================================== -->
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
-      rel="stylesheet">
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
 
-<link rel="stylesheet"
-      href="assets/css/dashboard.css">
+<!-- ==========================================
+     Bootstrap Icons
+========================================== -->
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet">
+
+<!-- ==========================================
+     Google Fonts
+========================================== -->
+
+<link
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
+
+<link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+<!-- ==========================================
+     Global Styles
+========================================== -->
+
+<link
+    rel="stylesheet"
+    href="assets/css/style.css">
+
+<link
+    rel="stylesheet"
+    href="assets/css/auth.css">
+
+<link
+    rel="stylesheet"
+    href="assets/css/dashboard.css">
+
+<!-- ==========================================
+     Favicon
+========================================== -->
+
+<link
+    rel="icon"
+    type="image/png"
+    href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png">
 
 </head>
 
-<body class="bg-light">
+<body>
 
-<!-- ===================================== -->
-<!-- TOP NAVIGATION -->
-<!-- ===================================== -->
+<!-- ==========================================
+     Loading Overlay
+========================================== -->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow sticky-top">
+<div
+    id="loadingOverlay"
+    class="loading-overlay">
 
-<div class="container-fluid">
+    <div class="loading-content text-center">
 
-<a class="navbar-brand fw-bold"
-   href="index.html">
+        <div
+            class="spinner-border text-success"
+            role="status">
 
-🔥 Kenya Gas Supplier
+            <span class="visually-hidden">
 
-</a>
+                Loading...
 
-<button
-class="navbar-toggler"
-type="button"
-data-bs-toggle="offcanvas"
-data-bs-target="#sidebar">
+            </span>
 
-<span class="navbar-toggler-icon"></span>
+        </div>
 
-</button>
+        <h4 class="mt-4 mb-2">
 
-<form class="d-none d-lg-flex mx-auto"
-      style="width:40%;">
+            Kenya Gas Marketplace
 
-<input
-class="form-control"
-type="search"
-placeholder="Search orders, customers...">
+        </h4>
 
-</form>
+        <p class="text-muted">
 
-<div class="d-flex align-items-center">
+            Loading Supplier Dashboard...
 
-<button
-class="btn btn-success position-relative me-3">
+        </p>
 
-<i class="bi bi-bell-fill fs-5"></i>
-
-<span
-class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-id="notificationCount">
-
-0
-
-</span>
-
-</button>
-
-<div class="dropdown">
-
-<button
-class="btn btn-success dropdown-toggle"
-data-bs-toggle="dropdown">
-
-<i class="bi bi-person-circle me-2"></i>
-
-<span id="supplierName">
-
-Loading...
-
-</span>
-
-</button>
-
-<ul class="dropdown-menu dropdown-menu-end">
-
-<li>
-
-<a class="dropdown-item"
-href="#">
-
-<i class="bi bi-person"></i>
-
-Business Profile
-
-</a>
-
-</li>
-
-<li>
-
-<a class="dropdown-item"
-href="#">
-
-<i class="bi bi-gear"></i>
-
-Settings
-
-</a>
-
-</li>
-
-<li>
-
-<hr class="dropdown-divider">
-
-</li>
-
-<li>
-
-<button
-id="logoutBtn"
-class="dropdown-item text-danger">
-
-<i class="bi bi-box-arrow-right"></i>
-
-Logout
-
-</button>
-
-</li>
-
-</ul>
+    </div>
 
 </div>
 
-</div>
+<!-- ==========================================
+     Dashboard Wrapper
+========================================== -->
+
+<div
+    class="dashboard-wrapper"
+    id="dashboardWrapper">
+
+    <!-- Sidebar Starts In Part 2 -->
+
+      <!-- ==========================================
+     Sidebar
+========================================== -->
+
+<aside
+    id="sidebar"
+    class="sidebar shadow">
+
+    <!-- Logo -->
+
+    <div class="sidebar-header">
+
+        <img
+
+            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png"
+
+            alt="Kenya Gas Marketplace"
+
+            class="sidebar-logo">
+
+        <h5>
+
+            Kenya Gas
+
+        </h5>
+
+        <small>
+
+            Supplier Portal
+
+        </small>
+
+    </div>
+
+    <!-- Supplier Profile -->
+
+    <div class="supplier-profile">
+
+        <img
+
+            id="supplierPhoto"
+
+            src="https://ui-avatars.com/api/?name=Supplier&background=198754&color=ffffff"
+
+            class="supplier-avatar"
+
+            alt="Supplier">
+
+        <h6
+            id="supplierName"
+            class="mt-3 mb-1">
+
+            Loading...
+
+        </h6>
+
+        <small
+            id="supplierEmail"
+            class="text-muted">
+
+            loading@email.com
+
+        </small>
+
+        <div class="mt-3">
+
+            <span
+                id="approvalBadge"
+                class="badge bg-warning">
+
+                Pending Review
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Navigation -->
+
+    <nav class="sidebar-menu">
+
+        <a
+
+            href="supplier-dashboard.html"
+
+            class="active">
+
+            <i class="bi bi-grid-fill"></i>
+
+            Dashboard
+
+        </a>
+
+        <a href="supplier-products.html">
+
+            <i class="bi bi-box-seam"></i>
+
+            Products
+
+        </a>
+
+        <a href="supplier-orders.html">
+
+            <i class="bi bi-cart-check"></i>
+
+            Orders
+
+        </a>
+
+        <a href="supplier-deliveries.html">
+
+            <i class="bi bi-truck"></i>
+
+            Deliveries
+
+        </a>
+
+        <a href="supplier-wallet.html">
+
+            <i class="bi bi-wallet2"></i>
+
+            Wallet
+
+        </a>
+
+        <a href="supplier-analytics.html">
+
+            <i class="bi bi-graph-up-arrow"></i>
+
+            Analytics
+
+        </a>
+
+        <a href="supplier-profile.html">
+
+            <i class="bi bi-person-circle"></i>
+
+            Profile
+
+        </a>
+
+        <a href="supplier-settings.html">
+
+            <i class="bi bi-gear"></i>
+
+            Settings
+
+        </a>
+
+    </nav>
+
+    <!-- Sidebar Footer -->
+
+    <div class="sidebar-footer">
+
+        <button
+
+            id="logoutBtn"
+
+            class="btn btn-outline-danger w-100">
+
+            <i class="bi bi-box-arrow-right me-2"></i>
+
+            Logout
+
+        </button>
+
+    </div>
+
+</aside>
+
+<!-- ==========================================
+     Main Content
+========================================== -->
+
+<div class="main-content">
+
+<!-- Part 3 Starts Here -->
+
+      <!-- ==========================================
+     Top Navigation
+========================================== -->
+
+<header class="top-navbar">
+
+    <div class="container-fluid">
+
+        <div class="row align-items-center">
+
+            <!-- Left -->
+
+            <div class="col-lg-4 col-md-6 d-flex align-items-center">
+
+                <button
+
+                    id="sidebarToggle"
+
+                    class="btn btn-light me-3">
+
+                    <i class="bi bi-list fs-4"></i>
+
+                </button>
+
+                <div>
+
+                    <h4 class="mb-0">
+
+                        Supplier Dashboard
+
+                    </h4>
+
+                    <small class="text-muted">
+
+                        Welcome back,
+                        <span id="welcomeName">
+
+                            Supplier
+
+                        </span>
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <!-- Center -->
+
+            <div class="col-lg-4 d-none d-lg-block">
+
+                <div class="input-group">
+
+                    <span class="input-group-text bg-white">
+
+                        <i class="bi bi-search"></i>
+
+                    </span>
+
+                    <input
+
+                        type="search"
+
+                        id="dashboardSearch"
+
+                        class="form-control"
+
+                        placeholder="Search products, orders, customers...">
+
+                </div>
+
+            </div>
+
+            <!-- Right -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="d-flex justify-content-end align-items-center gap-3">
+
+                    <!-- Notifications -->
+
+                    <button
+
+                        class="btn btn-light position-relative"
+
+                        id="notificationBtn">
+
+                        <i class="bi bi-bell fs-5"></i>
+
+                        <span
+
+                            id="notificationCount"
+
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                            0
+
+                        </span>
+
+                    </button>
+
+                    <!-- Messages -->
+
+                    <button
+
+                        class="btn btn-light position-relative"
+
+                        id="messagesBtn">
+
+                        <i class="bi bi-chat-dots fs-5"></i>
+
+                        <span
+
+                            id="messageCount"
+
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+
+                            0
+
+                        </span>
+
+                    </button>
+
+                    <!-- Profile Dropdown -->
+
+                    <div class="dropdown">
+
+                        <button
+
+                            class="btn btn-light dropdown-toggle d-flex align-items-center"
+
+                            data-bs-toggle="dropdown">
+
+                            <img
+
+                                id="topProfilePhoto"
+
+                                src="https://ui-avatars.com/api/?name=Supplier&background=198754&color=fff"
+
+                                class="rounded-circle me-2"
+
+                                width="40"
+
+                                height="40"
+
+                                alt="Supplier">
+
+                            <span
+
+                                id="topProfileName">
+
+                                Supplier
+
+                            </span>
+
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-end shadow">
+
+                            <li>
+
+                                <a
+
+                                    class="dropdown-item"
+
+                                    href="supplier-profile.html">
+
+                                    <i class="bi bi-person-circle me-2"></i>
+
+                                    My Profile
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a
+
+                                    class="dropdown-item"
+
+                                    href="supplier-settings.html">
+
+                                    <i class="bi bi-gear me-2"></i>
+
+                                    Settings
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a
+
+                                    class="dropdown-item"
+
+                                    href="supplier-wallet.html">
+
+                                    <i class="bi bi-wallet2 me-2"></i>
+
+                                    Wallet
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <hr class="dropdown-divider">
+
+                            </li>
+
+                            <li>
+
+                                <button
+
+                                    id="topLogoutBtn"
+
+                                    class="dropdown-item text-danger">
+
+                                    <i class="bi bi-box-arrow-right me-2"></i>
+
+                                    Logout
+
+                                </button>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ==========================================
+     Dashboard Content
+========================================== -->
+
+<main class="dashboard-content container-fluid py-4">
+
+    <!-- Part 4 Starts Here -->
+
+      <!-- ==========================================
+     Dashboard Statistics
+========================================== -->
+
+<div class="row g-4">
+
+    <!-- Total Products -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Total Products
+
+                        </small>
+
+                        <h2
+                            id="totalProducts"
+                            class="fw-bold mt-2">
+
+                            0
+
+                        </h2>
+
+                        <span class="text-success">
+
+                            <i class="bi bi-arrow-up"></i>
+
+                            Active Listings
+
+                        </span>
+
+                    </div>
+
+                    <div class="dashboard-icon bg-success">
+
+                        <i class="bi bi-box-seam-fill"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Orders -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Orders Today
+
+                        </small>
+
+                        <h2
+                            id="todayOrders"
+                            class="fw-bold mt-2">
+
+                            0
+
+                        </h2>
+
+                        <span class="text-primary">
+
+                            <i class="bi bi-cart-check"></i>
+
+                            New Orders
+
+                        </span>
+
+                    </div>
+
+                    <div class="dashboard-icon bg-primary">
+
+                        <i class="bi bi-cart-fill"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Revenue -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Monthly Revenue
+
+                        </small>
+
+                        <h2
+                            id="monthlyRevenue"
+                            class="fw-bold mt-2">
+
+                            KSh 0
+
+                        </h2>
+
+                        <span class="text-warning">
+
+                            <i class="bi bi-graph-up-arrow"></i>
+
+                            This Month
+
+                        </span>
+
+                    </div>
+
+                    <div class="dashboard-icon bg-warning">
+
+                        <i class="bi bi-cash-stack"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Wallet -->
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Wallet Balance
+
+                        </small>
+
+                        <h2
+                            id="walletBalance"
+                            class="fw-bold mt-2">
+
+                            KSh 0
+
+                        </h2>
+
+                        <span class="text-danger">
+
+                            <i class="bi bi-wallet2"></i>
+
+                            Available Balance
+
+                        </span>
+
+                    </div>
+
+                    <div class="dashboard-icon bg-danger">
+
+                        <i class="bi bi-wallet-fill"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-</nav>
+<!-- ==========================================
+     Quick Actions
+========================================== -->
 
-<!-- ===================================== -->
-<!-- SIDEBAR -->
-<!-- ===================================== -->
+<div class="row mt-4">
 
-<div class="offcanvas-lg offcanvas-start bg-white shadow"
-tabindex="-1"
-id="sidebar"
-style="width:270px;">
+    <div class="col-12">
 
-<div class="offcanvas-header">
+        <div class="card border-0 shadow-sm">
 
-<h5 class="fw-bold text-success">
+            <div class="card-body">
 
-Supplier Panel
+                <h5 class="fw-bold mb-4">
 
-</h5>
+                    Quick Actions
 
-<button
-class="btn-close"
-data-bs-dismiss="offcanvas">
+                </h5>
 
-</button>
+                <div class="row g-3">
 
-</div>
+                    <div class="col-lg-3 col-md-6">
 
-<div class="offcanvas-body p-0">
+                        <a
+                            href="add-product.html"
+                            class="btn btn-success w-100 py-3">
 
-<div class="list-group list-group-flush">
+                            <i class="bi bi-plus-circle-fill me-2"></i>
 
-<a href="#dashboard"
-class="list-group-item list-group-item-action active">
+                            Add Product
 
-<i class="bi bi-speedometer2 me-2"></i>
+                        </a>
 
-Dashboard
+                    </div>
 
-</a>
+                    <div class="col-lg-3 col-md-6">
 
-<a href="#orders"
-class="list-group-item list-group-item-action">
+                        <a
+                            href="supplier-orders.html"
+                            class="btn btn-primary w-100 py-3">
 
-<i class="bi bi-bag-check me-2"></i>
+                            <i class="bi bi-cart-check-fill me-2"></i>
 
-New Orders
+                            View Orders
 
-<span
-class="badge bg-danger float-end"
-id="newOrdersBadge">
+                        </a>
 
-0
+                    </div>
 
-</span>
+                    <div class="col-lg-3 col-md-6">
 
-</a>
+                        <a
+                            href="supplier-wallet.html"
+                            class="btn btn-warning w-100 py-3">
 
-<a href="#accepted"
-class="list-group-item list-group-item-action">
+                            <i class="bi bi-wallet-fill me-2"></i>
 
-<i class="bi bi-check-circle me-2"></i>
+                            Wallet
 
-Accepted Orders
+                        </a>
 
-</a>
+                    </div>
 
-<a href="#deliveries"
-class="list-group-item list-group-item-action">
+                    <div class="col-lg-3 col-md-6">
 
-<i class="bi bi-truck me-2"></i>
+                        <a
+                            href="supplier-profile.html"
+                            class="btn btn-secondary w-100 py-3">
 
-Deliveries
+                            <i class="bi bi-person-fill me-2"></i>
 
-</a>
+                            My Profile
 
-<a href="#inventory"
-class="list-group-item list-group-item-action">
+                        </a>
 
-<i class="bi bi-box-seam me-2"></i>
+                    </div>
 
-Inventory
+                </div>
 
-</a>
+            </div>
 
-<a href="#customers"
-class="list-group-item list-group-item-action">
+        </div>
 
-<i class="bi bi-people me-2"></i>
-
-Customers
-
-</a>
-
-<a href="#earnings"
-class="list-group-item list-group-item-action">
-
-<i class="bi bi-cash-stack me-2"></i>
-
-Earnings
-
-</a>
-
-<a href="#reviews"
-class="list-group-item list-group-item-action">
-
-<i class="bi bi-star-half me-2"></i>
-
-Reviews
-
-</a>
-
-<a href="#analytics"
-class="list-group-item list-group-item-action">
-
-<i class="bi bi-bar-chart-line me-2"></i>
-
-Analytics
-
-</a>
-
-<a href="#settings"
-class="list-group-item list-group-item-action">
-
-<i class="bi bi-sliders me-2"></i>
-
-Settings
-
-</a>
-
-<a href="#support"
-class="list-group-item list-group-item-action">
-
-<i class="bi bi-headset me-2"></i>
-
-Support
-
-</a>
+    </div>
 
 </div>
 
-</div>
+<!-- ==========================================
+     Part 5 Starts Here
+========================================== -->
+
+      <!-- ==========================================
+     Sales Overview & Activity
+========================================== -->
+
+<div class="row mt-4">
+
+    <!-- Sales Overview -->
+
+    <div class="col-lg-8 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white border-0">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <h5 class="fw-bold mb-0">
+
+                        Sales Overview
+
+                    </h5>
+
+                    <select
+                        id="salesPeriod"
+                        class="form-select w-auto">
+
+                        <option value="7">
+
+                            Last 7 Days
+
+                        </option>
+
+                        <option value="30" selected>
+
+                            Last 30 Days
+
+                        </option>
+
+                        <option value="365">
+
+                            This Year
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas
+                    id="salesChart"
+                    height="120">
+
+                </canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Order Summary -->
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white border-0">
+
+                <h5 class="fw-bold mb-0">
+
+                    Order Summary
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between mb-4">
+
+                    <span>
+
+                        Pending
+
+                    </span>
+
+                    <span
+                        id="pendingOrders"
+                        class="badge bg-warning">
+
+                        0
+
+                    </span>
+
+                </div>
+
+                <div class="d-flex justify-content-between mb-4">
+
+                    <span>
+
+                        Processing
+
+                    </span>
+
+                    <span
+                        id="processingOrders"
+                        class="badge bg-primary">
+
+                        0
+
+                    </span>
+
+                </div>
+
+                <div class="d-flex justify-content-between mb-4">
+
+                    <span>
+
+                        Delivered
+
+                    </span>
+
+                    <span
+                        id="deliveredOrders"
+                        class="badge bg-success">
+
+                        0
+
+                    </span>
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+
+                    <span>
+
+                        Cancelled
+
+                    </span>
+
+                    <span
+                        id="cancelledOrders"
+                        class="badge bg-danger">
+
+                        0
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-<!-- ===================================== -->
-<!-- MAIN CONTENT -->
-<!-- ===================================== -->
-
-<div class="container-fluid">
+<!-- ==========================================
+     Recent Orders & Low Stock
+========================================== -->
 
 <div class="row">
 
-<main class="col-lg ms-lg-4 py-4">
+    <!-- Recent Orders -->
 
-<!-- ===================================== -->
-<!-- DASHBOARD OVERVIEW -->
-<!-- ===================================== -->
+    <div class="col-lg-8 mb-4">
 
-<section id="dashboard">
+        <div class="card border-0 shadow-sm">
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
 
-<div>
+                <h5 class="fw-bold mb-0">
 
-<h2 class="fw-bold mb-1">
+                    Recent Orders
 
-Supplier Dashboard
+                </h5>
 
-</h2>
+                <a
+                    href="supplier-orders.html"
+                    class="btn btn-sm btn-success">
 
-<p class="text-muted mb-0">
+                    View All
 
-Welcome back,
-<strong id="supplierGreeting">
+                </a>
 
-Loading...
+            </div>
 
-</strong>
+            <div class="table-responsive">
 
-</p>
+                <table class="table table-hover align-middle mb-0">
 
-</div>
+                    <thead>
 
-<div>
+                        <tr>
 
-<button
-id="refreshDashboard"
-class="btn btn-success">
+                            <th>Order ID</th>
 
-<i class="bi bi-arrow-clockwise me-2"></i>
+                            <th>Customer</th>
 
-Refresh
+                            <th>Product</th>
 
-</button>
+                            <th>Status</th>
 
-</div>
+                            <th>Total</th>
 
-</div>
+                        </tr>
 
-<!-- ===================================== -->
-<!-- STATISTICS -->
-<!-- ===================================== -->
+                    </thead>
 
-<div class="row g-4 mb-4">
+                    <tbody id="recentOrdersTable">
 
-<!-- Today's Orders -->
+                        <tr>
 
-<div class="col-xl-3 col-md-6">
+                            <td colspan="5" class="text-center text-muted py-5">
 
-<div class="card border-0 shadow-sm h-100">
+                                No recent orders available.
 
-<div class="card-body">
+                            </td>
 
-<div class="d-flex justify-content-between">
+                        </tr>
 
-<div>
+                    </tbody>
 
-<p class="text-muted mb-2">
+                </table>
 
-Today's Orders
+            </div>
 
-</p>
+        </div>
 
-<h2 id="todayOrders">
+    </div>
 
-0
+    <!-- Low Stock -->
 
-</h2>
+    <div class="col-lg-4 mb-4">
 
-</div>
+        <div class="card border-0 shadow-sm">
 
-<div>
+            <div class="card-header bg-white border-0">
 
-<i class="bi bi-bag-check-fill fs-1 text-success"></i>
+                <h5 class="fw-bold mb-0">
 
-</div>
+                    Low Stock Products
 
-</div>
+                </h5>
 
-</div>
+            </div>
 
-</div>
+            <div
+                id="lowStockList"
+                class="list-group list-group-flush">
 
-</div>
+                <div class="list-group-item text-center text-muted py-5">
 
-<!-- Pending -->
+                    No low stock products.
 
-<div class="col-xl-3 col-md-6">
+                </div>
 
-<div class="card border-0 shadow-sm h-100">
+            </div>
 
-<div class="card-body">
+        </div>
 
-<div class="d-flex justify-content-between">
-
-<div>
-
-<p class="text-muted mb-2">
-
-Pending Orders
-
-</p>
-
-<h2 id="pendingOrders">
-
-0
-
-</h2>
+    </div>
 
 </div>
 
-<div>
-
-<i class="bi bi-hourglass-split fs-1 text-warning"></i>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Completed -->
-
-<div class="col-xl-3 col-md-6">
-
-<div class="card border-0 shadow-sm h-100">
-
-<div class="card-body">
-
-<div class="d-flex justify-content-between">
-
-<div>
-
-<p class="text-muted mb-2">
-
-Completed
-
-</p>
-
-<h2 id="completedOrders">
-
-0
-
-</h2>
-
-</div>
-
-<div>
-
-<i class="bi bi-check-circle-fill fs-1 text-primary"></i>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Revenue -->
-
-<div class="col-xl-3 col-md-6">
-
-<div class="card border-0 shadow-sm h-100">
-
-<div class="card-body">
-
-<div class="d-flex justify-content-between">
-
-<div>
-
-<p class="text-muted mb-2">
-
-Revenue
-
-</p>
-
-<h2>
-
-KES
-
-<span id="totalRevenue">
-
-0
-
-</span>
-
-</h2>
-
-</div>
-
-<div>
-
-<i class="bi bi-cash-coin fs-1 text-success"></i>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ===================================== -->
-<!-- SECOND ROW -->
-<!-- ===================================== -->
-
-<div class="row g-4 mb-5">
-
-<!-- Rating -->
-
-<div class="col-lg-3 col-md-6">
-
-<div class="card shadow-sm border-0 h-100">
-
-<div class="card-body">
-
-<h6 class="text-muted">
-
-Average Rating
-
-</h6>
-
-<h2 id="supplierRating">
-
-0.0 ⭐
-
-</h2>
-
-<small class="text-muted">
-
-Based on customer reviews
-
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Customers -->
-
-<div class="col-lg-3 col-md-6">
-
-<div class="card shadow-sm border-0 h-100">
-
-<div class="card-body">
-
-<h6 class="text-muted">
-
-Customers Served
-
-</h6>
-
-<h2 id="customersServed">
-
-0
-
-</h2>
-
-<small class="text-muted">
-
-Returning + New
-
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Stock -->
-
-<div class="col-lg-3 col-md-6">
-
-<div class="card shadow-sm border-0 h-100">
-
-<div class="card-body">
-
-<h6 class="text-muted">
-
-Gas Cylinders
-
-</h6>
-
-<h2 id="stockCount">
-
-0
-
-</h2>
-
-<small class="text-success">
-
-Available
-
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- Alerts -->
-
-<div class="col-lg-3 col-md-6">
-
-<div class="card border-danger shadow-sm h-100">
-
-<div class="card-body">
-
-<h6 class="text-danger">
-
-Low Stock Alert
-
-</h6>
-
-<h2 id="lowStockItems">
-
-0
-
-</h2>
-
-<small class="text-muted">
-
-Items requiring restock
-
-</small>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- NEW ORDERS SECTION -->
-<!-- ===================================== -->
-
-<section id="orders">
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-
-<h3 class="fw-bold">
-
-Incoming Orders
-
-</h3>
-
-<span
-class="badge bg-success fs-6"
-id="incomingOrderCount">
-
-0 Orders
-
-</span>
-
-</div>
-
-<p class="text-muted">
-
-Only orders matching your
-<strong>county</strong>,
-<strong>town</strong>,
-and available
-<strong>inventory</strong>
-will appear here.
-
-</p>
-
-<div
-id="incomingOrdersContainer"
-class="row g-4">
-
-<!-- Firebase will load matching orders here -->
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- ORDER DETAILS & MANAGEMENT -->
-<!-- ===================================== -->
-
-<section id="accepted" class="mt-5">
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-
-<h3 class="fw-bold">
-
-Accepted Orders
-
-</h3>
-
-<span
-class="badge bg-primary"
-id="acceptedOrdersBadge">
-
-0 Active
-
-</span>
-
-</div>
-
-<div
-id="acceptedOrdersContainer"
-class="row g-4">
-
-<!-- Accepted orders loaded here -->
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- DELIVERY MANAGEMENT -->
-<!-- ===================================== -->
-
-<section id="deliveries" class="mt-5">
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-
-<h3 class="fw-bold">
-
-Delivery Management
-
-</h3>
-
-<button
-id="refreshDeliveries"
-class="btn btn-outline-success">
-
-<i class="bi bi-arrow-clockwise me-2"></i>
-
-Refresh
-
-</button>
-
-</div>
-
-<div class="card shadow-sm border-0">
-
-<div class="table-responsive">
-
-<table class="table table-hover align-middle mb-0">
-
-<thead class="table-success">
-
-<tr>
-
-<th>Order</th>
-
-<th>Customer</th>
-
-<th>Gas</th>
-
-<th>Location</th>
-
-<th>Status</th>
-
-<th>Actions</th>
-
-</tr>
-
-</thead>
-
-<tbody id="deliveryTableBody">
-
-<!-- Firebase delivery rows -->
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- ORDER CARD TEMPLATE -->
-<!-- Hidden template used by JavaScript -->
-<!-- ===================================== -->
-
-<template id="supplierOrderTemplate">
-
-<div class="col-lg-6">
-
-<div class="card shadow-sm border-0 h-100">
-
-<div class="card-body">
-
-<div class="d-flex justify-content-between align-items-start">
-
-<div>
-
-<h5 class="fw-bold customerName">
-
-Customer Name
-
-</h5>
-
-<span
-class="badge bg-warning orderStatus">
-
-Pending
-
-</span>
-
-</div>
-
-<div class="text-end">
-
-<h5 class="text-success">
-
-KES <span class="orderTotal">
-
-0
-
-</span>
-
-</h5>
-
-<small class="text-muted">
-
-Order Total
-
-</small>
-
-</div>
-
-</div>
-
-<hr>
+<!-- ==========================================
+     Part 6 Starts Here
+========================================== -->
+
+      <!-- ==========================================
+     Supplier Status & Insights
+========================================== -->
 
 <div class="row">
 
-<div class="col-6">
+    <!-- Supplier Account Status -->
 
-<p class="mb-2">
+    <div class="col-lg-4 mb-4">
 
-<i class="bi bi-fire text-danger me-2"></i>
+        <div class="card border-0 shadow-sm h-100">
 
-<strong>Gas:</strong>
+            <div class="card-header bg-white border-0">
 
-<span class="gasType">
+                <h5 class="fw-bold mb-0">
 
-13kg
+                    Supplier Status
 
-</span>
+                </h5>
 
-</p>
+            </div>
 
-<p class="mb-2">
+            <div class="card-body">
 
-<i class="bi bi-box me-2"></i>
+                <div class="mb-4">
 
-<strong>Qty:</strong>
+                    <small class="text-muted">
 
-<span class="quantity">
+                        Account Approval
 
-1
+                    </small>
 
-</span>
+                    <h5
+                        id="dashboardApprovalStatus"
+                        class="mt-2">
 
-</p>
+                        Pending Review
 
-</div>
-
-<div class="col-6">
-
-<p class="mb-2">
-
-<i class="bi bi-geo-alt text-success me-2"></i>
-
-<span class="deliveryTown">
-
-Town
-
-</span>
-
-</p>
-
-<p class="mb-2">
-
-<i class="bi bi-clock me-2"></i>
-
-<span class="orderTime">
-
-Just now
-
-</span>
-
-</p>
-
-</div>
-
-</div>
-
-<div class="alert alert-light mt-3 mb-3">
-
-<i class="bi bi-house-door me-2"></i>
-
-<span class="deliveryAddress">
-
-Delivery Address
-
-</span>
-
-</div>
-
-<div class="d-grid gap-2">
-
-<button
-class="btn btn-success acceptOrderBtn">
-
-<i class="bi bi-check-circle me-2"></i>
-
-Accept Order
-
-</button>
-
-<button
-class="btn btn-outline-danger rejectOrderBtn">
-
-<i class="bi bi-x-circle me-2"></i>
-
-Reject
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</template>
-
-<!-- ===================================== -->
-<!-- ===================================== -->
-<!-- INVENTORY MANAGEMENT -->
-<!-- ===================================== -->
-
-<section id="inventory" class="mt-5">
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-
-<h3 class="fw-bold">
-
-Inventory Management
-
-</h3>
-
-<button
-id="addInventoryBtn"
-class="btn btn-success">
-
-<i class="bi bi-plus-circle me-2"></i>
-
-Add Inventory
-
-</button>
-
-</div>
-
-<div class="card shadow-sm border-0">
-
-<div class="table-responsive">
-
-<table class="table table-hover align-middle mb-0">
-
-<thead class="table-success">
-
-<tr>
-
-<th>Gas Size</th>
-
-<th>Stock</th>
-
-<th>Selling Price</th>
-
-<th>Status</th>
-
-<th>Last Updated</th>
-
-<th>Actions</th>
-
-</tr>
-
-</thead>
-
-<tbody id="inventoryTableBody">
-
-<tr>
-
-<td>6kg</td>
-
-<td>--</td>
-
-<td>KES --</td>
-
-<td>
-
-<span class="badge bg-secondary">
-
-Loading...
-
-</span>
-
-</td>
-
-<td>--</td>
-
-<td>
-
-<button class="btn btn-sm btn-outline-success">
-
-Update
-
-</button>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- LOW STOCK ALERTS -->
-<!-- ===================================== -->
-
-<section class="mt-5">
-
-<div class="card border-warning shadow-sm">
-
-<div class="card-header bg-warning text-dark">
-
-<h5 class="mb-0">
-
-<i class="bi bi-exclamation-triangle-fill me-2"></i>
-
-Low Stock Alerts
-
-</h5>
-
-</div>
-
-<div class="card-body">
-
-<div id="lowStockContainer">
-
-<p class="text-muted mb-0">
-
-No low-stock alerts.
-
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- QUICK INVENTORY SUMMARY -->
-<!-- ===================================== -->
-
-<section class="mt-5">
-
-<div class="row g-4">
-
-<div class="col-md-3">
-
-<div class="card border-0 shadow-sm">
-
-<div class="card-body text-center">
-
-<h6>Total Products</h6>
-
-<h2 id="inventoryProducts">
-
-0
-
-</h2>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card border-0 shadow-sm">
-
-<div class="card-body text-center">
-
-<h6>Total Stock</h6>
-
-<h2 id="inventoryTotalStock">
-
-0
-
-</h2>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card border-0 shadow-sm">
-
-<div class="card-body text-center">
-
-<h6>Out of Stock</h6>
-
-<h2 id="outOfStockCount">
-
-0
-
-</h2>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card border-0 shadow-sm">
-
-<div class="card-body text-center">
-
-<h6>Inventory Value</h6>
-
-<h2>
-
-KES
-
-<span id="inventoryValue">
-
-0
-
-</span>
-
-</h2>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- INVENTORY MODAL -->
-<!-- ===================================== -->
-
-<div
-class="modal fade"
-id="inventoryModal"
-tabindex="-1">
-
-<div class="modal-dialog">
-
-<div class="modal-content">
-
-<div class="modal-header">
-
-<h5 class="modal-title">
-
-Update Inventory
-
-</h5>
-
-<button
-type="button"
-class="btn-close"
-data-bs-dismiss="modal">
-
-</button>
-
-</div>
-
-<div class="modal-body">
-
-<form id="inventoryForm">
-
-<div class="mb-3">
-
-<label class="form-label">
-
-Gas Size
-
-</label>
-
-<select
-id="gasSize"
-class="form-select">
-
-<option value="6kg">6kg</option>
-
-<option value="13kg">13kg</option>
-
-<option value="22kg">22kg</option>
-
-<option value="50kg">50kg</option>
-
-</select>
-
-</div>
-
-<div class="mb-3">
-
-<label class="form-label">
-
-Stock Quantity
-
-</label>
-
-<input
-type="number"
-id="stockQuantity"
-class="form-control"
-min="0">
+                    </h5>
 
-</div>
-
-<div class="mb-3">
-
-<label class="form-label">
-
-Selling Price (KES)
-
-</label>
-
-<input
-type="number"
-id="sellingPrice"
-class="form-control"
-min="0">
-
-</div>
-
-<button
-type="submit"
-class="btn btn-success w-100">
-
-Save Inventory
-
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ===================================== -->
-<!-- ===================================== -->
-<!-- EARNINGS -->
-<!-- ===================================== -->
-
-<section id="earnings" class="mt-5">
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-
-<h3 class="fw-bold">
-
-Earnings
-
-</h3>
-
-<button
-id="exportReportBtn"
-class="btn btn-outline-success">
-
-<i class="bi bi-download me-2"></i>
-
-Export Report
-
-</button>
-
-</div>
-
-<div class="row g-4">
-
-<div class="col-md-3">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-body text-center">
-
-<h6>Today's Sales</h6>
-
-<h3 class="text-success">
-
-KES <span id="todaySales">0</span>
-
-</h3>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-body text-center">
-
-<h6>This Week</h6>
-
-<h3 class="text-primary">
-
-KES <span id="weeklySales">0</span>
-
-</h3>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-body text-center">
-
-<h6>This Month</h6>
-
-<h3 class="text-warning">
-
-KES <span id="monthlySales">0</span>
-
-</h3>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-md-3">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-body text-center">
-
-<h6>Total Revenue</h6>
-
-<h3 class="text-success">
-
-KES <span id="lifetimeSales">0</span>
-
-</h3>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- CUSTOMERS -->
-<!-- ===================================== -->
-
-<section id="customers" class="mt-5">
-
-<h3 class="fw-bold mb-3">
-
-Customers
-
-</h3>
-
-<div class="card shadow-sm border-0">
-
-<div class="table-responsive">
-
-<table class="table table-hover mb-0">
-
-<thead class="table-success">
-
-<tr>
-
-<th>Name</th>
-
-<th>Phone</th>
-
-<th>Town</th>
-
-<th>Orders</th>
-
-<th>Last Order</th>
+                </div>
 
-</tr>
+                <div class="mb-4">
 
-</thead>
+                    <small class="text-muted">
 
-<tbody id="customersTableBody">
+                        Seller Status
 
-<tr>
+                    </small>
 
-<td colspan="5" class="text-center text-muted">
+                    <h5
+                        id="dashboardSellerStatus">
 
-No customers yet.
+                        Inactive
 
-</td>
+                    </h5>
 
-</tr>
+                </div>
 
-</tbody>
+                <div class="mb-4">
 
-</table>
+                    <small class="text-muted">
 
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- REVIEWS -->
-<!-- ===================================== -->
-
-<section id="reviews" class="mt-5">
-
-<h3 class="fw-bold mb-3">
-
-Customer Reviews
-
-</h3>
-
-<div
-id="reviewsContainer"
-class="row g-4">
-
-<div class="col-12">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-body text-center text-muted">
-
-No reviews available.
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- ANALYTICS -->
-<!-- ===================================== -->
-
-<section id="analytics" class="mt-5">
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-
-<h3 class="fw-bold">
-
-Business Analytics
-
-</h3>
-
-</div>
-
-<div class="row g-4">
-
-<div class="col-lg-6">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-header bg-success text-white">
-
-Monthly Orders
-
-</div>
-
-<div class="card-body">
-
-<canvas id="ordersChart" height="200"></canvas>
-
-</div>
-
-</div>
-
-</div>
-
-<div class="col-lg-6">
-
-<div class="card shadow-sm border-0">
-
-<div class="card-header bg-primary text-white">
-
-Revenue Trend
-
-</div>
+                        Membership
 
-<div class="card-body">
+                    </small>
 
-<canvas id="revenueChart" height="200"></canvas>
+                    <h5>
 
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- ===================================== -->
-<!-- EARNINGS -->
-<!-- ===================================== -->
-
-<section id="earnings" class="mt-5">
-
-<div class="d-flex justify-content-between align-items-center mb-3">
-
-<h3 class="fw-bold">
-
-Earnings
+                        Standard Supplier
 
-</h3>
+                    </h5>
 
-<button
-id="exportReportBtn"
-class="btn btn-outline-success">
+                </div>
 
-<i class="bi bi-download me-2"></i>
+                <div class="mb-4">
 
-Export Report
+                    <small class="text-muted">
 
-</button>
+                        Last Login
 
-</div>
+                    </small>
 
-<div class="row g-4">
+                    <h6 id="lastLoginTime">
 
-<div class="col-md-3">
+                        Just now
 
-<div class="card shadow-sm border-0">
+                    </h6>
 
-<div class="card-body text-center">
+                </div>
 
-<h6>Today's Sales</h6>
+            </div>
 
-<h3 class="text-success">
+        </div>
 
-KES <span id="todaySales">0</span>
+    </div>
 
-</h3>
-
-</div>
+    <!-- Business Performance -->
 
-</div>
+    <div class="col-lg-4 mb-4">
 
-</div>
+        <div class="card border-0 shadow-sm h-100">
 
-<div class="col-md-3">
+            <div class="card-header bg-white border-0">
 
-<div class="card shadow-sm border-0">
+                <h5 class="fw-bold mb-0">
 
-<div class="card-body text-center">
+                    Business Performance
 
-<h6>This Week</h6>
+                </h5>
 
-<h3 class="text-primary">
+            </div>
 
-KES <span id="weeklySales">0</span>
+            <div class="card-body">
 
-</h3>
+                <div class="mb-4">
 
-</div>
+                    <div class="d-flex justify-content-between">
 
-</div>
+                        <span>Profile Completion</span>
 
-</div>
+                        <strong id="profileCompletion">
 
-<div class="col-md-3">
+                            0%
 
-<div class="card shadow-sm border-0">
+                        </strong>
 
-<div class="card-body text-center">
+                    </div>
 
-<h6>This Month</h6>
+                    <div class="progress mt-2">
 
-<h3 class="text-warning">
+                        <div
 
-KES <span id="monthlySales">0</span>
+                            id="profileProgress"
 
-</h3>
+                            class="progress-bar bg-success"
 
-</div>
+                            style="width:0%;">
 
-</div>
+                        </div>
 
-</div>
+                    </div>
 
-<div class="col-md-3">
+                </div>
 
-<div class="card shadow-sm border-0">
+                <div class="mb-4">
 
-<div class="card-body text-center">
+                    <div class="d-flex justify-content-between">
 
-<h6>Total Revenue</h6>
+                        <span>Customer Rating</span>
 
-<h3 class="text-success">
+                        <strong id="supplierRating">
 
-KES <span id="lifetimeSales">0</span>
+                            0.0 ★
 
-</h3>
+                        </strong>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-</div>
+                <div class="mb-4">
 
-</div>
+                    <div class="d-flex justify-content-between">
 
-</section>
+                        <span>Completed Deliveries</span>
 
-<!-- ===================================== -->
-<!-- CUSTOMERS -->
-<!-- ===================================== -->
+                        <strong id="completedDeliveries">
 
-<section id="customers" class="mt-5">
+                            0
 
-<h3 class="fw-bold mb-3">
+                        </strong>
 
-Customers
+                    </div>
 
-</h3>
+                </div>
 
-<div class="card shadow-sm border-0">
+                <div>
 
-<div class="table-responsive">
+                    <div class="d-flex justify-content-between">
 
-<table class="table table-hover mb-0">
+                        <span>Repeat Customers</span>
 
-<thead class="table-success">
+                        <strong id="repeatCustomers">
 
-<tr>
+                            0
 
-<th>Name</th>
+                        </strong>
 
-<th>Phone</th>
+                    </div>
 
-<th>Town</th>
+                </div>
 
-<th>Orders</th>
+            </div>
 
-<th>Last Order</th>
+        </div>
 
-</tr>
+    </div>
 
-</thead>
+    <!-- Marketplace Announcements -->
 
-<tbody id="customersTableBody">
+    <div class="col-lg-4 mb-4">
 
-<tr>
+        <div class="card border-0 shadow-sm h-100">
 
-<td colspan="5" class="text-center text-muted">
+            <div class="card-header bg-white border-0">
 
-No customers yet.
+                <h5 class="fw-bold mb-0">
 
-</td>
+                    Marketplace Updates
 
-</tr>
+                </h5>
 
-</tbody>
+            </div>
 
-</table>
+            <div
+                id="marketAnnouncements"
+                class="list-group list-group-flush">
 
-</div>
+                <div class="list-group-item">
 
-</div>
+                    <i class="bi bi-megaphone-fill text-success me-2"></i>
 
-</section>
+                    Welcome to Kenya Gas Marketplace.
 
-<!-- ===================================== -->
-<!-- REVIEWS -->
-<!-- ===================================== -->
+                </div>
 
-<section id="reviews" class="mt-5">
+                <div class="list-group-item">
 
-<h3 class="fw-bold mb-3">
+                    <i class="bi bi-truck text-primary me-2"></i>
 
-Customer Reviews
+                    Keep your delivery locations updated.
 
-</h3>
+                </div>
 
-<div
-id="reviewsContainer"
-class="row g-4">
+                <div class="list-group-item">
 
-<div class="col-12">
+                    <i class="bi bi-shield-check text-warning me-2"></i>
 
-<div class="card shadow-sm border-0">
+                    Complete verification to unlock all features.
 
-<div class="card-body text-center text-muted">
+                </div>
 
-No reviews available.
+            </div>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </div>
 
-</div>
+<!-- ==========================================
+     Quick Management Shortcuts
+========================================== -->
 
-</section>
+<div class="card border-0 shadow-sm mb-4">
 
-<!-- ===================================== -->
-<!-- ANALYTICS -->
-<!-- ===================================== -->
+    <div class="card-header bg-white border-0">
 
-<section id="analytics" class="mt-5">
+        <h5 class="fw-bold mb-0">
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+            Business Shortcuts
 
-<h3 class="fw-bold">
+        </h5>
 
-Business Analytics
+    </div>
 
-</h3>
+    <div class="card-body">
 
-</div>
+        <div class="row g-3">
 
-<div class="row g-4">
+            <div class="col-lg-2 col-md-4 col-6">
 
-<div class="col-lg-6">
+                <a
+                    href="add-product.html"
+                    class="btn btn-outline-success w-100">
 
-<div class="card shadow-sm border-0">
+                    <i class="bi bi-plus-circle fs-4 d-block mb-2"></i>
 
-<div class="card-header bg-success text-white">
+                    Add Product
 
-Monthly Orders
+                </a>
 
-</div>
+            </div>
 
-<div class="card-body">
+            <div class="col-lg-2 col-md-4 col-6">
 
-<canvas id="ordersChart" height="200"></canvas>
+                <a
+                    href="supplier-products.html"
+                    class="btn btn-outline-primary w-100">
 
-</div>
+                    <i class="bi bi-box-seam fs-4 d-block mb-2"></i>
 
-</div>
+                    Products
 
-</div>
+                </a>
 
-<div class="col-lg-6">
+            </div>
 
-<div class="card shadow-sm border-0">
+            <div class="col-lg-2 col-md-4 col-6">
 
-<div class="card-header bg-primary text-white">
+                <a
+                    href="supplier-orders.html"
+                    class="btn btn-outline-warning w-100">
 
-Revenue Trend
+                    <i class="bi bi-cart-check fs-4 d-block mb-2"></i>
 
-</div>
+                    Orders
 
-<div class="card-body">
+                </a>
 
-<canvas id="revenueChart" height="200"></canvas>
+            </div>
 
-</div>
+            <div class="col-lg-2 col-md-4 col-6">
 
-</div>
+                <a
+                    href="supplier-wallet.html"
+                    class="btn btn-outline-danger w-100">
 
-</div>
+                    <i class="bi bi-wallet2 fs-4 d-block mb-2"></i>
 
-</div>
+                    Wallet
 
-</section>
+                </a>
 
-<!-- ===================================== -->
-<!-- ===================================== -->
-<!-- NOTIFICATIONS -->
-<!-- ===================================== -->
+            </div>
 
-<section id="notifications" class="mt-5">
+            <div class="col-lg-2 col-md-4 col-6">
 
-<div class="d-flex justify-content-between align-items-center mb-3">
+                <a
+                    href="supplier-analytics.html"
+                    class="btn btn-outline-info w-100">
 
-<h3 class="fw-bold">
+                    <i class="bi bi-bar-chart-line fs-4 d-block mb-2"></i>
 
-Notifications
+                    Analytics
 
-</h3>
+                </a>
 
-<button
-id="markAllReadBtn"
-class="btn btn-outline-success">
+            </div>
 
-<i class="bi bi-check2-all me-2"></i>
+            <div class="col-lg-2 col-md-4 col-6">
 
-Mark All Read
+                <a
+                    href="supplier-settings.html"
+                    class="btn btn-outline-secondary w-100">
 
-</button>
+                    <i class="bi bi-gear fs-4 d-block mb-2"></i>
 
-</div>
+                    Settings
 
-<div
-id="notificationsContainer"
-class="list-group shadow-sm">
+                </a>
 
-<div class="list-group-item text-muted text-center">
+            </div>
 
-No notifications.
+        </div>
 
-</div>
+    </div>
 
 </div>
-
-</section>
-
-<!-- ===================================== -->
-<!-- SETTINGS -->
-<!-- ===================================== -->
-
-<section id="settings" class="mt-5">
-
-<h3 class="fw-bold mb-3">
-
-Business Settings
-
-</h3>
-
-<div class="card shadow-sm border-0">
 
-<div class="card-body">
+<!-- ==========================================
+     Part 7 Starts Here
+========================================== -->
 
-<form id="supplierSettingsForm">
+      <!-- ==========================================
+     Delivery Performance & Products
+========================================== -->
 
 <div class="row">
 
-<div class="col-md-6 mb-3">
+    <!-- Delivery Performance -->
 
-<label class="form-label">
+    <div class="col-lg-4 mb-4">
 
-Business Name
+        <div class="card border-0 shadow-sm h-100">
 
-</label>
+            <div class="card-header bg-white border-0">
 
-<input
-type="text"
-id="businessName"
-class="form-control">
+                <h5 class="fw-bold mb-0">
+
+                    Delivery Performance
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>Completed Deliveries</span>
+
+                        <strong id="completedDeliveryCount">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>Pending Deliveries</span>
+
+                        <strong id="pendingDeliveryCount">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="mb-4">
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>Cancelled Deliveries</span>
+
+                        <strong id="cancelledDeliveryCount">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="d-flex justify-content-between">
+
+                        <span>On-Time Rate</span>
+
+                        <strong id="deliverySuccessRate">
+
+                            100%
+
+                        </strong>
+
+                    </div>
+
+                    <div class="progress mt-2">
+
+                        <div
+
+                            id="deliveryProgress"
+
+                            class="progress-bar bg-success"
+
+                            style="width:100%">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Customer Reviews -->
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white border-0 d-flex justify-content-between">
+
+                <h5 class="fw-bold mb-0">
+
+                    Customer Reviews
+
+                </h5>
+
+                <span
+                    id="averageRating"
+                    class="badge bg-success">
+
+                    ★ 0.0
+
+                </span>
+
+            </div>
+
+            <div
+                id="customerReviews"
+                class="list-group list-group-flush">
+
+                <div class="list-group-item text-center text-muted py-5">
+
+                    No customer reviews yet.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Top Selling Products -->
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white border-0 d-flex justify-content-between">
+
+                <h5 class="fw-bold mb-0">
+
+                    Top Selling Products
+
+                </h5>
+
+                <a
+
+                    href="supplier-products.html"
+
+                    class="btn btn-sm btn-success">
+
+                    Manage
+
+                </a>
+
+            </div>
+
+            <div
+                id="topProducts"
+                class="list-group list-group-flush">
+
+                <div class="list-group-item text-center text-muted py-5">
+
+                    No products available.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-<div class="col-md-6 mb-3">
+<!-- ==========================================
+     Inventory Summary
+========================================== -->
 
-<label class="form-label">
+<div class="card border-0 shadow-sm mb-4">
 
-Phone Number
+    <div class="card-header bg-white border-0">
 
-</label>
+        <h5 class="fw-bold mb-0">
 
-<input
-type="tel"
-id="businessPhone"
-class="form-control">
+            Inventory Summary
 
-</div>
+        </h5>
 
-<div class="col-md-6 mb-3">
+    </div>
 
-<label class="form-label">
+    <div class="card-body">
 
-County
+        <div class="row text-center">
 
-</label>
+            <div class="col-md-3 mb-3">
 
-<input
-type="text"
-id="businessCounty"
-class="form-control"
-readonly>
+                <h2
+                    id="activeProducts"
+                    class="text-success">
 
-</div>
+                    0
 
-<div class="col-md-6 mb-3">
+                </h2>
 
-<label class="form-label">
+                <small>
 
-Town
+                    Active Products
 
-</label>
+                </small>
 
-<input
-type="text"
-id="businessTown"
-class="form-control"
-readonly>
+            </div>
 
-</div>
+            <div class="col-md-3 mb-3">
 
-<div class="col-md-6 mb-3">
+                <h2
+                    id="outOfStockProducts"
+                    class="text-danger">
 
-<label class="form-label">
+                    0
 
-Delivery Radius (KM)
+                </h2>
 
-</label>
+                <small>
 
-<input
-type="number"
-id="deliveryRadius"
-class="form-control"
-min="1"
-max="100">
+                    Out of Stock
 
-</div>
+                </small>
 
-<div class="col-md-6 mb-3">
+            </div>
 
-<label class="form-label">
+            <div class="col-md-3 mb-3">
 
-Business Status
+                <h2
+                    id="lowStockProducts">
 
-</label>
+                    0
 
-<select
-id="supplierStatus"
-class="form-select">
+                </h2>
 
-<option value="active">Active</option>
+                <small>
 
-<option value="offline">Offline</option>
+                    Low Stock
 
-<option value="closed">Temporarily Closed</option>
+                </small>
 
-</select>
+            </div>
 
-</div>
+            <div class="col-md-3 mb-3">
 
-</div>
+                <h2
+                    id="hiddenProducts">
 
-<button
-type="submit"
-class="btn btn-success">
+                    0
 
-Save Settings
+                </h2>
 
-</button>
+                <small>
 
-</form>
+                    Hidden Products
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
+<!-- ==========================================
+     Sales Targets
+========================================== -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-header bg-white border-0">
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <h5 class="fw-bold mb-0">
+
+                Monthly Sales Target
+
+            </h5>
+
+            <span
+                id="salesTargetPercent"
+                class="badge bg-primary">
+
+                0%
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="progress mb-3">
+
+            <div
+
+                id="salesTargetProgress"
+
+                class="progress-bar bg-primary"
+
+                style="width:0%">
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <strong>
+
+                    Current Sales
+
+                </strong>
+
+                <div id="currentSales">
+
+                    KSh 0
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 text-md-end">
+
+                <strong>
+
+                    Target
+
+                </strong>
+
+                <div id="targetSales">
+
+                    KSh 100,000
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
-</section>
+<!-- ==========================================
+     Part 8 Starts Here
+========================================== -->
 
-<!-- ===================================== -->
-<!-- SUPPORT -->
-<!-- ===================================== -->
+      <!-- ==========================================
+     Activity & Notifications
+========================================== -->
 
-<section id="support" class="mt-5">
+<div class="row">
 
-<h3 class="fw-bold mb-3">
+    <!-- Recent Activity -->
 
-Support
+    <div class="col-lg-6 mb-4">
 
-</h3>
+        <div class="card border-0 shadow-sm h-100">
 
-<div class="card shadow-sm border-0">
+            <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
 
-<div class="card-body">
+                <h5 class="fw-bold mb-0">
 
-<p>
+                    Recent Activity
 
-Need assistance?
+                </h5>
 
-Contact the Kenya Gas support team.
+                <button
+                    class="btn btn-sm btn-outline-success"
+                    id="refreshActivity">
 
-</p>
+                    <i class="bi bi-arrow-clockwise"></i>
 
-<div class="d-flex flex-wrap gap-2">
+                    Refresh
 
-<a
-href="mailto:support@kenyagas.co.ke"
-class="btn btn-outline-success">
+                </button>
 
-<i class="bi bi-envelope me-2"></i>
+            </div>
 
-Email Support
+            <div
+                id="activityTimeline"
+                class="list-group list-group-flush">
 
-</a>
+                <div class="list-group-item text-center text-muted py-5">
 
-<a
-href="tel:+254700000000"
-class="btn btn-outline-primary">
+                    No recent activity.
 
-<i class="bi bi-telephone me-2"></i>
+                </div>
 
-Call Support
+            </div>
 
-</a>
+        </div>
+
+    </div>
+
+    <!-- Notifications -->
+
+    <div class="col-lg-6 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white border-0 d-flex justify-content-between align-items-center">
+
+                <h5 class="fw-bold mb-0">
+
+                    Notifications
+
+                </h5>
+
+                <button
+
+                    id="markNotificationsRead"
+
+                    class="btn btn-sm btn-outline-primary">
+
+                    Mark all read
+
+                </button>
+
+            </div>
+
+            <div
+                id="notificationsList"
+                class="list-group list-group-flush">
+
+                <div class="list-group-item text-center text-muted py-5">
+
+                    No notifications available.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
+<!-- ==========================================
+     Marketplace News & Tips
+========================================== -->
+
+<div class="row">
+
+    <!-- Marketplace News -->
+
+    <div class="col-lg-8 mb-4">
+
+        <div class="card border-0 shadow-sm">
+
+            <div class="card-header bg-white border-0">
+
+                <h5 class="fw-bold mb-0">
+
+                    Kenya Gas Marketplace News
+
+                </h5>
+
+            </div>
+
+            <div
+                id="marketplaceNews"
+                class="list-group list-group-flush">
+
+                <div class="list-group-item">
+
+                    <i class="bi bi-megaphone-fill text-success me-2"></i>
+
+                    Welcome to Kenya Gas Marketplace. Stay tuned for platform updates.
+
+                </div>
+
+                <div class="list-group-item">
+
+                    <i class="bi bi-truck text-primary me-2"></i>
+
+                    Update your delivery zones regularly to receive more customer orders.
+
+                </div>
+
+                <div class="list-group-item">
+
+                    <i class="bi bi-shield-check text-warning me-2"></i>
+
+                    Complete supplier verification to unlock all marketplace features.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Business Tips -->
+
+    <div class="col-lg-4 mb-4">
+
+        <div class="card border-0 shadow-sm h-100">
+
+            <div class="card-header bg-white border-0">
+
+                <h5 class="fw-bold mb-0">
+
+                    Business Tips
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+
+                    <i class="bi bi-lightbulb-fill text-warning me-2"></i>
+
+                    Keep your product prices competitive.
+
+                </div>
+
+                <div class="mb-3">
+
+                    <i class="bi bi-star-fill text-success me-2"></i>
+
+                    Respond to customer orders quickly.
+
+                </div>
+
+                <div class="mb-3">
+
+                    <i class="bi bi-box-seam text-primary me-2"></i>
+
+                    Keep stock quantities updated.
+
+                </div>
+
+                <div class="mb-3">
+
+                    <i class="bi bi-chat-dots-fill text-info me-2"></i>
+
+                    Respond to customer enquiries promptly.
+
+                </div>
+
+                <div>
+
+                    <i class="bi bi-award-fill text-danger me-2"></i>
+
+                    High-rated suppliers appear higher in search results.
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
-</section>
+<!-- ==========================================
+     System Status
+========================================== -->
 
-<!-- ===================================== -->
-<!-- FOOTER -->
-<!-- ===================================== -->
+<div class="card border-0 shadow-sm mb-4">
 
-<footer class="text-center text-muted py-5">
+    <div class="card-header bg-white border-0">
 
-<hr>
+        <h5 class="fw-bold mb-0">
 
-<p class="mb-1">
+            System Status
 
-© 2026 Kenya Gas.
+        </h5>
 
-All Rights Reserved.
+    </div>
 
-</p>
+    <div class="card-body">
 
-<small>
+        <div class="row text-center">
 
-Supplier Dashboard Version 1.0
+            <div class="col-md-3">
 
-</small>
+                <i class="bi bi-wifi text-success fs-2"></i>
+
+                <h6 class="mt-2">
+
+                    Connection
+
+                </h6>
+
+                <span
+                    id="networkStatus"
+                    class="badge bg-success">
+
+                    Online
+
+                </span>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <i class="bi bi-cloud-check text-primary fs-2"></i>
+
+                <h6 class="mt-2">
+
+                    Firebase
+
+                </h6>
+
+                <span
+                    id="firebaseStatus"
+                    class="badge bg-success">
+
+                    Connected
+
+                </span>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <i class="bi bi-person-check text-warning fs-2"></i>
+
+                <h6 class="mt-2">
+
+                    Account
+
+                </h6>
+
+                <span
+                    id="accountStatus">
+
+                    Verified
+
+                </span>
+
+            </div>
+
+            <div class="col-md-3">
+
+                <i class="bi bi-clock-history text-info fs-2"></i>
+
+                <h6 class="mt-2">
+
+                    Last Sync
+
+                </h6>
+
+                <span
+                    id="lastSyncTime">
+
+                    Just now
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Part 9 Starts Here
+========================================== -->
+
+      <!-- ==========================================
+     Dashboard Footer
+========================================== -->
+
+<footer class="dashboard-footer mt-5">
+
+    <div class="container-fluid">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-6">
+
+                <p class="mb-0">
+
+                    © <span id="currentYear"></span>
+
+                    Kenya Gas Marketplace.
+
+                    All Rights Reserved.
+
+                </p>
+
+            </div>
+
+            <div class="col-md-6 text-md-end mt-3 mt-md-0">
+
+                <a
+
+                    href="terms.html"
+
+                    class="text-decoration-none me-3">
+
+                    Terms
+
+                </a>
+
+                <a
+
+                    href="privacy.html"
+
+                    class="text-decoration-none me-3">
+
+                    Privacy
+
+                </a>
+
+                <a
+
+                    href="support.html"
+
+                    class="text-decoration-none">
+
+                    Support
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </footer>
 
+<!-- ==========================================
+     Floating Action Button
+========================================== -->
+
+<button
+
+    id="quickActionBtn"
+
+    class="btn btn-success rounded-circle shadow-lg">
+
+    <i class="bi bi-plus-lg fs-4"></i>
+
+</button>
+
+<!-- ==========================================
+     Floating Action Menu
+========================================== -->
+
+<div
+
+    id="quickActionMenu"
+
+    class="card shadow border-0">
+
+    <div class="list-group list-group-flush">
+
+        <a
+
+            href="add-product.html"
+
+            class="list-group-item list-group-item-action">
+
+            <i class="bi bi-box-seam me-2"></i>
+
+            Add Product
+
+        </a>
+
+        <a
+
+            href="supplier-orders.html"
+
+            class="list-group-item list-group-item-action">
+
+            <i class="bi bi-cart-check me-2"></i>
+
+            View Orders
+
+        </a>
+
+        <a
+
+            href="supplier-wallet.html"
+
+            class="list-group-item list-group-item-action">
+
+            <i class="bi bi-wallet2 me-2"></i>
+
+            Wallet
+
+        </a>
+
+        <a
+
+            href="supplier-profile.html"
+
+            class="list-group-item list-group-item-action">
+
+            <i class="bi bi-person-circle me-2"></i>
+
+            Profile
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Mobile Bottom Navigation
+========================================== -->
+
+<nav class="mobile-nav d-lg-none">
+
+    <a
+
+        href="supplier-dashboard.html"
+
+        class="active">
+
+        <i class="bi bi-grid-fill"></i>
+
+        <span>Home</span>
+
+    </a>
+
+    <a href="supplier-products.html">
+
+        <i class="bi bi-box-seam"></i>
+
+        <span>Products</span>
+
+    </a>
+
+    <a href="supplier-orders.html">
+
+        <i class="bi bi-cart-check"></i>
+
+        <span>Orders</span>
+
+    </a>
+
+    <a href="supplier-wallet.html">
+
+        <i class="bi bi-wallet2"></i>
+
+        <span>Wallet</span>
+
+    </a>
+
+    <a href="supplier-profile.html">
+
+        <i class="bi bi-person-circle"></i>
+
+        <span>Profile</span>
+
+    </a>
+
+</nav>
+
+<!-- ==========================================
+     Scroll To Top Button
+========================================== -->
+
+<button
+
+    id="scrollTopBtn"
+
+    class="btn btn-success shadow rounded-circle">
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
+
+<!-- Close Main Content -->
+
 </main>
 
-</div>
+<!-- Close Wrapper -->
 
 </div>
 
-<!-- ===================================== -->
-<!-- SCRIPTS -->
-<!-- ===================================== -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- ==========================================
+     Chart.js
+========================================== -->
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script type="module" src="assets/js/supplier-dashboard.js"></script>
+<!-- ==========================================
+     Bootstrap JS
+========================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- ==========================================
+     Authentication Guard
+========================================== -->
+
+<script
+    type="module"
+    src="assets/js/auth-guard.js">
+</script>
+
+<!-- ==========================================
+     Dashboard Logic
+========================================== -->
+
+<script
+    type="module"
+    src="assets/js/supplier-dashboard.js">
+</script>
+
+<!-- ==========================================
+     Dashboard UI
+========================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ==========================
+       Current Year
+    ========================== */
+
+    const year = document.getElementById("currentYear");
+
+    if (year) {
+
+        year.textContent = new Date().getFullYear();
+
+    }
+
+    /* ==========================
+       Sidebar Toggle
+    ========================== */
+
+    const sidebar =
+        document.getElementById("sidebar");
+
+    const toggle =
+        document.getElementById("sidebarToggle");
+
+    if (toggle && sidebar) {
+
+        toggle.addEventListener("click", () => {
+
+            sidebar.classList.toggle("show");
+
+        });
+
+    }
+
+    /* ==========================
+       Scroll To Top
+    ========================== */
+
+    const scrollBtn =
+        document.getElementById("scrollTopBtn");
+
+    window.addEventListener("scroll", () => {
+
+        if (!scrollBtn) return;
+
+        if (window.scrollY > 300) {
+
+            scrollBtn.style.display = "flex";
+
+        } else {
+
+            scrollBtn.style.display = "none";
+
+        }
+
+    });
+
+    if (scrollBtn) {
+
+        scrollBtn.addEventListener("click", () => {
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        });
+
+    }
+
+    /* ==========================
+       Floating Action Button
+    ========================== */
+
+    const fab =
+        document.getElementById("quickActionBtn");
+
+    const fabMenu =
+        document.getElementById("quickActionMenu");
+
+    if (fab && fabMenu) {
+
+        fabMenu.style.display = "none";
+
+        fab.addEventListener("click", () => {
+
+            fabMenu.style.display =
+
+                fabMenu.style.display === "block"
+
+                ? "none"
+
+                : "block";
+
+        });
+
+        document.addEventListener("click", (event) => {
+
+            if (
+
+                !fab.contains(event.target) &&
+
+                !fabMenu.contains(event.target)
+
+            ) {
+
+                fabMenu.style.display = "none";
+
+            }
+
+        });
+
+    }
+
+    /* ==========================
+       Loading Overlay
+    ========================== */
+
+    const loader =
+        document.getElementById("loadingOverlay");
+
+    if (loader) {
+
+        setTimeout(() => {
+
+            loader.classList.add("hidden");
+
+            setTimeout(() => {
+
+                loader.remove();
+
+            }, 300);
+
+        }, 500);
+
+    }
+
+});
+
+</script>
 
 </body>
 
