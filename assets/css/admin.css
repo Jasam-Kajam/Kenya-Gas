@@ -1,0 +1,1782 @@
+/* =========================================================
+   Kenya Gas Marketplace
+   Admin Dashboard Styles
+========================================================= */
+
+/* ==============================
+   Root Variables
+============================== */
+
+:root{
+
+    --primary:#198754;
+    --primary-dark:#146c43;
+    --secondary:#0d6efd;
+    --warning:#ffc107;
+    --danger:#dc3545;
+    --info:#0dcaf0;
+    --dark:#212529;
+    --light:#f8f9fa;
+    --white:#ffffff;
+    --border:#dee2e6;
+    --text:#495057;
+    --muted:#6c757d;
+
+    --sidebar-width:280px;
+    --topbar-height:75px;
+
+    --radius:15px;
+
+    --shadow:
+        0 10px 30px rgba(0,0,0,.08);
+
+    --transition:.3s ease;
+
+}
+
+/* ==============================
+   Reset
+============================== */
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+
+}
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:#f4f7fb;
+    color:var(--text);
+
+}
+
+/* ==============================
+   Links
+============================== */
+
+a{
+
+    text-decoration:none;
+
+}
+
+img{
+
+    max-width:100%;
+
+}
+
+/* ==============================
+   Loading Screen
+============================== */
+
+.loading-overlay{
+
+    position:fixed;
+    inset:0;
+
+    background:#fff;
+
+    z-index:99999;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    transition:.4s;
+
+}
+
+.loading-content{
+
+    text-align:center;
+
+}
+
+.loading-content img{
+
+    width:90px;
+
+}
+
+.loading-content h4{
+
+    color:var(--primary);
+    font-weight:700;
+
+    margin-top:20px;
+
+}
+
+.loading-content p{
+
+    color:var(--muted);
+
+}
+
+/* ==============================
+   Dashboard Wrapper
+============================== */
+
+.dashboard-wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+/* ==============================
+   Main Content
+============================== */
+
+.main-content{
+
+    flex:1;
+
+    margin-left:var(--sidebar-width);
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:var(--transition);
+
+}
+
+/* ==============================
+   Dashboard Content
+============================== */
+
+.dashboard-content{
+
+    padding:30px;
+
+    flex:1;
+
+}
+
+/* ==============================
+   Cards
+============================== */
+
+.card{
+
+    border:none;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+}
+
+.card-header{
+
+    background:#fff;
+
+    border-bottom:1px solid var(--border);
+
+    padding:18px 22px;
+
+}
+
+.card-body{
+
+    padding:22px;
+
+}
+
+/* ==============================
+   Responsive
+============================== */
+
+@media(max-width:991px){
+
+.main-content{
+
+    margin-left:0;
+
+}
+
+.dashboard-content{
+
+    padding:20px;
+
+}
+
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:var(--sidebar-width);
+
+    height:100vh;
+
+    background:linear-gradient(180deg,#198754,#146c43);
+
+    color:#fff;
+
+    overflow-y:auto;
+
+    transition:var(--transition);
+
+    z-index:1040;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* Scrollbar */
+
+.sidebar::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+
+    background:rgba(255,255,255,.25);
+
+    border-radius:20px;
+
+}
+
+/* =========================================================
+   Sidebar Header
+========================================================= */
+
+.sidebar-header{
+
+    padding:30px 20px;
+
+    text-align:center;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+}
+
+.sidebar-logo{
+
+    width:85px;
+
+    height:85px;
+
+    object-fit:contain;
+
+    margin-bottom:15px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    padding:10px;
+
+}
+
+.sidebar-header h5{
+
+    margin-bottom:6px;
+
+    font-weight:700;
+
+    color:#fff;
+
+}
+
+.sidebar-header small{
+
+    color:rgba(255,255,255,.8);
+
+    font-size:.85rem;
+
+}
+
+/* =========================================================
+   Admin Profile
+========================================================= */
+
+.supplier-profile{
+
+    text-align:center;
+
+    padding:25px 20px;
+
+    border-bottom:1px solid rgba(255,255,255,.12);
+
+}
+
+.supplier-avatar{
+
+    width:95px;
+
+    height:95px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:4px solid rgba(255,255,255,.35);
+
+    background:#fff;
+
+}
+
+.supplier-profile h6{
+
+    margin-top:15px;
+
+    margin-bottom:4px;
+
+    color:#fff;
+
+    font-weight:600;
+
+}
+
+.supplier-profile small{
+
+    color:rgba(255,255,255,.85);
+
+    word-break:break-word;
+
+}
+
+.supplier-profile .badge{
+
+    font-size:.75rem;
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+}
+
+/* =========================================================
+   Navigation
+========================================================= */
+
+.sidebar-menu{
+
+    padding:18px 0;
+
+    flex:1;
+
+}
+
+.sidebar-menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    color:rgba(255,255,255,.92);
+
+    padding:14px 25px;
+
+    margin:4px 12px;
+
+    border-radius:12px;
+
+    font-weight:500;
+
+    transition:var(--transition);
+
+}
+
+.sidebar-menu a i{
+
+    font-size:1.2rem;
+
+    width:24px;
+
+    text-align:center;
+
+}
+
+.sidebar-menu a:hover{
+
+    background:rgba(255,255,255,.12);
+
+    color:#fff;
+
+    transform:translateX(5px);
+
+}
+
+.sidebar-menu a.active{
+
+    background:#fff;
+
+    color:var(--primary);
+
+    font-weight:600;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+
+.sidebar-menu a.active i{
+
+    color:var(--primary);
+
+}
+
+/* =========================================================
+   Marketplace Status Card
+========================================================= */
+
+.sidebar .card{
+
+    border-radius:12px;
+
+    margin:0 10px;
+
+}
+
+.sidebar .card-body{
+
+    padding:18px;
+
+}
+
+.sidebar .card h6{
+
+    margin:8px 0;
+
+    font-weight:700;
+
+}
+
+/* =========================================================
+   Sidebar Footer
+========================================================= */
+
+.sidebar-footer{
+
+    padding:20px;
+
+    border-top:1px solid rgba(255,255,255,.15);
+
+}
+
+.sidebar-footer .btn{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    padding:12px;
+
+}
+
+/* =========================================================
+   Mobile Sidebar
+========================================================= */
+
+@media(max-width:991px){
+
+.sidebar{
+
+    left:-100%;
+
+}
+
+.sidebar.show{
+
+    left:0;
+
+    box-shadow:0 0 40px rgba(0,0,0,.3);
+
+}
+
+}
+
+/* =========================================================
+   TOP NAVIGATION
+========================================================= */
+
+.top-navbar{
+
+    background:#fff;
+
+    min-height:var(--topbar-height);
+
+    padding:18px 30px;
+
+    border-bottom:1px solid var(--border);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1030;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.05);
+
+}
+
+.top-navbar h4{
+
+    font-weight:700;
+
+    color:var(--dark);
+
+    margin:0;
+
+}
+
+.top-navbar small{
+
+    color:var(--muted);
+
+}
+
+/* =========================================================
+   Search Box
+========================================================= */
+
+.input-group{
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.input-group-text{
+
+    background:#fff;
+
+    border:1px solid var(--border);
+
+    border-right:none;
+
+}
+
+.input-group .form-control{
+
+    border-left:none;
+
+    box-shadow:none;
+
+    height:46px;
+
+}
+
+.input-group .form-control:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:none;
+
+}
+
+/* =========================================================
+   Header Buttons
+========================================================= */
+
+.top-navbar .btn{
+
+    width:45px;
+
+    height:45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:12px;
+
+    transition:var(--transition);
+
+}
+
+.top-navbar .btn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+.top-navbar .btn i{
+
+    font-size:1.2rem;
+
+}
+
+/* =========================================================
+   Notification Badges
+========================================================= */
+
+.badge{
+
+    font-size:.7rem;
+
+}
+
+/* =========================================================
+   Profile Dropdown
+========================================================= */
+
+.dropdown-toggle{
+
+    border-radius:12px;
+
+    padding:8px 14px;
+
+    font-weight:500;
+
+}
+
+.dropdown-toggle img{
+
+    object-fit:cover;
+
+}
+
+.dropdown-menu{
+
+    border:none;
+
+    border-radius:15px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+    overflow:hidden;
+
+}
+
+.dropdown-item{
+
+    padding:12px 18px;
+
+    transition:var(--transition);
+
+}
+
+.dropdown-item:hover{
+
+    background:#f3f8f4;
+
+    color:var(--primary);
+
+}
+
+/* =========================================================
+   Dashboard Heading
+========================================================= */
+
+.dashboard-content h3{
+
+    font-weight:700;
+
+    color:var(--dark);
+
+}
+
+.dashboard-content p{
+
+    color:var(--muted);
+
+}
+
+/* =========================================================
+   Statistics Cards
+========================================================= */
+
+.dashboard-card{
+
+    transition:var(--transition);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 20px 35px rgba(0,0,0,.12);
+
+}
+
+.dashboard-card small{
+
+    color:var(--muted);
+
+    font-weight:500;
+
+}
+
+.dashboard-card h2{
+
+    font-size:2rem;
+
+    font-weight:700;
+
+    margin:10px 0;
+
+    color:var(--dark);
+
+}
+
+.dashboard-card span{
+
+    font-size:.9rem;
+
+    font-weight:500;
+
+}
+
+/* =========================================================
+   Dashboard Icons
+========================================================= */
+
+.dashboard-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#fff;
+
+    font-size:2rem;
+
+    flex-shrink:0;
+
+}
+
+/* =========================================================
+   Dashboard Tables
+========================================================= */
+
+.table{
+
+    margin-bottom:0;
+
+}
+
+.table th{
+
+    background:#f8f9fa;
+
+    color:var(--dark);
+
+    font-weight:600;
+
+    border-bottom:2px solid var(--border);
+
+    white-space:nowrap;
+
+}
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+.table-hover tbody tr{
+
+    transition:var(--transition);
+
+}
+
+.table-hover tbody tr:hover{
+
+    background:#f5fff8;
+
+}
+
+/* =========================================================
+   Responsive Header
+========================================================= */
+
+@media(max-width:991px){
+
+.top-navbar{
+
+    padding:15px;
+
+}
+
+.top-navbar h4{
+
+    font-size:1.3rem;
+
+}
+
+.dashboard-card{
+
+    margin-bottom:20px;
+
+}
+
+}
+
+/* =========================================================
+   CHART CARDS
+========================================================= */
+
+.card canvas{
+
+    width:100% !important;
+
+    max-width:100%;
+
+}
+
+.card-header h5{
+
+    margin-bottom:4px;
+
+    font-weight:700;
+
+    color:var(--dark);
+
+}
+
+.card-header small{
+
+    color:var(--muted);
+
+}
+
+/* =========================================================
+   CHART CONTAINERS
+========================================================= */
+
+.chart-container{
+
+    position:relative;
+
+    width:100%;
+
+    min-height:320px;
+
+}
+
+.chart-sm{
+
+    min-height:220px;
+
+}
+
+.chart-lg{
+
+    min-height:420px;
+
+}
+
+/* =========================================================
+   LIST GROUPS
+========================================================= */
+
+.list-group{
+
+    border-radius:0;
+
+}
+
+.list-group-item{
+
+    border-left:none;
+
+    border-right:none;
+
+    border-top:none;
+
+    padding:18px 22px;
+
+    transition:var(--transition);
+
+}
+
+.list-group-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.list-group-item:hover{
+
+    background:#f8fff9;
+
+}
+
+/* =========================================================
+   USER AVATARS
+========================================================= */
+
+.user-avatar{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #eee;
+
+}
+
+.user-avatar-sm{
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+.user-avatar-lg{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+}
+
+/* =========================================================
+   STATUS BADGES
+========================================================= */
+
+.status-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    padding:6px 14px;
+
+    border-radius:50px;
+
+    font-size:.8rem;
+
+    font-weight:600;
+
+}
+
+.status-pending{
+
+    background:#fff3cd;
+
+    color:#856404;
+
+}
+
+.status-approved{
+
+    background:#d1e7dd;
+
+    color:#0f5132;
+
+}
+
+.status-rejected{
+
+    background:#f8d7da;
+
+    color:#842029;
+
+}
+
+.status-processing{
+
+    background:#cfe2ff;
+
+    color:#084298;
+
+}
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+.table-responsive{
+
+    border-radius:15px;
+
+}
+
+.table thead{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:2;
+
+}
+
+.table td{
+
+    padding:16px;
+
+}
+
+.table th{
+
+    padding:16px;
+
+}
+
+.table tbody tr{
+
+    transition:var(--transition);
+
+}
+
+.table tbody tr:hover{
+
+    transform:scale(1.003);
+
+}
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+.timeline{
+
+    list-style:none;
+
+    position:relative;
+
+    padding-left:30px;
+
+    margin:0;
+
+}
+
+.timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:10px;
+
+    top:0;
+
+    bottom:0;
+
+    width:2px;
+
+    background:#198754;
+
+}
+
+.timeline li{
+
+    position:relative;
+
+    margin-bottom:24px;
+
+    padding-left:18px;
+
+}
+
+.timeline li::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-27px;
+
+    top:5px;
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+    background:#198754;
+
+    border:3px solid #fff;
+
+    box-shadow:0 0 0 2px #198754;
+
+}
+
+/* =========================================================
+   APPROVAL CARDS
+========================================================= */
+
+.approval-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.approval-info{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+.approval-actions{
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+/* =========================================================
+   DELIVERY CARD
+========================================================= */
+
+.delivery-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.delivery-progress{
+
+    width:140px;
+
+}
+
+.progress{
+
+    height:8px;
+
+    border-radius:50px;
+
+}
+
+.progress-bar{
+
+    border-radius:50px;
+
+}
+
+/* =========================================================
+   TOP SUPPLIERS TABLE
+========================================================= */
+
+#topSuppliersTable td{
+
+    vertical-align:middle;
+
+}
+
+#topSuppliersTable img{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    margin-right:10px;
+
+}
+
+/* =========================================================
+   NOTIFICATION ITEMS
+========================================================= */
+
+.notification-item{
+
+    display:flex;
+
+    gap:15px;
+
+    align-items:flex-start;
+
+}
+
+.notification-icon{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#e8f5e9;
+
+    color:var(--primary);
+
+    font-size:1.2rem;
+
+}
+
+.notification-content h6{
+
+    margin-bottom:4px;
+
+    font-weight:600;
+
+}
+
+.notification-content small{
+
+    color:var(--muted);
+
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:768px){
+
+.timeline{
+
+    padding-left:20px;
+
+}
+
+.timeline::before{
+
+    left:7px;
+
+}
+
+.timeline li::before{
+
+    left:-20px;
+
+}
+
+.approval-card,
+
+.delivery-card{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.approval-actions{
+
+    width:100%;
+
+}
+
+.approval-actions .btn{
+
+    flex:1;
+
+}
+
+}
+
+/* =========================================================
+   QUICK ACTION BUTTONS
+========================================================= */
+
+.card .btn{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.card .btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+}
+
+/* =========================================================
+   MARKETPLACE SUMMARY
+========================================================= */
+
+.market-summary-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.market-summary-item:last-child{
+
+    border-bottom:none;
+
+}
+
+/* =========================================================
+   REPORT BUTTONS
+========================================================= */
+
+.report-btn{
+
+    padding:15px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+}
+
+.report-btn:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* =========================================================
+   ADMIN NOTES
+========================================================= */
+
+#adminNotes{
+
+    border-radius:15px;
+
+    resize:vertical;
+
+    min-height:180px;
+
+    box-shadow:none;
+
+}
+
+#adminNotes:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 .2rem rgba(25,135,84,.15);
+
+}
+
+/* =========================================================
+   SYSTEM HEALTH
+========================================================= */
+
+.system-status{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.system-status:last-child{
+
+    border-bottom:none;
+
+}
+
+/* =========================================================
+   FLOATING ACTION BUTTON
+========================================================= */
+
+#adminFab{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    border:none;
+
+    transition:var(--transition);
+
+    animation:fabPulse 2.5s infinite;
+
+}
+
+#adminFab:hover{
+
+    transform:scale(1.08);
+
+}
+
+@keyframes fabPulse{
+
+    0%{
+
+        box-shadow:0 0 0 0 rgba(25,135,84,.45);
+
+    }
+
+    70%{
+
+        box-shadow:0 0 0 18px rgba(25,135,84,0);
+
+    }
+
+    100%{
+
+        box-shadow:0 0 0 0 rgba(25,135,84,0);
+
+    }
+
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.dashboard-footer{
+
+    background:#fff;
+
+    padding:20px 30px;
+
+    border-top:1px solid var(--border);
+
+    color:var(--muted);
+
+}
+
+.dashboard-footer a{
+
+    color:var(--primary);
+
+    font-weight:500;
+
+}
+
+.dashboard-footer a:hover{
+
+    color:var(--primary-dark);
+
+}
+
+/* =========================================================
+   MOBILE BOTTOM NAVIGATION
+========================================================= */
+
+.mobile-bottom-nav{
+
+    position:fixed;
+
+    bottom:0;
+
+    left:0;
+
+    width:100%;
+
+    background:#fff;
+
+    border-top:1px solid var(--border);
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    padding:10px 0;
+
+    z-index:1050;
+
+    box-shadow:0 -4px 20px rgba(0,0,0,.08);
+
+}
+
+.mobile-bottom-nav a{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    color:var(--muted);
+
+    font-size:.8rem;
+
+    transition:var(--transition);
+
+}
+
+.mobile-bottom-nav a i{
+
+    font-size:1.25rem;
+
+    margin-bottom:4px;
+
+}
+
+.mobile-bottom-nav a.active{
+
+    color:var(--primary);
+
+    font-weight:600;
+
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal-content{
+
+    border:none;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+}
+
+.modal-header{
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.modal-footer{
+
+    border-top:1px solid var(--border);
+
+}
+
+/* =========================================================
+   DARK MODE
+========================================================= */
+
+body.dark-mode{
+
+    background:#121212;
+
+    color:#f1f1f1;
+
+}
+
+body.dark-mode .card,
+
+body.dark-mode .top-navbar,
+
+body.dark-mode .dashboard-footer,
+
+body.dark-mode .mobile-bottom-nav{
+
+    background:#1f1f1f;
+
+    color:#fff;
+
+}
+
+body.dark-mode .card-header{
+
+    background:#1f1f1f;
+
+    border-color:#333;
+
+}
+
+body.dark-mode .table{
+
+    color:#f1f1f1;
+
+}
+
+body.dark-mode .table th{
+
+    background:#2a2a2a;
+
+    color:#fff;
+
+}
+
+body.dark-mode .list-group-item{
+
+    background:#1f1f1f;
+
+    color:#fff;
+
+    border-color:#333;
+
+}
+
+body.dark-mode .form-control,
+
+body.dark-mode .input-group-text{
+
+    background:#2b2b2b;
+
+    color:#fff;
+
+    border-color:#444;
+
+}
+
+body.dark-mode .dropdown-menu{
+
+    background:#222;
+
+}
+
+body.dark-mode .dropdown-item{
+
+    color:#fff;
+
+}
+
+body.dark-mode .dropdown-item:hover{
+
+    background:#2d2d2d;
+
+}
+
+/* =========================================================
+   UTILITIES
+========================================================= */
+
+.cursor-pointer{
+
+    cursor:pointer;
+
+}
+
+.shadow-hover{
+
+    transition:var(--transition);
+
+}
+
+.shadow-hover:hover{
+
+    box-shadow:0 12px 28px rgba(0,0,0,.12);
+
+}
+
+.rounded-xl{
+
+    border-radius:20px;
+
+}
+
+.text-small{
+
+    font-size:.85rem;
+
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:991px){
+
+.dashboard-footer{
+
+    text-align:center;
+
+    margin-bottom:75px;
+
+}
+
+.dashboard-footer .text-md-end{
+
+    text-align:center !important;
+
+    margin-top:10px;
+
+}
+
+}
+
+@media(min-width:992px){
+
+.mobile-bottom-nav{
+
+    display:none;
+
+}
+
+}
