@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<title>
+Supplier Analytics | Kenya Gas Marketplace
+</title>
+
+
+
+<link 
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+
+<link 
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+rel="stylesheet">
+
+
+<link rel="stylesheet" href="assets/css/supplier-dashboard.css">
+
+<link rel="stylesheet" href="assets/css/profile.css">
+
+
+
+</head>
+
+
+<body>
+
+
+
+<!-- Navbar -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
+
+
+<div class="container-fluid">
+
+
+<a class="navbar-brand d-flex align-items-center fw-bold"
+href="supplier-dashboard.html">
+
+
+<img 
+
+src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png"
+
+class="supplier-logo me-2"
+
+alt="Kenya Gas Logo">
+
+
+Kenya Gas Supplier
+
+
+</a>
+
+
+</div>
+
+
+</nav>
+
+
+
+
+
+
+<div class="container-fluid mt-4">
+
+
+<div class="row">
+
+
+
+<!-- Sidebar -->
+
+<div class="col-lg-3 mb-4">
+
+
+<div class="card shadow-sm">
+
+
+<div class="card-body">
+
+
+<h5 class="fw-bold">
+
+Supplier Menu
+
+</h5>
+
+
+<hr>
+
+
+
+<a href="supplier-dashboard.html"
+class="btn btn-outline-success w-100 mb-2">
+
+<i class="bi bi-speedometer2"></i>
+Dashboard
+
+</a>
+
+
+
+<a href="supplier-products.html"
+class="btn btn-outline-success w-100 mb-2">
+
+<i class="bi bi-box"></i>
+Products
+
+</a>
+
+
+
+
+<a href="supplier-orders.html"
+class="btn btn-outline-success w-100 mb-2">
+
+<i class="bi bi-cart"></i>
+Orders
+
+</a>
+
+
+
+
+<a href="supplier-wallet.html"
+class="btn btn-outline-success w-100 mb-2">
+
+<i class="bi bi-wallet2"></i>
+Wallet
+
+</a>
+
+
+
+
+<a href="supplier-analytics.html"
+class="btn btn-success w-100 mb-2">
+
+<i class="bi bi-bar-chart"></i>
+Analytics
+
+</a>
+
+
+
+
+<a href="supplier-settings.html"
+class="btn btn-outline-success w-100">
+
+<i class="bi bi-gear"></i>
+Settings
+
+</a>
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Analytics Content -->
+
+
+<div class="col-lg-9">
+
+
+<h2 class="fw-bold mb-4">
+
+<i class="bi bi-bar-chart-line text-success"></i>
+
+Sales Analytics
+
+</h2>
+
+
+
+
+
+
+
+
+<!-- Statistics Cards -->
+
+
+<div class="row g-3 mb-4">
+
+
+
+<div class="col-md-3">
+
+
+<div class="card shadow-sm text-center">
+
+
+<div class="card-body">
+
+
+<i class="bi bi-cart-check fs-2 text-success"></i>
+
+
+<h6>
+Orders
+</h6>
+
+
+<h3 id="totalOrders">
+0
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card shadow-sm text-center">
+
+
+<div class="card-body">
+
+
+<i class="bi bi-fire fs-2 text-danger"></i>
+
+
+<h6>
+Cylinders Sold
+</h6>
+
+
+<h3 id="totalCylinders">
+
+0
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card shadow-sm text-center">
+
+
+<div class="card-body">
+
+
+<i class="bi bi-cash fs-2 text-success"></i>
+
+
+<h6>
+Revenue
+</h6>
+
+
+<h3 id="totalRevenue">
+
+KES 0
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="col-md-3">
+
+
+<div class="card shadow-sm text-center">
+
+
+<div class="card-body">
+
+
+<i class="bi bi-people fs-2 text-primary"></i>
+
+
+<h6>
+Customers
+</h6>
+
+
+<h3 id="totalCustomers">
+
+0
+
+</h3>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- Sales Chart -->
+
+
+<div class="card shadow-sm mb-4">
+
+
+<div class="card-header bg-success text-white">
+
+
+<h5 class="mb-0">
+
+Monthly Sales Performance
+
+</h5>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<canvas id="salesChart"></canvas>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+<!-- Product Performance -->
+
+
+<div class="card shadow-sm">
+
+
+<div class="card-header">
+
+
+<h5>
+
+Popular Products
+
+</h5>
+
+
+</div>
+
+
+
+<div class="card-body">
+
+
+<div class="table-responsive">
+
+
+<table class="table table-bordered">
+
+
+<thead class="table-success">
+
+
+<tr>
+
+<th>
+Cylinder
+</th>
+
+
+<th>
+Quantity Sold
+</th>
+
+
+<th>
+Revenue
+</th>
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="productAnalytics">
+
+
+<tr>
+
+<td colspan="3"
+class="text-center">
+
+Loading data...
+
+</td>
+
+</tr>
+
+
+</tbody>
+
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script type="module" src="assets/js/firebase.js"></script>
+
+<script type="module" src="assets/js/auth-guard.js"></script>
+
+<script type="module" src="assets/js/supplier-analytics.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+</body>
+
+</html>
