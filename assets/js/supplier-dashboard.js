@@ -1,130 +1,84 @@
-// ======================================================
-// Kenya Gas
-// Supplier Dashboard
-// Part 1
-// ======================================================
-
-import { auth, db } from "./firebase.js";
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Dashboard
+   Part 1
+========================================================== */
 
 import {
-    onAuthStateChanged,
-    signOut
+
+    auth,
+
+    db
+
+} from "./firebase.js";
+
+import {
+
+    onAuthStateChanged
+
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
+
     doc,
+
     getDoc
+
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// ======================================================
-// GLOBAL VARIABLES
-// ======================================================
+/* ==========================================================
+   Dashboard Variables
+========================================================== */
 
-let currentSupplier = null;
+let supplier = null;
 
-// ======================================================
-// DOM ELEMENTS
-// ======================================================
+let supplierData = null;
 
-const supplierName =
-    document.getElementById("supplierName");
-
-const supplierGreeting =
-    document.getElementById("supplierGreeting");
-
-const logoutBtn =
-    document.getElementById("logoutBtn");
-
-// ======================================================
-// AUTHENTICATION
-// ======================================================
+/* ==========================================================
+   Initialize Dashboard
+========================================================== */
 
 onAuthStateChanged(auth, async (user) => {
 
     if (!user) {
 
-        window.location.href = "login.html";
+        window.location.href = "supplier-login.html";
 
         return;
 
     }
 
-    await loadSupplier(user.uid);
-
-});
-
-// ======================================================
-// LOAD SUPPLIER PROFILE
-// ======================================================
-
-async function loadSupplier(uid) {
+    supplier = user;
 
     try {
 
-        const supplierRef =
-            doc(db, "suppliers", uid);
+        const supplierRef = doc(
 
-        const supplierSnap =
-            await getDoc(supplierRef);
+            db,
+
+            "suppliers",
+
+            user.uid
+
+        );
+
+        const supplierSnap = await getDoc(supplierRef);
 
         if (!supplierSnap.exists()) {
 
             alert("Supplier account not found.");
 
-            await signOut(auth);
-
-            window.location.href = "login.html";
+            window.location.href = "supplier-login.html";
 
             return;
 
         }
 
-        currentSupplier = supplierSnap.data();
+        supplierData = supplierSnap.data();
 
-        // Verify role
+        loadSupplierProfile();
 
-        if (currentSupplier.role !== "supplier") {
-
-            alert("Access denied.");
-
-            await signOut(auth);
-
-            window.location.href = "login.html";
-
-            return;
-
-        }
-
-        // Update UI
-
-        supplierName.textContent =
-            currentSupplier.businessName;
-
-        supplierGreeting.textContent =
-            currentSupplier.businessName;
-
-        console.log(
-            "Supplier loaded:",
-            currentSupplier
-        );
-
-        // ===================================
-        // NEXT FUNCTIONS
-        // ===================================
-
-        loadDashboard();
-
-        loadMatchingOrders();
-
-        loadInventory();
-
-        loadNotifications();
-
-        loadReviews();
-
-        loadCustomers();
-
-        loadEarnings();
+        console.log("Supplier Dashboard Loaded");
 
     }
 
@@ -132,31 +86,890 @@ async function loadSupplier(uid) {
 
         console.error(error);
 
-        alert("Failed to load supplier profile.");
+    }
+
+});
+
+/* ==========================================================
+   Load Supplier Profile
+========================================================== */
+
+function loadSupplierProfile() {
+
+    const businessName =
+
+        supplierData.businessName ||
+
+        supplierData.business ||
+
+        "Supplier";
+
+    const email =
+
+        supplier.email;
+
+    const logo =
+
+        supplierData.logoURL ||
+
+        supplierData.logo ||
+
+        "https://ui-avatars.com/api/?name=" +
+
+        encodeURIComponent(businessName) +
+
+        "&background=198754&color=ffffff";
+
+    /* Sidebar */
+
+    document.getElementById("supplierName").textContent =
+
+        businessName;
+
+    document.getElementById("supplierEmail").textContent =
+
+        email;
+
+    document.getElementById("supplierPhoto").src =
+
+        logo;
+
+    /* Top Navbar */
+
+    document.getElementById("welcomeName").textContent =
+
+        businessName;
+
+    document.getElementById("topProfileName").textContent =
+
+        businessName;
+
+    document.getElementById("topProfilePhoto").src =
+
+        logo;
+
+    /* Approval Badge */
+
+    const approval =
+
+        supplierData.approvalStatus ||
+
+        "Pending Review";
+
+    const badge =
+
+        document.getElementById("approvalBadge");
+
+    badge.textContent = approval;
+
+    badge.className = "badge";
+
+    switch (approval) {
+
+        case "Approved":
+
+            badge.classList.add("bg-success");
+
+            break;
+
+        case "Rejected":
+
+            badge.classList.add("bg-danger");
+
+            break;
+
+        default:
+
+            badge.classList.add("bg-warning");
 
     }
 
 }
 
-// ======================================================
-// LOGOUT
-// ======================================================
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Dashboard
+   Part 2
+   Dashboard Statistics
+========================================================== */
 
-if (logoutBtn) {
+import {
 
-    logoutBtn.addEventListener("click", async () => {
+    collection,
 
-        try {
+    query,
 
-            await signOut(auth);
+    where,
 
-            window.location.href = "login.html";
+    getDocs
+
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+/* ==========================================================
+   Load Dashboard Statistics
+========================================================== */
+
+async function loadDashboardStatistics() {
+
+    try {
+
+        /* -----------------------------
+           Products
+        ------------------------------ */
+
+        const productsQuery = query(
+
+            collection(db, "products"),
+
+            where("supplierId", "==", supplier.uid)
+
+        );
+
+        const productsSnapshot =
+            await getDocs(productsQuery);
+
+        const totalProducts =
+            productsSnapshot.size;
+
+        document.getElementById(
+            "totalProducts"
+        ).textContent = totalProducts;
+
+        document.getElementById(
+            "activeProducts"
+        ).textContent = totalProducts;
+
+        /* -----------------------------
+           Orders
+        ------------------------------ */
+
+        const ordersQuery = query(
+
+            collection(db, "orders"),
+
+            where("supplierId", "==", supplier.uid)
+
+        );
+
+        const ordersSnapshot =
+            await getDocs(ordersQuery);
+
+        let todayOrders = 0;
+
+        let pending = 0;
+
+        let processing = 0;
+
+        let delivered = 0;
+
+        let cancelled = 0;
+
+        let revenue = 0;
+
+        const today = new Date();
+
+        today.setHours(0,0,0,0);
+
+        ordersSnapshot.forEach((docSnap) => {
+
+            const order =
+                docSnap.data();
+
+            if (order.createdAt?.toDate) {
+
+                const orderDate =
+                    order.createdAt.toDate();
+
+                orderDate.setHours(0,0,0,0);
+
+                if (
+
+                    orderDate.getTime() ===
+
+                    today.getTime()
+
+                ) {
+
+                    todayOrders++;
+
+                }
+
+            }
+
+            switch (order.status) {
+
+                case "Pending":
+
+                    pending++;
+
+                    break;
+
+                case "Processing":
+
+                    processing++;
+
+                    break;
+
+                case "Delivered":
+
+                    delivered++;
+
+                    revenue +=
+                        Number(order.total || 0);
+
+                    break;
+
+                case "Cancelled":
+
+                    cancelled++;
+
+                    break;
+
+            }
+
+        });
+
+        document.getElementById(
+            "todayOrders"
+        ).textContent = todayOrders;
+
+        document.getElementById(
+            "pendingOrders"
+        ).textContent = pending;
+
+        document.getElementById(
+            "processingOrders"
+        ).textContent = processing;
+
+        document.getElementById(
+            "deliveredOrders"
+        ).textContent = delivered;
+
+        document.getElementById(
+            "cancelledOrders"
+        ).textContent = cancelled;
+
+        document.getElementById(
+            "monthlyRevenue"
+        ).textContent =
+            "KSh " +
+            revenue.toLocaleString();
+
+        /* -----------------------------
+           Wallet
+        ------------------------------ */
+
+        const walletBalance =
+            Number(
+                supplierData.walletBalance || 0
+            );
+
+        document.getElementById(
+            "walletBalance"
+        ).textContent =
+            "KSh " +
+            walletBalance.toLocaleString();
+
+        /* -----------------------------
+           Supplier Status
+        ------------------------------ */
+
+        document.getElementById(
+            "dashboardApprovalStatus"
+        ).textContent =
+            supplierData.approvalStatus ||
+            "Pending Review";
+
+        document.getElementById(
+            "dashboardSellerStatus"
+        ).textContent =
+            supplierData.sellerStatus ||
+            "Inactive";
+
+        /* -----------------------------
+           Last Login
+        ------------------------------ */
+
+        if (
+            supplier.metadata?.lastSignInTime
+        ) {
+
+            document.getElementById(
+                "lastLoginTime"
+            ).textContent =
+                new Date(
+                    supplier.metadata.lastSignInTime
+                ).toLocaleString();
 
         }
 
-        catch (error) {
+        /* -----------------------------
+           Profile Completion
+        ------------------------------ */
 
-            console.error(error);
+        calculateProfileCompletion();
+
+    }
+
+    catch (error) {
+
+        console.error(
+
+            "Dashboard statistics error:",
+
+            error
+
+        );
+
+    }
+
+}
+
+/* ==========================================================
+   Profile Completion
+========================================================== */
+
+function calculateProfileCompletion() {
+
+    const fields = [
+
+        "businessName",
+
+        "ownerName",
+
+        "phone",
+
+        "email",
+
+        "county",
+
+        "town",
+
+        "businessAddress",
+
+        "businessType",
+
+        "logoURL"
+
+    ];
+
+    let completed = 0;
+
+    fields.forEach((field) => {
+
+        if (supplierData[field]) {
+
+            completed++;
+
+        }
+
+    });
+
+    const percentage = Math.round(
+
+        (completed / fields.length) * 100
+
+    );
+
+    document.getElementById(
+        "profileCompletion"
+    ).textContent =
+        percentage + "%";
+
+    document.getElementById(
+        "profileProgress"
+    ).style.width =
+        percentage + "%";
+
+}
+
+/* ==========================================================
+   Start Loading Dashboard
+========================================================== */
+
+loadDashboardStatistics();
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Dashboard
+   Part 3
+========================================================== */
+
+async function loadDashboardLists() {
+
+    try {
+
+        /* =====================================
+           Recent Orders
+        ====================================== */
+
+        const recentOrdersBody =
+
+            document.getElementById(
+
+                "recentOrdersTable"
+
+            );
+
+        recentOrdersBody.innerHTML = "";
+
+        const ordersQuery = query(
+
+            collection(db, "orders"),
+
+            where("supplierId", "==", supplier.uid)
+
+        );
+
+        const orderSnapshot =
+
+            await getDocs(ordersQuery);
+
+        let recentOrders = [];
+
+        orderSnapshot.forEach(doc => {
+
+            recentOrders.push({
+
+                id: doc.id,
+
+                ...doc.data()
+
+            });
+
+        });
+
+        recentOrders.sort((a, b) => {
+
+            const aTime =
+
+                a.createdAt?.seconds || 0;
+
+            const bTime =
+
+                b.createdAt?.seconds || 0;
+
+            return bTime - aTime;
+
+        });
+
+        recentOrders.slice(0, 5).forEach(order => {
+
+            recentOrdersBody.innerHTML += `
+
+            <tr>
+
+                <td>#${order.id.substring(0,6)}</td>
+
+                <td>${order.customerName || "Customer"}</td>
+
+                <td>${order.productName || "-"}</td>
+
+                <td>
+
+                    <span class="badge bg-primary">
+
+                        ${order.status || "Pending"}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    KSh ${(order.total || 0).toLocaleString()}
+
+                </td>
+
+            </tr>
+
+            `;
+
+        });
+
+        if (!recentOrders.length) {
+
+            recentOrdersBody.innerHTML = `
+
+            <tr>
+
+                <td colspan="5"
+
+                    class="text-center py-4 text-muted">
+
+                    No orders found.
+
+                </td>
+
+            </tr>
+
+            `;
+
+        }
+
+        /* =====================================
+           Products
+        ====================================== */
+
+        const lowStockList =
+
+            document.getElementById(
+
+                "lowStockList"
+
+            );
+
+        const topProducts =
+
+            document.getElementById(
+
+                "topProducts"
+
+            );
+
+        lowStockList.innerHTML = "";
+
+        topProducts.innerHTML = "";
+
+        const productsQuery = query(
+
+            collection(db, "products"),
+
+            where("supplierId", "==", supplier.uid)
+
+        );
+
+        const productSnapshot =
+
+            await getDocs(productsQuery);
+
+        let active = 0;
+
+        let hidden = 0;
+
+        let outOfStock = 0;
+
+        let lowStock = 0;
+
+        let bestSelling = [];
+
+        productSnapshot.forEach(doc => {
+
+            const product = doc.data();
+
+            const stock =
+
+                Number(product.stock || 0);
+
+            if (
+
+                product.status === "Hidden"
+
+            ) {
+
+                hidden++;
+
+            } else {
+
+                active++;
+
+            }
+
+            if (stock <= 0) {
+
+                outOfStock++;
+
+            }
+
+            if (stock > 0 && stock <= 10) {
+
+                lowStock++;
+
+                lowStockList.innerHTML += `
+
+                <div class="list-group-item">
+
+                    <strong>
+
+                        ${product.name}
+
+                    </strong>
+
+                    <br>
+
+                    <small class="text-danger">
+
+                        Remaining:
+
+                        ${stock}
+
+                    </small>
+
+                </div>
+
+                `;
+
+            }
+
+            bestSelling.push({
+
+                name:
+
+                    product.name,
+
+                sold:
+
+                    Number(
+
+                        product.totalSold || 0
+
+                    )
+
+            });
+
+        });
+
+        if (lowStock === 0) {
+
+            lowStockList.innerHTML = `
+
+            <div class="list-group-item text-center text-success">
+
+                All products are sufficiently stocked.
+
+            </div>
+
+            `;
+
+        }
+
+        bestSelling.sort(
+
+            (a,b)=>b.sold-a.sold
+
+        );
+
+        bestSelling.slice(0,5).forEach(item=>{
+
+            topProducts.innerHTML += `
+
+            <div class="list-group-item d-flex justify-content-between">
+
+                <span>
+
+                    ${item.name}
+
+                </span>
+
+                <span class="badge bg-success">
+
+                    ${item.sold}
+
+                </span>
+
+            </div>
+
+            `;
+
+        });
+
+        if (!bestSelling.length) {
+
+            topProducts.innerHTML = `
+
+            <div class="list-group-item text-center text-muted">
+
+                No products yet.
+
+            </div>
+
+            `;
+
+        }
+
+        /* =====================================
+           Inventory Summary
+        ====================================== */
+
+        document.getElementById(
+
+            "activeProducts"
+
+        ).textContent = active;
+
+        document.getElementById(
+
+            "hiddenProducts"
+
+        ).textContent = hidden;
+
+        document.getElementById(
+
+            "outOfStockProducts"
+
+        ).textContent = outOfStock;
+
+        document.getElementById(
+
+            "lowStockProducts"
+
+        ).textContent = lowStock;
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+/* ==========================================================
+   Customer Reviews Placeholder
+========================================================== */
+
+async function loadCustomerReviews(){
+
+    const reviewList =
+
+        document.getElementById(
+
+            "customerReviews"
+
+        );
+
+    reviewList.innerHTML = `
+
+    <div class="list-group-item text-center text-muted">
+
+        Customer reviews will appear here.
+
+    </div>
+
+    `;
+
+}
+
+/* ==========================================================
+   Load Dashboard Lists
+========================================================== */
+
+loadDashboardLists();
+
+loadCustomerReviews();
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Dashboard
+   Part 4
+========================================================== */
+
+/* ==========================================================
+   Sales Chart
+========================================================== */
+
+let salesChart = null;
+
+function renderSalesChart() {
+
+    const canvas = document.getElementById("salesChart");
+
+    if (!canvas) return;
+
+    if (salesChart) {
+
+        salesChart.destroy();
+
+    }
+
+    salesChart = new Chart(canvas, {
+
+        type: "line",
+
+        data: {
+
+            labels: [
+
+                "Mon",
+
+                "Tue",
+
+                "Wed",
+
+                "Thu",
+
+                "Fri",
+
+                "Sat",
+
+                "Sun"
+
+            ],
+
+            datasets: [
+
+                {
+
+                    label: "Sales (KES)",
+
+                    data: [
+
+                        0,
+
+                        0,
+
+                        0,
+
+                        0,
+
+                        0,
+
+                        0,
+
+                        0
+
+                    ],
+
+                    borderColor: "#198754",
+
+                    backgroundColor: "rgba(25,135,84,.15)",
+
+                    fill: true,
+
+                    tension: .35
+
+                }
+
+            ]
+
+        },
+
+        options: {
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+            plugins: {
+
+                legend: {
+
+                    display: true
+
+                }
+
+            },
+
+            scales: {
+
+                y: {
+
+                    beginAtZero: true
+
+                }
+
+            }
 
         }
 
@@ -164,1650 +977,173 @@ if (logoutBtn) {
 
 }
 
-// ======================================================
-// PLACEHOLDER FUNCTIONS
-// (Implemented in later parts)
-// ======================================================
+/* ==========================================================
+   Notifications
+========================================================== */
 
-function loadDashboard() {}
+function loadNotifications() {
 
-function loadMatchingOrders() {}
+    const list =
 
-function loadInventory() {}
+        document.getElementById(
 
-function loadNotifications() {}
+            "notificationsList"
 
-function loadReviews() {}
-
-function loadCustomers() {}
-
-function loadEarnings() {}// ======================================================
-// DASHBOARD STATISTICS
-// Part 2
-// ======================================================
-
-import {
-    collection,
-    query,
-    where,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-// ======================================
-// DASHBOARD ELEMENTS
-// ======================================
-
-const todayOrdersEl =
-    document.getElementById("todayOrders");
-
-const pendingOrdersEl =
-    document.getElementById("pendingOrders");
-
-const completedOrdersEl =
-    document.getElementById("completedOrders");
-
-const totalRevenueEl =
-    document.getElementById("totalRevenue");
-
-const supplierRatingEl =
-    document.getElementById("supplierRating");
-
-const customersServedEl =
-    document.getElementById("customersServed");
-
-const stockCountEl =
-    document.getElementById("stockCount");
-
-const lowStockItemsEl =
-    document.getElementById("lowStockItems");
-
-// ======================================
-// LOAD DASHBOARD
-// ======================================
-
-async function loadDashboard() {
-
-    if (!currentSupplier) return;
-
-    try {
-
-        const ordersQuery = query(
-            collection(db, "orders"),
-            where(
-                "supplierId",
-                "==",
-                auth.currentUser.uid
-            )
         );
 
-        const snapshot =
-            await getDocs(ordersQuery);
+    const badge =
 
-        let todayOrders = 0;
-        let pendingOrders = 0;
-        let completedOrders = 0;
-        let revenue = 0;
+        document.getElementById(
 
-        const today =
-            new Date().toDateString();
+            "notificationCount"
 
-        snapshot.forEach(doc => {
-
-            const order = doc.data();
-
-            // Today's orders
-
-            if (
-                order.createdAt &&
-                order.createdAt.toDate().toDateString() === today
-            ) {
-
-                todayOrders++;
-
-            }
-
-            // Pending
-
-            if (order.status === "pending") {
-
-                pendingOrders++;
-
-            }
-
-            // Delivered
-
-            if (order.status === "delivered") {
-
-                completedOrders++;
-
-                revenue +=
-                    Number(order.totalPrice || 0);
-
-            }
-
-        });
-
-        // Update UI
-
-        todayOrdersEl.textContent =
-            todayOrders;
-
-        pendingOrdersEl.textContent =
-            pendingOrders;
-
-        completedOrdersEl.textContent =
-            completedOrders;
-
-        totalRevenueEl.textContent =
-            revenue.toLocaleString();
-
-        supplierRatingEl.textContent =
-            `${currentSupplier.rating || 0} ⭐`;
-
-        customersServedEl.textContent =
-            currentSupplier.totalOrders || 0;
-
-        // Inventory loaded later
-
-        stockCountEl.textContent = "...";
-
-        lowStockItemsEl.textContent = "...";
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Dashboard Error:",
-            error
         );
 
-    }
+    if (!list) return;
 
-}// ======================================================
-// LOAD MATCHING ORDERS
-// Part 3
-// ======================================================
+    const notifications = [
 
-import {
-    collection,
-    query,
-    where,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+        {
 
-const incomingOrdersContainer =
-    document.getElementById("incomingOrdersContainer");
+            icon: "bi-check-circle-fill text-success",
 
-const incomingOrderCount =
-    document.getElementById("incomingOrderCount");
+            text: "Welcome to your supplier dashboard."
 
-const newOrdersBadge =
-    document.getElementById("newOrdersBadge");
+        },
 
-// ======================================
-// LOAD MATCHING ORDERS
-// ======================================
+        {
 
-async function loadMatchingOrders() {
+            icon: "bi-box-seam text-primary",
 
-    if (!currentSupplier) return;
+            text: "Remember to keep product stock updated."
 
-    // Supplier must be active
+        },
 
-    if (currentSupplier.active === false) {
+        {
 
-        incomingOrdersContainer.innerHTML = `
-            <div class="col-12">
-                <div class="alert alert-warning">
-                    Your business is currently offline.
-                </div>
-            </div>
+            icon: "bi-wallet2 text-warning",
+
+            text: "Wallet withdrawals will appear here."
+
+        }
+
+    ];
+
+    list.innerHTML = "";
+
+    notifications.forEach(item => {
+
+        list.innerHTML += `
+
+        <div class="list-group-item">
+
+            <i class="bi ${item.icon} me-2"></i>
+
+            ${item.text}
+
+        </div>
+
         `;
 
-        return;
+    });
 
-    }
+    if (badge) {
 
-    // Supplier must be verified
-
-    if (currentSupplier.verified !== true) {
-
-        incomingOrdersContainer.innerHTML = `
-            <div class="col-12">
-                <div class="alert alert-danger">
-                    Your supplier account has not yet been verified.
-                </div>
-            </div>
-        `;
-
-        return;
-
-    }
-
-    try {
-
-        incomingOrdersContainer.innerHTML = `
-            <div class="col-12 text-center">
-
-                Loading nearby orders...
-
-            </div>
-        `;
-
-        const ordersQuery = query(
-            collection(db, "orders"),
-            where("status", "==", "pending")
-        );
-
-        const snapshot =
-            await getDocs(ordersQuery);
-
-        incomingOrdersContainer.innerHTML = "";
-
-        let matches = 0;
-
-        snapshot.forEach(docSnap => {
-
-            const order = docSnap.data();
-
-            // Already accepted
-
-            if (order.supplierId) return;
-
-            // County mismatch
-
-            if (
-                order.county !==
-                currentSupplier.county
-            ) return;
-
-            // Town mismatch
-
-            if (
-                order.town !==
-                currentSupplier.town
-            ) return;
-
-            matches++;
-
-            incomingOrdersContainer.innerHTML += `
-
-            <div class="col-lg-6">
-
-                <div class="card shadow-sm border-0">
-
-                    <div class="card-body">
-
-                        <div class="d-flex justify-content-between">
-
-                            <h5>
-
-                                ${order.customerName}
-
-                            </h5>
-
-                            <span class="badge bg-warning">
-
-                                Pending
-
-                            </span>
-
-                        </div>
-
-                        <hr>
-
-                        <p>
-
-                            <strong>Gas:</strong>
-
-                            ${order.gasType}
-
-                        </p>
-
-                        <p>
-
-                            <strong>Quantity:</strong>
-
-                            ${order.quantity}
-
-                        </p>
-
-                        <p>
-
-                            <strong>Location:</strong>
-
-                            ${order.address}
-
-                        </p>
-
-                        <p>
-
-                            <strong>Total:</strong>
-
-                            KES ${Number(order.totalPrice).toLocaleString()}
-
-                        </p>
-
-                        <div class="d-grid gap-2 mt-3">
-
-                            <button
-                                class="btn btn-success accept-order"
-                                data-id="${docSnap.id}">
-
-                                Accept Order
-
-                            </button>
-
-                            <button
-                                class="btn btn-outline-danger reject-order"
-                                data-id="${docSnap.id}">
-
-                                Reject
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            `;
-
-        });
-
-        if (matches === 0) {
-
-            incomingOrdersContainer.innerHTML = `
-                <div class="col-12">
-
-                    <div class="alert alert-info">
-
-                        No matching orders available.
-
-                    </div>
-
-                </div>
-            `;
-
-        }
-
-        incomingOrderCount.textContent =
-            `${matches} Orders`;
-
-        newOrdersBadge.textContent =
-            matches;
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-    }
-
-}// ======================================================
-// PART 4
-// ACCEPT / REJECT ORDERS
-// ======================================================
-
-import {
-    doc,
-    runTransaction,
-    updateDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-// ======================================
-// BUTTON EVENTS
-// ======================================
-
-document.addEventListener("click", async (e) => {
-
-    // -------------------------------
-    // ACCEPT
-    // -------------------------------
-
-    if (e.target.classList.contains("accept-order")) {
-
-        const orderId = e.target.dataset.id;
-
-        await acceptOrder(orderId);
-
-    }
-
-    // -------------------------------
-    // REJECT
-    // -------------------------------
-
-    if (e.target.classList.contains("reject-order")) {
-
-        const orderId = e.target.dataset.id;
-
-        await rejectOrder(orderId);
-
-    }
-
-});
-
-// ======================================================
-// ACCEPT ORDER (TRANSACTION)
-// ======================================================
-
-async function acceptOrder(orderId) {
-
-    try {
-
-        const orderRef =
-            doc(db, "orders", orderId);
-
-        await runTransaction(db, async (transaction) => {
-
-            const orderSnap =
-                await transaction.get(orderRef);
-
-            if (!orderSnap.exists()) {
-
-                throw new Error("Order no longer exists.");
-
-            }
-
-            const order =
-                orderSnap.data();
-
-            // Already taken
-
-            if (
-                order.status !== "pending" ||
-                order.supplierId
-            ) {
-
-                throw new Error(
-                    "This order has already been accepted."
-                );
-
-            }
-
-            // Assign supplier
-
-            transaction.update(orderRef, {
-
-                supplierId:
-                    auth.currentUser.uid,
-
-                supplierName:
-                    currentSupplier.businessName,
-
-                supplierPhone:
-                    currentSupplier.phone,
-
-                status:
-                    "accepted",
-
-                acceptedAt:
-                    serverTimestamp()
-
-            });
-
-        });
-
-        alert("Order accepted successfully.");
-
-        loadMatchingOrders();
-
-        loadDashboard();
-
-    }
-
-    catch (error) {
-
-        alert(error.message);
-
-        console.error(error);
+        badge.textContent = notifications.length;
 
     }
 
 }
 
-// ======================================================
-// REJECT ORDER
-// ======================================================
+/* ==========================================================
+   Activity Timeline
+========================================================== */
 
-async function rejectOrder(orderId) {
+function loadActivityTimeline() {
 
-    const confirmed =
-        confirm("Reject this order?");
+    const timeline =
 
-    if (!confirmed) return;
+        document.getElementById(
 
-    try {
-
-        const orderRef =
-            doc(db, "orders", orderId);
-
-        await updateDoc(orderRef, {
-
-            rejectedBy: auth.currentUser.uid,
-
-            rejectedAt: serverTimestamp()
-
-        });
-
-        alert("Order rejected.");
-
-        loadMatchingOrders();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        alert(error.message);
-
-    }
-
-}// ======================================================
-// PART 5
-// DELIVERY MANAGEMENT
-// ======================================================
-
-import {
-    collection,
-    query,
-    where,
-    getDocs,
-    doc,
-    updateDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-const deliveryTableBody =
-    document.getElementById("deliveryTableBody");
-
-// ======================================
-// LOAD ACCEPTED ORDERS
-// ======================================
-
-async function loadDeliveries() {
-
-    if (!currentSupplier) return;
-
-    try {
-
-        const q = query(
-
-            collection(db, "orders"),
-
-            where(
-                "supplierId",
-                "==",
-                auth.currentUser.uid
-            )
+            "activityTimeline"
 
         );
 
-        const snapshot =
-            await getDocs(q);
+    if (!timeline) return;
 
-        deliveryTableBody.innerHTML = "";
+    timeline.innerHTML = `
 
-        snapshot.forEach(docSnap => {
+    <div class="list-group-item">
 
-            const order = docSnap.data();
+        <strong>Dashboard Login</strong>
 
-            if (
-                order.status === "pending"
-            ) return;
+        <br>
 
-            deliveryTableBody.innerHTML += `
+        <small class="text-muted">
 
-<tr>
+            ${new Date().toLocaleString()}
 
-<td>
+        </small>
 
-${docSnap.id.substring(0,8)}
+    </div>
 
-</td>
+    <div class="list-group-item">
 
-<td>
+        Supplier account verified.
 
-${order.customerName}
+    </div>
 
-</td>
+    <div class="list-group-item">
 
-<td>
+        Ready to receive customer orders.
 
-${order.gasType}
+    </div>
 
-</td>
-
-<td>
-
-${order.town}
-
-</td>
-
-<td>
-
-<span class="badge bg-primary">
-
-${formatStatus(order.status)}
-
-</span>
-
-</td>
-
-<td>
-
-<div class="btn-group">
-
-<button
-
-class="btn btn-success btn-sm next-status"
-
-data-id="${docSnap.id}"
-
-data-status="${order.status}">
-
-Next
-
-</button>
-
-</div>
-
-</td>
-
-</tr>
-
-`;
-
-        });
-
-        if (deliveryTableBody.innerHTML === "") {
-
-            deliveryTableBody.innerHTML = `
-
-<tr>
-
-<td colspan="6" class="text-center text-muted">
-
-No active deliveries.
-
-</td>
-
-</tr>
-
-`;
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
+    `;
 
 }
 
-// ======================================
-// STATUS BUTTON
-// ======================================
+/* ==========================================================
+   Logout Buttons
+========================================================== */
 
-document.addEventListener("click", async (e)=>{
+function initializeLogout() {
 
-    if(!e.target.classList.contains("next-status")) return;
+    const logoutButtons = [
 
-    const orderId =
-        e.target.dataset.id;
+        document.getElementById(
 
-    const currentStatus =
-        e.target.dataset.status;
+            "logoutBtn"
 
-    await updateDeliveryStatus(
-        orderId,
-        currentStatus
-    );
+        ),
 
-});
+        document.getElementById(
 
-// ======================================
-// UPDATE STATUS
-// ======================================
+            "topLogoutBtn"
 
-async function updateDeliveryStatus(
+        )
 
-    orderId,
+    ];
 
-    currentStatus
+    logoutButtons.forEach(btn => {
 
-){
+        if (!btn) return;
 
-    let nextStatus = currentStatus;
+        btn.addEventListener(
 
-    switch(currentStatus){
+            "click",
 
-        case "accepted":
+            async () => {
 
-            nextStatus =
-                "preparing";
+                if (
 
-            break;
+                    typeof SupplierAuth !==
 
-        case "preparing":
+                    "undefined"
 
-            nextStatus =
-                "out_for_delivery";
+                ) {
 
-            break;
-
-        case "out_for_delivery":
-
-            nextStatus =
-                "delivered";
-
-            break;
-
-        default:
-
-            return;
-
-    }
-
-    try{
-
-        const orderRef =
-            doc(db,"orders",orderId);
-
-        const updates = {
-
-            status:
-                nextStatus
-
-        };
-
-        if(nextStatus==="preparing"){
-
-            updates.preparingAt =
-                serverTimestamp();
-
-        }
-
-        if(nextStatus==="out_for_delivery"){
-
-            updates.dispatchedAt =
-                serverTimestamp();
-
-        }
-
-        if(nextStatus==="delivered"){
-
-            updates.deliveredAt =
-                serverTimestamp();
-
-        }
-
-        await updateDoc(
-
-            orderRef,
-
-            updates
-
-        );
-
-        loadDeliveries();
-
-        loadDashboard();
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-// ======================================
-// FORMAT STATUS
-// ======================================
-
-function formatStatus(status){
-
-    switch(status){
-
-        case "accepted":
-
-            return "Accepted";
-
-        case "preparing":
-
-            return "Preparing";
-
-        case "out_for_delivery":
-
-            return "Out for Delivery";
-
-        case "delivered":
-
-            return "Delivered";
-
-        default:
-
-            return status;
-
-    }
-
-}
-
-// ======================================
-// LOAD ON STARTUP
-// ======================================
-
-const refreshDeliveries =
-    document.getElementById("refreshDeliveries");
-
-if(refreshDeliveries){
-
-    refreshDeliveries.addEventListener(
-
-        "click",
-
-        loadDeliveries
-
-    );
-
-}// ======================================================
-// PART 6
-// INVENTORY MANAGEMENT
-// ======================================================
-
-import {
-    collection,
-    doc,
-    getDocs,
-    setDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-// ======================================
-// DOM ELEMENTS
-// ======================================
-
-const inventoryContainer =
-    document.getElementById("inventoryContainer");
-
-const stockCount =
-    document.getElementById("stockCount");
-
-const lowStockItems =
-    document.getElementById("lowStockItems");
-
-// ======================================
-// LOAD INVENTORY
-// ======================================
-
-async function loadInventory() {
-
-    if (!currentSupplier) return;
-
-    try {
-
-        const inventoryRef = collection(
-            db,
-            "suppliers",
-            auth.currentUser.uid,
-            "inventory"
-        );
-
-        const snapshot =
-            await getDocs(inventoryRef);
-
-        inventoryContainer.innerHTML = "";
-
-        let totalItems = 0;
-
-        let lowStock = 0;
-
-        snapshot.forEach(docSnap => {
-
-            const item = docSnap.data();
-
-            totalItems += Number(item.stock);
-
-            if (item.stock <= 5) {
-
-                lowStock++;
-
-            }
-
-            inventoryContainer.innerHTML += `
-
-<div class="col-md-6 col-lg-4 mb-3">
-
-<div class="card shadow-sm">
-
-<div class="card-body">
-
-<h5>
-
-${item.gasType}
-
-</h5>
-
-<p>
-
-Stock:
-<strong>
-
-${item.stock}
-
-</strong>
-
-</p>
-
-<p>
-
-Price:
-<strong>
-
-KES ${Number(item.price).toLocaleString()}
-
-</strong>
-
-</p>
-
-<div class="input-group">
-
-<input
-
-type="number"
-
-min="0"
-
-value="${item.stock}"
-
-class="form-control"
-
-id="stock-${docSnap.id}">
-
-<button
-
-class="btn btn-success update-stock"
-
-data-id="${docSnap.id}">
-
-Save
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-        });
-
-        stockCount.textContent =
-            totalItems;
-
-        lowStockItems.textContent =
-            lowStock;
-
-        if (snapshot.empty) {
-
-            inventoryContainer.innerHTML = `
-
-<div class="col-12">
-
-<div class="alert alert-warning">
-
-No inventory found.
-
-</div>
-
-</div>
-
-`;
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-// ======================================
-// UPDATE STOCK
-// ======================================
-
-document.addEventListener("click", async (e)=>{
-
-    if(!e.target.classList.contains("update-stock")) return;
-
-    const itemId =
-        e.target.dataset.id;
-
-    const stockInput =
-        document.getElementById(`stock-${itemId}`);
-
-    const stock =
-        Number(stockInput.value);
-
-    await updateInventory(
-
-        itemId,
-
-        stock
-
-    );
-
-});
-
-// ======================================
-// SAVE INVENTORY
-// ======================================
-
-async function updateInventory(
-
-    itemId,
-
-    stock
-
-){
-
-    try{
-
-        const ref = doc(
-
-            db,
-
-            "suppliers",
-
-            auth.currentUser.uid,
-
-            "inventory",
-
-            itemId
-
-        );
-
-        await setDoc(
-
-            ref,
-
-            {
-
-                stock,
-
-                updatedAt:
-                    serverTimestamp()
-
-            },
-
-            {
-
-                merge:true
-
-            }
-
-        );
-
-        loadInventory();
-
-        loadDashboard();
-
-        alert("Inventory updated.");
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}// ======================================================
-// PART 7
-// EARNINGS • CUSTOMERS • REVIEWS • NOTIFICATIONS
-// ======================================================
-
-import {
-    collection,
-    query,
-    where,
-    orderBy,
-    limit,
-    getDocs
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-// ======================================================
-// DOM ELEMENTS
-// ======================================================
-
-const earningsContainer =
-    document.getElementById("earningsContainer");
-
-const customersContainer =
-    document.getElementById("customersContainer");
-
-const reviewsContainer =
-    document.getElementById("reviewsContainer");
-
-const notificationsContainer =
-    document.getElementById("notificationsContainer");
-
-// ======================================================
-// LOAD EARNINGS
-// ======================================================
-
-async function loadEarnings() {
-
-    if (!currentSupplier) return;
-
-    try {
-
-        const q = query(
-            collection(db, "orders"),
-            where(
-                "supplierId",
-                "==",
-                auth.currentUser.uid
-            ),
-            where(
-                "status",
-                "==",
-                "delivered"
-            )
-        );
-
-        const snapshot =
-            await getDocs(q);
-
-        let totalRevenue = 0;
-
-        let totalOrders = 0;
-
-        earningsContainer.innerHTML = "";
-
-        snapshot.forEach(docSnap => {
-
-            const order =
-                docSnap.data();
-
-            totalRevenue +=
-                Number(order.totalPrice || 0);
-
-            totalOrders++;
-
-        });
-
-        earningsContainer.innerHTML = `
-
-<div class="card shadow-sm border-0">
-
-<div class="card-body">
-
-<h5>Total Revenue</h5>
-
-<h2 class="text-success">
-
-KES ${totalRevenue.toLocaleString()}
-
-</h2>
-
-<p class="text-muted mb-0">
-
-Delivered Orders:
-${totalOrders}
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-// ======================================================
-// LOAD CUSTOMERS
-// ======================================================
-
-async function loadCustomers() {
-
-    if (!currentSupplier) return;
-
-    try {
-
-        const q = query(
-
-            collection(db,"orders"),
-
-            where(
-                "supplierId",
-                "==",
-                auth.currentUser.uid
-            )
-
-        );
-
-        const snapshot =
-            await getDocs(q);
-
-        const customers =
-            new Map();
-
-        snapshot.forEach(docSnap=>{
-
-            const order =
-                docSnap.data();
-
-            customers.set(
-
-                order.customerId,
-
-                {
-
-                    name:
-                        order.customerName,
-
-                    phone:
-                        order.customerPhone
-
-                }
-
-            );
-
-        });
-
-        customersContainer.innerHTML = "";
-
-        customers.forEach(customer=>{
-
-            customersContainer.innerHTML +=`
-
-<div class="list-group-item">
-
-<strong>
-
-${customer.name}
-
-</strong>
-
-<br>
-
-<small>
-
-${customer.phone}
-
-</small>
-
-</div>
-
-`;
-
-        });
-
-        if(customers.size===0){
-
-            customersContainer.innerHTML=`
-
-<div class="text-muted">
-
-No customers yet.
-
-</div>
-
-`;
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-// ======================================================
-// LOAD REVIEWS
-// ======================================================
-
-async function loadReviews(){
-
-    if(!currentSupplier) return;
-
-    try{
-
-        const q=query(
-
-            collection(db,"reviews"),
-
-            where(
-                "supplierId",
-                "==",
-                auth.currentUser.uid
-            ),
-
-            orderBy("createdAt","desc"),
-
-            limit(20)
-
-        );
-
-        const snapshot=
-            await getDocs(q);
-
-        reviewsContainer.innerHTML="";
-
-        snapshot.forEach(docSnap=>{
-
-            const review=
-                docSnap.data();
-
-            reviewsContainer.innerHTML+=`
-
-<div class="card mb-3">
-
-<div class="card-body">
-
-<h6>
-
-${review.customerName}
-
-</h6>
-
-<div class="text-warning mb-2">
-
-${"⭐".repeat(review.rating)}
-
-</div>
-
-<p>
-
-${review.review}
-
-</p>
-
-</div>
-
-</div>
-
-`;
-
-        });
-
-        if(snapshot.empty){
-
-            reviewsContainer.innerHTML=`
-
-<div class="text-muted">
-
-No reviews available.
-
-</div>
-
-`;
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}
-
-// ======================================================
-// LOAD NOTIFICATIONS
-// ======================================================
-
-async function loadNotifications(){
-
-    if(!currentSupplier) return;
-
-    try{
-
-        const q=query(
-
-            collection(db,"notifications"),
-
-            where(
-                "userId",
-                "==",
-                auth.currentUser.uid
-            ),
-
-            orderBy("createdAt","desc"),
-
-            limit(20)
-
-        );
-
-        const snapshot=
-            await getDocs(q);
-
-        notificationsContainer.innerHTML="";
-
-        snapshot.forEach(docSnap=>{
-
-            const note=
-                docSnap.data();
-
-            notificationsContainer.innerHTML+=`
-
-<div class="list-group-item">
-
-<h6>
-
-${note.title}
-
-</h6>
-
-<p class="mb-1">
-
-${note.message}
-
-</p>
-
-<small class="text-muted">
-
-${note.createdAt
-? note.createdAt.toDate().toLocaleString()
-: ""}
-
-</small>
-
-</div>
-
-`;
-
-        });
-
-        if(snapshot.empty){
-
-            notificationsContainer.innerHTML=`
-
-<div class="text-center text-muted">
-
-No notifications.
-
-</div>
-
-`;
-
-        }
-
-    }
-
-    catch(error){
-
-        console.error(error);
-
-    }
-
-}// ======================================================
-// PART 8
-// ANALYTICS • SETTINGS • INITIALIZATION
-// ======================================================
-
-import {
-    collection,
-    query,
-    where,
-    getDocs,
-    doc,
-    updateDoc
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-// ======================================================
-// DOM ELEMENTS
-// ======================================================
-
-const salesChartCanvas =
-    document.getElementById("salesChart");
-
-const saveBusinessBtn =
-    document.getElementById("saveBusinessBtn");
-
-const businessNameInput =
-    document.getElementById("businessName");
-
-const supplierPhoneInput =
-    document.getElementById("supplierPhone");
-
-const businessAddressInput =
-    document.getElementById("businessAddress");
-
-let salesChart = null;
-
-// ======================================================
-// LOAD SALES ANALYTICS
-// ======================================================
-
-async function loadAnalytics() {
-
-    if (!currentSupplier) return;
-
-    if (!salesChartCanvas) return;
-
-    try {
-
-        const q = query(
-            collection(db, "orders"),
-            where(
-                "supplierId",
-                "==",
-                auth.currentUser.uid
-            ),
-            where(
-                "status",
-                "==",
-                "delivered"
-            )
-        );
-
-        const snapshot =
-            await getDocs(q);
-
-        const monthlyRevenue = {};
-
-        snapshot.forEach(docSnap => {
-
-            const order = docSnap.data();
-
-            if (!order.deliveredAt) return;
-
-            const date =
-                order.deliveredAt.toDate();
-
-            const month =
-                date.toLocaleString(
-                    "default",
-                    { month: "short" }
-                );
-
-            monthlyRevenue[month] =
-                (monthlyRevenue[month] || 0)
-                + Number(order.totalPrice || 0);
-
-        });
-
-        const labels =
-            Object.keys(monthlyRevenue);
-
-        const values =
-            Object.values(monthlyRevenue);
-
-        if (salesChart) {
-
-            salesChart.destroy();
-
-        }
-
-        salesChart = new Chart(
-
-            salesChartCanvas,
-
-            {
-
-                type: "bar",
-
-                data: {
-
-                    labels,
-
-                    datasets: [
-
-                        {
-
-                            label: "Revenue (KES)",
-
-                            data: values
-
-                        }
-
-                    ]
-
-                },
-
-                options: {
-
-                    responsive: true,
-
-                    maintainAspectRatio: false
+                    await SupplierAuth.logout();
 
                 }
 
@@ -1815,80 +1151,273 @@ async function loadAnalytics() {
 
         );
 
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-    }
+    });
 
 }
 
-// ======================================================
-// LOAD BUSINESS SETTINGS
-// ======================================================
+/* ==========================================================
+   Refresh Button
+========================================================== */
 
-function loadBusinessSettings() {
+const refreshBtn =
 
-    if (!currentSupplier) return;
+    document.getElementById(
 
-    if (businessNameInput)
-        businessNameInput.value =
-            currentSupplier.businessName || "";
+        "refreshActivity"
 
-    if (supplierPhoneInput)
-        supplierPhoneInput.value =
-            currentSupplier.phone || "";
+    );
 
-    if (businessAddressInput)
-        businessAddressInput.value =
-            currentSupplier.address || "";
+if (refreshBtn) {
 
-}
-
-// ======================================================
-// SAVE BUSINESS SETTINGS
-// ======================================================
-
-if (saveBusinessBtn) {
-
-    saveBusinessBtn.addEventListener(
+    refreshBtn.addEventListener(
 
         "click",
 
-        saveBusinessSettings
+        () => {
+
+            loadDashboardStatistics();
+
+            loadDashboardLists();
+
+            loadNotifications();
+
+            loadActivityTimeline();
+
+        }
 
     );
 
 }
 
-async function saveBusinessSettings() {
+/* ==========================================================
+   Mark Notifications Read
+========================================================== */
+
+const markRead =
+
+    document.getElementById(
+
+        "markNotificationsRead"
+
+    );
+
+if (markRead) {
+
+    markRead.addEventListener(
+
+        "click",
+
+        () => {
+
+            document.getElementById(
+
+                "notificationCount"
+
+            ).textContent = "0";
+
+        }
+
+    );
+
+}
+
+/* ==========================================================
+   Dashboard Startup
+========================================================== */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        renderSalesChart();
+
+        loadNotifications();
+
+        loadActivityTimeline();
+
+        initializeLogout();
+
+    }
+
+);
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Dashboard
+   Part 5 (FINAL)
+========================================================== */
+
+import {
+
+    onSnapshot
+
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+/* ==========================================================
+   Live Supplier Updates
+========================================================== */
+
+function startRealtimeUpdates() {
+
+    if (!supplier) return;
+
+    const supplierRef = doc(
+
+        db,
+
+        "suppliers",
+
+        supplier.uid
+
+    );
+
+    onSnapshot(supplierRef, (snapshot) => {
+
+        if (!snapshot.exists()) return;
+
+        supplierData = snapshot.data();
+
+        loadSupplierProfile();
+
+        loadDashboardStatistics();
+
+    });
+
+}
+
+/* ==========================================================
+   Network Status
+========================================================== */
+
+function updateNetworkStatus() {
+
+    const badge =
+
+        document.getElementById(
+
+            "networkStatus"
+
+        );
+
+    if (!badge) return;
+
+    if (navigator.onLine) {
+
+        badge.textContent = "Online";
+
+        badge.className =
+
+            "badge bg-success";
+
+    } else {
+
+        badge.textContent = "Offline";
+
+        badge.className =
+
+            "badge bg-danger";
+
+    }
+
+}
+
+window.addEventListener(
+
+    "online",
+
+    updateNetworkStatus
+
+);
+
+window.addEventListener(
+
+    "offline",
+
+    updateNetworkStatus
+
+);
+
+/* ==========================================================
+   Firebase Status
+========================================================== */
+
+function updateFirebaseStatus(
+
+    connected = true
+
+) {
+
+    const badge =
+
+        document.getElementById(
+
+            "firebaseStatus"
+
+        );
+
+    if (!badge) return;
+
+    if (connected) {
+
+        badge.textContent = "Connected";
+
+        badge.className =
+
+            "badge bg-success";
+
+    } else {
+
+        badge.textContent = "Disconnected";
+
+        badge.className =
+
+            "badge bg-danger";
+
+    }
+
+}
+
+/* ==========================================================
+   Last Sync
+========================================================== */
+
+function updateLastSync() {
+
+    const sync =
+
+        document.getElementById(
+
+            "lastSyncTime"
+
+        );
+
+    if (!sync) return;
+
+    sync.textContent =
+
+        new Date().toLocaleTimeString();
+
+}
+
+/* ==========================================================
+   Auto Refresh
+========================================================== */
+
+setInterval(async () => {
+
+    if (!navigator.onLine) return;
 
     try {
 
-        const supplierRef = doc(
-            db,
-            "suppliers",
-            auth.currentUser.uid
-        );
+        await loadDashboardStatistics();
 
-        await updateDoc(supplierRef, {
+        await loadDashboardLists();
 
-            businessName:
-                businessNameInput.value.trim(),
+        updateLastSync();
 
-            phone:
-                supplierPhoneInput.value.trim(),
-
-            address:
-                businessAddressInput.value.trim()
-
-        });
-
-        alert(
-            "Business information updated."
-        );
+        updateFirebaseStatus(true);
 
     }
 
@@ -1896,58 +1425,116 @@ async function saveBusinessSettings() {
 
         console.error(error);
 
-        alert(
-            "Unable to update business information."
-        );
+        updateFirebaseStatus(false);
 
     }
-
-}
-
-// ======================================================
-// AUTO REFRESH
-// ======================================================
-
-setInterval(() => {
-
-    if (!auth.currentUser) return;
-
-    loadDashboard();
-
-    loadMatchingOrders();
-
-    loadDeliveries();
-
-    loadInventory();
-
-    loadNotifications();
 
 }, 60000);
 
-// ======================================================
-// INITIALIZATION
-// ======================================================
+/* ==========================================================
+   Floating Dashboard Actions
+========================================================== */
 
-function initializeDashboard() {
+const quickButton =
 
-    loadBusinessSettings();
+    document.getElementById(
 
-    loadDashboard();
+        "quickActionBtn"
 
-    loadMatchingOrders();
+    );
 
-    loadDeliveries();
+if (quickButton) {
 
-    loadInventory();
+    quickButton.addEventListener(
 
-    loadCustomers();
+        "click",
 
-    loadReviews();
+        () => {
 
-    loadNotifications();
+            console.log(
 
-    loadEarnings();
+                "Quick actions opened."
 
-    loadAnalytics();
+            );
+
+        }
+
+    );
 
 }
+
+/* ==========================================================
+   Dashboard Ready
+========================================================== */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        updateNetworkStatus();
+
+        updateFirebaseStatus(true);
+
+        updateLastSync();
+
+        startRealtimeUpdates();
+
+        console.log(
+
+            "✅ Supplier Dashboard Ready"
+
+        );
+
+    }
+
+);
+
+/* ==========================================================
+   Global Error Handler
+========================================================== */
+
+window.addEventListener(
+
+    "error",
+
+    (event) => {
+
+        console.error(
+
+            "Dashboard Error:",
+
+            event.error
+
+        );
+
+    }
+
+);
+
+/* ==========================================================
+   Promise Error Handler
+========================================================== */
+
+window.addEventListener(
+
+    "unhandledrejection",
+
+    (event) => {
+
+        console.error(
+
+            "Unhandled Promise:",
+
+            event.reason
+
+        );
+
+    }
+
+);
+
+/* ==========================================================
+   End of supplier-dashboard.js
+========================================================== */
