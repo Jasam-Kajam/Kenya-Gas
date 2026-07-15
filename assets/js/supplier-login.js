@@ -1,15 +1,14 @@
-// ======================================================
-// supplier-login.js
-// Part 1
-// Firebase Imports & DOM Elements
-// ======================================================
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Login
+   Part 1
+========================================================== */
 
-import {
+/* ==========================
+   FIREBASE
+========================== */
 
-    auth,
-    db
-
-} from "./firebase.js";
+import { auth, db } from "./firebase.js";
 
 import {
 
@@ -19,17 +18,19 @@ import {
 
     signInWithPopup,
 
-    setPersistence,
-
     browserLocalPersistence,
 
     browserSessionPersistence,
+
+    setPersistence,
+
+    onAuthStateChanged,
 
     sendEmailVerification,
 
     signOut
 
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
 
@@ -37,217 +38,452 @@ import {
 
     getDoc,
 
-    updateDoc,
+    setDoc,
 
     serverTimestamp
 
-} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// ======================================================
-// GOOGLE PROVIDER
-// ======================================================
+/* ==========================
+   DOM ELEMENTS
+========================== */
 
-const provider = new GoogleAuthProvider();
+const form =
+    document.getElementById("supplierLoginForm");
 
-provider.setCustomParameters({
+const email =
+    document.getElementById("email");
 
-    prompt: "select_account"
+const password =
+    document.getElementById("password");
 
-});
+const rememberMe =
+    document.getElementById("rememberMe");
 
-// ======================================================
-// DOM ELEMENTS
-// ======================================================
+const loginBtn =
+    document.getElementById("loginBtn");
 
-const form = document.getElementById(
-    "supplierLoginForm"
-);
+const loginBtnText =
+    document.getElementById("loginBtnText");
 
-const email = document.getElementById(
-    "email"
-);
+const loginSpinner =
+    document.getElementById("loginSpinner");
 
-const password = document.getElementById(
-    "password"
-);
+const togglePassword =
+    document.getElementById("togglePassword");
 
-const rememberMe = document.getElementById(
-    "rememberMe"
-);
+const togglePasswordIcon =
+    document.getElementById("togglePasswordIcon");
 
-const loginBtn = document.getElementById(
-    "loginBtn"
-);
+const googleLoginBtn =
+    document.getElementById("googleLoginBtn");
 
-const loginText = document.getElementById(
-    "loginText"
-);
+const alertContainer =
+    document.getElementById("alertContainer");
 
-const loginLoading = document.getElementById(
-    "loginLoading"
-);
+const loadingOverlay =
+    document.getElementById("loadingOverlay");
 
-const googleLoginBtn = document.getElementById(
-    "googleLoginBtn"
-);
+/* ==========================
+   GLOBAL VARIABLES
+========================== */
 
-const togglePassword = document.getElementById(
-    "togglePassword"
-);
+const googleProvider =
+    new GoogleAuthProvider();
 
-// ======================================================
-// SHOW/HIDE PASSWORD
-// ======================================================
+let isSubmitting = false;
 
-togglePassword.addEventListener(
+/* ==========================
+   ALERTS
+========================== */
 
-    "click",
+function showAlert(message, type = "danger") {
 
-    ()=>{
+    alertContainer.innerHTML = `
 
-        password.type =
+        <div class="alert alert-${type} alert-dismissible fade show">
 
-            password.type === "password"
+            ${message}
 
-            ? "text"
+            <button
 
-            : "password";
+                type="button"
 
-        togglePassword.innerHTML =
+                class="btn-close"
 
-            `<i class="bi bi-${
-                password.type === "password"
-                ? "eye"
-                : "eye-slash"
-            }"></i>`;
+                data-bs-dismiss="alert">
 
-    }
+            </button>
 
-);
+        </div>
 
-// ======================================================
-// BUTTON LOADING
-// ======================================================
-
-function setLoading(
-
-    loading = true
-
-){
-
-    loginBtn.disabled = loading;
-
-    googleLoginBtn.disabled = loading;
-
-    loginText.classList.toggle(
-
-        "d-none",
-
-        loading
-
-    );
-
-    loginLoading.classList.toggle(
-
-        "d-none",
-
-        !loading
-
-    );
-
-}
-
-// ======================================================
-// ALERT
-// ======================================================
-
-function showAlert(
-
-    message,
-
-    type="danger"
-
-){
-
-    const oldAlert =
-
-        document.getElementById(
-
-            "loginAlert"
-
-        );
-
-    if(oldAlert){
-
-        oldAlert.remove();
-
-    }
-
-    const alert =
-
-        document.createElement("div");
-
-    alert.id =
-
-        "loginAlert";
-
-    alert.className =
-
-        `alert alert-${type}`;
-
-    alert.innerHTML =
-
-        `<i class="bi bi-info-circle-fill me-2"></i>${message}`;
-
-    form.prepend(alert);
+    `;
 
     window.scrollTo({
 
-        top:0,
+        top: 0,
 
-        behavior:"smooth"
+        behavior: "smooth"
 
     });
 
 }
 
-// ======================================================
-// READY
-// ======================================================
+function clearAlert() {
 
-document.addEventListener(
+    alertContainer.innerHTML = "";
 
-    "DOMContentLoaded",
+}
 
-    ()=>{
+/* ==========================
+   BUTTON LOADING
+========================== */
 
-        console.log(
+function showLoading() {
 
-            "Supplier Login Ready"
+    isSubmitting = true;
+
+    loginBtn.disabled = true;
+
+    loginBtnText.style.display = "none";
+
+    loginSpinner.style.display = "inline-flex";
+
+}
+
+function hideLoading() {
+
+    isSubmitting = false;
+
+    loginBtn.disabled = false;
+
+    loginBtnText.style.display = "inline";
+
+    loginSpinner.style.display = "none";
+
+}
+
+/* ==========================
+   PAGE LOADER
+========================== */
+
+function hidePageLoader() {
+
+    if (!loadingOverlay) return;
+
+    loadingOverlay.classList.add("hidden");
+
+    setTimeout(() => {
+
+        loadingOverlay.remove();
+
+    }, 400);
+
+}
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Login
+   Part 2
+========================================================== */
+
+/* ==========================
+   PASSWORD VISIBILITY
+========================== */
+
+function togglePasswordVisibility() {
+
+    if (password.type === "password") {
+
+        password.type = "text";
+
+        togglePasswordIcon.classList.remove("bi-eye");
+        togglePasswordIcon.classList.add("bi-eye-slash");
+
+    } else {
+
+        password.type = "password";
+
+        togglePasswordIcon.classList.remove("bi-eye-slash");
+        togglePasswordIcon.classList.add("bi-eye");
+
+    }
+
+}
+
+togglePassword.addEventListener(
+
+    "click",
+
+    togglePasswordVisibility
+
+);
+
+/* ==========================
+   REMEMBER ME
+========================== */
+
+const REMEMBER_EMAIL_KEY =
+    "kgm_supplier_email";
+
+function saveRememberedEmail() {
+
+    if (rememberMe.checked) {
+
+        localStorage.setItem(
+
+            REMEMBER_EMAIL_KEY,
+
+            email.value.trim()
+
+        );
+
+    } else {
+
+        localStorage.removeItem(
+
+            REMEMBER_EMAIL_KEY
 
         );
 
     }
 
+}
+
+function loadRememberedEmail() {
+
+    const savedEmail =
+
+        localStorage.getItem(
+
+            REMEMBER_EMAIL_KEY
+
+        );
+
+    if (!savedEmail) return;
+
+    email.value = savedEmail;
+
+    rememberMe.checked = true;
+
+}
+
+/* ==========================
+   EMAIL INPUT
+========================== */
+
+email.addEventListener(
+
+    "change",
+
+    saveRememberedEmail
+
 );
 
-// ======================================================
-// LOGIN WITH EMAIL & PASSWORD
-// ======================================================
+rememberMe.addEventListener(
 
-form.addEventListener(
+    "change",
 
-    "submit",
+    saveRememberedEmail
 
-    async (e)=>{
+);
 
-        e.preventDefault();
+/* ==========================
+   EMAIL VALIDATION
+========================== */
 
-        if(!form.checkValidity()){
+function isValidEmail(emailAddress) {
 
-            form.classList.add(
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-                "was-validated"
+        .test(emailAddress);
+
+}
+
+/* ==========================
+   FORM VALIDATION
+========================== */
+
+function validateLoginForm() {
+
+    clearAlert();
+
+    if (
+
+        email.value.trim() === ""
+
+    ) {
+
+        showAlert(
+
+            "Please enter your email address."
+
+        );
+
+        email.focus();
+
+        return false;
+
+    }
+
+    if (
+
+        !isValidEmail(
+
+            email.value.trim()
+
+        )
+
+    ) {
+
+        showAlert(
+
+            "Please enter a valid email address."
+
+        );
+
+        email.focus();
+
+        return false;
+
+    }
+
+    if (
+
+        password.value.trim() === ""
+
+    ) {
+
+        showAlert(
+
+            "Please enter your password."
+
+        );
+
+        password.focus();
+
+        return false;
+
+    }
+
+    return true;
+
+}
+
+/* ==========================
+   ENTER KEY SUPPORT
+========================== */
+
+password.addEventListener(
+
+    "keypress",
+
+    event => {
+
+        if (
+
+            event.key === "Enter"
+
+        ) {
+
+            form.requestSubmit();
+
+        }
+
+    }
+
+);
+
+/* ==========================
+   LOAD SAVED EMAIL
+========================== */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        loadRememberedEmail();
+
+    }
+
+);
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Login
+   Part 3
+========================================================== */
+
+/* ==========================
+   LOGIN
+========================== */
+
+form.addEventListener("submit", loginSupplier);
+
+async function loginSupplier(e) {
+
+    e.preventDefault();
+
+    if (isSubmitting) return;
+
+    if (!validateLoginForm()) return;
+
+    try {
+
+        showLoading();
+
+        /* --------------------------
+           Session Persistence
+        -------------------------- */
+
+        await setPersistence(
+
+            auth,
+
+            rememberMe.checked
+                ? browserLocalPersistence
+                : browserSessionPersistence
+
+        );
+
+        /* --------------------------
+           Sign In
+        -------------------------- */
+
+        const credential =
+            await signInWithEmailAndPassword(
+
+                auth,
+
+                email.value.trim(),
+
+                password.value
+
+            );
+
+        const user = credential.user;
+
+        saveRememberedEmail();
+
+        /* --------------------------
+           Email Verification
+        -------------------------- */
+
+        if (!user.emailVerified) {
+
+            await sendEmailVerification(user);
+
+            await signOut(auth);
+
+            hideLoading();
+
+            showAlert(
+
+                "Your email address has not been verified. A new verification email has been sent. Please verify your email before signing in.",
+
+                "warning"
 
             );
 
@@ -255,305 +491,518 @@ form.addEventListener(
 
         }
 
-        try{
+        /* --------------------------
+           Supplier Document
+        -------------------------- */
 
-            setLoading(true);
+        const supplierRef =
+            doc(db, "suppliers", user.uid);
 
-            // =====================================
-            // REMEMBER ME
-            // =====================================
+        const supplierSnap =
+            await getDoc(supplierRef);
 
-            await setPersistence(
+        if (!supplierSnap.exists()) {
 
-                auth,
-
-                rememberMe.checked
-
-                ? browserLocalPersistence
-
-                : browserSessionPersistence
-
-            );
-
-            // =====================================
-            // SIGN IN
-            // =====================================
-
-            const userCredential =
-
-                await signInWithEmailAndPassword(
-
-                    auth,
-
-                    email.value.trim(),
-
-                    password.value
-
-                );
-
-            const user =
-
-                userCredential.user;
-
-            // =====================================
-            // EMAIL VERIFIED?
-            // =====================================
-
-            if(
-
-                !user.emailVerified
-
-            ){
-
-                await sendEmailVerification(
-
-                    user
-
-                );
-
-                await signOut(auth);
-
-                showAlert(
-
-                    "Your email address has not been verified. A new verification email has been sent.",
-
-                    "warning"
-
-                );
-
-                return;
-
-            }
-
-            // =====================================
-            // GET SUPPLIER RECORD
-            // =====================================
-
-            const supplierRef =
-
-                doc(
-
-                    db,
-
-                    "suppliers",
-
-                    user.uid
-
-                );
-
-            const supplierSnap =
-
-                await getDoc(
-
-                    supplierRef
-
-                );
-
-            if(
-
-                !supplierSnap.exists()
-
-            ){
-
-                await signOut(auth);
-
-                showAlert(
-
-                    "Supplier account not found."
-
-                );
-
-                return;
-
-            }
-
-            const supplier =
-
-                supplierSnap.data();
-
-            // =====================================
-            // CHECK ROLE
-            // =====================================
-
-            if(
-
-                supplier.accountType !==
-
-                "supplier"
-
-            ){
-
-                await signOut(auth);
-
-                showAlert(
-
-                    "This account is not registered as a supplier."
-
-                );
-
-                return;
-
-            }
-
-            // =====================================
-            // ACCOUNT APPROVAL
-            // =====================================
-
-            if(
-
-                !supplier.approved
-
-            ){
-
-                await signOut(auth);
-
-                showAlert(
-
-                    "Your supplier account is still awaiting approval.",
-
-                    "warning"
-
-                );
-
-                return;
-
-            }
-
-            // =====================================
-            // ACCOUNT SUSPENDED
-            // =====================================
-
-            if(
-
-                supplier.suspended
-
-            ){
-
-                await signOut(auth);
-
-                showAlert(
-
-                    "Your supplier account has been suspended. Please contact support."
-
-                );
-
-                return;
-
-            }
-
-            // =====================================
-            // UPDATE LAST LOGIN
-            // =====================================
-
-            await updateDoc(
+            await setDoc(
 
                 supplierRef,
 
                 {
 
-                    lastLogin:
+                    uid: user.uid,
 
+                    fullName:
+                        user.displayName || "",
+
+                    email:
+                        user.email,
+
+                    verified: true,
+
+                    approvalStatus:
+                        "Pending Review",
+
+                    sellerStatus:
+                        "Inactive",
+
+                    createdAt:
+                        serverTimestamp(),
+
+                    lastLogin:
                         serverTimestamp()
 
                 }
 
             );
 
-                  // =====================================
-            // LOGIN SUCCESS
-            // =====================================
+        } else {
 
-            showAlert(
+            await setDoc(
 
-                "Login successful. Redirecting to your dashboard...",
+                supplierRef,
 
-                "success"
+                {
 
-            );
-
-            setTimeout(
-
-                ()=>{
-
-                    window.location.href =
-
-                        "supplier-dashboard.html";
+                    lastLogin:
+                        serverTimestamp()
 
                 },
 
-                1500
+                {
+
+                    merge: true
+
+                }
 
             );
 
         }
 
-        catch(error){
+        /* --------------------------
+           Success
+        -------------------------- */
 
-            console.error(error);
+        hideLoading();
 
-            let message =
+        showAlert(
 
-                "Unable to sign in.";
+            "Login successful. Redirecting to your supplier dashboard...",
 
-            switch(error.code){
+            "success"
 
-                case "auth/invalid-credential":
+        );
 
-                case "auth/wrong-password":
+        setTimeout(() => {
 
-                case "auth/user-not-found":
+            window.location.href =
+                "supplier-dashboard.html";
 
-                    message =
+        }, 1200);
 
-                        "Incorrect email or password.";
+    }
 
-                    break;
+    catch (error) {
 
-                case "auth/invalid-email":
+        console.error(error);
 
-                    message =
+        hideLoading();
 
-                        "Please enter a valid email address.";
+        let message =
+            "Unable to sign in.";
 
-                    break;
+        switch (error.code) {
 
-                case "auth/too-many-requests":
+            case "auth/invalid-credential":
 
-                    message =
+            case "auth/wrong-password":
 
-                        "Too many failed login attempts. Please try again later.";
+            case "auth/user-not-found":
 
-                    break;
+                message =
+                    "Incorrect email or password.";
 
-                case "auth/network-request-failed":
+                break;
 
-                    message =
+            case "auth/invalid-email":
 
-                        "Network error. Check your internet connection.";
+                message =
+                    "Invalid email address.";
 
-                    break;
+                break;
 
-                default:
+            case "auth/too-many-requests":
 
-                    message =
+                message =
+                    "Too many failed attempts. Please try again later.";
 
-                        error.message;
+                break;
 
-            }
+            case "auth/network-request-failed":
+
+                message =
+                    "Network error. Please check your internet connection.";
+
+                break;
+
+        }
+
+        showAlert(message);
+
+    }
+
+}
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Login
+   Part 4
+========================================================== */
+
+/* ==========================
+   GOOGLE SIGN IN
+========================== */
+
+googleLoginBtn.addEventListener("click", signInWithGoogle);
+
+async function signInWithGoogle() {
+
+    if (isSubmitting) return;
+
+    try {
+
+        showLoading();
+
+        googleProvider.setCustomParameters({
+
+            prompt: "select_account"
+
+        });
+
+        const result = await signInWithPopup(
+
+            auth,
+
+            googleProvider
+
+        );
+
+        const user = result.user;
+
+        /* --------------------------
+           Supplier Document
+        -------------------------- */
+
+        const supplierRef = doc(
+
+            db,
+
+            "suppliers",
+
+            user.uid
+
+        );
+
+        const supplierSnap = await getDoc(
+
+            supplierRef
+
+        );
+
+        if (!supplierSnap.exists()) {
+
+            await setDoc(
+
+                supplierRef,
+
+                {
+
+                    uid: user.uid,
+
+                    firstName:
+                        user.displayName
+                            ? user.displayName.split(" ")[0]
+                            : "",
+
+                    lastName:
+                        user.displayName
+                            ? user.displayName.split(" ").slice(1).join(" ")
+                            : "",
+
+                    fullName:
+                        user.displayName || "",
+
+                    email:
+                        user.email || "",
+
+                    phone:
+                        user.phoneNumber || "",
+
+                    photoURL:
+                        user.photoURL || "",
+
+                    provider:
+                        "google",
+
+                    verified: true,
+
+                    verificationStatus:
+                        "Verified",
+
+                    approvalStatus:
+                        "Pending Review",
+
+                    sellerStatus:
+                        "Inactive",
+
+                    receiveUpdates: true,
+
+                    createdAt:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp(),
+
+                    lastLogin:
+                        serverTimestamp()
+
+                }
+
+            );
+
+        } else {
+
+            await setDoc(
+
+                supplierRef,
+
+                {
+
+                    lastLogin:
+                        serverTimestamp(),
+
+                    updatedAt:
+                        serverTimestamp()
+
+                },
+
+                {
+
+                    merge: true
+
+                }
+
+            );
+
+        }
+
+        hideLoading();
+
+        showAlert(
+
+            "Google sign-in successful. Redirecting...",
+
+            "success"
+
+        );
+
+        setTimeout(() => {
+
+            window.location.href =
+                "supplier-dashboard.html";
+
+        }, 1000);
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        hideLoading();
+
+        let message =
+            "Google sign-in failed.";
+
+        switch (error.code) {
+
+            case "auth/popup-closed-by-user":
+
+                message =
+                    "Google sign-in was cancelled.";
+
+                break;
+
+            case "auth/popup-blocked":
+
+                message =
+                    "Popup was blocked. Please allow popups and try again.";
+
+                break;
+
+            case "auth/network-request-failed":
+
+                message =
+                    "Network error. Check your internet connection.";
+
+                break;
+
+            case "auth/account-exists-with-different-credential":
+
+                message =
+                    "An account already exists with this email using another sign-in method.";
+
+                break;
+
+        }
+
+        showAlert(message);
+
+    }
+
+}
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Login
+   Part 5
+========================================================== */
+
+/* ==========================
+   AUTH STATE LISTENER
+========================== */
+
+onAuthStateChanged(auth, async (user) => {
+
+    hidePageLoader();
+
+    if (!user) {
+
+        return;
+
+    }
+
+    try {
+
+        const supplierRef = doc(
+            db,
+            "suppliers",
+            user.uid
+        );
+
+        const supplierSnap = await getDoc(
+            supplierRef
+        );
+
+        if (!supplierSnap.exists()) {
+
+            return;
+        }
+
+        const supplier = supplierSnap.data();
+
+        /* --------------------------
+           Email Verification
+        -------------------------- */
+
+        if (!user.emailVerified &&
+            supplier.provider !== "google") {
+
+            await signOut(auth);
 
             showAlert(
 
-                message,
+                "Please verify your email before signing in.",
 
-                "danger"
+                "warning"
 
             );
 
+            return;
+
         }
 
-        finally{
+        /* --------------------------
+           Update Last Login
+        -------------------------- */
 
-            setLoading(false);
+        await setDoc(
+
+            supplierRef,
+
+            {
+
+                lastLogin: serverTimestamp(),
+
+                updatedAt: serverTimestamp()
+
+            },
+
+            {
+
+                merge: true
+
+            }
+
+        );
+
+        /* --------------------------
+           Already Logged In
+        -------------------------- */
+
+        showAlert(
+
+            "Welcome back! Redirecting to your dashboard...",
+
+            "success"
+
+        );
+
+        setTimeout(() => {
+
+            window.location.href =
+                "supplier-dashboard.html";
+
+        }, 1000);
+
+    }
+
+    catch (error) {
+
+        console.error(
+
+            "Auth State Error:",
+
+            error
+
+        );
+
+    }
+
+});
+
+/* ==========================
+   PAGE INITIALIZATION
+========================== */
+
+window.addEventListener(
+
+    "load",
+
+    () => {
+
+        hidePageLoader();
+
+    }
+
+);
+
+/* ==========================
+   FAILSAFE LOADER
+========================== */
+
+setTimeout(() => {
+
+    hidePageLoader();
+
+}, 3000);
+
+/* ==========================
+   AUTO FOCUS EMAIL
+========================== */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    () => {
+
+        if (
+
+            email.value.trim() === ""
+
+        ) {
+
+            email.focus();
 
         }
 
@@ -561,167 +1010,325 @@ form.addEventListener(
 
 );
 
-// ======================================================
-// GOOGLE SIGN-IN
-// ======================================================
+/* ==========================
+   CLEAR ALERT WHEN TYPING
+========================== */
 
-googleLoginBtn.addEventListener(
+email.addEventListener(
 
-    "click",
+    "input",
 
-    async ()=>{
+    clearAlert
 
-        try{
+);
 
-            setLoading(true);
+password.addEventListener(
 
-            const result =
+    "input",
 
-                await signInWithPopup(
+    clearAlert
 
-                    auth,
+);
 
-                    provider
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Login
+   Part 6
+========================================================== */
 
-                );
+/* ==========================
+   LOGOUT HELPER
+========================== */
 
-            const user =
+async function logoutSupplier() {
 
-                result.user;
+    try {
 
-            const supplierRef =
+        await signOut(auth);
 
-                doc(
+        showAlert(
 
-                    db,
+            "You have been signed out.",
 
-                    "suppliers",
+            "success"
 
-                    user.uid
+        );
 
-                );
+        setTimeout(() => {
 
-            const supplierSnap =
+            window.location.href =
+                "supplier-login.html";
 
-                await getDoc(
+        }, 1000);
 
-                    supplierRef
+    }
 
-                );
+    catch (error) {
 
-            if(
+        console.error(error);
 
-                !supplierSnap.exists()
+    }
 
-            ){
+}
 
-                await signOut(auth);
+/* ==========================
+   NETWORK STATUS
+========================== */
 
-                showAlert(
+window.addEventListener(
 
-                    "No supplier account is linked to this Google account."
+    "offline",
 
-                );
+    () => {
 
-                return;
+        showAlert(
 
-            }
+            "No internet connection. Please check your network.",
 
-            const supplier =
+            "warning"
 
-                supplierSnap.data();
+        );
 
-            if(
+    }
 
-                !supplier.approved
+);
 
-            ){
+window.addEventListener(
 
-                await signOut(auth);
+    "online",
 
-                showAlert(
+    () => {
 
-                    "Your supplier account is awaiting approval.",
+        showAlert(
 
-                    "warning"
+            "Internet connection restored.",
 
-                );
+            "success"
 
-                return;
+        );
 
-            }
+    }
 
-            if(
+);
 
-                supplier.suspended
+/* ==========================
+   FIREBASE ERROR HELPER
+========================== */
 
-            ){
+function getFirebaseError(error) {
 
-                await signOut(auth);
+    switch (error.code) {
 
-                showAlert(
+        case "auth/invalid-credential":
 
-                    "Your supplier account has been suspended."
+            return "Incorrect email or password.";
 
-                );
+        case "auth/user-not-found":
 
-                return;
+            return "Supplier account not found.";
 
-            }
+        case "auth/wrong-password":
 
-            await updateDoc(
+            return "Incorrect password.";
 
-                supplierRef,
+        case "auth/invalid-email":
 
-                {
+            return "Invalid email address.";
 
-                    lastLogin:
+        case "auth/email-already-in-use":
 
-                        serverTimestamp()
+            return "Email address already exists.";
 
-                }
+        case "auth/user-disabled":
 
-            );
+            return "This supplier account has been disabled.";
 
-            showAlert(
+        case "auth/too-many-requests":
 
-                "Login successful. Redirecting...",
+            return "Too many login attempts. Please try again later.";
 
-                "success"
+        case "auth/network-request-failed":
 
-            );
+            return "Network error. Check your internet connection.";
 
-            setTimeout(
+        case "auth/popup-blocked":
 
-                ()=>{
+            return "Google popup was blocked by your browser.";
 
-                    window.location.href =
+        case "auth/popup-closed-by-user":
 
-                        "supplier-dashboard.html";
+            return "Google sign-in was cancelled.";
 
-                },
+        case "auth/account-exists-with-different-credential":
 
-                1500
+            return "An account already exists using another sign-in method.";
 
-            );
+        default:
 
-        }
+            return error.message ||
+                "An unexpected error occurred.";
 
-        catch(error){
+    }
 
-            console.error(error);
+}
 
-            showAlert(
+/* ==========================
+   SESSION INFORMATION
+========================== */
 
-                "Google Sign-In failed. Please try again."
+function getCurrentSupplier() {
 
-            );
+    return auth.currentUser;
 
-        }
+}
 
-        finally{
+function isLoggedIn() {
 
-            setLoading(false);
+    return auth.currentUser !== null;
+
+}
+
+/* ==========================
+   CLEAR FORM
+========================== */
+
+function clearLoginForm() {
+
+    form.reset();
+
+    password.type = "password";
+
+    togglePasswordIcon.classList.remove(
+
+        "bi-eye-slash"
+
+    );
+
+    togglePasswordIcon.classList.add(
+
+        "bi-eye"
+
+    );
+
+}
+
+/* ==========================
+   BEFORE PAGE UNLOAD
+========================== */
+
+window.addEventListener(
+
+    "beforeunload",
+
+    () => {
+
+        hideLoading();
+
+    }
+
+);
+
+/* ==========================
+   GLOBAL ERROR HANDLER
+========================== */
+
+window.addEventListener(
+
+    "error",
+
+    (event) => {
+
+        console.error(
+
+            "Application Error:",
+
+            event.error
+
+        );
+
+    }
+
+);
+
+window.addEventListener(
+
+    "unhandledrejection",
+
+    (event) => {
+
+        console.error(
+
+            "Unhandled Promise:",
+
+            event.reason
+
+        );
+
+    }
+
+);
+
+/* ==========================================================
+   Kenya Gas Marketplace
+   Supplier Login
+   Part 7 (FINAL)
+========================================================== */
+
+/* ==========================
+   INITIALIZATION
+========================== */
+
+function initializeSupplierLogin() {
+
+    console.log(
+        "✅ Supplier Login Initialized"
+    );
+
+    clearAlert();
+
+    hideLoading();
+
+    hidePageLoader();
+
+    loadRememberedEmail();
+
+    if (email.value.trim() === "") {
+
+        email.focus();
+
+    } else {
+
+        password.focus();
+
+    }
+
+}
+
+/* ==========================
+   DOM READY
+========================== */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    initializeSupplierLogin
+
+);
+
+/* ==========================
+   ESC KEY CLOSE ALERT
+========================== */
+
+document.addEventListener(
+
+    "keydown",
+
+    event => {
+
+        if (event.key === "Escape") {
+
+            clearAlert();
 
         }
 
@@ -729,6 +1336,107 @@ googleLoginBtn.addEventListener(
 
 );
 
-// ======================================================
-// END OF supplier-login.js
-// ======================================================
+/* ==========================
+   CLEAR ALERTS ON INPUT
+========================== */
+
+form.querySelectorAll(
+
+    "input"
+
+).forEach(input => {
+
+    input.addEventListener(
+
+        "input",
+
+        clearAlert
+
+    );
+
+});
+
+/* ==========================
+   DISABLE LOGIN BUTTON
+   WHEN OFFLINE
+========================== */
+
+function updateConnectionStatus() {
+
+    if (navigator.onLine) {
+
+        loginBtn.disabled = false;
+
+        if (!isSubmitting) {
+
+            hideLoading();
+
+        }
+
+    } else {
+
+        loginBtn.disabled = true;
+
+        showAlert(
+
+            "No internet connection. Please reconnect to continue.",
+
+            "warning"
+
+        );
+
+    }
+
+}
+
+window.addEventListener(
+
+    "online",
+
+    updateConnectionStatus
+
+);
+
+window.addEventListener(
+
+    "offline",
+
+    updateConnectionStatus
+
+);
+
+/* ==========================
+   HIDE PAGE LOADER
+========================== */
+
+window.addEventListener(
+
+    "load",
+
+    () => {
+
+        hidePageLoader();
+
+        updateConnectionStatus();
+
+    }
+
+);
+
+/* ==========================
+   FAILSAFE
+========================== */
+
+setTimeout(() => {
+
+    hidePageLoader();
+
+}, 2500);
+
+/* ==========================
+   END OF FILE
+========================== */
+
+console.log(
+    "✅ supplier-login.js loaded successfully"
+);
