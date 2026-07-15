@@ -1,0 +1,254 @@
+/* =========================================
+   Kenya Gas Marketplace
+   Profile Page Styles
+========================================= */
+
+.profile-container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+
+/* Profile Card */
+.profile-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+
+/* Profile Header */
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+.profile-photo-wrapper {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin: auto;
+}
+
+
+.profile-photo {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #0d6efd;
+    background: #f1f1f1;
+}
+
+
+.upload-photo-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #0d6efd;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+.upload-photo-btn:hover {
+    background: #084298;
+}
+
+
+/* User Name */
+.profile-name {
+    margin-top: 15px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+}
+
+
+.profile-role {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* Form Section */
+.profile-section {
+    margin-top: 30px;
+}
+
+
+.profile-section h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #0d6efd;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+
+/* Inputs */
+
+.profile-form label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+
+.profile-form input,
+.profile-form select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: 0.3s;
+}
+
+
+.profile-form input:focus,
+.profile-form select:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13,110,253,.25);
+}
+
+
+/* Buttons */
+
+.profile-actions {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+}
+
+
+.btn-save-profile {
+    background: #198754;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+
+.btn-save-profile:hover {
+    background: #146c43;
+}
+
+
+.btn-delete-account {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+.btn-delete-account:hover {
+    background: #bb2d3b;
+}
+
+
+/* Account Verification Badge */
+
+.verification-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+
+.verified {
+    background: #d1e7dd;
+    color: #146c43;
+}
+
+
+.not-verified {
+    background: #fff3cd;
+    color: #856404;
+}
+
+
+/* Supplier Specific */
+
+.supplier-info {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+
+.supplier-badge {
+    display: inline-block;
+    padding: 6px 15px;
+    background: #0d6efd;
+    color:white;
+    border-radius:20px;
+    font-size:13px;
+}
+
+
+/* Password Strength */
+
+.password-strength {
+    height: 8px;
+    width:100%;
+    background:#eee;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:8px;
+}
+
+
+.password-strength span {
+    display:block;
+    height:100%;
+    width:0%;
+    transition:.3s;
+}
+
+
+/* Responsive */
+
+@media(max-width:768px){
+
+    .profile-container{
+        margin:20px auto;
+        padding:15px;
+    }
+
+
+    .profile-card{
+        padding:20px;
+    }
+
+
+    .profile-actions{
+        flex-direction:column;
+    }
+
+
+    .btn-save-profile,
+    .btn-delete-account{
+        width:100%;
+    }
+
+}
+
