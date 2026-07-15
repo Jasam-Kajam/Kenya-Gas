@@ -6,8 +6,12 @@
 <meta charset="UTF-8">
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="description"
+    content="Supplier Login - Kenya Gas Marketplace">
 
 <title>
 
@@ -15,1027 +19,912 @@ Supplier Login | Kenya Gas Marketplace
 
 </title>
 
-<!-- Bootstrap -->
+<!-- ==========================================
+     Bootstrap
+========================================== -->
 
 <link
-href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-rel="stylesheet">
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet">
 
-<!-- Bootstrap Icons -->
-
-<link
-href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-rel="stylesheet">
-
-<!-- CSS -->
+<!-- ==========================================
+     Bootstrap Icons
+========================================== -->
 
 <link
-rel="stylesheet"
-href="assets/css/style.css">
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    rel="stylesheet">
+
+<!-- ==========================================
+     Google Font
+========================================== -->
 
 <link
-rel="stylesheet"
-href="assets/css/auth.css">
+    rel="preconnect"
+    href="https://fonts.googleapis.com">
 
 <link
-rel="stylesheet"
-href="assets/css/supplier-login.css">
-
-<!-- Favicon -->
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin>
 
 <link
-rel="icon"
-href="assets/images/favicon.png">
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+<!-- ==========================================
+     Main CSS
+========================================== -->
+
+<link
+    rel="stylesheet"
+    href="assets/css/style.css">
+
+<link
+    rel="stylesheet"
+    href="assets/css/auth.css">
+
+<!-- ==========================================
+     Favicon
+========================================== -->
+
+<link
+    rel="icon"
+    type="image/png"
+    href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png">
 
 </head>
 
-<body class="bg-light">
+<body>
 
-<!-- ========================================= -->
-<!-- NAVBAR -->
-<!-- ========================================= -->
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-success shadow-sm">
-
-<div class="container">
-
-<a
-class="navbar-brand fw-bold d-flex align-items-center"
-href="index.html">
-
-<img
-
-src="assets/images/logo.png"
-
-alt="Kenya Gas"
-
-height="42"
-
-class="me-2">
-
-<span>
-
-Kenya Gas Marketplace
-
-</span>
-
-</a>
-
-<button
-
-class="navbar-toggler"
-
-type="button"
-
-data-bs-toggle="collapse"
-
-data-bs-target="#navbarNav">
-
-<span class="navbar-toggler-icon">
-
-</span>
-
-</button>
+<!-- ==========================================
+     Loading Overlay
+========================================== -->
 
 <div
-class="collapse navbar-collapse"
-id="navbarNav">
+    id="loadingOverlay"
+    class="loading-overlay">
 
-<ul class="navbar-nav ms-auto">
+    <div class="loading-content">
 
-<li class="nav-item">
+        <div
+            class="spinner-border text-success"
+            role="status">
 
-<a
-class="nav-link"
-href="index.html">
+            <span class="visually-hidden">
 
-Home
+                Loading...
 
-</a>
+            </span>
 
-</li>
+        </div>
 
-<li class="nav-item">
+        <h5 class="mt-4 mb-2">
 
-<a
-class="nav-link"
-href="suppliers.html">
+            Kenya Gas Marketplace
 
-Suppliers
+        </h5>
 
-</a>
+        <p class="text-muted">
 
-</li>
+            Preparing Supplier Portal...
 
-<li class="nav-item">
+        </p>
 
-<a
-class="nav-link"
-href="register.html">
-
-Customer Register
-
-</a>
-
-</li>
-
-<li class="nav-item">
-
-<a
-class="nav-link"
-href="supplier-register.html">
-
-Become a Supplier
-
-</a>
-
-</li>
-
-</ul>
+    </div>
 
 </div>
 
-</div>
+<!-- ==========================================
+     Auth Wrapper
+========================================== -->
 
-</nav>
-
-<!-- ========================================= -->
-<!-- HERO -->
-<!-- ========================================= -->
-
-<section class="bg-success text-white py-5">
+<div class="auth-page">
 
 <div class="container">
-
-<div class="row align-items-center">
-
-<div class="col-lg-8">
-
-<h1 class="fw-bold">
-
-Supplier Portal Login
-
-</h1>
-
-<p class="lead mb-0">
-
-Access your supplier dashboard to manage products, orders, deliveries, earnings, customers, analytics and business profile.
-
-</p>
-
-</div>
-
-<div class="col-lg-4 text-center">
-
-<i class="bi bi-shop display-1"></i>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- ========================================= -->
-<!-- LOGIN -->
-<!-- ========================================= -->
-
-<div class="container py-5">
 
 <div class="row justify-content-center">
 
-<div class="col-lg-6">
+<div class="col-xl-5 col-lg-6 col-md-8 col-sm-11">
 
-<div class="card shadow-lg border-0">
+<div class="auth-card shadow-lg">
 
-<div class="card-header bg-white py-4">
+<!-- Part 2 Starts Here -->
 
-<h3 class="mb-1">
+                  <!-- ==========================================
+                     LOGO
+                =========================================== -->
 
-Supplier Login
+                <div class="auth-header text-center">
 
-</h3>
+                    <img
 
-<p class="text-muted mb-0">
+                        src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png"
 
-Sign in to continue.
+                        alt="Kenya Gas Marketplace"
 
-</p>
+                        class="auth-logo">
 
-</div>
+                    <h2 class="mt-3">
 
-<div class="card-body p-4">
+                        Supplier Login
 
-<form
-id="supplierLoginForm"
-novalidate>
+                    </h2>
 
-<!-- Part 2 continues here -->
+                    <p class="text-muted mb-0">
 
-  <!-- ========================================= -->
-<!-- EMAIL -->
-<!-- ========================================= -->
+                        Welcome back. Sign in to manage your LPG business,
+                        products, orders, deliveries and earnings.
 
-<div class="mb-3">
+                    </p>
 
-<label
-for="email"
-class="form-label">
+                </div>
 
-Business Email
+                <!-- ==========================================
+                     ALERT CONTAINER
+                =========================================== -->
 
-<span class="text-danger">*</span>
+                <div
+                    id="alertContainer"
+                    class="mb-4">
 
-</label>
+                </div>
 
-<div class="input-group">
+                <!-- ==========================================
+                     LOGIN FORM
+                =========================================== -->
 
-<span class="input-group-text">
+                <form
+                    id="supplierLoginForm"
+                    novalidate>
 
-<i class="bi bi-envelope-fill"></i>
+                    <!-- ==========================
+                         EMAIL
+                    =========================== -->
 
-</span>
+                    <div class="form-group mb-3">
 
-<input
+                        <label
+                            class="form-label"
+                            for="email">
 
-type="email"
+                            Email Address
 
-class="form-control"
+                            <span class="required">*</span>
 
-id="email"
+                        </label>
 
-placeholder="business@example.com"
+                        <div class="input-group">
 
-required>
+                            <span class="input-group-text">
 
-<div class="invalid-feedback">
+                                <i class="bi bi-envelope-fill"></i>
 
-Enter your registered business email.
+                            </span>
 
-</div>
+                            <input
 
-</div>
+                                type="email"
 
-</div>
+                                id="email"
 
-<!-- ========================================= -->
-<!-- PASSWORD -->
-<!-- ========================================= -->
+                                class="form-control"
 
-<div class="mb-3">
+                                placeholder="Enter your business email"
 
-<label
-for="password"
-class="form-label">
+                                autocomplete="email"
 
-Password
+                                required>
 
-<span class="text-danger">*</span>
+                        </div>
 
-</label>
+                    </div>
 
-<div class="input-group">
+                    <!-- ==========================
+                         PASSWORD
+                    =========================== -->
 
-<span class="input-group-text">
+                    <div class="form-group mb-3">
 
-<i class="bi bi-lock-fill"></i>
+                        <label
+                            class="form-label"
+                            for="password">
 
-</span>
+                            Password
 
-<input
+                            <span class="required">*</span>
 
-type="password"
+                        </label>
 
-class="form-control"
+                        <div class="password-wrapper">
 
-id="password"
+                            <input
 
-placeholder="Enter your password"
+                                type="password"
 
-required>
+                                id="password"
 
-<button
+                                class="form-control"
 
-class="btn btn-outline-secondary"
+                                placeholder="Enter your password"
 
-type="button"
+                                autocomplete="current-password"
 
-id="togglePassword">
+                                required>
 
-<i class="bi bi-eye"></i>
+                            <button
 
-</button>
+                                type="button"
 
-<div class="invalid-feedback">
+                                id="togglePassword"
 
-Password is required.
+                                class="password-toggle"
 
-</div>
+                                aria-label="Show Password">
 
-</div>
+                                <i
 
-</div>
+                                    id="togglePasswordIcon"
 
-<!-- ========================================= -->
-<!-- REMEMBER + FORGOT -->
-<!-- ========================================= -->
+                                    class="bi bi-eye">
 
-<div class="d-flex justify-content-between align-items-center mb-4">
+                                </i>
 
-<div class="form-check">
+                            </button>
 
-<input
+                        </div>
 
-class="form-check-input"
+                    </div>
 
-type="checkbox"
+                    <!-- ==========================
+                         REMEMBER ME
+                    =========================== -->
 
-id="rememberMe">
+                    <div
+                        class="d-flex justify-content-between align-items-center mb-4">
 
-<label
+                        <div class="form-check">
 
-class="form-check-label"
+                            <input
 
-for="rememberMe">
+                                class="form-check-input"
 
-Remember Me
+                                type="checkbox"
 
-</label>
+                                id="rememberMe">
 
-</div>
+                            <label
 
-<a
+                                class="form-check-label"
 
-href="forgot-password.html"
+                                for="rememberMe">
 
-class="text-success text-decoration-none fw-semibold">
+                                Remember Me
 
-Forgot Password?
+                            </label>
 
-</a>
+                        </div>
 
-</div>
+                        <a
 
-<!-- ========================================= -->
-<!-- LOGIN BUTTON -->
-<!-- ========================================= -->
+                            href="forgot-password.html"
 
-<div class="d-grid">
+                            class="text-decoration-none fw-semibold">
 
-<button
+                            Forgot Password?
 
-type="submit"
+                        </a>
 
-class="btn btn-success btn-lg"
+                    </div>
 
-id="loginBtn">
+                    <!-- Part 3 Starts Here -->
 
-<span id="loginText">
+                                      <!-- ==========================================
+                         SIGN IN BUTTON
+                    =========================================== -->
 
-<i class="bi bi-box-arrow-in-right me-2"></i>
+                    <div class="d-grid mb-3">
 
-Login
+                        <button
+                            type="submit"
+                            id="loginBtn"
+                            class="btn btn-success btn-lg">
 
-</span>
+                            <span id="loginBtnText">
 
-<span
+                                <i class="bi bi-box-arrow-in-right me-2"></i>
 
-id="loginLoading"
+                                Sign In
 
-class="d-none">
+                            </span>
 
-<span
+                            <span
+                                id="loginSpinner"
+                                style="display:none;">
 
-class="spinner-border spinner-border-sm me-2">
+                                <span
+                                    class="spinner-border spinner-border-sm me-2"
+                                    role="status"
+                                    aria-hidden="true">
 
-</span>
+                                </span>
 
-Signing In...
+                                Authenticating...
 
-</span>
+                            </span>
 
-</button>
+                        </button>
 
-</div>
+                    </div>
 
-<!-- ========================================= -->
-<!-- DIVIDER -->
-<!-- ========================================= -->
+                    <!-- ==========================================
+                         DIVIDER
+                    =========================================== -->
 
-<div class="text-center my-4">
+                    <div class="text-center my-4">
 
-<span class="text-muted">
+                        <span class="text-muted">
 
-──────── OR ────────
+                            ─────────── OR ───────────
 
-</span>
+                        </span>
 
-</div>
+                    </div>
 
-<!-- ========================================= -->
-<!-- GOOGLE LOGIN -->
-<!-- ========================================= -->
+                    <!-- ==========================================
+                         GOOGLE SIGN IN
+                    =========================================== -->
 
-<div class="d-grid mb-4">
+                    <div class="d-grid mb-4">
 
-<button
+                        <button
+                            type="button"
+                            id="googleLoginBtn"
+                            class="btn btn-outline-dark">
 
-type="button"
+                            <img
 
-class="btn btn-outline-dark"
+                                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
 
-id="googleLoginBtn">
+                                alt="Google"
 
-<img
+                                width="20"
 
-src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                                class="me-2">
 
-width="20"
+                            Continue with Google
 
-class="me-2"
+                        </button>
 
-alt="Google">
+                    </div>
 
-Continue with Google
+                    <!-- ==========================================
+                         REGISTER LINK
+                    =========================================== -->
 
-</button>
+                    <div class="text-center">
 
-</div>
+                        <p class="mb-2">
 
-<!-- ========================================= -->
-<!-- REGISTER LINK -->
-<!-- ========================================= -->
+                            Don't have a supplier account?
 
-<div class="text-center">
+                            <a
+                                href="supplier-register.html"
+                                class="fw-semibold text-decoration-none">
 
-<p class="mb-2">
+                                Create Supplier Account
 
-Don't have a supplier account?
+                            </a>
 
-<a
+                        </p>
 
-href="supplier-register.html"
+                        <p class="mb-0">
 
-class="fw-bold text-success text-decoration-none">
+                            Looking to buy LPG?
 
-Register Here
+                            <a
+                                href="login.html"
+                                class="fw-semibold text-decoration-none">
 
-</a>
+                                Customer Login
 
-</p>
+                            </a>
 
-<p class="text-muted mb-0">
+                        </p>
 
-Looking to buy LPG?
+                    </div>
 
-<a
+                    <!-- ==========================================
+                         EMAIL VERIFICATION NOTICE
+                    =========================================== -->
 
-href="login.html"
+                    <div class="alert alert-info mt-4">
 
-class="text-success text-decoration-none">
+                        <div class="d-flex">
 
-Customer Login
+                            <i class="bi bi-envelope-check-fill fs-4 me-3"></i>
 
-</a>
+                            <div>
 
-</p>
+                                <strong>
 
-</div>
+                                    Email Verification
 
-<!-- Part 3 continues below -->
-  <!-- ========================================= -->
-<!-- ACCOUNT STATUS NOTICE -->
-<!-- ========================================= -->
+                                </strong>
 
-<div class="alert alert-warning mt-4">
+                                <br>
 
-<h6 class="fw-bold mb-2">
+                                If you've just created your supplier account,
+                                please verify your email before signing in.
 
-<i class="bi bi-hourglass-split me-2"></i>
+                            </div>
 
-Supplier Account Approval
+                        </div>
 
-</h6>
+                    </div>
 
-<p class="mb-0">
+                    <!-- Part 4 Starts Here -->
+                                      <!-- ==========================================
+                         ACCOUNT STATUS
+                    =========================================== -->
 
-After registration, every supplier account is reviewed before activation.
-Approval normally takes <strong>24–48 hours</strong>. You can log in only after
-your account has been approved by the Kenya Gas Marketplace team.
+                    <div class="alert alert-warning mt-4">
 
-</p>
+                        <div class="d-flex">
 
-</div>
+                            <i class="bi bi-hourglass-split fs-4 me-3"></i>
 
-<!-- ========================================= -->
-<!-- EMAIL VERIFICATION -->
-<!-- ========================================= -->
+                            <div>
 
-<div class="alert alert-info">
+                                <strong>
 
-<h6 class="fw-bold mb-2">
+                                    Account Review
 
-<i class="bi bi-envelope-check-fill me-2"></i>
+                                </strong>
 
-Email Verification Required
+                                <br>
 
-</h6>
+                                Your supplier account may require approval
+                                before you can publish LPG products and receive
+                                customer orders. You can still sign in and
+                                complete your supplier profile.
 
-<p class="mb-0">
+                            </div>
 
-Please verify your email address before attempting to log in. Check your inbox
-or spam folder for the verification email.
+                        </div>
 
-</p>
+                    </div>
 
-</div>
+                    <!-- ==========================================
+                         SECURITY NOTICE
+                    =========================================== -->
 
-<!-- ========================================= -->
-<!-- SUPPORT -->
-<!-- ========================================= -->
+                    <div class="alert alert-success">
 
-<div class="border rounded p-3 bg-light">
+                        <div class="d-flex">
 
-<h6 class="fw-bold">
+                            <i class="bi bi-shield-lock-fill fs-4 me-3"></i>
 
-<i class="bi bi-headset me-2"></i>
+                            <div>
 
-Need Help?
+                                <strong>
 
-</h6>
+                                    Secure Login
 
-<p class="mb-3">
+                                </strong>
 
-Having trouble accessing your supplier account?
+                                <br>
 
-</p>
+                                Your supplier account is protected using
+                                Firebase Authentication and encrypted
+                                connections.
 
-<div class="d-grid gap-2">
+                            </div>
 
-<a
+                        </div>
 
-href="support.html"
+                    </div>
 
-class="btn btn-outline-success">
+                    <!-- ==========================================
+                         HELP SECTION
+                    =========================================== -->
 
-<i class="bi bi-chat-dots-fill me-2"></i>
+                    <div class="card border-0 bg-light mt-4">
 
-Contact Supplier Support
+                        <div class="card-body">
 
-</a>
+                            <h6 class="fw-bold">
 
-<a
+                                <i class="bi bi-headset me-2"></i>
 
-href="faq.html"
+                                Need Help?
 
-class="btn btn-outline-secondary">
+                            </h6>
 
-<i class="bi bi-question-circle-fill me-2"></i>
+                            <p class="text-muted mb-3">
 
-Frequently Asked Questions
+                                If you're having trouble signing in,
+                                resetting your password, or verifying your
+                                account, our support team is ready to help.
 
-</a>
+                            </p>
 
-</div>
+                            <div class="d-grid gap-2">
 
-</div>
+                                <a
+                                    href="support.html"
+                                    class="btn btn-outline-success">
 
-</form>
+                                    <i class="bi bi-chat-dots-fill me-2"></i>
 
-</div>
+                                    Contact Support
 
-</div>
+                                </a>
 
-</div>
+                                <a
+                                    href="faq.html"
+                                    class="btn btn-outline-secondary">
 
-<!-- ========================================= -->
-<!-- BENEFITS -->
-<!-- ========================================= -->
+                                    <i class="bi bi-question-circle-fill me-2"></i>
 
-<div class="col-lg-5">
+                                    Frequently Asked Questions
 
-<div class="card shadow border-0 mb-4">
+                                </a>
 
-<div class="card-header bg-success text-white">
+                            </div>
 
-<h5 class="mb-0">
+                        </div>
 
-<i class="bi bi-award-fill me-2"></i>
+                    </div>
 
-Supplier Benefits
+                </form>
 
-</h5>
+            </div>
 
-</div>
+        </div>
 
-<div class="card-body">
+    </div>
 
-<div class="mb-3">
+    <!-- ==========================================
+         RIGHT PANEL
+         Continues in Part 5
+    =========================================== -->
 
-<i class="bi bi-check-circle-fill text-success me-2"></i>
+    <div class="col-xl-5 col-lg-6 mt-4 mt-lg-0">
 
-Receive customer orders online
+              <!-- ==========================================
+             SUPPLIER BENEFITS PANEL
+        =========================================== -->
 
-</div>
+        <div class="supplier-side-panel">
 
-<div class="mb-3">
+            <div class="text-center mb-4">
 
-<i class="bi bi-box-seam-fill text-success me-2"></i>
+                <img
 
-Manage LPG products and prices
+                    src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png"
 
-</div>
+                    class="side-logo"
 
-<div class="mb-3">
+                    alt="Kenya Gas Marketplace">
 
-<i class="bi bi-cash-coin text-success me-2"></i>
+            </div>
 
-Track earnings and withdrawals
+            <h3 class="fw-bold mb-3">
 
-</div>
+                Grow Your LPG Business
 
-<div class="mb-3">
+            </h3>
 
-<i class="bi bi-bar-chart-fill text-success me-2"></i>
+            <p class="text-muted mb-4">
 
-View sales analytics
+                Kenya Gas Marketplace connects verified LPG suppliers
+                with thousands of customers across Kenya.
 
-</div>
+            </p>
 
-<div class="mb-3">
+            <!-- FEATURES -->
 
-<i class="bi bi-truck text-success me-2"></i>
+            <div class="feature-item">
 
-Manage deliveries efficiently
+                <i class="bi bi-shop text-success"></i>
 
-</div>
+                <div>
 
-<div>
+                    <h6>Manage Products</h6>
 
-<i class="bi bi-star-fill text-success me-2"></i>
+                    <p>
 
-Build customer trust with ratings
+                        Add LPG cylinders, accessories and refill services.
 
-</div>
+                    </p>
 
-</div>
+                </div>
 
-</div>
+            </div>
 
-<div class="card border-success shadow-sm">
+            <div class="feature-item">
 
-<div class="card-body text-center">
+                <i class="bi bi-cart-check text-success"></i>
 
-<i class="bi bi-shield-lock-fill text-success display-5"></i>
+                <div>
 
-<h5 class="mt-3">
+                    <h6>Receive Orders</h6>
 
-Secure Supplier Portal
+                    <p>
 
-</h5>
+                        Receive and manage customer orders in real time.
 
-<p class="text-muted">
+                    </p>
 
-Your login is protected using Firebase Authentication and encrypted
-connections to keep your business information secure.
+                </div>
 
-</p>
+            </div>
 
-</div>
+            <div class="feature-item">
 
-</div>
+                <i class="bi bi-truck text-success"></i>
 
-</div>
+                <div>
 
-</div>
+                    <h6>Delivery Tracking</h6>
 
-</div>
+                    <p>
 
-<!-- Part 4 continues below -->
-  <!-- ========================================= -->
-<!-- FOOTER -->
-<!-- ========================================= -->
+                        Track deliveries and update customers instantly.
 
-<footer class="bg-dark text-white mt-5 pt-5 pb-4">
+                    </p>
 
-<div class="container">
+                </div>
 
-<div class="row">
+            </div>
 
-<!-- Company -->
+            <div class="feature-item">
 
-<div class="col-lg-4 mb-4">
+                <i class="bi bi-wallet2 text-success"></i>
 
-<h5 class="fw-bold">
+                <div>
 
-Kenya Gas Marketplace
+                    <h6>Supplier Wallet</h6>
 
-</h5>
+                    <p>
 
-<p>
+                        Monitor earnings, withdrawals and commissions.
 
-Kenya's trusted online marketplace connecting LPG suppliers with
-customers safely, securely and efficiently.
+                    </p>
 
-</p>
+                </div>
 
-<div class="mt-3">
+            </div>
 
-<a href="#" class="text-white me-3">
+            <div class="feature-item">
 
-<i class="bi bi-facebook fs-4"></i>
+                <i class="bi bi-bar-chart-line text-success"></i>
 
-</a>
+                <div>
 
-<a href="#" class="text-white me-3">
+                    <h6>Business Analytics</h6>
 
-<i class="bi bi-twitter-x fs-4"></i>
+                    <p>
 
-</a>
+                        View sales, revenue and customer insights.
 
-<a href="#" class="text-white me-3">
+                    </p>
 
-<i class="bi bi-instagram fs-4"></i>
+                </div>
 
-</a>
+            </div>
 
-<a href="#" class="text-white me-3">
+            <!-- STATS -->
 
-<i class="bi bi-linkedin fs-4"></i>
+            <div class="row text-center mt-5">
 
-</a>
+                <div class="col-4">
 
-<a href="#" class="text-white">
+                    <h4 class="fw-bold text-success">
 
-<i class="bi bi-youtube fs-4"></i>
+                        47
 
-</a>
+                    </h4>
 
-</div>
+                    <small>
 
-</div>
+                        Counties
 
-<!-- Quick Links -->
+                    </small>
 
-<div class="col-lg-2 col-md-4 mb-4">
+                </div>
 
-<h6 class="fw-bold">
+                <div class="col-4">
 
-Quick Links
+                    <h4 class="fw-bold text-success">
 
-</h6>
+                        24/7
 
-<ul class="list-unstyled">
+                    </h4>
 
-<li>
+                    <small>
 
-<a
-href="index.html"
-class="text-white text-decoration-none">
+                        Support
 
-Home
+                    </small>
 
-</a>
+                </div>
 
-</li>
+                <div class="col-4">
 
-<li>
+                    <h4 class="fw-bold text-success">
 
-<a
-href="about.html"
-class="text-white text-decoration-none">
+                        100%
 
-About Us
+                    </h4>
 
-</a>
+                    <small>
 
-</li>
+                        Secure
 
-<li>
+                    </small>
 
-<a
-href="suppliers.html"
-class="text-white text-decoration-none">
+                </div>
 
-Suppliers
+            </div>
 
-</a>
+            <!-- VERIFIED -->
 
-</li>
+            <div class="alert alert-success mt-5">
 
-<li>
+                <i class="bi bi-patch-check-fill me-2"></i>
 
-<a
-href="contact.html"
-class="text-white text-decoration-none">
+                Only verified suppliers can publish products and receive
+                customer orders.
 
-Contact
+            </div>
 
-</a>
+        </div>
 
-</li>
-
-</ul>
-
-</div>
-
-<!-- Supplier -->
-
-<div class="col-lg-3 col-md-4 mb-4">
-
-<h6 class="fw-bold">
-
-Supplier Portal
-
-</h6>
-
-<ul class="list-unstyled">
-
-<li>
-
-<a
-href="supplier-register.html"
-class="text-white text-decoration-none">
-
-Supplier Registration
-
-</a>
-
-</li>
-
-<li>
-
-<a
-href="forgot-password.html"
-class="text-white text-decoration-none">
-
-Forgot Password
-
-</a>
-
-</li>
-
-<li>
-
-<a
-href="support.html"
-class="text-white text-decoration-none">
-
-Support
-
-</a>
-
-</li>
-
-<li>
-
-<a
-href="faq.html"
-class="text-white text-decoration-none">
-
-FAQs
-
-</a>
-
-</li>
-
-</ul>
-
-</div>
-
-<!-- Contact -->
-
-<div class="col-lg-3 col-md-4 mb-4">
-
-<h6 class="fw-bold">
-
-Contact Us
-
-</h6>
-
-<p>
-
-<i class="bi bi-envelope-fill me-2"></i>
-
-support@kenyagasmarketplace.co.ke
-
-</p>
-
-<p>
-
-<i class="bi bi-telephone-fill me-2"></i>
-
-+254 700 000 000
-
-</p>
-
-<p>
-
-<i class="bi bi-geo-alt-fill me-2"></i>
-
-Nairobi, Kenya
-
-</p>
+    </div>
 
 </div>
 
 </div>
 
-<hr class="border-secondary">
+<!-- ==========================================
+     Footer Continues in Part 6
+========================================== -->
 
-<div class="text-center">
+  <!-- ==========================================
+     FOOTER
+========================================== -->
 
-<p class="mb-0">
+<div class="auth-footer text-center mt-5">
 
-©
+    <p class="mb-2">
 
-<span id="currentYear"></span>
+        © <span id="currentYear"></span>
 
-Kenya Gas Marketplace.
+        Kenya Gas Marketplace
 
-All Rights Reserved.
+    </p>
 
-</p>
+    <p class="small text-muted mb-3">
+
+        Connecting LPG suppliers and customers across all 47 counties of Kenya.
+
+    </p>
+
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+        <a
+            href="terms.html"
+            class="text-decoration-none">
+
+            Terms
+
+        </a>
+
+        <a
+            href="privacy.html"
+            class="text-decoration-none">
+
+            Privacy
+
+        </a>
+
+        <a
+            href="contact.html"
+            class="text-decoration-none">
+
+            Contact
+
+        </a>
+
+        <a
+            href="about.html"
+            class="text-decoration-none">
+
+            About
+
+        </a>
+
+    </div>
 
 </div>
 
 </div>
 
-</footer>
-
-<!-- ========================================= -->
-<!-- LOADING OVERLAY -->
-<!-- ========================================= -->
-
-<div
-
-id="loadingOverlay"
-
-class="position-fixed top-0 start-0 w-100 h-100 bg-white d-flex justify-content-center align-items-center"
-
-style="z-index:9999;">
-
-<div class="text-center">
-
-<div
-
-class="spinner-border text-success"
-
-style="width:3rem;height:3rem;">
-
-</div>
-
-<p class="mt-3 fw-semibold">
-
-Loading Supplier Portal...
-
-</p>
-
 </div>
 
 </div>
 
-<!-- Bootstrap -->
+<!-- ==========================================
+     Bootstrap
+========================================== -->
 
 <script
 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
-
 </script>
 
-<!-- Supplier Login -->
+<!-- ==========================================
+     Supplier Login JavaScript
+========================================== -->
 
 <script
 type="module"
 src="assets/js/supplier-login.js">
-
 </script>
+
+<!-- ==========================================
+     Page Initializer
+========================================== -->
 
 <script>
 
-document.getElementById(
-
-"currentYear"
-
-).textContent =
-
+document.getElementById("currentYear").textContent =
 new Date().getFullYear();
 
-window.addEventListener(
+/* Hide Loading Screen */
 
-"load",
+window.addEventListener("load", () => {
 
-()=>{
+    const overlay =
+    document.getElementById("loadingOverlay");
 
-document.getElementById(
+    if (!overlay) return;
 
-"loadingOverlay"
+    setTimeout(() => {
 
-).style.display="none";
+        overlay.classList.add("hidden");
 
-}
+        setTimeout(() => {
 
-);
+            overlay.remove();
+
+        }, 400);
+
+    }, 500);
+
+});
+
+/* Failsafe */
+
+setTimeout(() => {
+
+    const overlay =
+    document.getElementById("loadingOverlay");
+
+    if (overlay) {
+
+        overlay.classList.add("hidden");
+
+        setTimeout(() => {
+
+            overlay.remove();
+
+        }, 400);
+
+    }
+
+}, 3000);
 
 </script>
 
