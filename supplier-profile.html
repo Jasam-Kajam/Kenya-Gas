@@ -5,2081 +5,324 @@
 
 <meta charset="UTF-8">
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>
-
-Supplier Profile | Kenya Gas Marketplace
-
-</title>
-
-<meta
-    name="description"
-    content="Manage your supplier profile, business details, payment information and delivery settings on Kenya Gas Marketplace.">
-
-<meta
-    name="theme-color"
-    content="#198754">
-
-<!-- Favicon -->
+<title>Supplier Profile | Kenya Gas Marketplace</title>
 
 <link
-    rel="icon"
-    type="image/png"
-    href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png">
-
-<!-- Google Fonts -->
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
 
 <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com">
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+rel="stylesheet">
 
-<link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
-
-<!-- Bootstrap -->
-
-<link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    rel="stylesheet">
-
-<!-- Bootstrap Icons -->
-
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-<!-- Dashboard CSS -->
-
-<link
-    rel="stylesheet"
-    href="assets/css/dashboard.css">
-
-<!-- Profile CSS -->
-
-<link
-    rel="stylesheet"
-    href="assets/css/profile.css">
+<link rel="stylesheet" href="assets/css/supplier-dashboard.css">
+<link rel="stylesheet" href="assets/css/profile.css">
 
 </head>
 
 <body>
 
-<!-- ==========================================
-     Loading Screen
-========================================== -->
+<!-- =======================
+Navbar
+======================= -->
 
-<div
-    id="loadingOverlay"
-    class="loading-overlay">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
 
-    <div class="loading-content">
+<div class="container-fluid">
 
-        <img
+<a class="navbar-brand d-flex align-items-center fw-bold"
+href="supplier-dashboard.html">
 
-            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png"
+<img
+src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png"
+class="supplier-logo me-2"
+alt="Kenya Gas Logo">
 
-            alt="Kenya Gas Marketplace"
+Kenya Gas Supplier
 
-            width="90"
-
-            class="mb-3">
-
-        <div
-            class="spinner-border text-success"
-            role="status">
-
-            <span class="visually-hidden">
-
-                Loading...
-
-            </span>
-
-        </div>
-
-        <h4 class="mt-3">
-
-            Kenya Gas Marketplace
-
-        </h4>
-
-        <p>
-
-            Loading your supplier profile...
-
-        </p>
-
-    </div>
+</a>
 
 </div>
 
-<!-- ==========================================
-     Dashboard Wrapper
-========================================== -->
+</nav>
 
-<div class="dashboard-wrapper">
-
-  <!-- ==========================================
-     Sidebar
-========================================== -->
-
-<aside
-    id="sidebar"
-    class="sidebar">
-
-    <!-- Logo -->
-
-    <div class="sidebar-header">
-
-        <img
-
-            src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEig4yNkKOEND3ZSjv6V5xSnVE_V5bspkYwL1FH_496CICf-ut9hbogrkIAYe_ccWxZMj-h125Hjq0d9o6DYvkvsY3OwAz4X2AyraLagBuCwxc1M1f8UHWi7-gVxuuLaPvY3CRgWICglnQ7v2ExAhaOu-O5E6EgVnG58JxM9-b0RTDIJz84t-ucAdi7QjbEb/s1408/favicon.png"
-
-            alt="Kenya Gas Marketplace"
-
-            class="sidebar-logo">
-
-        <h5>
-
-            Kenya Gas Marketplace
-
-        </h5>
-
-        <small>
-
-            Supplier Portal
-
-        </small>
-
-    </div>
-
-    <!-- Supplier Profile -->
-
-    <div class="supplier-profile">
-
-        <img
-
-            id="supplierPhoto"
-
-            src="https://ui-avatars.com/api/?name=Supplier"
-
-            class="supplier-avatar"
-
-            alt="Supplier">
-
-        <h6
-            id="supplierName"
-            class="mt-3">
-
-            Loading...
-
-        </h6>
-
-        <small
-            id="supplierEmail">
-
-            loading@email.com
-
-        </small>
-
-        <div class="mt-3">
-
-            <span
-
-                id="approvalBadge"
-
-                class="badge bg-warning">
-
-                Pending Review
-
-            </span>
-
-        </div>
-
-    </div>
-
-    <!-- Navigation -->
-
-    <nav class="sidebar-menu">
-
-        <a href="supplier-dashboard.html">
-
-            <i class="bi bi-grid-fill"></i>
-
-            Dashboard
-
-        </a>
-
-        <a href="supplier-products.html">
-
-            <i class="bi bi-box-seam"></i>
-
-            Products
-
-        </a>
-
-        <a href="supplier-orders.html">
-
-            <i class="bi bi-cart-check"></i>
-
-            Orders
-
-        </a>
-
-        <a href="supplier-wallet.html">
-
-            <i class="bi bi-wallet2"></i>
-
-            Wallet
-
-        </a>
-
-        <a
-            href="supplier-profile.html"
-            class="active">
-
-            <i class="bi bi-person-circle"></i>
-
-            My Profile
-
-        </a>
-
-        <a href="supplier-settings.html">
-
-            <i class="bi bi-gear-fill"></i>
-
-            Settings
-
-        </a>
-
-        <a href="supplier-support.html">
-
-            <i class="bi bi-headset"></i>
-
-            Support
-
-        </a>
-
-    </nav>
-
-    <!-- Logout -->
-
-    <div class="sidebar-footer">
-
-        <button
-
-            id="logoutBtn"
-
-            class="btn btn-danger w-100">
-
-            <i class="bi bi-box-arrow-right me-2"></i>
-
-            Logout
-
-        </button>
-
-    </div>
-
-</aside>
-
-<!-- ==========================================
-     Main Content
-========================================== -->
-
-<main class="main-content">
-
-<!-- ==========================================
-     Top Navigation
-========================================== -->
-
-<header class="top-navbar">
-
-    <div class="container-fluid">
-
-        <div class="row align-items-center">
-
-            <!-- Left -->
-
-            <div class="col-lg-6 d-flex align-items-center">
-
-                <button
-
-                    id="sidebarToggle"
-
-                    class="btn btn-outline-success me-3 d-lg-none">
-
-                    <i class="bi bi-list fs-4"></i>
-
-                </button>
-
-                <div>
-
-                    <h4 class="mb-1">
-
-                        Supplier Profile
-
-                    </h4>
-
-                    <small>
-
-                        Manage your business information
-
-                    </small>
-
-                </div>
-
-            </div>
-
-            <!-- Right -->
-
-            <div class="col-lg-6">
-
-                <div class="d-flex justify-content-lg-end align-items-center gap-3 mt-3 mt-lg-0">
-
-                    <!-- Notifications -->
-
-                    <button
-
-                        id="notificationBtn"
-
-                        class="btn btn-light position-relative">
-
-                        <i class="bi bi-bell"></i>
-
-                        <span
-
-                            id="notificationCount"
-
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-
-                            0
-
-                        </span>
-
-                    </button>
-
-                    <!-- Profile -->
-
-                    <div class="dropdown">
-
-                        <button
-
-                            class="btn btn-light dropdown-toggle d-flex align-items-center"
-
-                            data-bs-toggle="dropdown">
-
-                            <img
-
-                                id="topProfilePhoto"
-
-                                src="https://ui-avatars.com/api/?name=Supplier"
-
-                                width="40"
-
-                                height="40"
-
-                                class="rounded-circle me-2"
-
-                                alt="Supplier">
-
-                            <span
-
-                                id="topProfileName">
-
-                                Supplier
-
-                            </span>
-
-                        </button>
-
-                        <ul class="dropdown-menu dropdown-menu-end">
-
-                            <li>
-
-                                <a
-
-                                    class="dropdown-item"
-
-                                    href="supplier-dashboard.html">
-
-                                    <i class="bi bi-grid-fill me-2"></i>
-
-                                    Dashboard
-
-                                </a>
-
-                            </li>
-
-                            <li>
-
-                                <a
-
-                                    class="dropdown-item"
-
-                                    href="supplier-settings.html">
-
-                                    <i class="bi bi-gear-fill me-2"></i>
-
-                                    Settings
-
-                                </a>
-
-                            </li>
-
-                            <li>
-
-                                <hr class="dropdown-divider">
-
-                            </li>
-
-                            <li>
-
-                                <button
-
-                                    id="topLogoutBtn"
-
-                                    class="dropdown-item text-danger">
-
-                                    <i class="bi bi-box-arrow-right me-2"></i>
-
-                                    Logout
-
-                                </button>
-
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</header>
-
-<!-- ==========================================
-     Page Content
-========================================== -->
-
-<div class="dashboard-content">
-
-  <!-- ==========================================
-     Business Logo & Account Information
-========================================== -->
+<div class="container-fluid mt-4">
 
 <div class="row">
 
-    <!-- Business Logo -->
+<!-- Sidebar -->
 
-    <div class="col-lg-4 mb-4">
+<div class="col-lg-3 mb-4">
 
-        <div class="card shadow-sm h-100">
+<div class="card shadow-sm">
 
-            <div class="card-header">
+<div class="card-body">
 
-                <h5 class="mb-0">
+<h5 class="fw-bold">Supplier Menu</h5>
 
-                    Business Logo
+<hr>
 
-                </h5>
+<a href="supplier-dashboard.html" class="btn btn-outline-success w-100 mb-2">
+<i class="bi bi-speedometer2"></i>
+Dashboard
+</a>
 
-            </div>
+<a href="supplier-products.html" class="btn btn-outline-success w-100 mb-2">
+<i class="bi bi-box-seam"></i>
+Products
+</a>
 
-            <div class="card-body text-center">
+<a href="supplier-orders.html" class="btn btn-outline-success w-100 mb-2">
+<i class="bi bi-cart-check"></i>
+Orders
+</a>
 
-                <img
+<a href="supplier-wallet.html" class="btn btn-outline-success w-100 mb-2">
+<i class="bi bi-wallet2"></i>
+Wallet
+</a>
 
-                    id="businessLogo"
+<a href="supplier-analytics.html" class="btn btn-outline-success w-100 mb-2">
+<i class="bi bi-bar-chart"></i>
+Analytics
+</a>
 
-                    src="https://ui-avatars.com/api/?name=Business"
+<a href="supplier-profile.html" class="btn btn-success w-100 mb-2">
+<i class="bi bi-person-circle"></i>
+Profile
+</a>
 
-                    class="img-fluid rounded-circle border mb-3"
-
-                    style="width:170px;height:170px;object-fit:cover;">
-
-                <input
-
-                    type="file"
-
-                    id="logoInput"
-
-                    class="form-control"
-
-                    accept="image/*">
-
-                <div class="d-grid gap-2 mt-3">
-
-                    <button
-
-                        id="uploadLogoBtn"
-
-                        class="btn btn-success">
-
-                        <i class="bi bi-cloud-upload me-2"></i>
-
-                        Upload Logo
-
-                    </button>
-
-                    <button
-
-                        id="removeLogoBtn"
-
-                        class="btn btn-outline-danger">
-
-                        <i class="bi bi-trash me-2"></i>
-
-                        Remove Logo
-
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Account Information -->
-
-    <div class="col-lg-8 mb-4">
-
-        <div class="card shadow-sm">
-
-            <div class="card-header">
-
-                <h5 class="mb-0">
-
-                    Account Information
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row">
-
-                    <!-- Business Name -->
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Business Name
-
-                        </label>
-
-                        <input
-
-                            type="text"
-
-                            id="businessName"
-
-                            class="form-control"
-
-                            placeholder="Business name">
-
-                    </div>
-
-                    <!-- Owner Name -->
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Owner Name
-
-                        </label>
-
-                        <input
-
-                            type="text"
-
-                            id="ownerName"
-
-                            class="form-control"
-
-                            placeholder="Owner name">
-
-                    </div>
-
-                    <!-- Email -->
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Email Address
-
-                        </label>
-
-                        <input
-
-                            type="email"
-
-                            id="email"
-
-                            class="form-control"
-
-                            readonly>
-
-                    </div>
-
-                    <!-- Phone -->
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Phone Number
-
-                        </label>
-
-                        <input
-
-                            type="tel"
-
-                            id="phone"
-
-                            class="form-control"
-
-                            placeholder="07XXXXXXXX">
-
-                    </div>
-
-                    <!-- Business Type -->
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Business Type
-
-                        </label>
-
-                        <select
-
-                            id="businessType"
-
-                            class="form-select">
-
-                            <option value="">
-
-                                Select Business Type
-
-                            </option>
-
-                            <option>
-
-                                LPG Retailer
-
-                            </option>
-
-                            <option>
-
-                                LPG Wholesaler
-
-                            </option>
-
-                            <option>
-
-                                Distributor
-
-                            </option>
-
-                            <option>
-
-                                Manufacturer
-
-                            </option>
-
-                            <option>
-
-                                Filling Station
-
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- County -->
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            County
-
-                        </label>
-
-                        <select
-
-                            id="county"
-
-                            class="form-select">
-
-                            <option>
-
-                                Select County
-
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- Town -->
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Town
-
-                        </label>
-
-                        <select
-
-                            id="town"
-
-                            class="form-select">
-
-                            <option>
-
-                                Select Town
-
-                            </option>
-
-                        </select>
-
-                    </div>
-
-                    <!-- Address -->
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Physical Address
-
-                        </label>
-
-                        <input
-
-                            type="text"
-
-                            id="businessAddress"
-
-                            class="form-control"
-
-                            placeholder="Building, Street, Landmark">
-
-                    </div>
-
-                    <!-- Description -->
-
-                    <div class="col-12">
-
-                        <label class="form-label">
-
-                            Business Description
-
-                        </label>
-
-                        <textarea
-
-                            id="businessDescription"
-
-                            class="form-control"
-
-                            rows="5"
-
-                            placeholder="Tell customers about your business..."></textarea>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<a href="supplier-settings.html" class="btn btn-outline-success w-100">
+<i class="bi bi-gear"></i>
+Settings
+</a>
 
 </div>
 
-<!-- ==========================================
-     Part 4 Starts Here
-========================================== -->
+</div>
 
-  <!-- ==========================================
-     Business Information & Delivery
-========================================== -->
+</div>
+
+<!-- Main Content -->
+
+<div class="col-lg-9">
+
+<h2 class="fw-bold mb-4">
+
+<i class="bi bi-building text-success"></i>
+
+Business Profile
+
+</h2>
+
+<div class="card shadow-sm">
+
+<div class="card-body">
+
+<form id="supplierProfileForm">
+
+<!-- Business Logo -->
+
+<div class="text-center mb-4">
+
+<img
+id="businessLogoPreview"
+src="https://via.placeholder.com/150?text=Logo"
+class="rounded-circle border"
+width="150"
+height="150"
+style="object-fit:cover;">
+
+<div class="mt-3">
+
+<input
+type="file"
+id="businessLogo"
+class="form-control"
+accept="image/*">
+
+</div>
+
+</div>
 
 <div class="row">
 
-    <!-- Business Information -->
-
-    <div class="col-lg-6 mb-4">
-
-        <div class="card shadow-sm h-100">
-
-            <div class="card-header">
-
-                <h5 class="mb-0">
-
-                    Business Information
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row">
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Years in Business
-
-                        </label>
-
-                        <input
-
-                            type="number"
-
-                            id="yearsInBusiness"
-
-                            class="form-control"
-
-                            min="0"
-
-                            placeholder="0">
-
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Number of Employees
-
-                        </label>
-
-                        <input
-
-                            type="number"
-
-                            id="employees"
-
-                            class="form-control"
-
-                            min="1"
-
-                            placeholder="1">
-
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Opening Time
-
-                        </label>
-
-                        <input
-
-                            type="time"
-
-                            id="openingTime"
-
-                            class="form-control">
-
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-
-                        <label class="form-label">
-
-                            Closing Time
-
-                        </label>
-
-                        <input
-
-                            type="time"
-
-                            id="closingTime"
-
-                            class="form-control">
-
-                    </div>
-
-                    <div class="col-12">
-
-                        <label class="form-label">
-
-                            Website (Optional)
-
-                        </label>
-
-                        <input
-
-                            type="url"
-
-                            id="website"
-
-                            class="form-control"
-
-                            placeholder="https://example.com">
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Delivery Settings -->
-
-    <div class="col-lg-6 mb-4">
-
-        <div class="card shadow-sm h-100">
-
-            <div class="card-header">
-
-                <h5 class="mb-0">
-
-                    Delivery Settings
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Delivery Radius (KM)
-
-                    </label>
-
-                    <input
-
-                        type="number"
-
-                        id="deliveryRadius"
-
-                        class="form-control"
-
-                        min="1"
-
-                        placeholder="10">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Delivery Fee (KES)
-
-                    </label>
-
-                    <input
-
-                        type="number"
-
-                        id="deliveryFee"
-
-                        class="form-control"
-
-                        min="0"
-
-                        placeholder="100">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Free Delivery Above (KES)
-
-                    </label>
-
-                    <input
-
-                        type="number"
-
-                        id="freeDeliveryThreshold"
-
-                        class="form-control"
-
-                        min="0"
-
-                        placeholder="3000">
-
-                </div>
-
-                <div class="form-check form-switch mb-3">
-
-                    <input
-
-                        class="form-check-input"
-
-                        type="checkbox"
-
-                        id="sameDayDelivery">
-
-                    <label
-
-                        class="form-check-label"
-
-                        for="sameDayDelivery">
-
-                        Offer Same-Day Delivery
-
-                    </label>
-
-                </div>
-
-                <div class="form-check form-switch">
-
-                    <input
-
-                        class="form-check-input"
-
-                        type="checkbox"
-
-                        id="deliveryAvailable"
-
-                        checked>
-
-                    <label
-
-                        class="form-check-label"
-
-                        for="deliveryAvailable">
-
-                        Delivery Service Available
-
-                    </label>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Business Name
+</label>
+
+<input
+type="text"
+id="businessName"
+class="form-control"
+required>
 
 </div>
 
-<!-- ==========================================
-     Payment Details
-========================================== -->
+<div class="col-md-6 mb-3">
 
-<div class="card shadow-sm mb-4">
+<label class="form-label">
+Owner Name
+</label>
 
-    <div class="card-header">
-
-        <h5 class="mb-0">
-
-            Payment Details
-
-        </h5>
-
-    </div>
-
-    <div class="card-body">
-
-        <div class="row">
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-
-                    M-PESA Number
-
-                </label>
-
-                <input
-
-                    type="tel"
-
-                    id="mpesaNumber"
-
-                    class="form-control"
-
-                    placeholder="07XXXXXXXX">
-
-            </div>
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-
-                    Bank Name (Optional)
-
-                </label>
-
-                <input
-
-                    type="text"
-
-                    id="bankName"
-
-                    class="form-control"
-
-                    placeholder="e.g. I&M Bank">
-
-            </div>
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-
-                    Account Name (Optional)
-
-                </label>
-
-                <input
-
-                    type="text"
-
-                    id="accountName"
-
-                    class="form-control">
-
-            </div>
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-
-                    Account Number (Optional)
-
-                </label>
-
-                <input
-
-                    type="text"
-
-                    id="accountNumber"
-
-                    class="form-control">
-
-            </div>
-
-        </div>
-
-    </div>
+<input
+type="text"
+id="ownerName"
+class="form-control"
+required>
 
 </div>
 
-<!-- ==========================================
-     Optional Business Documents
-========================================== -->
+<div class="col-md-6 mb-3">
 
-<div class="card shadow-sm mb-4">
+<label class="form-label">
+Phone Number
+</label>
 
-    <div class="card-header">
-
-        <h5 class="mb-0">
-
-            Optional Business Documents
-
-        </h5>
-
-        <small class="text-muted">
-
-            These documents are optional but help speed up supplier verification.
-
-        </small>
-
-    </div>
-
-    <div class="card-body">
-
-        <div class="row">
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-
-                    KRA PIN (Optional)
-
-                </label>
-
-                <input
-
-                    type="text"
-
-                    id="kraPin"
-
-                    class="form-control"
-
-                    placeholder="A123456789B">
-
-            </div>
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-
-                    Business Registration Number (Optional)
-
-                </label>
-
-                <input
-
-                    type="text"
-
-                    id="businessRegistrationNumber"
-
-                    class="form-control">
-
-            </div>
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-
-                    Business License (Optional)
-
-                </label>
-
-                <input
-
-                    type="file"
-
-                    id="businessLicense"
-
-                    class="form-control"
-
-                    accept=".pdf,.jpg,.jpeg,.png">
-
-            </div>
-
-            <div class="col-md-6 mb-3">
-
-                <label class="form-label">
-
-                    Tax Compliance Certificate (Optional)
-
-                </label>
-
-                <input
-
-                    type="file"
-
-                    id="taxCertificate"
-
-                    class="form-control"
-
-                    accept=".pdf,.jpg,.jpeg,.png">
-
-            </div>
-
-        </div>
-
-    </div>
+<input
+type="tel"
+id="phoneNumber"
+class="form-control"
+required>
 
 </div>
 
-<!-- ==========================================
-     Part 5 Starts Here
-========================================== -->
-
-  <!-- ==========================================
-     Security & Account Settings
-========================================== -->
-
-<div class="row">
-
-    <!-- Security -->
-
-    <div class="col-lg-6 mb-4">
-
-        <div class="card shadow-sm h-100">
-
-            <div class="card-header">
-
-                <h5 class="mb-0">
-
-                    Security
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <!-- Email Verification -->
-
-                <div class="d-flex justify-content-between align-items-center mb-4">
-
-                    <div>
-
-                        <h6 class="mb-1">
-
-                            Email Verification
-
-                        </h6>
-
-                        <small class="text-muted">
-
-                            Verify your email address for better account security.
-
-                        </small>
-
-                    </div>
-
-                    <span
-
-                        id="emailVerificationStatus"
-
-                        class="badge bg-warning">
-
-                        Unverified
-
-                    </span>
-
-                </div>
-
-                <button
-
-                    id="verifyEmailBtn"
-
-                    class="btn btn-outline-success w-100 mb-4">
-
-                    <i class="bi bi-envelope-check me-2"></i>
-
-                    Send Verification Email
-
-                </button>
-
-                <hr>
-
-                <!-- Change Password -->
-
-                <h6 class="mb-3">
-
-                    Change Password
-
-                </h6>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Current Password
-
-                    </label>
-
-                    <input
-
-                        type="password"
-
-                        id="currentPassword"
-
-                        class="form-control">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        New Password
-
-                    </label>
-
-                    <input
-
-                        type="password"
-
-                        id="newPassword"
-
-                        class="form-control">
-
-                </div>
-
-                <div class="mb-3">
-
-                    <label class="form-label">
-
-                        Confirm New Password
-
-                    </label>
-
-                    <input
-
-                        type="password"
-
-                        id="confirmPassword"
-
-                        class="form-control">
-
-                </div>
-
-                <button
-
-                    id="changePasswordBtn"
-
-                    class="btn btn-warning w-100">
-
-                    <i class="bi bi-key-fill me-2"></i>
-
-                    Change Password
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Account Status -->
-
-    <div class="col-lg-6 mb-4">
-
-        <div class="card shadow-sm h-100">
-
-            <div class="card-header">
-
-                <h5 class="mb-0">
-
-                    Account Status
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="mb-4">
-
-                    <div class="d-flex justify-content-between">
-
-                        <strong>
-
-                            Supplier Status
-
-                        </strong>
-
-                        <span
-
-                            id="supplierStatus"
-
-                            class="badge bg-success">
-
-                            Active
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="mb-4">
-
-                    <div class="d-flex justify-content-between">
-
-                        <strong>
-
-                            Verification
-
-                        </strong>
-
-                        <span
-
-                            id="verificationStatus"
-
-                            class="badge bg-warning">
-
-                            Pending
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="mb-4">
-
-                    <div class="d-flex justify-content-between">
-
-                        <strong>
-
-                            Member Since
-
-                        </strong>
-
-                        <span id="memberSince">
-
-                            --
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <div class="mb-4">
-
-                    <div class="d-flex justify-content-between">
-
-                        <strong>
-
-                            Last Updated
-
-                        </strong>
-
-                        <span id="lastUpdated">
-
-                            --
-
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <label class="form-label">
-
-                    Profile Completion
-
-                </label>
-
-                <div class="progress mb-2">
-
-                    <div
-
-                        id="profileProgress"
-
-                        class="progress-bar bg-success"
-
-                        style="width:0%;">
-
-                    </div>
-
-                </div>
-
-                <div class="text-end">
-
-                    <small
-
-                        id="profileCompletion">
-
-                        0%
-
-                    </small>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Email
+</label>
+
+<input
+type="email"
+id="email"
+class="form-control"
+readonly>
 
 </div>
 
-<!-- ==========================================
-     Save / Cancel Buttons
-========================================== -->
+<div class="col-md-6 mb-3">
 
-<div class="card shadow-sm mb-4">
+<label class="form-label">
+County
+</label>
 
-    <div class="card-body">
+<select
+id="county"
+class="form-select"
+required>
 
-        <div class="d-flex flex-wrap justify-content-end gap-3">
+<option value="">
+Select County
+</option>
 
-            <button
-
-                id="cancelChangesBtn"
-
-                type="button"
-
-                class="btn btn-outline-secondary">
-
-                <i class="bi bi-arrow-counterclockwise me-2"></i>
-
-                Cancel Changes
-
-            </button>
-
-            <button
-
-                id="saveProfileBtn"
-
-                type="button"
-
-                class="btn btn-success">
-
-                <i class="bi bi-check-circle-fill me-2"></i>
-
-                Save Profile
-
-            </button>
-
-        </div>
-
-    </div>
+</select>
 
 </div>
 
-<!-- ==========================================
-     Success Alert
-========================================== -->
+<div class="col-md-6 mb-3">
 
-<div
+<label class="form-label">
+Town
+</label>
 
-    id="successAlert"
+<select
+id="town"
+class="form-select"
+required>
 
-    class="alert alert-success d-none">
+<option value="">
+Select Town
+</option>
 
-    <i class="bi bi-check-circle-fill me-2"></i>
-
-    Profile updated successfully.
-
-</div>
-
-<!-- ==========================================
-     Error Alert
-========================================== -->
-
-<div
-
-    id="errorAlert"
-
-    class="alert alert-danger d-none">
-
-    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-
-    Something went wrong. Please try again.
+</select>
 
 </div>
 
-<!-- ==========================================
-     Part 6 Starts Here
-========================================== -->
-
-  <!-- ==========================================
-     Supplier Performance Dashboard
-========================================== -->
-
-<div class="row">
-
-    <!-- Total Products -->
-
-    <div class="col-xl-3 col-md-6 mb-4">
-
-        <div class="card dashboard-card shadow-sm">
-
-            <div class="card-body d-flex justify-content-between align-items-center">
-
-                <div>
-
-                    <small class="text-muted">
-
-                        Total Products
-
-                    </small>
-
-                    <h2 id="totalProducts">
-
-                        0
-
-                    </h2>
-
-                </div>
-
-                <div class="dashboard-icon bg-success">
-
-                    <i class="bi bi-box-seam"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Orders -->
-
-    <div class="col-xl-3 col-md-6 mb-4">
-
-        <div class="card dashboard-card shadow-sm">
-
-            <div class="card-body d-flex justify-content-between align-items-center">
-
-                <div>
-
-                    <small class="text-muted">
-
-                        Total Orders
-
-                    </small>
-
-                    <h2 id="totalOrders">
-
-                        0
-
-                    </h2>
-
-                </div>
-
-                <div class="dashboard-icon bg-primary">
-
-                    <i class="bi bi-cart-check"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Revenue -->
-
-    <div class="col-xl-3 col-md-6 mb-4">
-
-        <div class="card dashboard-card shadow-sm">
-
-            <div class="card-body d-flex justify-content-between align-items-center">
-
-                <div>
-
-                    <small class="text-muted">
-
-                        Total Revenue
-
-                    </small>
-
-                    <h2 id="totalRevenue">
-
-                        KSh 0
-
-                    </h2>
-
-                </div>
-
-                <div class="dashboard-icon bg-warning">
-
-                    <i class="bi bi-cash-stack"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Wallet -->
-
-    <div class="col-xl-3 col-md-6 mb-4">
-
-        <div class="card dashboard-card shadow-sm">
-
-            <div class="card-body d-flex justify-content-between align-items-center">
-
-                <div>
-
-                    <small class="text-muted">
-
-                        Wallet Balance
-
-                    </small>
-
-                    <h2 id="walletBalance">
-
-                        KSh 0
-
-                    </h2>
-
-                </div>
-
-                <div class="dashboard-icon bg-info">
-
-                    <i class="bi bi-wallet2"></i>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<div class="col-md-12 mb-3">
+
+<label class="form-label">
+Business Address
+</label>
+
+<textarea
+id="address"
+class="form-control"
+rows="3"></textarea>
 
 </div>
 
-<!-- ==========================================
-     Customer Rating & Quick Actions
-========================================== -->
-
-<div class="row">
-
-    <!-- Customer Rating -->
-
-    <div class="col-lg-4 mb-4">
-
-        <div class="card shadow-sm h-100">
-
-            <div class="card-header">
-
-                <h5 class="mb-0">
-
-                    Customer Rating
-
-                </h5>
-
-            </div>
-
-            <div class="card-body text-center">
-
-                <h1
-
-                    id="supplierRating"
-
-                    class="display-4 text-warning">
-
-                    0.0
-
-                </h1>
-
-                <div class="mb-3">
-
-                    <i class="bi bi-star-fill text-warning"></i>
-
-                    <i class="bi bi-star-fill text-warning"></i>
-
-                    <i class="bi bi-star-fill text-warning"></i>
-
-                    <i class="bi bi-star-fill text-warning"></i>
-
-                    <i class="bi bi-star text-warning"></i>
-
-                </div>
-
-                <p>
-
-                    Based on
-
-                    <strong id="reviewCount">
-
-                        0
-
-                    </strong>
-
-                    customer reviews.
-
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Quick Actions -->
-
-    <div class="col-lg-8 mb-4">
-
-        <div class="card shadow-sm h-100">
-
-            <div class="card-header">
-
-                <h5 class="mb-0">
-
-                    Quick Actions
-
-                </h5>
-
-            </div>
-
-            <div class="card-body">
-
-                <div class="row g-3">
-
-                    <div class="col-md-6">
-
-                        <a
-
-                            href="supplier-products.html"
-
-                            class="btn btn-success w-100">
-
-                            <i class="bi bi-plus-circle me-2"></i>
-
-                            Add New Product
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <a
-
-                            href="supplier-orders.html"
-
-                            class="btn btn-primary w-100">
-
-                            <i class="bi bi-cart-check me-2"></i>
-
-                            View Orders
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <a
-
-                            href="supplier-wallet.html"
-
-                            class="btn btn-warning w-100">
-
-                            <i class="bi bi-wallet2 me-2"></i>
-
-                            Wallet
-
-                        </a>
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <a
-
-                            href="supplier-dashboard.html"
-
-                            class="btn btn-dark w-100">
-
-                            <i class="bi bi-speedometer2 me-2"></i>
-
-                            Dashboard
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+<div class="col-md-6 mb-3">
+
+<label class="form-label">
+Business Permit Number
+</label>
+
+<input
+type="text"
+id="permitNumber"
+class="form-control">
 
 </div>
 
-<!-- ==========================================
-     Footer
-========================================== -->
+<div class="col-md-6 mb-3">
 
-<footer class="dashboard-footer">
+<label class="form-label">
+Verification Status
+</label>
 
-    <div class="row align-items-center">
-
-        <div class="col-md-6">
-
-            <p>
-
-                © <span id="currentYear"></span>
-
-                Kenya Gas Marketplace.
-
-                All Rights Reserved.
-
-            </p>
-
-        </div>
-
-        <div class="col-md-6 text-md-end">
-
-            <a href="privacy-policy.html">
-
-                Privacy Policy
-
-            </a>
-
-            &nbsp;|&nbsp;
-
-            <a href="terms.html">
-
-                Terms of Service
-
-            </a>
-
-            &nbsp;|&nbsp;
-
-            <a href="contact.html">
-
-                Contact
-
-            </a>
-
-        </div>
-
-    </div>
-
-</footer>
+<input
+type="text"
+id="verificationStatus"
+class="form-control"
+value="Pending Verification"
+readonly>
 
 </div>
-<!-- End dashboard-content -->
-
-</main>
-<!-- End main-content -->
 
 </div>
-<!-- End dashboard-wrapper -->
 
-<!-- Bootstrap -->
+<div class="mt-4">
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<button
+type="submit"
+class="btn btn-success">
 
-<!-- Counties -->
+<i class="bi bi-save"></i>
+
+Save Business Profile
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 <script src="assets/js/counties.js"></script>
 
-<!-- Profile -->
+<script type="module" src="assets/js/firebase.js"></script>
+
+<script type="module" src="assets/js/auth-guard.js"></script>
+
+<script type="module" src="assets/js/supplier-profile.js"></script>
 
 <script
-    type="module"
-    src="assets/js/supplier-profile.js"></script>
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
 
 </body>
 
