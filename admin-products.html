@@ -1,0 +1,2033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+
+        Product Management |
+        Kenya Gas Marketplace
+
+    </title>
+
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet">
+
+    <!-- Google Fonts -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Admin CSS -->
+
+    <link
+        rel="stylesheet"
+        href="assets/css/admin.css">
+
+</head>
+
+<body>
+
+<div class="admin-wrapper">
+
+<!-- ==========================================
+     Sidebar
+========================================== -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-brand">
+
+        <img
+            src="assets/images/logo.png"
+            alt="Kenya Gas Logo"
+            class="img-fluid">
+
+        <h4 class="mt-2">
+
+            Kenya Gas
+
+        </h4>
+
+    </div>
+
+    <ul class="sidebar-menu">
+
+        <li>
+
+            <a href="admin-dashboard.html">
+
+                <i class="bi bi-speedometer2"></i>
+
+                Dashboard
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="admin-suppliers.html">
+
+                <i class="bi bi-shop"></i>
+
+                Suppliers
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="admin-customers.html">
+
+                <i class="bi bi-people"></i>
+
+                Customers
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a
+                href="admin-products.html"
+                class="active">
+
+                <i class="bi bi-box-seam"></i>
+
+                Products
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="admin-orders.html">
+
+                <i class="bi bi-cart3"></i>
+
+                Orders
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="admin-payments.html">
+
+                <i class="bi bi-credit-card"></i>
+
+                Payments
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="admin-deliveries.html">
+
+                <i class="bi bi-truck"></i>
+
+                Deliveries
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="admin-reports.html">
+
+                <i class="bi bi-graph-up-arrow"></i>
+
+                Reports
+
+            </a>
+
+        </li>
+
+        <li>
+
+            <a href="admin-settings.html">
+
+                <i class="bi bi-gear"></i>
+
+                Settings
+
+            </a>
+
+        </li>
+
+    </ul>
+
+</aside>
+
+<!-- ==========================================
+     Main Content
+========================================== -->
+
+<div class="main-content">
+
+<!-- ==========================================
+     Top Navigation
+========================================== -->
+
+<header class="topbar">
+
+    <div class="container-fluid">
+
+        <div class="row align-items-center">
+
+            <div class="col">
+
+                <h3 class="mb-0">
+
+                    Product Management
+
+                </h3>
+
+                <small class="text-muted">
+
+                    Manage LPG cylinders, accessories and marketplace products
+
+                </small>
+
+            </div>
+
+            <div class="col-auto">
+
+                <div class="dropdown">
+
+                    <a
+                        href="#"
+                        class="d-flex align-items-center text-decoration-none"
+                        data-bs-toggle="dropdown">
+
+                        <img
+                            id="topAdminPhoto"
+                            src="assets/images/default-avatar.png"
+                            width="42"
+                            height="42"
+                            class="rounded-circle border"
+                            alt="Administrator">
+
+                        <div class="ms-2 text-start">
+
+                            <strong id="topAdminName">
+
+                                Administrator
+
+                            </strong>
+
+                            <br>
+
+                            <small>
+
+                                Admin
+
+                            </small>
+
+                        </div>
+
+                    </a>
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="admin-profile.html">
+
+                                <i class="bi bi-person me-2"></i>
+
+                                Profile
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a
+                                class="dropdown-item"
+                                href="admin-settings.html">
+
+                                <i class="bi bi-gear me-2"></i>
+
+                                Settings
+
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <hr class="dropdown-divider">
+
+                        </li>
+
+                        <li>
+
+                            <button
+                                id="topLogoutBtn"
+                                class="dropdown-item text-danger">
+
+                                <i class="bi bi-box-arrow-right me-2"></i>
+
+                                Logout
+
+                            </button>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+<!-- ==========================================
+     Main Page Content
+========================================== -->
+
+<main class="container-fluid py-4">
+
+<!-- ==========================================
+     Product Statistics
+========================================== -->
+
+<div class="row g-4 mb-4">
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Total Products
+
+                        </small>
+
+                        <h2
+                            id="totalProducts"
+                            class="fw-bold mb-0">
+
+                            0
+
+                        </h2>
+
+                    </div>
+
+                    <i class="bi bi-box-seam display-5 text-primary"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Approved
+
+                        </small>
+
+                        <h2
+                            id="approvedProducts"
+                            class="fw-bold mb-0 text-success">
+
+                            0
+
+                        </h2>
+
+                    </div>
+
+                    <i class="bi bi-patch-check-fill display-5 text-success"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Out of Stock
+
+                        </small>
+
+                        <h2
+                            id="outOfStockProducts"
+                            class="fw-bold mb-0 text-danger">
+
+                            0
+
+                        </h2>
+
+                    </div>
+
+                    <i class="bi bi-exclamation-triangle-fill display-5 text-danger"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+
+        <div class="card dashboard-card border-0 shadow-sm">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div>
+
+                        <small class="text-muted">
+
+                            Featured
+
+                        </small>
+
+                        <h2
+                            id="featuredProducts"
+                            class="fw-bold mb-0 text-warning">
+
+                            0
+
+                        </h2>
+
+                    </div>
+
+                    <i class="bi bi-star-fill display-5 text-warning"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Search & Filters
+========================================== -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Search & Filters
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            <div class="col-lg-3">
+
+                <label class="form-label">
+
+                    Search Product
+
+                </label>
+
+                <input
+                    id="productSearch"
+                    type="search"
+                    class="form-control"
+                    placeholder="Product name...">
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <label class="form-label">
+
+                    Category
+
+                </label>
+
+                <select
+                    id="categoryFilter"
+                    class="form-select">
+
+                    <option value="">
+
+                        All Categories
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <label class="form-label">
+
+                    Supplier
+
+                </label>
+
+                <select
+                    id="supplierFilter"
+                    class="form-select">
+
+                    <option value="">
+
+                        All Suppliers
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <label class="form-label">
+
+                    County
+
+                </label>
+
+                <select
+                    id="countyFilter"
+                    class="form-select">
+
+                    <option value="">
+
+                        All Counties
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-2">
+
+                <label class="form-label">
+
+                    Status
+
+                </label>
+
+                <select
+                    id="stockFilter"
+                    class="form-select">
+
+                    <option value="">
+
+                        All
+
+                    </option>
+
+                    <option value="in_stock">
+
+                        In Stock
+
+                    </option>
+
+                    <option value="low_stock">
+
+                        Low Stock
+
+                    </option>
+
+                    <option value="out_of_stock">
+
+                        Out of Stock
+
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="col-lg-1 d-grid">
+
+                <label class="form-label invisible">
+
+                    Reset
+
+                </label>
+
+                <button
+                    id="resetFilters"
+                    class="btn btn-outline-secondary">
+
+                    <i class="bi bi-arrow-clockwise"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Quick Actions
+========================================== -->
+
+<div class="card border-0 shadow-sm mb-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Quick Actions
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row g-3">
+
+            <div class="col-lg-3 col-md-6">
+
+                <button
+                    id="refreshProductsBtn"
+                    class="btn btn-outline-success w-100">
+
+                    <i class="bi bi-arrow-repeat me-2"></i>
+
+                    Refresh Products
+
+                </button>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <button
+                    id="bulkApproveBtn"
+                    class="btn btn-outline-primary w-100">
+
+                    <i class="bi bi-check-circle me-2"></i>
+
+                    Bulk Approve
+
+                </button>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <button
+                    id="exportProductsBtn"
+                    class="btn btn-outline-dark w-100">
+
+                    <i class="bi bi-download me-2"></i>
+
+                    Export CSV
+
+                </button>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <button
+                    id="printProductsBtn"
+                    class="btn btn-outline-secondary w-100">
+
+                    <i class="bi bi-printer me-2"></i>
+
+                    Print
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Products Table Starts Here
+========================================== -->
+
+<!-- ==========================================
+     Products Table
+========================================== -->
+
+<div class="card border-0 shadow-sm">
+
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+        <div>
+
+            <h5 class="mb-0">
+
+                Marketplace Products
+
+            </h5>
+
+            <small class="text-muted">
+
+                Manage LPG cylinders, accessories and other listed products
+
+            </small>
+
+        </div>
+
+        <span
+            id="productCountBadge"
+            class="badge bg-primary rounded-pill">
+
+            0 Products
+
+        </span>
+
+    </div>
+
+    <div class="card-body">
+
+        <!-- Bulk Actions -->
+
+        <div class="row mb-3">
+
+            <div class="col-lg-8">
+
+                <div class="btn-group flex-wrap">
+
+                    <button
+                        id="approveSelectedBtn"
+                        class="btn btn-outline-success">
+
+                        <i class="bi bi-check-circle me-2"></i>
+
+                        Approve
+
+                    </button>
+
+                    <button
+                        id="featureSelectedBtn"
+                        class="btn btn-outline-warning">
+
+                        <i class="bi bi-star me-2"></i>
+
+                        Feature
+
+                    </button>
+
+                    <button
+                        id="hideSelectedBtn"
+                        class="btn btn-outline-secondary">
+
+                        <i class="bi bi-eye-slash me-2"></i>
+
+                        Hide
+
+                    </button>
+
+                    <button
+                        id="deleteSelectedBtn"
+                        class="btn btn-outline-danger">
+
+                        <i class="bi bi-trash me-2"></i>
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+
+                <small
+                    id="selectedProductsLabel"
+                    class="text-muted">
+
+                    0 Selected
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <!-- Responsive Table -->
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+
+                        <th width="40">
+
+                            <input
+                                type="checkbox"
+                                id="selectAllProducts">
+
+                        </th>
+
+                        <th>
+
+                            Product
+
+                        </th>
+
+                        <th>
+
+                            Supplier
+
+                        </th>
+
+                        <th>
+
+                            Category
+
+                        </th>
+
+                        <th>
+
+                            Price
+
+                        </th>
+
+                        <th>
+
+                            Stock
+
+                        </th>
+
+                        <th>
+
+                            Status
+
+                        </th>
+
+                        <th>
+
+                            Listed
+
+                        </th>
+
+                        <th class="text-center">
+
+                            Actions
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="productsTableBody">
+
+                    <tr>
+
+                        <td
+                            colspan="9"
+                            class="text-center py-5">
+
+                            <div
+                                class="spinner-border text-primary mb-3"
+                                role="status">
+
+                            </div>
+
+                            <br>
+
+                            Loading products...
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Pagination -->
+
+    <div class="card-footer bg-white">
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
+
+            <small
+                id="paginationInfo"
+                class="text-muted">
+
+                Showing 0 of 0 products
+
+            </small>
+
+            <nav>
+
+                <ul
+                    id="productsPagination"
+                    class="pagination pagination-sm mb-0">
+
+                </ul>
+
+            </nav>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Floating Scroll-To-Top Button
+========================================== -->
+
+<button
+
+    id="scrollTopBtn"
+
+    class="btn btn-primary rounded-circle shadow"
+
+    style="
+        position:fixed;
+        right:20px;
+        bottom:20px;
+        width:55px;
+        height:55px;
+        display:none;
+        z-index:1040;
+    ">
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
+
+<!-- ==========================================
+     Product Details Modal Starts Next
+========================================== -->
+
+<!-- ==========================================
+     Product Details Modal
+========================================== -->
+
+<div
+    class="modal fade"
+    id="productDetailsModal"
+    tabindex="-1"
+    aria-hidden="true">
+
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+
+            <div class="modal-header">
+
+                <h4 class="modal-title">
+
+                    Product Details
+
+                </h4>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <!-- Modal Body -->
+
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <!-- ======================================
+                         Product Images
+                    ======================================= -->
+
+                    <div class="col-lg-4">
+
+                        <div class="card shadow-sm border-0">
+
+                            <div class="card-body text-center">
+
+                                <img
+                                    id="productMainImage"
+                                    src="assets/images/product-placeholder.png"
+                                    class="img-fluid rounded border mb-3"
+                                    style="max-height:260px;"
+                                    alt="Product">
+
+                                <div
+                                    id="productGallery"
+                                    class="d-flex flex-wrap justify-content-center gap-2">
+
+                                    <!-- Product thumbnails -->
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- ======================================
+                         Product Information
+                    ======================================= -->
+
+                    <div class="col-lg-8">
+
+                        <h3 id="productName">
+
+                            Loading...
+
+                        </h3>
+
+                        <p
+                            id="productDescription"
+                            class="text-muted">
+
+                        </p>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <strong>Supplier</strong>
+
+                                <p id="productSupplier">
+
+                                    -
+
+                                </p>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <strong>Category</strong>
+
+                                <p id="productCategory">
+
+                                    -
+
+                                </p>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <strong>County</strong>
+
+                                <p id="productCounty">
+
+                                    -
+
+                                </p>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <strong>Town</strong>
+
+                                <p id="productTown">
+
+                                    -
+
+                                </p>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <strong>Price</strong>
+
+                                <h5
+                                    id="productPrice"
+                                    class="text-success">
+
+                                    KES 0
+
+                                </h5>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <strong>Available Stock</strong>
+
+                                <h5
+                                    id="productStock">
+
+                                    0
+
+                                </h5>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <strong>Status</strong>
+
+                                <div
+                                    id="productStatus">
+
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+
+                                <strong>Listed On</strong>
+
+                                <p
+                                    id="productCreatedAt">
+
+                                    -
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <!-- ======================================
+                     Product Statistics
+                ======================================= -->
+
+                <div class="row text-center g-3 mb-4">
+
+                    <div class="col-md-3">
+
+                        <div class="card shadow-sm">
+
+                            <div class="card-body">
+
+                                <h4 id="productViews">
+
+                                    0
+
+                                </h4>
+
+                                <small>
+
+                                    Views
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="card shadow-sm">
+
+                            <div class="card-body">
+
+                                <h4 id="productOrders">
+
+                                    0
+
+                                </h4>
+
+                                <small>
+
+                                    Orders
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="card shadow-sm">
+
+                            <div class="card-body">
+
+                                <h4 id="productRating">
+
+                                    ★ 0.0
+
+                                </h4>
+
+                                <small>
+
+                                    Rating
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="card shadow-sm">
+
+                            <div class="card-body">
+
+                                <h4 id="productRevenue">
+
+                                    KES 0
+
+                                </h4>
+
+                                <small>
+
+                                    Revenue
+
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- ======================================
+                     Specifications
+                ======================================= -->
+
+                <div class="card shadow-sm border-0 mb-4">
+
+                    <div class="card-header bg-white">
+
+                        <h5 class="mb-0">
+
+                            Product Specifications
+
+                        </h5>
+
+                    </div>
+
+                    <div
+                        id="productSpecifications"
+                        class="card-body">
+
+                        No specifications available.
+
+                    </div>
+
+                </div>
+
+                <!-- ======================================
+                     Admin Notes
+                ======================================= -->
+
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-header bg-white">
+
+                        <h5 class="mb-0">
+
+                            Administrator Notes
+
+                        </h5>
+
+                    </div>
+
+                    <div class="card-body">
+
+                        <textarea
+                            id="productAdminNotes"
+                            rows="5"
+                            class="form-control"
+                            placeholder="Private administrator notes..."></textarea>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ======================================
+                 Modal Footer
+            ======================================= -->
+
+            <div class="modal-footer">
+
+                <button
+                    id="approveProductBtn"
+                    class="btn btn-success">
+
+                    <i class="bi bi-check-circle me-2"></i>
+
+                    Approve
+
+                </button>
+
+                <button
+                    id="rejectProductBtn"
+                    class="btn btn-warning">
+
+                    <i class="bi bi-x-circle me-2"></i>
+
+                    Reject
+
+                </button>
+
+                <button
+                    id="featureProductBtn"
+                    class="btn btn-primary">
+
+                    <i class="bi bi-star me-2"></i>
+
+                    Feature
+
+                </button>
+
+                <button
+                    id="hideProductBtn"
+                    class="btn btn-secondary">
+
+                    <i class="bi bi-eye-slash me-2"></i>
+
+                    Hide
+
+                </button>
+
+                <button
+                    id="deleteProductBtn"
+                    class="btn btn-danger">
+
+                    <i class="bi bi-trash me-2"></i>
+
+                    Delete
+
+                </button>
+
+                <button
+                    id="saveProductNotesBtn"
+                    class="btn btn-dark">
+
+                    <i class="bi bi-save me-2"></i>
+
+                    Save Notes
+
+                </button>
+
+                <button
+                    class="btn btn-outline-secondary"
+                    data-bs-dismiss="modal">
+
+                    Close
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Part 5 Starts Next
+========================================== -->
+
+<!-- ==========================================
+     Product Reviews
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Customer Reviews
+
+        </h5>
+
+    </div>
+
+    <div
+        id="productReviewsContainer"
+        class="card-body">
+
+        <div class="text-center py-5 text-muted">
+
+            No reviews available.
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Order History
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Recent Orders
+
+        </h5>
+
+    </div>
+
+    <div
+        id="productOrdersContainer"
+        class="card-body">
+
+        <div class="text-center py-5 text-muted">
+
+            No order history available.
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Inventory History
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Inventory History
+
+        </h5>
+
+    </div>
+
+    <div
+        id="inventoryHistoryContainer"
+        class="card-body">
+
+        <div class="text-center py-5 text-muted">
+
+            No inventory history found.
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Price History
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Price History
+
+        </h5>
+
+    </div>
+
+    <div
+        id="priceHistoryContainer"
+        class="card-body">
+
+        <div class="text-center py-5 text-muted">
+
+            No price changes recorded.
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Approval History
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Approval History
+
+        </h5>
+
+    </div>
+
+    <div
+        id="approvalHistoryContainer"
+        class="card-body">
+
+        <div class="text-center py-5 text-muted">
+
+            No approval records found.
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Product Activity Timeline
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Product Activity Timeline
+
+        </h5>
+
+    </div>
+
+    <div
+        id="productTimeline"
+        class="card-body">
+
+        <div class="text-center py-5 text-muted">
+
+            No activity available.
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Supplier Information
+========================================== -->
+
+<div class="card border-0 shadow-sm mt-4 mb-4">
+
+    <div class="card-header bg-white">
+
+        <h5 class="mb-0">
+
+            Supplier Information
+
+        </h5>
+
+    </div>
+
+    <div class="card-body">
+
+        <div class="row">
+
+            <div class="col-md-3 text-center">
+
+                <img
+                    id="supplierLogo"
+                    src="assets/images/default-avatar.png"
+                    class="rounded-circle border"
+                    width="120"
+                    height="120"
+                    alt="Supplier">
+
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+
+                        <strong>Business Name</strong>
+
+                        <p id="supplierBusinessName">
+
+                            -
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>Owner</strong>
+
+                        <p id="supplierOwner">
+
+                            -
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>Email</strong>
+
+                        <p id="supplierEmail">
+
+                            -
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>Phone</strong>
+
+                        <p id="supplierPhone">
+
+                            -
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>County</strong>
+
+                        <p id="supplierCounty">
+
+                            -
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>Town</strong>
+
+                        <p id="supplierTown">
+
+                            -
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>Products Listed</strong>
+
+                        <p id="supplierProducts">
+
+                            0
+
+                        </p>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <strong>Status</strong>
+
+                        <p id="supplierStatus">
+
+                            -
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     End of Product Information Sections
+     Part 6: Toasts, Modals, Footer & Scripts
+========================================== -->
+
+<!-- ==========================================
+     Loading Overlay
+========================================== -->
+
+<div
+    id="loadingOverlay"
+    class="position-fixed top-0 start-0 w-100 h-100 d-none
+           bg-dark bg-opacity-50 d-flex justify-content-center align-items-center"
+    style="z-index: 2000;">
+
+    <div class="text-center">
+
+        <div
+            class="spinner-border text-light"
+            role="status">
+
+        </div>
+
+        <p class="text-white mt-3 mb-0">
+
+            Loading...
+
+        </p>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Success Toast
+========================================== -->
+
+<div
+    class="toast-container position-fixed top-0 end-0 p-3">
+
+    <div
+        id="successToast"
+        class="toast text-bg-success border-0">
+
+        <div class="d-flex">
+
+            <div
+                id="successToastMessage"
+                class="toast-body">
+
+                Success
+
+            </div>
+
+            <button
+                class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast">
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        id="errorToast"
+        class="toast text-bg-danger border-0 mt-2">
+
+        <div class="d-flex">
+
+            <div
+                id="errorToastMessage"
+                class="toast-body">
+
+                Error
+
+            </div>
+
+            <button
+                class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast">
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div
+        id="infoToast"
+        class="toast text-bg-primary border-0 mt-2">
+
+        <div class="d-flex">
+
+            <div
+                id="infoToastMessage"
+                class="toast-body">
+
+                Information
+
+            </div>
+
+            <button
+                class="btn-close btn-close-white me-2 m-auto"
+                data-bs-dismiss="toast">
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Logout Modal
+========================================== -->
+
+<div
+    class="modal fade"
+    id="logoutModal"
+    tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5>
+
+                    Logout
+
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                Are you sure you want to logout?
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    id="confirmLogoutBtn"
+                    class="btn btn-danger">
+
+                    Logout
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Session Expired
+========================================== -->
+
+<div
+    class="modal fade"
+    id="sessionExpiredModal"
+    tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5>
+
+                    Session Expired
+
+                </h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                Your login session has expired.
+                Please login again.
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button
+                    id="loginAgainBtn"
+                    class="btn btn-primary">
+
+                    Login
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ==========================================
+     Offline Banner
+========================================== -->
+
+<div
+    id="offlineBanner"
+    class="alert alert-warning text-center rounded-0 d-none mb-0">
+
+    <i class="bi bi-wifi-off me-2"></i>
+
+    You are currently offline.
+
+</div>
+
+<!-- ==========================================
+     Footer
+========================================== -->
+
+<footer
+    class="text-center py-4 text-muted">
+
+    © <span id="copyrightYear"></span>
+
+    Kenya Gas Marketplace
+
+    | Administrator Panel
+
+</footer>
+
+</main>
+
+</div>
+
+</div>
+
+<!-- ==========================================
+     Bootstrap
+========================================== -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+<!-- ==========================================
+     Admin Products JS
+========================================== -->
+
+<script
+type="module"
+src="assets/js/admin-products.js">
+</script>
+
+<script>
+
+document.getElementById(
+
+    "copyrightYear"
+
+).textContent =
+
+new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
