@@ -1,22 +1,23 @@
 // ======================================================
 // Kenya Gas Marketplace
 // Admin Orders
-// Part 1
-// Firebase Imports & Initialization
+// assets/js/admin-orders.js
+// Part 1 - Foundation
+// ======================================================
+
+// ======================================================
+// Firebase
 // ======================================================
 
 import { app } from "./firebase.js";
 
 import {
-
     getAuth,
     onAuthStateChanged,
     signOut
-
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
-
     getFirestore,
     collection,
     doc,
@@ -29,22 +30,36 @@ import {
     onSnapshot,
     updateDoc,
     addDoc,
+    deleteDoc,
     serverTimestamp,
-    deleteDoc
-
+    arrayUnion
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// ------------------------------------------------------
+// ======================================================
 // Firebase Services
-// ------------------------------------------------------
+// ======================================================
 
 const auth = getAuth(app);
 
 const db = getFirestore(app);
 
-// ------------------------------------------------------
+// ======================================================
+// Firestore Collections
+// ======================================================
+
+const ordersRef = collection(db, "orders");
+
+const customersRef = collection(db, "customers");
+
+const suppliersRef = collection(db, "suppliers");
+
+const adminsRef = collection(db, "admins");
+
+const auditLogsRef = collection(db, "auditLogs");
+
+// ======================================================
 // Global Variables
-// ------------------------------------------------------
+// ======================================================
 
 let currentAdmin = null;
 
@@ -60,24 +75,28 @@ let selectedOrder = null;
 
 let unsubscribeOrders = null;
 
-// Pagination
-
 const ORDERS_PER_PAGE = 10;
 
 let currentPage = 1;
 
-// ------------------------------------------------------
-// DOM Elements
-// ------------------------------------------------------
+// ======================================================
+// Cached DOM Elements
+// ======================================================
+
+// Loading
 
 const loadingOverlay =
     document.getElementById("loadingOverlay");
 
-const ordersTableBody =
-    document.getElementById("ordersTableBody");
+// Header
 
-const orderCountBadge =
-    document.getElementById("orderCountBadge");
+const topAdminName =
+    document.getElementById("topAdminName");
+
+const topAdminPhoto =
+    document.getElementById("topAdminPhoto");
+
+// Statistics
 
 const totalOrders =
     document.getElementById("totalOrders");
@@ -91,9 +110,35 @@ const completedOrders =
 const cancelledOrders =
     document.getElementById("cancelledOrders");
 
-// ------------------------------------------------------
-// Loading Helpers
-// ------------------------------------------------------
+// Table
+
+const ordersTableBody =
+    document.getElementById("ordersTableBody");
+
+const orderCountBadge =
+    document.getElementById("orderCountBadge");
+
+// Scroll Button
+
+const scrollTopBtn =
+    document.getElementById("scrollTopBtn");
+
+// Logout
+
+const topLogoutBtn =
+    document.getElementById("topLogoutBtn");
+
+const confirmLogoutBtn =
+    document.getElementById("confirmLogoutBtn");
+
+// Offline Banner
+
+const offlineBanner =
+    document.getElementById("offlineBanner");
+
+// ======================================================
+// Loading Overlay
+// ======================================================
 
 function showLoader() {
 
@@ -107,9 +152,9 @@ function hideLoader() {
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Authentication
-// ------------------------------------------------------
+// ======================================================
 
 onAuthStateChanged(auth, async (user) => {
 
@@ -123,19 +168,13 @@ onAuthStateChanged(auth, async (user) => {
 
     try {
 
-        const adminRef = doc(
+        const adminSnapshot = await getDoc(
 
-            db,
-            "admins",
-            user.uid
+            doc(db, "admins", user.uid)
 
         );
 
-        const adminSnap =
-
-            await getDoc(adminRef);
-
-        if (!adminSnap.exists()) {
+        if (!adminSnapshot.exists()) {
 
             alert("Administrator access denied.");
 
@@ -153,11 +192,11 @@ onAuthStateChanged(auth, async (user) => {
 
             email: user.email,
 
-            ...adminSnap.data()
+            ...adminSnapshot.data()
 
         };
 
-        initializePage();
+        initializeAdminPage();
 
     }
 
@@ -165,167 +204,253 @@ onAuthStateChanged(auth, async (user) => {
 
         console.error(error);
 
-        alert("Failed to verify administrator.");
+        alert("Unable to verify administrator.");
 
     }
 
 });
 
-// ------------------------------------------------------
+// ======================================================
 // Initialize Page
-// ------------------------------------------------------
+// ======================================================
 
-function initializePage() {
+async function initializeAdminPage() {
 
-    loadAdminProfile();
+    showLoader();
 
-    loadCustomers();
+    try {
 
-    loadSuppliers();
+        loadAdministratorProfile();
 
-    listenForOrders();
+        await Promise.all([
 
-    registerEventListeners();
+            loadCustomers(),
 
-}
+            loadSuppliers()
 
-// ------------------------------------------------------
-// Load Administrator Profile
-// ------------------------------------------------------
+        ]);
 
-function loadAdminProfile() {
+        startOrdersListener();
 
-    document.getElementById(
+        registerEventListeners();
 
-        "topAdminName"
+    }
 
-    ).textContent =
+    catch (error) {
 
-        currentAdmin.fullName ||
+        console.error(error);
 
-        currentAdmin.name ||
+    }
 
-        "Administrator";
+    finally {
 
-    if (currentAdmin.photoURL) {
-
-        document.getElementById(
-
-            "topAdminPhoto"
-
-        ).src =
-
-        currentAdmin.photoURL;
+        hideLoader();
 
     }
 
 }
 
 // ======================================================
-// Part 2
-// Customers
-// Suppliers
-// Real-time Orders
-// Dashboard Statistics
+// Administrator Profile
 // ======================================================
 
-// ------------------------------------------------------
+function loadAdministratorProfile() {
+
+    if (topAdminName) {
+
+        topAdminName.textContent =
+
+            currentAdmin.fullName ||
+
+            currentAdmin.name ||
+
+            "Administrator";
+
+    }
+
+    if (
+
+        topAdminPhoto &&
+
+        currentAdmin.photoURL
+
+    ) {
+
+        topAdminPhoto.src =
+
+            currentAdmin.photoURL;
+
+    }
+
+}
+
+// ======================================================
+// Common Utility Functions
+// ======================================================
+
+function escapeHtml(text = "") {
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+function formatCurrency(amount = 0) {
+
+    return new Intl.NumberFormat(
+
+        "en-KE",
+
+        {
+
+            style: "currency",
+
+            currency: "KES"
+
+        }
+
+    ).format(Number(amount));
+
+}
+
+function formatDate(value) {
+
+    if (!value) return "-";
+
+    const date = value.toDate
+
+        ? value.toDate()
+
+        : new Date(value);
+
+    return new Intl.DateTimeFormat(
+
+        "en-KE",
+
+        {
+
+            dateStyle: "medium",
+
+            timeStyle: "short"
+
+        }
+
+    ).format(date);
+
+}
+
+function generateOrderNumber() {
+
+    return "KGM-" +
+
+        Date.now()
+
+        .toString()
+
+        .slice(-8);
+
+}
+
+function getTimestamp() {
+
+    return serverTimestamp();
+
+}
+
+// ======================================================
+// Kenya Gas Marketplace
+// Admin Orders
+// Part 2 - Data Layer
+// ======================================================
+
+// ======================================================
 // Load Customers
-// ------------------------------------------------------
+// ======================================================
 
 async function loadCustomers() {
 
     try {
 
-        const snapshot = await getDocs(
+        const snapshot = await getDocs(customersRef);
 
-            query(
+        customers = snapshot.docs.map(doc => ({
 
-                collection(db, "customers"),
+            id: doc.id,
 
-                orderBy("fullName")
+            ...doc.data()
 
-            )
-
-        );
-
-        customers = [];
-
-        snapshot.forEach(docSnap => {
-
-            customers.push({
-
-                id: docSnap.id,
-
-                ...docSnap.data()
-
-            });
-
-        });
+        }));
 
     }
 
     catch (error) {
 
-        console.error(error);
+        console.error(
 
-        showError("Unable to load customers.");
+            "Customers:",
+
+            error
+
+        );
+
+        showErrorToast(
+
+            "Unable to load customers."
+
+        );
 
     }
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Load Suppliers
-// ------------------------------------------------------
+// ======================================================
 
 async function loadSuppliers() {
 
     try {
 
-        const snapshot = await getDocs(
+        const snapshot = await getDocs(suppliersRef);
 
-            query(
+        suppliers = snapshot.docs.map(doc => ({
 
-                collection(db, "suppliers"),
+            id: doc.id,
 
-                orderBy("businessName")
+            ...doc.data()
 
-            )
-
-        );
-
-        suppliers = [];
-
-        snapshot.forEach(docSnap => {
-
-            suppliers.push({
-
-                id: docSnap.id,
-
-                ...docSnap.data()
-
-            });
-
-        });
+        }));
 
     }
 
     catch (error) {
 
-        console.error(error);
+        console.error(
 
-        showError("Unable to load suppliers.");
+            "Suppliers:",
+
+            error
+
+        );
+
+        showErrorToast(
+
+            "Unable to load suppliers."
+
+        );
 
     }
 
 }
 
-// ------------------------------------------------------
-// Listen For Orders
-// ------------------------------------------------------
+// ======================================================
+// Real-time Orders Listener
+// ======================================================
 
-function listenForOrders() {
+function startOrdersListener() {
 
     if (unsubscribeOrders) {
 
@@ -333,43 +458,39 @@ function listenForOrders() {
 
     }
 
-    showLoader();
+    const ordersQuery = query(
+
+        ordersRef,
+
+        orderBy(
+
+            "createdAt",
+
+            "desc"
+
+        )
+
+    );
 
     unsubscribeOrders = onSnapshot(
 
-        query(
-
-            collection(db, "orders"),
-
-            orderBy("createdAt", "desc")
-
-        ),
+        ordersQuery,
 
         snapshot => {
 
-            orders = [];
+            orders = snapshot.docs.map(doc => ({
 
-            snapshot.forEach(docSnap => {
+                id: doc.id,
 
-                orders.push({
+                ...doc.data()
 
-                    id: docSnap.id,
-
-                    ...docSnap.data()
-
-                });
-
-            });
+            }));
 
             filteredOrders = [...orders];
 
-            updateDashboardCards();
+            updateDashboardStatistics();
 
-            updateOrderBadge();
-
-            renderCurrentPage();
-
-            hideLoader();
+            refreshOrdersTable();
 
         },
 
@@ -377,9 +498,11 @@ function listenForOrders() {
 
             console.error(error);
 
-            hideLoader();
+            showErrorToast(
 
-            showError("Unable to load orders.");
+                "Unable to load orders."
+
+            );
 
         }
 
@@ -387,11 +510,11 @@ function listenForOrders() {
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Dashboard Statistics
-// ------------------------------------------------------
+// ======================================================
 
-function updateDashboardCards() {
+function updateDashboardStatistics() {
 
     totalOrders.textContent =
 
@@ -421,25 +544,237 @@ function updateDashboardCards() {
 
         ).length;
 
-}
-
-// ------------------------------------------------------
-// Order Counter Badge
-// ------------------------------------------------------
-
-function updateOrderBadge() {
-
     orderCountBadge.textContent =
 
         `${filteredOrders.length} Orders`;
 
 }
 
-// ------------------------------------------------------
-// Initial Table Rendering
-// ------------------------------------------------------
+// ======================================================
+// Refresh Table
+// ======================================================
 
-function renderCurrentPage() {
+function refreshOrdersTable() {
+
+    renderOrdersTable();
+
+    updatePagination();
+
+}
+
+// ======================================================
+// Lookup Helpers
+// ======================================================
+
+function findOrder(orderId) {
+
+    return orders.find(
+
+        order =>
+
+            order.id === orderId
+
+    );
+
+}
+
+function findCustomer(customerId) {
+
+    return customers.find(
+
+        customer =>
+
+            customer.id === customerId
+
+    );
+
+}
+
+function findSupplier(supplierId) {
+
+    return suppliers.find(
+
+        supplier =>
+
+            supplier.id === supplierId
+
+    );
+
+}
+
+// ======================================================
+// Display Helpers
+// ======================================================
+
+function getCustomerName(customerId) {
+
+    const customer =
+
+        findCustomer(customerId);
+
+    return customer
+
+        ? customer.fullName ||
+
+          customer.name ||
+
+          customer.email ||
+
+          "-"
+
+        : "-";
+
+}
+
+function getSupplierName(supplierId) {
+
+    const supplier =
+
+        findSupplier(supplierId);
+
+    return supplier
+
+        ? supplier.businessName ||
+
+          supplier.shopName ||
+
+          supplier.name ||
+
+          "-"
+
+        : "-";
+
+}
+
+// ======================================================
+// Status Badges
+// ======================================================
+
+function getOrderBadge(status = "") {
+
+    const colours = {
+
+        pending: "warning",
+
+        confirmed: "info",
+
+        processing: "primary",
+
+        out_for_delivery: "secondary",
+
+        completed: "success",
+
+        cancelled: "danger"
+
+    };
+
+    return `
+
+<span class="badge bg-${colours[status] || "dark"}">
+
+${status.replaceAll("_", " ")}
+
+</span>
+
+`;
+
+}
+
+function getPaymentBadge(status = "") {
+
+    const colours = {
+
+        paid: "success",
+
+        pending: "warning",
+
+        failed: "danger",
+
+        refunded: "info"
+
+    };
+
+    return `
+
+<span class="badge bg-${colours[status] || "secondary"}">
+
+${status}
+
+</span>
+
+`;
+
+}
+
+function getDeliveryBadge(status = "") {
+
+    const colours = {
+
+        pending: "warning",
+
+        assigned: "primary",
+
+        in_transit: "info",
+
+        delivered: "success"
+
+    };
+
+    return `
+
+<span class="badge bg-${colours[status] || "secondary"}">
+
+${status.replaceAll("_", " ")}
+
+</span>
+
+`;
+
+}
+
+// ======================================================
+// Kenya Gas Marketplace
+// Admin Orders
+// Part 3 - Orders Table Rendering
+// ======================================================
+
+// ======================================================
+// Render Orders Table
+// ======================================================
+
+function renderOrdersTable() {
+
+    if (!ordersTableBody) return;
+
+    ordersTableBody.innerHTML = "";
+
+    if (!filteredOrders.length) {
+
+        ordersTableBody.innerHTML = `
+
+<tr>
+
+<td colspan="10" class="text-center py-5">
+
+<i class="bi bi-inbox display-4 text-muted"></i>
+
+<p class="mt-3 mb-0 text-muted">
+
+No orders found.
+
+</p>
+
+</td>
+
+</tr>
+
+`;
+
+        orderCountBadge.textContent = "0 Orders";
+
+        return;
+
+    }
 
     const start =
 
@@ -463,544 +798,571 @@ function renderCurrentPage() {
 
         );
 
-    renderOrdersTable(pageOrders);
+    pageOrders.forEach(order => {
 
-    updatePagination();
+        ordersTableBody.insertAdjacentHTML(
 
-}
+            "beforeend",
 
-// ------------------------------------------------------
-// Render Orders Table
-// ------------------------------------------------------
+            createOrderRow(order)
 
-function renderOrdersTable(orderList) {
-
-    if (!orderList.length) {
-
-        ordersTableBody.innerHTML = `
-
-            <tr>
-
-                <td
-                    colspan="10"
-                    class="text-center py-5 text-muted">
-
-                    No orders found.
-
-                </td>
-
-            </tr>
-
-        `;
-
-        return;
-
-    }
-
-    ordersTableBody.innerHTML = "";
-
-    orderList.forEach(order => {
-
-        ordersTableBody.innerHTML +=
-
-            createOrderRow(order);
+        );
 
     });
 
+    updateSelectedLabel();
+
+    updatePaginationInfo();
+
 }
 
 // ======================================================
-// Part 3
-// Order Table
-// Row Builder
-// Status Badges
-// Action Buttons
+// Create Table Row
 // ======================================================
-
-// ------------------------------------------------------
-// Create Order Table Row
-// ------------------------------------------------------
 
 function createOrderRow(order) {
 
     return `
 
-    <tr>
+<tr>
 
-        <td>
+<td>
 
-            <input
-                type="checkbox"
-                class="orderCheck"
-                value="${order.id}">
+<input
 
-        </td>
+type="checkbox"
 
-        <td>
+class="form-check-input order-checkbox"
 
-            <strong>
+value="${order.id}"
 
-                ${escapeHTML(order.orderNumber || order.id)}
+>
 
-            </strong>
+</td>
 
-        </td>
+<td>
 
-        <td>
+<strong>
 
-            ${getCustomerName(order.customerId)}
+${escapeHtml(
 
-        </td>
+order.orderNumber ||
 
-        <td>
+order.id
 
-            ${getSupplierName(order.supplierId)}
+)}
 
-        </td>
+</strong>
 
-        <td>
+</td>
 
-            ${formatCurrency(order.totalAmount || 0)}
+<td>
 
-        </td>
+${escapeHtml(
 
-        <td>
+getCustomerName(
 
-            ${paymentStatusBadge(order.paymentStatus)}
+order.customerId
 
-        </td>
+)
 
-        <td>
+)}
 
-            ${deliveryStatusBadge(order.deliveryStatus)}
+</td>
 
-        </td>
+<td>
 
-        <td>
+${escapeHtml(
 
-            ${orderStatusBadge(order.status)}
+getSupplierName(
 
-        </td>
+order.supplierId
 
-        <td>
+)
 
-            ${formatDate(order.createdAt)}
+)}
 
-        </td>
+</td>
 
-        <td class="text-center">
+<td>
 
-            <div class="btn-group btn-group-sm">
+${formatCurrency(
 
-                <button
-                    class="btn btn-outline-primary"
-                    title="View"
-                    onclick="openOrderDetails('${order.id}')">
+order.totalAmount ||
 
-                    <i class="bi bi-eye"></i>
+0
 
-                </button>
+)}
 
-                <button
-                    class="btn btn-outline-success"
-                    title="Confirm"
-                    onclick="confirmOrder('${order.id}')">
+</td>
 
-                    <i class="bi bi-check-circle"></i>
+<td>
 
-                </button>
+${getPaymentBadge(
 
-                <button
-                    class="btn btn-outline-warning"
-                    title="Dispatch"
-                    onclick="dispatchOrder('${order.id}')">
+order.paymentStatus ||
 
-                    <i class="bi bi-truck"></i>
+"pending"
 
-                </button>
+)}
 
-                <button
-                    class="btn btn-outline-info"
-                    title="Complete"
-                    onclick="completeOrder('${order.id}')">
+</td>
 
-                    <i class="bi bi-patch-check"></i>
+<td>
 
-                </button>
+${getDeliveryBadge(
 
-                <button
-                    class="btn btn-outline-danger"
-                    title="Cancel"
-                    onclick="cancelOrder('${order.id}')">
+order.deliveryStatus ||
 
-                    <i class="bi bi-x-circle"></i>
+"pending"
 
-                </button>
+)}
 
-            </div>
+</td>
 
-        </td>
+<td>
 
-    </tr>
+${getOrderBadge(
 
-    `;
+order.status ||
 
-}
+"pending"
 
-// ------------------------------------------------------
-// Customer Lookup
-// ------------------------------------------------------
+)}
 
-function getCustomerName(customerId) {
+</td>
 
-    const customer = customers.find(
+<td>
 
-        item => item.id === customerId
+${formatDate(
 
-    );
+order.createdAt
 
-    return customer
+)}
 
-        ? escapeHTML(
+</td>
 
-            customer.fullName ||
+<td class="text-center">
 
-            customer.name ||
+<div class="btn-group btn-group-sm">
 
-            "Customer"
+<button
 
-        )
+class="btn btn-outline-primary"
 
-        : "<span class='text-muted'>Unknown</span>";
+title="View Order"
 
-}
+onclick="openOrderDetails('${order.id}')">
 
-// ------------------------------------------------------
-// Supplier Lookup
-// ------------------------------------------------------
+<i class="bi bi-eye"></i>
 
-function getSupplierName(supplierId) {
+</button>
 
-    const supplier = suppliers.find(
+<button
 
-        item => item.id === supplierId
+class="btn btn-outline-success"
 
-    );
+title="Confirm"
 
-    return supplier
+onclick="quickConfirmOrder('${order.id}')">
 
-        ? escapeHTML(
+<i class="bi bi-check-circle"></i>
 
-            supplier.businessName ||
+</button>
 
-            supplier.name ||
+<button
 
-            "Supplier"
+class="btn btn-outline-danger"
 
-        )
+title="Cancel"
 
-        : "<span class='text-muted'>Unknown</span>";
+onclick="quickCancelOrder('${order.id}')">
 
-}
+<i class="bi bi-x-circle"></i>
 
-// ------------------------------------------------------
-// Payment Badge
-// ------------------------------------------------------
+</button>
 
-function paymentStatusBadge(status) {
+</div>
 
-    switch (status) {
+</td>
 
-        case "paid":
+</tr>
 
-            return `<span class="badge bg-success">Paid</span>`;
-
-        case "pending":
-
-            return `<span class="badge bg-warning text-dark">Pending</span>`;
-
-        case "failed":
-
-            return `<span class="badge bg-danger">Failed</span>`;
-
-        case "refunded":
-
-            return `<span class="badge bg-info">Refunded</span>`;
-
-        default:
-
-            return `<span class="badge bg-secondary">Unknown</span>`;
-
-    }
-
-}
-
-// ------------------------------------------------------
-// Delivery Badge
-// ------------------------------------------------------
-
-function deliveryStatusBadge(status) {
-
-    switch (status) {
-
-        case "pending":
-
-            return `<span class="badge bg-warning text-dark">Pending</span>`;
-
-        case "assigned":
-
-            return `<span class="badge bg-primary">Assigned</span>`;
-
-        case "in_transit":
-
-            return `<span class="badge bg-info">In Transit</span>`;
-
-        case "delivered":
-
-            return `<span class="badge bg-success">Delivered</span>`;
-
-        default:
-
-            return `<span class="badge bg-secondary">Unknown</span>`;
-
-    }
-
-}
-
-// ------------------------------------------------------
-// Order Status Badge
-// ------------------------------------------------------
-
-function orderStatusBadge(status) {
-
-    switch (status) {
-
-        case "pending":
-
-            return `<span class="badge bg-warning text-dark">Pending</span>`;
-
-        case "confirmed":
-
-            return `<span class="badge bg-primary">Confirmed</span>`;
-
-        case "processing":
-
-            return `<span class="badge bg-info">Processing</span>`;
-
-        case "out_for_delivery":
-
-            return `<span class="badge bg-primary">Out for Delivery</span>`;
-
-        case "completed":
-
-            return `<span class="badge bg-success">Completed</span>`;
-
-        case "cancelled":
-
-            return `<span class="badge bg-danger">Cancelled</span>`;
-
-        default:
-
-            return `<span class="badge bg-secondary">Unknown</span>`;
-
-    }
-
-}
-
-// ------------------------------------------------------
-// Helpers
-// ------------------------------------------------------
-
-function formatCurrency(amount) {
-
-    return new Intl.NumberFormat(
-
-        "en-KE",
-
-        {
-
-            style: "currency",
-
-            currency: "KES",
-
-            minimumFractionDigits: 0
-
-        }
-
-    ).format(Number(amount || 0));
-
-}
-
-function formatDate(date) {
-
-    if (!date) return "-";
-
-    if (date.toDate) {
-
-        date = date.toDate();
-
-    }
-
-    return new Intl.DateTimeFormat(
-
-        "en-KE",
-
-        {
-
-            dateStyle: "medium",
-
-            timeStyle: "short"
-
-        }
-
-    ).format(date);
-
-}
-
-function escapeHTML(text) {
-
-    const div = document.createElement("div");
-
-    div.textContent = text || "";
-
-    return div.innerHTML;
+`;
 
 }
 
 // ======================================================
-// Part 4
-// Search
-// Filters
-// Pagination
-// Bulk Selection
+// Pagination Information
 // ======================================================
 
-// ------------------------------------------------------
-// Register Event Listeners
-// ------------------------------------------------------
+function updatePaginationInfo() {
+
+    const paginationInfo =
+
+        document.getElementById(
+
+            "paginationInfo"
+
+        );
+
+    if (!paginationInfo) return;
+
+    const start =
+
+        filteredOrders.length
+
+        ? ((currentPage - 1)
+
+        * ORDERS_PER_PAGE) + 1
+
+        : 0;
+
+    const end =
+
+        Math.min(
+
+            currentPage *
+
+            ORDERS_PER_PAGE,
+
+            filteredOrders.length
+
+        );
+
+    paginationInfo.textContent =
+
+        `Showing ${start} - ${end} of ${filteredOrders.length} orders`;
+
+}
+
+// ======================================================
+// Selected Orders Label
+// ======================================================
+
+function updateSelectedLabel() {
+
+    const label =
+
+        document.getElementById(
+
+            "selectedOrdersLabel"
+
+        );
+
+    if (!label) return;
+
+    const selected =
+
+        document.querySelectorAll(
+
+            ".order-checkbox:checked"
+
+        ).length;
+
+    label.textContent =
+
+        `${selected} Selected`;
+
+}
+
+// ======================================================
+// Checkbox Events
+// ======================================================
+
+document.addEventListener(
+
+    "change",
+
+    event => {
+
+        if (
+
+            event.target.classList.contains(
+
+                "order-checkbox"
+
+            )
+
+        ) {
+
+            updateSelectedLabel();
+
+        }
+
+    }
+
+);
+
+// ======================================================
+// Quick View
+// ======================================================
+
+window.openOrderDetails = function(orderId) {
+
+    const order =
+
+        findOrder(orderId);
+
+    if (!order) {
+
+        showErrorToast(
+
+            "Order not found."
+
+        );
+
+        return;
+
+    }
+
+    selectedOrder = order;
+
+    populateOrderModal(order);
+
+    bootstrap.Modal
+
+        .getOrCreateInstance(
+
+            document.getElementById(
+
+                "orderDetailsModal"
+
+            )
+
+        )
+
+        .show();
+
+};
+
+// ======================================================
+// Quick Confirm
+// ======================================================
+
+window.quickConfirmOrder = function(orderId) {
+
+    const order =
+
+        findOrder(orderId);
+
+    if (!order) return;
+
+    selectedOrder = order;
+
+    confirmSelectedOrder();
+
+};
+
+// ======================================================
+// Quick Cancel
+// ======================================================
+
+window.quickCancelOrder = function(orderId) {
+
+    const order =
+
+        findOrder(orderId);
+
+    if (!order) return;
+
+    selectedOrder = order;
+
+    cancelSelectedOrder();
+
+};
+
+// ======================================================
+// Kenya Gas Marketplace
+// Admin Orders
+// Part 4 - Search, Filters & Pagination
+// ======================================================
+
+// ======================================================
+// DOM Elements
+// ======================================================
+
+const orderSearch =
+    document.getElementById("orderSearch");
+
+const statusFilter =
+    document.getElementById("statusFilter");
+
+const paymentFilter =
+    document.getElementById("paymentFilter");
+
+const deliveryFilter =
+    document.getElementById("deliveryFilter");
+
+const fromDate =
+    document.getElementById("fromDate");
+
+const resetFilters =
+    document.getElementById("resetFilters");
+
+const refreshOrdersBtn =
+    document.getElementById("refreshOrdersBtn");
+
+const selectAllOrders =
+    document.getElementById("selectAllOrders");
+
+const ordersPagination =
+    document.getElementById("ordersPagination");
+
+const paginationInfo =
+    document.getElementById("paginationInfo");
+
+const selectedOrdersLabel =
+    document.getElementById("selectedOrdersLabel");
+
+// ======================================================
+// Register Events
+// ======================================================
 
 function registerEventListeners() {
 
-    document.getElementById("orderSearch")
-        ?.addEventListener("input", applyFilters);
+    orderSearch?.addEventListener(
+        "input",
+        applyFilters
+    );
 
-    document.getElementById("statusFilter")
-        ?.addEventListener("change", applyFilters);
+    statusFilter?.addEventListener(
+        "change",
+        applyFilters
+    );
 
-    document.getElementById("paymentFilter")
-        ?.addEventListener("change", applyFilters);
+    paymentFilter?.addEventListener(
+        "change",
+        applyFilters
+    );
 
-    document.getElementById("deliveryFilter")
-        ?.addEventListener("change", applyFilters);
+    deliveryFilter?.addEventListener(
+        "change",
+        applyFilters
+    );
 
-    document.getElementById("fromDate")
-        ?.addEventListener("change", applyFilters);
+    fromDate?.addEventListener(
+        "change",
+        applyFilters
+    );
 
-    document.getElementById("resetFilters")
-        ?.addEventListener("click", resetFilters);
+    resetFilters?.addEventListener(
+        "click",
+        resetAllFilters
+    );
 
-    document.getElementById("selectAllOrders")
-        ?.addEventListener("change", toggleSelectAllOrders);
+    refreshOrdersBtn?.addEventListener(
+        "click",
+        () => {
 
-    document.getElementById("refreshOrdersBtn")
-        ?.addEventListener("click", listenForOrders);
+            showInfoToast(
+                "Refreshing orders..."
+            );
 
-    document.getElementById("exportOrdersBtn")
-        ?.addEventListener("click", exportOrdersCSV);
+            startOrdersListener();
 
-    document.getElementById("printOrdersBtn")
-        ?.addEventListener("click", () => window.print());
+        }
+    );
+
+    selectAllOrders?.addEventListener(
+        "change",
+        toggleSelectAllOrders
+    );
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Apply Filters
-// ------------------------------------------------------
+// ======================================================
 
 function applyFilters() {
 
-    const search =
-        document.getElementById("orderSearch")
-        ?.value
+    const keyword =
+        orderSearch.value
         .trim()
-        .toLowerCase() || "";
-
-    const status =
-        document.getElementById("statusFilter")?.value || "";
-
-    const payment =
-        document.getElementById("paymentFilter")?.value || "";
-
-    const delivery =
-        document.getElementById("deliveryFilter")?.value || "";
-
-    const fromDate =
-        document.getElementById("fromDate")?.value || "";
+        .toLowerCase();
 
     filteredOrders = orders.filter(order => {
 
         const customer =
-            getCustomerName(order.customerId)
-            .toLowerCase();
+            getCustomerName(
+                order.customerId
+            ).toLowerCase();
 
         const supplier =
-            getSupplierName(order.supplierId)
-            .toLowerCase();
+            getSupplierName(
+                order.supplierId
+            ).toLowerCase();
 
         const orderNumber =
-            (order.orderNumber || order.id || "")
+            (order.orderNumber || order.id)
             .toLowerCase();
 
-        const matchesSearch =
+        const searchMatch =
 
-            !search ||
+            keyword === "" ||
 
-            orderNumber.includes(search) ||
+            orderNumber.includes(keyword) ||
 
-            customer.includes(search) ||
+            customer.includes(keyword) ||
 
-            supplier.includes(search);
+            supplier.includes(keyword);
 
-        const matchesStatus =
+        const statusMatch =
 
-            !status ||
+            statusFilter.value === "" ||
 
-            order.status === status;
+            order.status ===
+            statusFilter.value;
 
-        const matchesPayment =
+        const paymentMatch =
 
-            !payment ||
+            paymentFilter.value === "" ||
 
-            order.paymentStatus === payment;
+            order.paymentStatus ===
+            paymentFilter.value;
 
-        const matchesDelivery =
+        const deliveryMatch =
 
-            !delivery ||
+            deliveryFilter.value === "" ||
 
-            order.deliveryStatus === delivery;
+            order.deliveryStatus ===
+            deliveryFilter.value;
 
-        let matchesDate = true;
+        let dateMatch = true;
 
-        if (fromDate && order.createdAt) {
+        if (
+            fromDate.value &&
+            order.createdAt
+        ) {
 
             const orderDate =
 
                 order.createdAt.toDate
+
                 ? order.createdAt.toDate()
+
                 : new Date(order.createdAt);
 
-            matchesDate =
-                orderDate >= new Date(fromDate);
+            dateMatch =
+
+                orderDate >=
+
+                new Date(fromDate.value);
 
         }
 
         return (
 
-            matchesSearch &&
-            matchesStatus &&
-            matchesPayment &&
-            matchesDelivery &&
-            matchesDate
+            searchMatch &&
+
+            statusMatch &&
+
+            paymentMatch &&
+
+            deliveryMatch &&
+
+            dateMatch
 
         );
 
@@ -1008,45 +1370,45 @@ function applyFilters() {
 
     currentPage = 1;
 
-    updateOrderBadge();
-
-    renderCurrentPage();
+    refreshOrdersTable();
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Reset Filters
-// ------------------------------------------------------
+// ======================================================
 
-function resetFilters() {
+function resetAllFilters() {
 
-    document.getElementById("orderSearch").value = "";
+    orderSearch.value = "";
 
-    document.getElementById("statusFilter").value = "";
+    statusFilter.value = "";
 
-    document.getElementById("paymentFilter").value = "";
+    paymentFilter.value = "";
 
-    document.getElementById("deliveryFilter").value = "";
+    deliveryFilter.value = "";
 
-    document.getElementById("fromDate").value = "";
+    fromDate.value = "";
 
     filteredOrders = [...orders];
 
     currentPage = 1;
 
-    updateOrderBadge();
-
-    renderCurrentPage();
+    refreshOrdersTable();
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Pagination
-// ------------------------------------------------------
+// ======================================================
 
 function updatePagination() {
 
-    const pages = Math.max(
+    if (!ordersPagination) return;
+
+    ordersPagination.innerHTML = "";
+
+    const totalPages = Math.max(
 
         1,
 
@@ -1060,57 +1422,41 @@ function updatePagination() {
 
     );
 
-    document.getElementById(
+    for (
 
-        "paginationInfo"
+        let page = 1;
 
-    ).textContent =
+        page <= totalPages;
 
-        `Showing ${filteredOrders.length} order(s)`;
+        page++
 
-    let html = "";
+    ) {
 
-    for (let i = 1; i <= pages; i++) {
+        ordersPagination.insertAdjacentHTML(
 
-        html += `
+            "beforeend",
 
-        <li class="page-item ${
+            `
 
-            i === currentPage
+<li class="page-item ${page===currentPage?"active":""}">
 
-                ? "active"
+<button
+class="page-link"
+data-page="${page}">
 
-                : ""
+${page}
 
-        }">
+</button>
 
-            <button
+</li>
 
-                class="page-link"
-
-                data-page="${i}">
-
-                ${i}
-
-            </button>
-
-        </li>
-
-        `;
-
-    }
-
-    const pagination =
-
-        document.getElementById(
-
-            "ordersPagination"
+`
 
         );
 
-    pagination.innerHTML = html;
+    }
 
-    pagination
+    ordersPagination
 
         .querySelectorAll(".page-link")
 
@@ -1118,11 +1464,15 @@ function updatePagination() {
 
             button.onclick = () => {
 
-                currentPage =
+                currentPage = Number(
 
-                    Number(button.dataset.page);
+                    button.dataset.page
 
-                renderCurrentPage();
+                );
+
+                renderOrdersTable();
+
+                updatePagination();
 
             };
 
@@ -1130,55 +1480,67 @@ function updatePagination() {
 
 }
 
-// ------------------------------------------------------
-// Select All Orders
-// ------------------------------------------------------
+// ======================================================
+// Select All
+// ======================================================
 
-function toggleSelectAllOrders(event) {
+function toggleSelectAllOrders() {
 
     document
 
-        .querySelectorAll(".orderCheck")
+        .querySelectorAll(
+
+            ".order-checkbox"
+
+        )
 
         .forEach(box => {
 
             box.checked =
 
-                event.target.checked;
+                selectAllOrders.checked;
 
         });
 
-    updateSelectedOrders();
+    updateSelectedLabel();
 
 }
 
-// ------------------------------------------------------
-// Selected Counter
-// ------------------------------------------------------
+// ======================================================
+// Selected Orders
+// ======================================================
 
-function updateSelectedOrders() {
+function getSelectedOrders() {
 
-    const selected =
+    return [
 
-        document
+        ...document.querySelectorAll(
 
-        .querySelectorAll(
-
-            ".orderCheck:checked"
+            ".order-checkbox:checked"
 
         )
 
-        .length;
-
-    document.getElementById(
-
-        "selectedOrdersLabel"
-
-    ).textContent =
-
-        `${selected} Selected`;
+    ].map(box => box.value);
 
 }
+
+// ======================================================
+// Selected Counter
+// ======================================================
+
+function updateSelectedLabel() {
+
+    if (!selectedOrdersLabel) return;
+
+    selectedOrdersLabel.textContent =
+
+        `${getSelectedOrders().length} Selected`;
+
+}
+
+// ======================================================
+// Synchronize Select All
+// ======================================================
 
 document.addEventListener(
 
@@ -1188,387 +1550,634 @@ document.addEventListener(
 
         if (
 
-            event.target.classList.contains(
+            !event.target.classList.contains(
 
-                "orderCheck"
+                "order-checkbox"
 
             )
 
-        ) {
+        ) return;
 
-            updateSelectedOrders();
+        const all =
+
+            document.querySelectorAll(
+
+                ".order-checkbox"
+
+            );
+
+        const checked =
+
+            document.querySelectorAll(
+
+                ".order-checkbox:checked"
+
+            );
+
+        if (selectAllOrders) {
+
+            selectAllOrders.checked =
+
+                all.length > 0 &&
+
+                all.length === checked.length;
 
         }
+
+        updateSelectedLabel();
 
     }
 
 );
 
 // ======================================================
-// End Part 4
+// Kenya Gas Marketplace
+// Admin Orders
+// Part 5 - Order Details Modal
 // ======================================================
 
 // ======================================================
-// Part 5
-// Order Details Modal
-// Customer
-// Supplier
-// Products
-// Payment
-// Delivery
-// Timeline
+// Modal Elements
 // ======================================================
 
-// ------------------------------------------------------
+const orderDetailsModal =
+    document.getElementById("orderDetailsModal");
+
+const modalOrderId =
+    document.getElementById("modalOrderId");
+
+const modalOrderStatus =
+    document.getElementById("modalOrderStatus");
+
+const modalPaymentStatus =
+    document.getElementById("modalPaymentStatus");
+
+const modalDeliveryStatus =
+    document.getElementById("modalDeliveryStatus");
+
+const customerName =
+    document.getElementById("customerName");
+
+const customerEmail =
+    document.getElementById("customerEmail");
+
+const customerPhone =
+    document.getElementById("customerPhone");
+
+const customerCounty =
+    document.getElementById("customerCounty");
+
+const customerTown =
+    document.getElementById("customerTown");
+
+const customerAddress =
+    document.getElementById("customerAddress");
+
+const supplierName =
+    document.getElementById("supplierName");
+
+const supplierOwner =
+    document.getElementById("supplierOwner");
+
+const supplierEmail =
+    document.getElementById("supplierEmail");
+
+const supplierPhone =
+    document.getElementById("supplierPhone");
+
+const supplierCounty =
+    document.getElementById("supplierCounty");
+
+const supplierTown =
+    document.getElementById("supplierTown");
+
+const orderItemsTableBody =
+    document.getElementById("orderItemsTableBody");
+
+const paymentMethod =
+    document.getElementById("paymentMethod");
+
+const paymentReference =
+    document.getElementById("paymentReference");
+
+const paymentAmount =
+    document.getElementById("paymentAmount");
+
+const paymentDate =
+    document.getElementById("paymentDate");
+
+const deliveryDriver =
+    document.getElementById("deliveryDriver");
+
+const deliveryVehicle =
+    document.getElementById("deliveryVehicle");
+
+const trackingNumber =
+    document.getElementById("trackingNumber");
+
+const expectedDelivery =
+    document.getElementById("expectedDelivery");
+
+const orderTimeline =
+    document.getElementById("orderTimeline");
+
+const adminOrderNotes =
+    document.getElementById("adminOrderNotes");
+
+// ======================================================
 // Open Order Details
-// ------------------------------------------------------
+// ======================================================
 
-window.openOrderDetails = async function(orderId) {
+window.openOrderDetails = function (orderId) {
 
-    selectedOrder = orders.find(
+    const order = findOrder(orderId);
 
-        order => order.id === orderId
+    if (!order) {
 
-    );
-
-    if (!selectedOrder) {
-
-        showError("Order not found.");
+        showErrorToast("Order not found.");
 
         return;
 
     }
 
-    populateOrderModal(selectedOrder);
+    selectedOrder = order;
 
-    const modal = new bootstrap.Modal(
+    populateOrderModal(order);
 
-        document.getElementById("orderDetailsModal")
-
-    );
-
-    modal.show();
+    bootstrap.Modal
+        .getOrCreateInstance(orderDetailsModal)
+        .show();
 
 };
 
-// ------------------------------------------------------
+// ======================================================
 // Populate Modal
-// ------------------------------------------------------
+// ======================================================
 
 function populateOrderModal(order) {
 
-    // Order Summary
-
-    document.getElementById("modalOrderId").textContent =
+    modalOrderId.textContent =
         order.orderNumber || order.id;
 
-    document.getElementById("modalOrderStatus").innerHTML =
-        orderStatusBadge(order.status);
+    modalOrderStatus.innerHTML =
+        getOrderBadge(order.status);
 
-    document.getElementById("modalPaymentStatus").innerHTML =
-        paymentStatusBadge(order.paymentStatus);
+    modalPaymentStatus.innerHTML =
+        getPaymentBadge(order.paymentStatus);
 
-    document.getElementById("modalDeliveryStatus").innerHTML =
-        deliveryStatusBadge(order.deliveryStatus);
-
-    // Customer
+    modalDeliveryStatus.innerHTML =
+        getDeliveryBadge(order.deliveryStatus);
 
     loadCustomerInformation(order.customerId);
 
-    // Supplier
-
     loadSupplierInformation(order.supplierId);
 
-    // Products
-
-    renderOrderProducts(order.items || []);
-
-    // Payment
+    loadOrderItems(order.items || []);
 
     loadPaymentInformation(order);
 
-    // Delivery
-
     loadDeliveryInformation(order);
 
-    // Timeline
+    loadOrderTimeline(order.timeline || []);
 
-    renderTimeline(order.timeline || []);
-
-    // Notes
-
-    document.getElementById("adminOrderNotes").value =
+    adminOrderNotes.value =
         order.adminNotes || "";
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Customer Information
-// ------------------------------------------------------
+// ======================================================
 
 function loadCustomerInformation(customerId) {
 
-    const customer = customers.find(
-
-        item => item.id === customerId
-
-    );
+    const customer =
+        findCustomer(customerId);
 
     if (!customer) return;
 
-    document.getElementById("customerName").textContent =
+    customerName.textContent =
         customer.fullName || "-";
 
-    document.getElementById("customerEmail").textContent =
+    customerEmail.textContent =
         customer.email || "-";
 
-    document.getElementById("customerPhone").textContent =
+    customerPhone.textContent =
         customer.phone || "-";
 
-    document.getElementById("customerCounty").textContent =
+    customerCounty.textContent =
         customer.county || "-";
 
-    document.getElementById("customerTown").textContent =
+    customerTown.textContent =
         customer.town || "-";
 
-    document.getElementById("customerAddress").textContent =
+    customerAddress.textContent =
         customer.address || "-";
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Supplier Information
-// ------------------------------------------------------
+// ======================================================
 
 function loadSupplierInformation(supplierId) {
 
-    const supplier = suppliers.find(
-
-        item => item.id === supplierId
-
-    );
+    const supplier =
+        findSupplier(supplierId);
 
     if (!supplier) return;
 
-    document.getElementById("supplierName").textContent =
+    supplierName.textContent =
         supplier.businessName || "-";
 
-    document.getElementById("supplierOwner").textContent =
+    supplierOwner.textContent =
         supplier.ownerName || "-";
 
-    document.getElementById("supplierEmail").textContent =
+    supplierEmail.textContent =
         supplier.email || "-";
 
-    document.getElementById("supplierPhone").textContent =
+    supplierPhone.textContent =
         supplier.phone || "-";
 
-    document.getElementById("supplierCounty").textContent =
+    supplierCounty.textContent =
         supplier.county || "-";
 
-    document.getElementById("supplierTown").textContent =
+    supplierTown.textContent =
         supplier.town || "-";
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Ordered Products
-// ------------------------------------------------------
+// ======================================================
 
-function renderOrderProducts(items) {
+function loadOrderItems(items) {
 
-    const tbody = document.getElementById(
-
-        "orderItemsTableBody"
-
-    );
+    orderItemsTableBody.innerHTML = "";
 
     if (!items.length) {
 
-        tbody.innerHTML = `
+        orderItemsTableBody.innerHTML = `
 
-        <tr>
+<tr>
 
-            <td colspan="4"
-                class="text-center">
+<td colspan="4" class="text-center py-4">
 
-                No products.
+No products found.
 
-            </td>
+</td>
 
-        </tr>
+</tr>
 
-        `;
+`;
 
         return;
 
     }
 
-    tbody.innerHTML = "";
-
     items.forEach(item => {
 
-        tbody.innerHTML += `
+        orderItemsTableBody.insertAdjacentHTML(
 
-        <tr>
+            "beforeend",
 
-            <td>${escapeHTML(item.name)}</td>
+            `
 
-            <td>${formatCurrency(item.price)}</td>
+<tr>
 
-            <td>${item.quantity}</td>
+<td>${escapeHtml(item.name)}</td>
 
-            <td>${formatCurrency(item.total)}</td>
+<td>${formatCurrency(item.price)}</td>
 
-        </tr>
+<td>${item.quantity}</td>
 
-        `;
+<td>${formatCurrency(item.total)}</td>
+
+</tr>
+
+`
+
+        );
 
     });
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Payment Information
-// ------------------------------------------------------
+// ======================================================
 
 function loadPaymentInformation(order) {
 
-    document.getElementById("paymentMethod").textContent =
+    paymentMethod.textContent =
         order.paymentMethod || "-";
 
-    document.getElementById("paymentReference").textContent =
+    paymentReference.textContent =
         order.paymentReference || "-";
 
-    document.getElementById("paymentAmount").textContent =
-        formatCurrency(order.totalAmount || 0);
+    paymentAmount.textContent =
+        formatCurrency(order.totalAmount);
 
-    document.getElementById("paymentDate").textContent =
+    paymentDate.textContent =
         formatDate(order.paymentDate);
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Delivery Information
-// ------------------------------------------------------
+// ======================================================
 
 function loadDeliveryInformation(order) {
 
-    document.getElementById("deliveryDriver").textContent =
+    deliveryDriver.textContent =
         order.driverName || "-";
 
-    document.getElementById("deliveryVehicle").textContent =
+    deliveryVehicle.textContent =
         order.vehicleNumber || "-";
 
-    document.getElementById("trackingNumber").textContent =
+    trackingNumber.textContent =
         order.trackingNumber || "-";
 
-    document.getElementById("expectedDelivery").textContent =
+    expectedDelivery.textContent =
         formatDate(order.expectedDelivery);
 
 }
 
-// ------------------------------------------------------
+// ======================================================
 // Timeline
-// ------------------------------------------------------
+// ======================================================
 
-function renderTimeline(timeline) {
+function loadOrderTimeline(timeline) {
 
-    const container = document.getElementById(
-
-        "orderTimeline"
-
-    );
+    orderTimeline.innerHTML = "";
 
     if (!timeline.length) {
 
-        container.innerHTML =
+        orderTimeline.innerHTML = `
 
-            "<p class='text-muted'>No timeline available.</p>";
+<div class="text-center text-muted py-4">
+
+No timeline available.
+
+</div>
+
+`;
 
         return;
 
     }
 
-    let html = "<ul class='list-group'>";
-
     timeline.forEach(event => {
 
-        html += `
+        orderTimeline.insertAdjacentHTML(
 
-        <li class="list-group-item">
+            "beforeend",
 
-            <strong>
+            `
 
-                ${escapeHTML(event.title)}
+<div class="border-start border-3 border-primary ps-3 mb-3">
 
-            </strong>
+<div class="fw-semibold">
 
-            <br>
+${escapeHtml(event.title || event.action)}
 
-            <small class="text-muted">
+</div>
 
-                ${formatDate(event.date)}
+<div class="small text-muted">
 
-            </small>
+${formatDate(event.date)}
 
-        </li>
+</div>
 
-        `;
+<div>
+
+${escapeHtml(event.description || "")}
+
+</div>
+
+</div>
+
+`
+
+        );
 
     });
-
-    html += "</ul>";
-
-    container.innerHTML = html;
 
 }
 
 // ======================================================
-// End Part 5
+// Close Modal
+// ======================================================
+
+function closeOrderDetailsModal() {
+
+    bootstrap.Modal
+        .getInstance(orderDetailsModal)
+        ?.hide();
+
+}
+
+// ======================================================
+// Kenya Gas Marketplace
+// Admin Orders
+// Part 6 - Order Management
 // ======================================================
 
 // ======================================================
-// Part 6
-// Order Actions
-// Bulk Actions
-// Admin Notes
-// Audit Logs
+// Modal Buttons
 // ======================================================
 
-// ------------------------------------------------------
+const confirmOrderBtn =
+    document.getElementById("confirmOrderBtn");
+
+const processingOrderBtn =
+    document.getElementById("processingOrderBtn");
+
+const dispatchOrderBtn =
+    document.getElementById("dispatchOrderBtn");
+
+const completeOrderBtn =
+    document.getElementById("completeOrderBtn");
+
+const refundOrderBtn =
+    document.getElementById("refundOrderBtn");
+
+const cancelOrderBtn =
+    document.getElementById("cancelOrderBtn");
+
+const saveOrderNotesBtn =
+    document.getElementById("saveOrderNotesBtn");
+
+// ======================================================
+// Button Events
+// ======================================================
+
+confirmOrderBtn?.addEventListener("click", () => {
+
+    if (!selectedOrder) return;
+
+    updateOrderStatus(
+        selectedOrder.id,
+        "confirmed"
+    );
+
+});
+
+processingOrderBtn?.addEventListener("click", () => {
+
+    if (!selectedOrder) return;
+
+    updateOrderStatus(
+        selectedOrder.id,
+        "processing"
+    );
+
+});
+
+dispatchOrderBtn?.addEventListener("click", () => {
+
+    if (!selectedOrder) return;
+
+    updateOrderStatus(
+        selectedOrder.id,
+        "out_for_delivery"
+    );
+
+});
+
+completeOrderBtn?.addEventListener("click", () => {
+
+    if (!selectedOrder) return;
+
+    updateOrderStatus(
+        selectedOrder.id,
+        "completed"
+    );
+
+});
+
+cancelOrderBtn?.addEventListener("click", () => {
+
+    if (!selectedOrder) return;
+
+    updateOrderStatus(
+        selectedOrder.id,
+        "cancelled"
+    );
+
+});
+
+refundOrderBtn?.addEventListener("click", () => {
+
+    if (!selectedOrder) return;
+
+    processRefund();
+
+});
+
+saveOrderNotesBtn?.addEventListener("click", () => {
+
+    if (!selectedOrder) return;
+
+    saveAdministratorNotes();
+
+});
+
+// ======================================================
 // Update Order Status
-// ------------------------------------------------------
+// ======================================================
 
-async function updateOrderStatus(orderId, updates) {
+async function updateOrderStatus(
+
+    orderId,
+
+    newStatus
+
+) {
 
     try {
 
         showLoader();
 
+        const orderRef = doc(
+
+            db,
+
+            "orders",
+
+            orderId
+
+        );
+
         await updateDoc(
 
-            doc(db, "orders", orderId),
+            orderRef,
 
             {
-                ...updates,
-                updatedAt: serverTimestamp()
+
+                status: newStatus,
+
+                updatedAt: serverTimestamp(),
+
+                timeline: arrayUnion({
+
+                    title:
+
+                        newStatus
+
+                        .replaceAll("_", " ")
+
+                        .replace(
+
+                            /\b\w/g,
+
+                            c => c.toUpperCase()
+
+                        ),
+
+                    description:
+
+                        `Order marked as ${newStatus.replaceAll("_"," ")}`,
+
+                    date: new Date(),
+
+                    admin:
+
+                        currentAdmin.fullName ||
+
+                        currentAdmin.name ||
+
+                        currentAdmin.email
+
+                })
+
             }
 
         );
 
-        await createAuditLog(
+        await addAuditLog(
 
-            "order_update",
+            "Order Status Updated",
 
             orderId,
 
-            JSON.stringify(updates)
+            newStatus
 
         );
 
-        hideLoader();
+        showSuccessToast(
 
-        showSuccess("Order updated successfully.");
+            "Order updated successfully."
+
+        );
+
+        if (selectedOrder) {
+
+            selectedOrder.status = newStatus;
+
+            populateOrderModal(selectedOrder);
+
+        }
 
     }
 
@@ -1576,123 +2185,221 @@ async function updateOrderStatus(orderId, updates) {
 
         console.error(error);
 
-        hideLoader();
+        showErrorToast(
 
-        showError("Failed to update order.");
+            "Unable to update order."
+
+        );
+
+    }
+
+    finally {
+
+        hideLoader();
 
     }
 
 }
 
-// ------------------------------------------------------
-// Individual Actions
-// ------------------------------------------------------
+// ======================================================
+// Refund
+// ======================================================
 
-window.confirmOrder = async function(orderId) {
+async function processRefund() {
 
-    await updateOrderStatus(orderId, {
+    try {
 
-        status: "confirmed"
+        showLoader();
 
-    });
+        await updateDoc(
 
-};
+            doc(
 
-window.processingOrder = async function(orderId) {
+                db,
 
-    await updateOrderStatus(orderId, {
+                "orders",
 
-        status: "processing"
+                selectedOrder.id
 
-    });
+            ),
 
-};
+            {
 
-window.dispatchOrder = async function(orderId) {
+                paymentStatus: "refunded",
 
-    await updateOrderStatus(orderId, {
+                refundedAt: serverTimestamp(),
 
-        status: "out_for_delivery",
+                updatedAt: serverTimestamp()
 
-        deliveryStatus: "in_transit"
+            }
 
-    });
+        );
 
-};
+        await addAuditLog(
 
-window.completeOrder = async function(orderId) {
-
-    await updateOrderStatus(orderId, {
-
-        status: "completed",
-
-        deliveryStatus: "delivered"
-
-    });
-
-};
-
-window.cancelOrder = async function(orderId) {
-
-    if (!confirm("Cancel this order?")) {
-
-        return;
-
-    }
-
-    await updateOrderStatus(orderId, {
-
-        status: "cancelled"
-
-    });
-
-};
-
-window.refundOrder = async function(orderId) {
-
-    if (!confirm("Refund this order?")) {
-
-        return;
-
-    }
-
-    await updateOrderStatus(orderId, {
-
-        paymentStatus: "refunded"
-
-    });
-
-};
-
-// ------------------------------------------------------
-// Save Admin Notes
-// ------------------------------------------------------
-
-document
-
-.getElementById("saveOrderNotesBtn")
-
-?.addEventListener(
-
-    "click",
-
-    async () => {
-
-        if (!selectedOrder) return;
-
-        await updateOrderStatus(
+            "Refund Processed",
 
             selectedOrder.id,
+
+            "refunded"
+
+        );
+
+        showSuccessToast(
+
+            "Refund processed."
+
+        );
+
+        selectedOrder.paymentStatus =
+
+            "refunded";
+
+        populateOrderModal(
+
+            selectedOrder
+
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showErrorToast(
+
+            "Refund failed."
+
+        );
+
+    }
+
+    finally {
+
+        hideLoader();
+
+    }
+
+}
+
+// ======================================================
+// Save Notes
+// ======================================================
+
+async function saveAdministratorNotes() {
+
+    try {
+
+        showLoader();
+
+        await updateDoc(
+
+            doc(
+
+                db,
+
+                "orders",
+
+                selectedOrder.id
+
+            ),
 
             {
 
                 adminNotes:
 
-                document.getElementById(
+                    adminOrderNotes.value.trim(),
 
-                    "adminOrderNotes"
+                updatedAt:
 
-                ).value
+                    serverTimestamp()
+
+            }
+
+        );
+
+        await addAuditLog(
+
+            "Administrator Notes Updated",
+
+            selectedOrder.id,
+
+            "notes"
+
+        );
+
+        selectedOrder.adminNotes =
+
+            adminOrderNotes.value.trim();
+
+        showSuccessToast(
+
+            "Notes saved successfully."
+
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showErrorToast(
+
+            "Unable to save notes."
+
+        );
+
+    }
+
+    finally {
+
+        hideLoader();
+
+    }
+
+}
+
+// ======================================================
+// Audit Log
+// ======================================================
+
+async function addAuditLog(
+
+    action,
+
+    orderId,
+
+    value
+
+) {
+
+    try {
+
+        await addDoc(
+
+            auditLogsRef,
+
+            {
+
+                action,
+
+                orderId,
+
+                value,
+
+                administrator:
+
+                    currentAdmin.fullName ||
+
+                    currentAdmin.name ||
+
+                    currentAdmin.email,
+
+                createdAt:
+
+                    serverTimestamp()
 
             }
 
@@ -1700,45 +2407,39 @@ document
 
     }
 
-);
+    catch (error) {
 
-// ------------------------------------------------------
-// Selected Orders
-// ------------------------------------------------------
+        console.error(
 
-function getSelectedOrders() {
+            "Audit log:",
 
-    return [
+            error
 
-        ...document.querySelectorAll(
+        );
 
-            ".orderCheck:checked"
-
-        )
-
-    ].map(
-
-        checkbox => checkbox.value
-
-    );
+    }
 
 }
 
-// ------------------------------------------------------
-// Bulk Update
-// ------------------------------------------------------
+// ======================================================
+// Bulk Status Update
+// ======================================================
 
-async function bulkUpdateStatus(status) {
+async function bulkUpdateOrders(
 
-    const ids =
+    status
+
+) {
+
+    const selected =
 
         getSelectedOrders();
 
-    if (!ids.length) {
+    if (!selected.length) {
 
-        showError(
+        showInfoToast(
 
-            "Select at least one order."
+            "Please select at least one order."
 
         );
 
@@ -1750,11 +2451,19 @@ async function bulkUpdateStatus(status) {
 
     try {
 
-        for (const id of ids) {
+        for (const orderId of selected) {
 
             await updateDoc(
 
-                doc(db, "orders", id),
+                doc(
+
+                    db,
+
+                    "orders",
+
+                    orderId
+
+                ),
 
                 {
 
@@ -1762,29 +2471,17 @@ async function bulkUpdateStatus(status) {
 
                     updatedAt:
 
-                    serverTimestamp()
+                        serverTimestamp()
 
                 }
 
             );
 
-            await createAuditLog(
-
-                "bulk_status_update",
-
-                id,
-
-                status
-
-            );
-
         }
 
-        hideLoader();
+        showSuccessToast(
 
-        showSuccess(
-
-            `${ids.length} order(s) updated.`
+            `${selected.length} orders updated.`
 
         );
 
@@ -1794,9 +2491,7 @@ async function bulkUpdateStatus(status) {
 
         console.error(error);
 
-        hideLoader();
-
-        showError(
+        showErrorToast(
 
             "Bulk update failed."
 
@@ -1804,21 +2499,27 @@ async function bulkUpdateStatus(status) {
 
     }
 
+    finally {
+
+        hideLoader();
+
+    }
+
 }
 
-// ------------------------------------------------------
-// Bulk Buttons
-// ------------------------------------------------------
+// ======================================================
+// Bulk Action Buttons
+// ======================================================
 
-document
+document.getElementById(
 
-.getElementById("confirmSelectedBtn")
+    "confirmSelectedBtn"
 
-?.addEventListener(
+)?.addEventListener(
 
     "click",
 
-    () => bulkUpdateStatus(
+    () => bulkUpdateOrders(
 
         "confirmed"
 
@@ -1826,15 +2527,15 @@ document
 
 );
 
-document
+document.getElementById(
 
-.getElementById("processingSelectedBtn")
+    "processingSelectedBtn"
 
-?.addEventListener(
+)?.addEventListener(
 
     "click",
 
-    () => bulkUpdateStatus(
+    () => bulkUpdateOrders(
 
         "processing"
 
@@ -1842,15 +2543,15 @@ document
 
 );
 
-document
+document.getElementById(
 
-.getElementById("deliverySelectedBtn")
+    "deliverySelectedBtn"
 
-?.addEventListener(
+)?.addEventListener(
 
     "click",
 
-    () => bulkUpdateStatus(
+    () => bulkUpdateOrders(
 
         "out_for_delivery"
 
@@ -1858,15 +2559,15 @@ document
 
 );
 
-document
+document.getElementById(
 
-.getElementById("completeSelectedBtn")
+    "completeSelectedBtn"
 
-?.addEventListener(
+)?.addEventListener(
 
     "click",
 
-    () => bulkUpdateStatus(
+    () => bulkUpdateOrders(
 
         "completed"
 
@@ -1874,15 +2575,15 @@ document
 
 );
 
-document
+document.getElementById(
 
-.getElementById("cancelSelectedBtn")
+    "cancelSelectedBtn"
 
-?.addEventListener(
+)?.addEventListener(
 
     "click",
 
-    () => bulkUpdateStatus(
+    () => bulkUpdateOrders(
 
         "cancelled"
 
@@ -1890,140 +2591,478 @@ document
 
 );
 
-// ------------------------------------------------------
-// Modal Footer Buttons
-// ------------------------------------------------------
+// ======================================================
+// Kenya Gas Marketplace
+// Admin Orders
+// Part 7 - Final Utilities
+// ======================================================
+
+// ======================================================
+// Bootstrap Components
+// ======================================================
+
+const successToast =
+    new bootstrap.Toast(
+        document.getElementById("successToast")
+    );
+
+const errorToast =
+    new bootstrap.Toast(
+        document.getElementById("errorToast")
+    );
+
+const infoToast =
+    new bootstrap.Toast(
+        document.getElementById("infoToast")
+    );
+
+// ======================================================
+// Toast Helpers
+// ======================================================
+
+function showSuccessToast(message) {
+
+    document.getElementById(
+        "successToastMessage"
+    ).textContent = message;
+
+    successToast.show();
+
+}
+
+function showErrorToast(message) {
+
+    document.getElementById(
+        "errorToastMessage"
+    ).textContent = message;
+
+    errorToast.show();
+
+}
+
+function showInfoToast(message) {
+
+    document.getElementById(
+        "infoToastMessage"
+    ).textContent = message;
+
+    infoToast.show();
+
+}
+
+// ======================================================
+// Export Orders CSV
+// ======================================================
 
 document
+.getElementById("exportOrdersBtn")
+?.addEventListener("click", exportOrdersCSV);
 
-.getElementById("confirmOrderBtn")
+function exportOrdersCSV() {
 
-?.addEventListener(
+    if (!filteredOrders.length) {
 
-    "click",
+        showInfoToast(
+            "No orders available."
+        );
+
+        return;
+
+    }
+
+    const rows = [
+
+        [
+            "Order ID",
+            "Customer",
+            "Supplier",
+            "Amount",
+            "Status",
+            "Payment",
+            "Delivery",
+            "Date"
+        ]
+
+    ];
+
+    filteredOrders.forEach(order => {
+
+        rows.push([
+
+            order.orderNumber || order.id,
+
+            getCustomerName(order.customerId),
+
+            getSupplierName(order.supplierId),
+
+            order.totalAmount || 0,
+
+            order.status || "",
+
+            order.paymentStatus || "",
+
+            order.deliveryStatus || "",
+
+            formatDate(order.createdAt)
+
+        ]);
+
+    });
+
+    const csv = rows
+        .map(row => row.join(","))
+        .join("\n");
+
+    const blob = new Blob(
+
+        [csv],
+
+        {
+
+            type: "text/csv"
+
+        }
+
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+
+    a.href = url;
+
+    a.download =
+
+        "marketplace-orders.csv";
+
+    a.click();
+
+    URL.revokeObjectURL(url);
+
+    showSuccessToast(
+
+        "Orders exported."
+
+    );
+
+}
+
+// ======================================================
+// Print Orders
+// ======================================================
+
+document
+.getElementById("printOrdersBtn")
+?.addEventListener("click", () => {
+
+    window.print();
+
+});
+
+// ======================================================
+// Invoice Printing
+// ======================================================
+
+document
+.getElementById("printInvoiceBtn")
+?.addEventListener("click", () => {
+
+    const invoice =
+
+        document.getElementById(
+
+            "invoicePreview"
+
+        ).innerHTML;
+
+    const printWindow =
+
+        window.open("", "_blank");
+
+    printWindow.document.write(`
+
+<html>
+
+<head>
+
+<title>Invoice</title>
+
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet">
+
+</head>
+
+<body class="p-4">
+
+${invoice}
+
+</body>
+
+</html>
+
+`);
+
+    printWindow.document.close();
+
+    printWindow.print();
+
+});
+
+// ======================================================
+// Activity Log
+// ======================================================
+
+function renderActivityLog(logs = []) {
+
+    const container =
+
+        document.getElementById(
+
+            "orderActivityLog"
+
+        );
+
+    if (!container) return;
+
+    if (!logs.length) {
+
+        container.innerHTML = `
+
+<div class="text-center py-5 text-muted">
+
+No activity recorded.
+
+</div>
+
+`;
+
+        return;
+
+    }
+
+    container.innerHTML = logs.map(log => `
+
+<div class="border-bottom pb-2 mb-2">
+
+<div class="fw-semibold">
+
+${escapeHtml(log.action)}
+
+</div>
+
+<div class="small text-muted">
+
+${formatDate(log.createdAt)}
+
+</div>
+
+</div>
+
+`).join("");
+
+}
+
+// ======================================================
+// Scroll To Top
+// ======================================================
+
+window.addEventListener(
+
+    "scroll",
 
     () => {
 
-        if (selectedOrder)
+        scrollTopBtn.style.display =
 
-            confirmOrder(selectedOrder.id);
+            window.scrollY > 400
+
+            ? "block"
+
+            : "none";
 
     }
 
 );
 
-document
-
-.getElementById("processingOrderBtn")
-
-?.addEventListener(
+scrollTopBtn?.addEventListener(
 
     "click",
 
     () => {
 
-        if (selectedOrder)
+        window.scrollTo({
 
-            processingOrder(
+            top: 0,
 
-                selectedOrder.id
+            behavior: "smooth"
 
-            );
-
-    }
-
-);
-
-document
-
-.getElementById("dispatchOrderBtn")
-
-?.addEventListener(
-
-    "click",
-
-    () => {
-
-        if (selectedOrder)
-
-            dispatchOrder(
-
-                selectedOrder.id
-
-            );
-
-    }
-
-);
-
-document
-
-.getElementById("completeOrderBtn")
-
-?.addEventListener(
-
-    "click",
-
-    () => {
-
-        if (selectedOrder)
-
-            completeOrder(
-
-                selectedOrder.id
-
-            );
-
-    }
-
-);
-
-document
-
-.getElementById("cancelOrderBtn")
-
-?.addEventListener(
-
-    "click",
-
-    () => {
-
-        if (selectedOrder)
-
-            cancelOrder(
-
-                selectedOrder.id
-
-            );
-
-    }
-
-);
-
-document
-
-.getElementById("refundOrderBtn")
-
-?.addEventListener(
-
-    "click",
-
-    () => {
-
-        if (selectedOrder)
-
-            refundOrder(
-
-                selectedOrder.id
-
-            );
+        });
 
     }
 
 );
 
 // ======================================================
-// End Part 6
+// Offline Detection
 // ======================================================
 
-b
+function updateNetworkStatus() {
+
+    if (navigator.onLine) {
+
+        offlineBanner.classList.add(
+
+            "d-none"
+
+        );
+
+    }
+
+    else {
+
+        offlineBanner.classList.remove(
+
+            "d-none"
+
+        );
+
+    }
+
+}
+
+window.addEventListener(
+
+    "online",
+
+    updateNetworkStatus
+
+);
+
+window.addEventListener(
+
+    "offline",
+
+    updateNetworkStatus
+
+);
+
+// ======================================================
+// Logout
+// ======================================================
+
+topLogoutBtn?.addEventListener(
+
+    "click",
+
+    () => {
+
+        bootstrap.Modal
+            .getOrCreateInstance(
+
+                document.getElementById(
+
+                    "logoutModal"
+
+                )
+
+            )
+
+            .show();
+
+    }
+
+);
+
+confirmLogoutBtn?.addEventListener(
+
+    "click",
+
+    async () => {
+
+        try {
+
+            await signOut(auth);
+
+            window.location.href =
+
+                "login.html";
+
+        }
+
+        catch {
+
+            showErrorToast(
+
+                "Logout failed."
+
+            );
+
+        }
+
+    }
+
+);
+
+// ======================================================
+// Session Expired
+// ======================================================
+
+document
+.getElementById("loginAgainBtn")
+?.addEventListener(
+
+    "click",
+
+    () => {
+
+        window.location.href =
+
+            "login.html";
+
+    }
+
+);
+
+// ======================================================
+// Cleanup
+// ======================================================
+
+window.addEventListener(
+
+    "beforeunload",
+
+    () => {
+
+        if (
+
+            unsubscribeOrders
+
+        ) {
+
+            unsubscribeOrders();
+
+        }
+
+    }
+
+);
+
+// ======================================================
+// Initial Page Setup
+// ======================================================
+
+updateNetworkStatus();
+
+document
+.getElementById("copyrightYear")
+.textContent =
+new Date().getFullYear();
+
+console.log(
+
+    "Kenya Gas Marketplace",
+
+    "Admin Orders Loaded Successfully"
+
+);
