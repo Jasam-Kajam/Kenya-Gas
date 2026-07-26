@@ -19,15 +19,19 @@ import {
     sendEmailVerification,
     GoogleAuthProvider,
     signInWithPopup,
-    onAuthStateChanged
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    setPersistence,
+    browserLocalPersistence,
+    browserSessionPersistence
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
     doc,
     setDoc,
+    getDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
 
 // ==========================================================
 // DOM ELEMENTS
@@ -1418,7 +1422,185 @@ document.addEventListener(
 
 );
 
+// ==========================================================
+// Kenya Gas Marketplace
+// Authentication System
+// auth.js
+// Part 5
+// Email & Password Login
+// ==========================================================
 
+const loginForm = document.getElementById("loginForm");
+const loginBtn = document.getElementById("loginBtn");
+const loginSpinner = document.getElementById("loginSpinner");
+const loginText = document.getElementById("loginText");
+const rememberMe = document.getElementById("remember");
+
+function setLoginLoading(isLoading) {
+
+    if (!loginBtn) return;
+
+    loginBtn.disabled = isLoading;
+
+    if (isLoading) {
+
+        loginSpinner.classList.remove("d-none");
+        loginText.textContent = "Signing In...";
+
+    } else {
+
+        loginSpinner.classList.add("d-none");
+        loginText.textContent = "Login";
+
+    }
+
+}
+
+if (loginForm) {
+
+    loginForm.addEventListener("submit", loginUser);
+
+}
+
+async function loginUser(e) {
+
+    e.preventDefault();
+
+    setLoginLoading(true);
+
+    try {
+
+        const persistence = rememberMe?.checked
+            ? browserLocalPersistence
+            : browserSessionPersistence;
+
+        await setPersistence(auth, persistence);
+
+        const credential =
+            await signInWithEmailAndPassword(
+
+                auth,
+
+                email.value.trim(),
+
+                password.value
+
+            );
+
+        const user = credential.user;
+
+        if (!user.emailVerified) {
+
+            showToast(
+                "Please verify your email before logging in.",
+                false
+            );
+
+            setLoginLoading(false);
+
+            return;
+
+        }
+
+        const userRef = doc(db, "users", user.uid);
+
+        const snapshot = await getDoc(userRef);
+
+        if (!snapshot.exists()) {
+
+            showToast(
+                "User profile not found.",
+                false
+            );
+
+            setLoginLoading(false);
+
+            return;
+
+        }
+
+        const data = snapshot.data();
+
+        switch (data.role) {
+
+            case "admin":
+
+                window.location.href =
+                    "admin/dashboard.html";
+
+                break;
+
+            case "supplier":
+
+                window.location.href =
+                    "supplier/dashboard.html";
+
+                break;
+
+            case "customer":
+
+                window.location.href =
+                    "customer-dashboard.html";
+
+                break;
+
+            default:
+
+                showToast(
+                    "Unknown account type.",
+                    false
+                );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        let message = "Login failed.";
+
+        switch (error.code) {
+
+            case "auth/invalid-credential":
+            case "auth/wrong-password":
+            case "auth/user-not-found":
+                message =
+                    "Invalid email or password.";
+                break;
+
+            case "auth/invalid-email":
+                message =
+                    "Invalid email address.";
+                break;
+
+            case "auth/too-many-requests":
+                message =
+                    "Too many login attempts. Please try again later.";
+                break;
+
+            case "auth/network-request-failed":
+                message =
+                    "Network connection failed.";
+                break;
+
+            default:
+                message = error.message;
+
+        }
+
+        showToast(message, false);
+
+    }
+
+    finally {
+
+        setLoginLoading(false);
+
+    }
+
+}
 
 // ==========================================================
 // END OF FILE
